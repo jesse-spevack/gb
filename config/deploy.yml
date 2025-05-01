@@ -2,16 +2,16 @@
 service: gb
 
 # Name of the container image.
-image: your-user/gb
+image: gradebot-451722/repository-1/gradebot 
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
-  # job:
-  #   hosts:
-  #     - 192.168.0.1
-  #   cmd: bin/jobs
+    - 34.44.244.114
+  job:
+    hosts:
+      - 34.44.244.114
+    cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
 # Remove this section when using multiple web servers and ensure you terminate SSL at your load balancer.
@@ -19,26 +19,34 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: app.example.com
+  hosts:
+    - grade-bot.com
+    - www.grade-bot.com
 
 # Credentials for your image host.
 registry:
-  # Specify the registry server, if you're not using Docker Hub
-  # server: registry.digitalocean.com / ghcr.io / ...
-  username: your-user
-
-  # Always use an access token rather than real password when possible.
+  server: us-docker.pkg.dev 
+  username: _json_key_base64
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .kamal/secrets).
 env:
   secret:
+    - ADMIN_EMAIL
+    - ANTHROPIC_API_KEY
+    - GOOGLE_API_KEY
+    - GOOGLE_AI_KEY
+    - GOOGLE_CLIENT_ID
+    - GOOGLE_CLIENT_SECRET
     - RAILS_MASTER_KEY
   clear:
+    SOLID_QUEUE_POLLING_INTERVAL: 1
+    SOLID_QUEUE_DISPATCHER_BATCH_SIZE: 100
+    RAILS_LOG_LEVEL: debug
     # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
     # When you start using multiple servers, you should split out job processing to a dedicated machine.
-    SOLID_QUEUE_IN_PUMA: true
+    # SOLID_QUEUE_IN_PUMA: true
 
     # Set number of processes dedicated to Solid Queue (default: 1)
     # JOB_CONCURRENCY: 3
@@ -88,8 +96,8 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: jesse
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
