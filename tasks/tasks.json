@@ -1,0 +1,1210 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Project initialization with Rails",
+      "description": "Set up the base Rails project with required gems and configurations",
+      "status": "pending",
+      "dependencies": [],
+      "priority": "high",
+      "details": "Create a new Rails 8 project with the specified name.\nConfigure the Gemfile with required dependencies (Tailwind, Stimulus, etc.).\nSet up the database configuration for SQLite.\nInitialize git repository and make initial commit.\nAdd .gitignore file with appropriate entries.\nConfigure test environment with Minitest.",
+      "testStrategy": "Verify project builds and server starts.\nRun rails test to ensure test environment is properly configured.\nCheck that database migrations can be executed.\nVerify asset pipeline is working correctly."
+    },
+    {
+      "id": 2,
+      "title": "Configure Tailwind CSS",
+      "description": "Set up Tailwind CSS for styling the application",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "Install Tailwind CSS npm package.\nConfigure tailwind.config.js with appropriate theme settings.\nSet up PostCSS configuration.\nCreate base application.css with Tailwind imports.\nCreate a basic layout with Tailwind classes to verify setup.\nSet up custom color scheme based on project requirements.",
+      "testStrategy": "Verify that Tailwind classes are working in the application.\nCheck that the build process completes without errors.\nVerify custom color scheme is applied correctly."
+    },
+    {
+      "id": 3,
+      "title": "Configure Stimulus JS",
+      "description": "Set up Stimulus JS for interactive UI components",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "Install Stimulus JS and configure it within the application.\nCreate a test controller to verify Stimulus is working.\nSet up appropriate directory structure for controllers.\nConfigure the build process to include Stimulus controllers.\nCreate documentation for the Stimulus setup.",
+      "testStrategy": "Create a simple Stimulus controller test.\nVerify the controller connects to elements on the page.\nTest that actions are triggered correctly.\nEnsure build process correctly includes Stimulus controllers."
+    },
+    {
+      "id": 4,
+      "title": "Set up GitHub repository",
+      "description": "Initialize GitHub repository with appropriate configuration",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "medium",
+      "details": "Create GitHub repository for the project.\nConfigure GitHub Actions for CI/CD.\nSet up branch protection rules.\nConfigure pull request template.\nAdd README.md with project overview and setup instructions.\nAdd LICENSE file with appropriate license.",
+      "testStrategy": "Verify GitHub Actions workflow runs on push.\nCheck that branch protection rules are working.\nEnsure README.md is properly displayed on the repository homepage."
+    },
+    {
+      "id": 5,
+      "title": "Create User model and migration",
+      "description": "Implement the User model with basic fields for Google OAuth authentication",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "Generate model and migration for User with fields: name:string email:string google_uid:string avatar_url:string.\nAdd uniqueness validation for email and google_uid.\nAdd presence validation for required fields.\nCreate User factory/fixture for testing.\nDocument model with appropriate comments.",
+      "testStrategy": "Test model validations for presence of required fields.\nTest uniqueness constraints.\nTest model instantiation with valid attributes.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 6,
+      "title": "Create Session model and migration",
+      "description": "Implement the Session model for maintaining user authentication state",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "high",
+      "details": "Generate model and migration for Session with fields: user:references user_agent:string ip_address:string expires_at:datetime.\nAdd belongs_to association with User model.\nAdd expiration logic methods (expired?, active?).\nCreate session identifier generation method.\nImplement Session cleanup for expired sessions.\nCreate Session factory/fixture for testing.",
+      "testStrategy": "Test session creation with valid attributes.\nTest session expiration logic.\nTest association with User model.\nTest cleanup mechanism for expired sessions."
+    },
+    {
+      "id": 7,
+      "title": "Create UserToken model and migration",
+      "description": "Implement the UserToken model for storing OAuth tokens",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "high",
+      "details": "Generate model and migration for UserToken with fields: user:references access_token:string refresh_token:string expires_at:datetime token_type:string scope:string.\nAdd belongs_to association with User model.\nImplement token expiration checking methods.\nAdd latest_first scope for token history.\nCreate UserToken factory/fixture for testing.",
+      "testStrategy": "Test token expiration logic.\nTest latest_first scope functionality.\nTest association with User model.\nVerify token persistence and retrieval."
+    },
+    {
+      "id": 8,
+      "title": "Configure OmniAuth for Google OAuth2",
+      "description": "Set up OmniAuth with Google OAuth2 provider for authentication",
+      "status": "pending",
+      "dependencies": [5, 6, 7],
+      "priority": "high",
+      "details": "Install OmniAuth and OmniAuth Google OAuth2 gems.\nCreate OmniAuth initializer with Google provider configuration.\nConfigure required scopes (email, profile, drive.file).\nSet up access_type to 'offline' for refresh tokens.\nConfigure prompt to 'consent' for explicit user approval.\nImplement OmniAuth test mode configuration for testing.",
+      "testStrategy": "Create mock OmniAuth authentication hash for testing.\nVerify OmniAuth configuration loads correctly.\nTest that required scopes are present.\nEnsure prompt and access_type are configured properly."
+    },
+    {
+      "id": 9,
+      "title": "Implement Authentication Concern",
+      "description": "Create a controller concern for handling authentication logic",
+      "status": "pending",
+      "dependencies": [8],
+      "priority": "high",
+      "details": "Create Authentication concern in app/controllers/concerns.\nImplement authenticated? method to check if user is authenticated.\nAdd require_authentication method to enforce authentication.\nImplement current_user method for accessing the authenticated user.\nAdd allow_unauthenticated_access class method for exceptions.\nWrite documentation for the concern.",
+      "testStrategy": "Test authenticated? method with authenticated and unauthenticated requests.\nTest require_authentication redirects unauthenticated requests.\nTest current_user returns the correct user.\nVerify allow_unauthenticated_access works correctly."
+    },
+    {
+      "id": 10,
+      "title": "Create SessionsController with new action",
+      "description": "Implement SessionsController with action for initiating Google OAuth",
+      "status": "pending",
+      "dependencies": [9],
+      "priority": "high",
+      "details": "Generate SessionsController.\nImplement new action for redirecting to Google OAuth.\nCreate route for new action.\nAdd view for sign in button.\nInclude Authentication concern in ApplicationController.\nEnsure proper error handling for invalid requests.",
+      "testStrategy": "Test that new action redirects to Google OAuth.\nVerify route is correctly defined.\nCheck that view is rendered correctly.\nTest error handling for invalid requests."
+    },
+    {
+      "id": 11,
+      "title": "Implement SessionsController callback action",
+      "description": "Add callback handling to SessionsController for processing OAuth responses",
+      "status": "pending",
+      "dependencies": [10],
+      "priority": "high",
+      "details": "Implement callback action for handling OAuth responses.\nAdd route for callback action.\nImplement user creation/update logic based on auth hash.\nCreate UserToken from OAuth tokens.\nEstablish user session and set cookie.\nHandle authentication failure scenarios.\nRedirect to appropriate location after successful authentication.",
+      "testStrategy": "Test successful authentication flow.\nTest user creation with valid auth hash.\nTest user update with existing user.\nVerify session is created correctly.\nTest error handling for invalid auth hash."
+    },
+    {
+      "id": 12,
+      "title": "Add logout functionality to SessionsController",
+      "description": "Implement action for logging out users and destroying sessions",
+      "status": "pending",
+      "dependencies": [11],
+      "priority": "high",
+      "details": "Add destroy action to SessionsController.\nImplement session destruction logic.\nAdd route for destroy action.\nCreate UI element for logout.\nEnsure proper redirect after logout.\nVerify session cookie is invalidated.",
+      "testStrategy": "Test that destroy action removes the session.\nVerify user is redirected after logout.\nCheck that session cookie is invalidated.\nTest UI element for logout."
+    },
+    {
+      "id": 13,
+      "title": "Create Assignment model and migration",
+      "description": "Implement the core Assignment model for representing teacher assignments",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "high",
+      "details": "Generate model and migration for Assignment with fields: user:references title:string subject:string grade_level:string instructions:text raw_rubric_text:text total_processing_milliseconds:integer.\nAdd belongs_to association with User model.\nAdd validations for required fields.\nCreate Assignment factory/fixture for testing.\nDocument model with appropriate comments.",
+      "testStrategy": "Test model validations for presence of required fields.\nTest association with User model.\nTest model instantiation with valid attributes.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 14,
+      "title": "Create SelectedDocument model and migration",
+      "description": "Implement the SelectedDocument model for Google Doc selections",
+      "status": "pending",
+      "dependencies": [13],
+      "priority": "high",
+      "details": "Generate model and migration for SelectedDocument with fields: assignment:references google_doc_id:string title:string url:string.\nAdd belongs_to association with Assignment model.\nAdd validations for required fields.\nCreate SelectedDocument factory/fixture for testing.\nImplement validations for Google Doc ID format.",
+      "testStrategy": "Test model validations for presence of required fields.\nTest association with Assignment model.\nTest Google Doc ID format validation.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 15,
+      "title": "Create Rubric model and migration",
+      "description": "Implement the Rubric model for structured grading rubrics",
+      "status": "pending",
+      "dependencies": [13],
+      "priority": "high",
+      "details": "Generate model and migration for Rubric with fields: assignment:references.\nAdd belongs_to association with Assignment model.\nAdd has_many association for criteria (placeholder for now).\nCreate Rubric factory/fixture for testing.\nImplement to_prompt method placeholder for inclusion in subsequent prompts.",
+      "testStrategy": "Test association with Assignment model.\nTest has_many association for criteria.\nTest model instantiation with valid attributes.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 16,
+      "title": "Create Criterion model and migration",
+      "description": "Implement the Criterion model for rubric criteria",
+      "status": "pending",
+      "dependencies": [15],
+      "priority": "high",
+      "details": "Generate model and migration for Criterion with fields: rubric:references title:string description:text position:integer.\nAdd belongs_to association with Rubric model.\nAdd has_many association for levels (placeholder for now).\nAdd validation for title presence.\nCreate Criterion factory/fixture for testing.\nImplement position management for ordering criteria.",
+      "testStrategy": "Test model validations for presence of required fields.\nTest association with Rubric model.\nTest has_many association for levels.\nVerify position management works correctly."
+    },
+    {
+      "id": 17,
+      "title": "Create Level model and migration",
+      "description": "Implement the Level model for criterion achievement levels",
+      "status": "pending",
+      "dependencies": [16],
+      "priority": "high",
+      "details": "Generate model and migration for Level with fields: criterion:references title:string description:text position:integer.\nAdd belongs_to association with Criterion model.\nAdd validation for title presence.\nCreate Level factory/fixture for testing.\nImplement position management for ordering levels.",
+      "testStrategy": "Test model validations for presence of required fields.\nTest association with Criterion model.\nTest position management for ordering.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 18,
+      "title": "Create StudentWork model and migration",
+      "description": "Implement the StudentWork model for individual student submissions",
+      "status": "pending",
+      "dependencies": [14],
+      "priority": "high",
+      "details": "Generate model and migration for StudentWork with fields: assignment:references selected_document:references qualitative_feedback:text.\nAdd belongs_to associations with Assignment and SelectedDocument models.\nAdd has_many associations for feedbackItems and checks (placeholders for now).\nCreate StudentWork factory/fixture for testing.\nImplement status tracking for processing state.",
+      "testStrategy": "Test associations with Assignment and SelectedDocument models.\nTest has_many associations for related models.\nTest model instantiation with valid attributes.\nVerify status tracking functionality."
+    },
+    {
+      "id": 19,
+      "title": "Create StudentWorkCriterionLevel model and migration",
+      "description": "Implement the join model between StudentWork, Criterion, and Level",
+      "status": "pending",
+      "dependencies": [17, 18],
+      "priority": "high",
+      "details": "Generate model and migration for StudentWorkCriterionLevel with fields: student_work:references criterion:references level:references explanation:text.\nAdd belongs_to associations with StudentWork, Criterion, and Level models.\nCreate StudentWorkCriterionLevel factory/fixture for testing.\nImplement validation for required associations.",
+      "testStrategy": "Test associations with StudentWork, Criterion, and Level models.\nTest explanation field storage and retrieval.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
+    },
+    {
+      "id": 20,
+      "title": "Create FeedbackItem model and migration",
+      "description": "Implement the FeedbackItem model for structured feedback points",
+      "status": "pending",
+      "dependencies": [18],
+      "priority": "high",
+      "details": "Generate model and migration for FeedbackItem with fields: feedbackable:references{polymorphic} item_type:string title:string description:text evidence:text.\nAdd polymorphic belongs_to association with feedbackable.\nAdd validations for item_type inclusion (strength, opportunity).\nCreate FeedbackItem factory/fixture for testing.\nImplement scopes for filtering by type.",
+      "testStrategy": "Test polymorphic association functionality.\nTest item_type validation.\nTest scopes for filtering.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 21,
+      "title": "Create StudentWorkCheck model and migration",
+      "description": "Implement the StudentWorkCheck model for verification checks",
+      "status": "pending",
+      "dependencies": [18],
+      "priority": "high",
+      "details": "Generate model and migration for StudentWorkCheck with fields: student_work:references check_type:string score:integer explanation:text.\nAdd belongs_to association with StudentWork model.\nAdd validation for check_type inclusion.\nAdd validation for score range (0-100).\nCreate StudentWorkCheck factory/fixture for testing.\nImplement scopes for filtering by type and score range.",
+      "testStrategy": "Test association with StudentWork model.\nTest check_type validation.\nTest score range validation.\nVerify scopes for filtering work correctly."
+    },
+    {
+      "id": 22,
+      "title": "Create AssignmentSummary model and migration",
+      "description": "Implement the AssignmentSummary model for class-wide insights",
+      "status": "pending",
+      "dependencies": [13],
+      "priority": "high",
+      "details": "Generate model and migration for AssignmentSummary with fields: assignment:references student_work_count:integer qualitative_insights:text.\nAdd belongs_to association with Assignment model.\nAdd has_many association for feedback items (polymorphic, placeholder for now).\nCreate AssignmentSummary factory/fixture for testing.\nImplement validation for required fields.",
+      "testStrategy": "Test association with Assignment model.\nTest has_many association for feedback items.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
+    },
+    {
+      "id": 23,
+      "title": "Create LLMRequest model and migration",
+      "description": "Implement the LLMRequest model for tracking LLM interactions",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "high",
+      "details": "Generate model and migration for LLMRequest with fields: trackable:references{polymorphic} prompt:text model:string request_type:string response:text status:string token_count:integer cost_usd:decimal.\nAdd polymorphic belongs_to association with trackable.\nImplement status tracking methods.\nCreate LLMRequest factory/fixture for testing.\nAdd validation for required fields.",
+      "testStrategy": "Test polymorphic association functionality.\nTest status tracking methods.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
+    },
+    {
+      "id": 24,
+      "title": "Create ProcessingMetric model and migration",
+      "description": "Implement the ProcessingMetric model for tracking processing performance",
+      "status": "pending",
+      "dependencies": [13],
+      "priority": "high",
+      "details": "Generate model and migration for ProcessingMetric with fields: processable:references{polymorphic} process_type:string started_at:datetime completed_at:datetime duration_ms:integer status:string metadata:json.\nAdd polymorphic belongs_to association with processable.\nImplement status tracking methods.\nCreate ProcessingMetric factory/fixture for testing.\nImplement duration calculation method.",
+      "testStrategy": "Test polymorphic association functionality.\nTest duration calculation method.\nTest status tracking methods.\nVerify database constraints are properly set up."
+    },
+    {
+      "id": 25,
+      "title": "Add subscription fields to User model",
+      "description": "Update User model with subscription-related fields",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "medium",
+      "details": "Create migration to add subscription fields to User model: subscription_tier:string subscription_start_date:datetime subscription_end_date:datetime stripe_customer_id:string assignments_this_month:integer.\nAdd validation for subscription_tier inclusion (free, paid).\nImplement subscription status checking methods.\nUpdate User factory/fixture with subscription fields.\nAdd monthly assignment counting mechanism.",
+      "testStrategy": "Test subscription status checking methods.\nVerify subscription tier validation.\nTest monthly assignment counting mechanism.\nVerify database constraints for new fields."
+    },
+    {
+      "id": 26,
+      "title": "Implement ApplicationController authentication",
+      "description": "Configure ApplicationController with authentication requirements",
+      "status": "pending",
+      "dependencies": [9],
+      "priority": "high",
+      "details": "Include Authentication concern in ApplicationController.\nAdd before_action to require authentication by default.\nImplement authenticated? check for views.\nAdd helper method for current_user access in views.\nCreate unauthenticated action for handling unauthorized access.\nDocument authentication flow in controller.",
+      "testStrategy": "Test that unauthenticated requests are redirected.\nVerify authenticated? helper is available in views.\nTest current_user helper method.\nVerify unauthenticated action renders correct response."
+    },
+    {
+      "id": 27,
+      "title": "Create home page controller and view",
+      "description": "Implement basic home page for the application",
+      "status": "pending",
+      "dependencies": [26],
+      "priority": "medium",
+      "details": "Generate HomeController with index action.\nAdd route for the home page.\nCreate view for home page with basic layout.\nAdd sign-in button for unauthenticated users.\nAdd dashboard preview for authenticated users.\nInclude basic application information and value proposition.",
+      "testStrategy": "Test that index action renders the correct view.\nVerify sign-in button for unauthenticated users.\nTest dashboard preview for authenticated users.\nVerify route is correctly defined."
+    },
+    {
+      "id": 28,
+      "title": "Create AssignmentsController with index action",
+      "description": "Implement controller and view for listing assignments",
+      "status": "pending",
+      "dependencies": [13, 26],
+      "priority": "high",
+      "details": "Generate AssignmentsController with index action.\nAdd route for assignments index.\nImplement query to retrieve current user's assignments.\nCreate index view with assignment listing.\nAdd empty state for no assignments.\nImplement sorting and basic filtering.",
+      "testStrategy": "Test that index action returns the current user's assignments.\nVerify empty state is shown when no assignments exist.\nTest sorting and filtering functionality.\nVerify view correctly displays assignment data."
+    },
+    {
+      "id": 29,
+      "title": "Add new action to AssignmentsController",
+      "description": "Implement action and view for creating new assignments",
+      "status": "pending",
+      "dependencies": [28],
+      "priority": "high",
+      "details": "Add new action to AssignmentsController.\nAdd route for new assignment.\nCreate form view with fields for title, subject, grade level, and instructions.\nImplement rubric toggle for AI-generated vs custom rubric.\nAdd placeholder for Google Picker integration.\nAdd feedback tone selection UI.",
+      "testStrategy": "Test that new action renders the form view.\nVerify form includes all required fields.\nTest rubric toggle functionality.\nVerify route is correctly defined."
+    },
+    {
+      "id": 30,
+      "title": "Create Google API configuration",
+      "description": "Set up configuration for Google API integration",
+      "status": "pending",
+      "dependencies": [8],
+      "priority": "high",
+      "details": "Create configuration for Google API credentials.\nImplement ENV variable handling for API keys.\nAdd Google API client initialization.\nConfigure required API scopes.\nCreate Google API service wrapper.\nImplement test mocks for Google API.",
+      "testStrategy": "Test configuration loading with valid environment variables.\nVerify API client initialization.\nTest service wrapper methods.\nVerify test mocks work correctly."
+    },
+    {
+      "id": 31,
+      "title": "Implement Google Picker Stimulus controller",
+      "description": "Create Stimulus controller for Google Picker integration",
+      "status": "pending",
+      "dependencies": [3, 30],
+      "priority": "high",
+      "details": "Create Stimulus controller for Google Picker.\nImplement Google Picker API initialization.\nConfigure document selection callback.\nAdd document validation logic (max 35 documents).\nCreate UI for displaying selected documents.\nImplement document removal functionality.",
+      "testStrategy": "Test controller connection and initialization.\nVerify document selection functionality.\nTest document validation logic.\nVerify UI updates correctly with selected documents."
+    },
+    {
+      "id": 32,
+      "title": "Add create action to AssignmentsController",
+      "description": "Implement action for saving new assignments",
+      "status": "pending",
+      "dependencies": [29, 31],
+      "priority": "high",
+      "details": "Add create action to AssignmentsController.\nImplement strong parameters for assignment attributes.\nAdd validation for required fields.\nHandle selected documents data from form.\nCreate assignment record with associated documents.\nImplement proper error handling and flash messages.\nRedirect to assignment show page on success.",
+      "testStrategy": "Test create action with valid parameters.\nTest validation for required fields.\nVerify error handling for invalid submissions.\nTest successful creation and redirect."
+    },
+    {
+      "id": 33,
+      "title": "Create DocumentSelection::BulkCreationService",
+      "description": "Implement service for creating document selections in bulk",
+      "status": "pending",
+      "dependencies": [14, 32],
+      "priority": "high",
+      "details": "Create service for bulk creation of document selections.\nImplement validation for document selection parameters.\nAdd document length validation (< 2000 words).\nHandle invalid document selections gracefully.\nImplement transaction for atomic creation.\nDocument service with appropriate comments.",
+      "testStrategy": "Test service with valid document selections.\nTest validation for document length.\nVerify error handling for invalid selections.\nTest transaction rollback on failure."
+    },
+    {
+      "id": 34,
+      "title": "Create Assignment::InitializerService",
+      "description": "Implement service for initializing assignments with related records",
+      "status": "pending",
+      "dependencies": [33],
+      "priority": "high",
+      "details": "Create service for initializing assignments and related records.\nImplement creation of associated StudentWork records.\nAdd placeholder for rubric initialization.\nImplement transaction for atomic creation.\nAdd job enqueueing for background processing.\nDocument service with appropriate comments.",
+      "testStrategy": "Test service with valid assignment.\nVerify creation of associated records.\nTest job enqueueing.\nVerify transaction rollback on failure."
+    },
+    {
+      "id": 35,
+      "title": "Create LLM::Client base class",
+      "description": "Implement the base client class for LLM integration",
+      "status": "pending",
+      "dependencies": [23],
+      "priority": "high",
+      "details": "Create base LLM::Client class.\nImplement interface methods for prompt validation.\nAdd abstract methods for LLM interaction.\nImplement common utility methods.\nCreate configuration handling.\nAdd error classes for different failure types.",
+      "testStrategy": "Test prompt validation methods.\nVerify configuration handling.\nTest utility methods.\nVerify error class hierarchy."
+    },
+    {
+      "id": 36,
+      "title": "Implement LLM::AnthropicClient",
+      "description": "Create client implementation for Anthropic's Claude API",
+      "status": "pending",
+      "dependencies": [35],
+      "priority": "high",
+      "details": "Create LLM::AnthropicClient implementation.\nImplement API request handling.\nAdd response parsing.\nConfigure model selection options.\nImplement token counting mechanisms.\nAdd error handling for API-specific errors.",
+      "testStrategy": "Test API request handling with mock responses.\nVerify token counting accuracy.\nTest error handling for different error types.\nVerify model selection configuration."
+    },
+    {
+      "id": 37,
+      "title": "Implement LLM::GoogleClient",
+      "description": "Create client implementation for Google's PaLM API",
+      "status": "pending",
+      "dependencies": [35],
+      "priority": "high",
+      "details": "Create LLM::GoogleClient implementation.\nImplement API request handling.\nAdd response parsing.\nConfigure model selection options.\nImplement token counting mechanisms.\nAdd error handling for API-specific errors.",
+      "testStrategy": "Test API request handling with mock responses.\nVerify token counting accuracy.\nTest error handling for different error types.\nVerify model selection configuration."
+    },
+    {
+      "id": 38,
+      "title": "Create LLM::ClientFactory",
+      "description": "Implement factory for creating appropriate LLM client instances",
+      "status": "pending",
+      "dependencies": [36, 37],
+      "priority": "high",
+      "details": "Create LLM::ClientFactory class.\nImplement provider selection logic.\nAdd configuration handling.\nImplement caching mechanism for client instances.\nDocument factory methods and usage.\nAdd support for creating test clients.",
+      "testStrategy": "Test client creation for different providers.\nVerify configuration handling.\nTest caching mechanism.\nVerify test client creation."
+    },
+    {
+      "id": 39,
+      "title": "Implement LLM::RetryHandler",
+      "description": "Create retry mechanism for handling LLM request failures",
+      "status": "pending",
+      "dependencies": [35],
+      "priority": "high",
+      "details": "Create LLM::RetryHandler class.\nImplement exponential backoff algorithm.\nAdd retry count configuration.\nConfigure retriable error types.\nImplement retry tracking and logging.\nAdd circuit breaker integration placeholder.",
+      "testStrategy": "Test retry logic with simulated failures.\nVerify exponential backoff timing.\nTest retry count configuration.\nVerify retry tracking and logging."
+    },
+    {
+      "id": 40,
+      "title": "Implement LLM::CircuitBreaker",
+      "description": "Create circuit breaker for preventing cascading failures",
+      "status": "pending",
+      "dependencies": [39],
+      "priority": "high",
+      "details": "Create LLM::CircuitBreaker class.\nImplement failure rate tracking.\nAdd circuit state management (open, closed, half-open).\nConfigure failure threshold and reset timeout.\nImplement per-provider circuit isolation.\nAdd circuit state change notifications.",
+      "testStrategy": "Test circuit opening on high failure rate.\nVerify circuit reset after timeout.\nTest half-open state behavior.\nVerify per-provider isolation."
+    },
+    {
+      "id": 41,
+      "title": "Create LLM::CostCalculator",
+      "description": "Implement calculator for determining LLM request costs",
+      "status": "pending",
+      "dependencies": [35],
+      "priority": "medium",
+      "details": "Create LLM::CostCalculator class.\nImplement token counting for different LLM providers.\nAdd cost calculation based on token usage.\nConfigure per-model pricing.\nImplement methods for input and output token tracking.\nAdd total cost calculation.",
+      "testStrategy": "Test token counting accuracy.\nVerify cost calculation with known token counts.\nTest per-model pricing configuration.\nVerify total cost calculation."
+    },
+    {
+      "id": 42,
+      "title": "Create LLM::CostTracker",
+      "description": "Implement tracker for recording LLM request costs",
+      "status": "pending",
+      "dependencies": [41, 23],
+      "priority": "medium",
+      "details": "Create LLM::CostTracker class.\nImplement callback mechanism for tracking requests.\nAdd database persistence for cost data.\nConfigure aggregation methods for reporting.\nImplement user-level and assignment-level tracking.\nAdd periodic cost summary generation.",
+      "testStrategy": "Test callback mechanism with sample requests.\nVerify database persistence.\nTest aggregation methods.\nVerify user and assignment-level tracking."
+    },
+    {
+      "id": 43,
+      "title": "Create ProcessingTask class",
+      "description": "Implement base class for processing task configuration",
+      "status": "pending",
+      "dependencies": [38],
+      "priority": "high",
+      "details": "Create ProcessingTask class as defined in the PRD.\nImplement configuration handling for processing components.\nAdd timing methods for performance tracking.\nConfigure validation for required parameters.\nImplement metric recording mechanisms.\nAdd process type definition and validation.",
+      "testStrategy": "Test configuration handling.\nVerify timing methods accuracy.\nTest validation for required parameters.\nVerify metric recording functionality."
+    },
+    {
+      "id": 44,
+      "title": "Create ProcessingPipeline class",
+      "description": "Implement orchestration pipeline for processing tasks",
+      "status": "pending",
+      "dependencies": [43],
+      "priority": "high",
+      "details": "Create ProcessingPipeline class for orchestrating the 5-step workflow.\nImplement collection stage for gathering data.\nAdd building stage for prompt construction.\nImplement sending stage for LLM interaction.\nAdd parsing stage for response interpretation.\nImplement storing stage for result persistence.\nAdd error handling and metrics collection.",
+      "testStrategy": "Test complete pipeline execution with mock components.\nVerify error handling and recovery.\nTest metrics collection.\nVerify each stage functions correctly."
+    },
+    {
+      "id": 45,
+      "title": "Create ResponseParserFactory",
+      "description": "Implement factory for creating response parsers",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "high",
+      "details": "Create ResponseParserFactory class.\nImplement parser creation based on process type.\nAdd configuration handling for parser initialization.\nImplement default parser fallback.\nDocument supported parser types.\nAdd error handling for unsupported types.",
+      "testStrategy": "Test parser creation for different process types.\nVerify configuration handling.\nTest default parser fallback.\nVerify error handling for unsupported types."
+    },
+    {
+      "id": 46,
+      "title": "Create StorageServiceFactory",
+      "description": "Implement factory for creating storage services",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "high",
+      "details": "Create StorageServiceFactory class.\nImplement service creation based on process type.\nAdd configuration handling for service initialization.\nImplement default service fallback.\nDocument supported service types.\nAdd error handling for unsupported types.",
+      "testStrategy": "Test service creation for different process types.\nVerify configuration handling.\nTest default service fallback.\nVerify error handling for unsupported types."
+    },
+    {
+      "id": 47,
+      "title": "Create BroadcasterFactory",
+      "description": "Implement factory for creating broadcasters",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "high",
+      "details": "Create BroadcasterFactory class.\nImplement broadcaster creation based on process type.\nAdd configuration handling for broadcaster initialization.\nImplement default broadcaster fallback.\nDocument supported broadcaster types.\nAdd error handling for unsupported types.",
+      "testStrategy": "Test broadcaster creation for different process types.\nVerify configuration handling.\nTest default broadcaster fallback.\nVerify error handling for unsupported types."
+    },
+    {
+      "id": 48,
+      "title": "Create StatusManagerFactory",
+      "description": "Implement factory for creating status managers",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "high",
+      "details": "Create StatusManagerFactory class.\nImplement manager creation based on process type.\nAdd configuration handling for manager initialization.\nImplement default manager fallback.\nDocument supported manager types.\nAdd error handling for unsupported types.",
+      "testStrategy": "Test manager creation for different process types.\nVerify configuration handling.\nTest default manager fallback.\nVerify error handling for unsupported types."
+    },
+    {
+      "id": 49,
+      "title": "Create DataCollectionService",
+      "description": "Implement service for gathering data for processing",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "high",
+      "details": "Create DataCollectionService class.\nImplement data collection based on processable type.\nAdd context building from collected data.\nImplement entity-specific collection methods.\nAdd error handling for missing data.\nDocument service with appropriate comments.",
+      "testStrategy": "Test data collection for different processable types.\nVerify context building functionality.\nTest entity-specific collection methods.\nVerify error handling for missing data."
+    },
+    {
+      "id": 50,
+      "title": "Create PromptTemplate class",
+      "description": "Implement template handling for LLM prompts",
+      "status": "pending",
+      "dependencies": [35],
+      "priority": "high",
+      "details": "Create PromptTemplate class for template loading and rendering.\nImplement ERB template rendering engine.\nAdd variable interpolation for templates.\nConfigure template directory structure.\nImplement template validation and error handling.\nAdd caching mechanism for templates.",
+      "testStrategy": "Test template rendering with various input parameters.\nVerify error handling with invalid templates.\nTest variable interpolation functionality.\nVerify caching mechanism works correctly."
+    },
+    {
+      "id": 51,
+      "title": "Create PromptBuilder class",
+      "description": "Implement builder for constructing LLM prompts",
+      "status": "pending",
+      "dependencies": [50],
+      "priority": "high",
+      "details": "Create PromptBuilder class for building prompts.\nImplement interface for template selection and rendering.\nAdd context management for template variables.\nImplement helpers for common prompt operations.\nAdd validation for generated prompts.\nConfigure error handling for prompt building issues.",
+      "testStrategy": "Test prompt building with various templates.\nVerify context management functionality.\nTest helper methods for prompt operations.\nVerify error handling for invalid prompts."
+    },
+    {
+      "id": 52,
+      "title": "Create prompt templates directory structure",
+      "description": "Set up directory structure for prompt templates",
+      "status": "pending",
+      "dependencies": [50],
+      "priority": "medium",
+      "details": "Create app/views/prompts/ directory.\nSet up subdirectories for different prompt types.\nAdd README with template guidelines.\nImplement template loading mechanism.\nCreate example templates for common tasks.\nDocument template format and conventions.",
+      "testStrategy": "Test directory structure is accessible.\nVerify template loading mechanism.\nTest example templates render correctly.\nVerify documentation is comprehensive."
+    },
+    {
+      "id": 53,
+      "title": "Create rubric generation prompt template",
+      "description": "Implement template for generating structured rubrics",
+      "status": "pending",
+      "dependencies": [52],
+      "priority": "medium",
+      "details": "Create rubric generation prompt template.\nDefine variables for assignment details.\nImplement instructional sections for rubric structure.\nAdd examples of good rubric criteria.\nConfigure output format specification.\nDocument template with appropriate comments.",
+      "testStrategy": "Test template rendering with sample assignment details.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nEnsure the template is properly loaded."
+    },
+    {
+      "id": 54,
+      "title": "Create student feedback prompt template",
+      "description": "Implement template for generating student work feedback",
+      "status": "pending",
+      "dependencies": [52],
+      "priority": "medium",
+      "details": "Create student feedback prompt template.\nDefine variables for student work and rubric details.\nImplement instructional sections for feedback structure.\nAdd examples of good feedback items.\nConfigure output format specification based on feedback tone.\nDocument template with appropriate comments.",
+      "testStrategy": "Test template rendering with sample student work and rubric.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nTest feedback tone customization."
+    },
+    {
+      "id": 55,
+      "title": "Create assignment summary prompt template",
+      "description": "Implement template for generating assignment-level insights",
+      "status": "pending",
+      "dependencies": [52],
+      "priority": "medium",
+      "details": "Create assignment summary prompt template.\nDefine variables for assignment and student work collection.\nImplement instructional sections for summary structure.\nAdd examples of good class-wide insights.\nConfigure output format specification.\nDocument template with appropriate comments.",
+      "testStrategy": "Test template rendering with sample assignment data.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nVerify inclusion of multiple student works."
+    },
+    {
+      "id": 56,
+      "title": "Create RubricGenerationTask",
+      "description": "Implement processing task configuration for rubric generation",
+      "status": "pending",
+      "dependencies": [43, 53],
+      "priority": "medium",
+      "details": "Create specialized ProcessingTask configuration for rubric generation.\nConfigure prompt template, response parser, and storage service.\nImplement context building for rubric generation.\nAdd validation for required assignment data.\nConfigure broadcaster for real-time updates.\nDocument task configuration options.",
+      "testStrategy": "Test task initialization with valid configuration.\nVerify context building for rubric generation.\nTest validation for required data.\nVerify broadcaster configuration."
+    },
+    {
+      "id": 57,
+      "title": "Create RubricResponseParser",
+      "description": "Implement parser for LLM-generated rubric responses",
+      "status": "pending",
+      "dependencies": [45, 15, 16, 17],
+      "priority": "medium",
+      "details": "Create RubricResponseParser class.\nImplement parsing logic for structured rubric data.\nAdd validation for parsed criteria and levels.\nConfigure error handling for invalid responses.\nImplement mapping to database models.\nDocument parser with examples of valid input/output.",
+      "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
+    },
+    {
+      "id": 58,
+      "title": "Create Rubric::CreationService",
+      "description": "Implement service for creating rubric records from parsed data",
+      "status": "pending",
+      "dependencies": [57],
+      "priority": "medium",
+      "details": "Create Rubric::CreationService class.\nImplement record creation for Rubric and associated models.\nAdd transaction for atomic creation.\nConfigure validation for input data.\nImplement position ordering for criteria and levels.\nAdd error handling for invalid data.",
+      "testStrategy": "Test service with valid parsed rubric data.\nVerify transaction for atomic creation.\nTest position ordering for criteria and levels.\nVerify error handling for invalid data."
+    },
+    {
+      "id": 59,
+      "title": "Create RubricGenerationJob",
+      "description": "Implement background job for processing rubric generation",
+      "status": "pending",
+      "dependencies": [56, 58],
+      "priority": "medium",
+      "details": "Create RubricGenerationJob class.\nImplement job execution logic with ProcessingPipeline.\nAdd error handling and retry configuration.\nConfigure job queue and priority.\nImplement progress tracking and status updates.\nAdd logging for job execution.",
+      "testStrategy": "Test job execution with valid assignment.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
+    },
+    {
+      "id": 60,
+      "title": "Create Rubric#to_prompt method",
+      "description": "Implement method for converting rubric to prompt format",
+      "status": "pending",
+      "dependencies": [15, 16, 17],
+      "priority": "medium",
+      "details": "Implement Rubric#to_prompt method.\nFormat criteria and levels for inclusion in prompts.\nAdd markdown formatting for better readability.\nConfigure options for different output formats.\nImplement caching for performance optimization.\nDocument method with example outputs.",
+      "testStrategy": "Test method with different rubric structures.\nVerify formatting for prompts.\nTest caching functionality.\nVerify output meets format requirements."
+    },
+    {
+      "id": 61,
+      "title": "Add show action to AssignmentsController",
+      "description": "Implement action for viewing assignment details",
+      "status": "pending",
+      "dependencies": [32],
+      "priority": "high",
+      "details": "Add show action to AssignmentsController.\nImplement query to retrieve assignment with associated records.\nCreate view for assignment details.\nAdd sections for rubric, student works, and summary.\nImplement basic navigation between sections.\nAdd progress tracking display.",
+      "testStrategy": "Test show action with valid assignment ID.\nVerify view displays correct assignment details.\nTest navigation between sections.\nVerify progress tracking display."
+    },
+    {
+      "id": 62,
+      "title": "Create DocumentContentRetrievalService",
+      "description": "Implement service for retrieving Google Doc content",
+      "status": "pending",
+      "dependencies": [30],
+      "priority": "high",
+      "details": "Create DocumentContentRetrievalService class.\nImplement Google Docs API integration.\nAdd authentication handling with OAuth tokens.\nConfigure content extraction and formatting.\nImplement caching for retrieved content.\nAdd error handling for API failures.",
+      "testStrategy": "Test service with valid document IDs.\nVerify content extraction and formatting.\nTest caching functionality.\nVerify error handling for API failures."
+    },
+    {
+      "id": 63,
+      "title": "Create StudentWorkFeedbackTask",
+      "description": "Implement processing task for student work feedback",
+      "status": "pending",
+      "dependencies": [43, 54, 60],
+      "priority": "medium",
+      "details": "Create specialized ProcessingTask configuration for student work feedback.\nConfigure prompt template, response parser, and storage service.\nImplement context building with student work and rubric.\nAdd validation for required document content.\nConfigure broadcaster for real-time updates.\nDocument task configuration options.",
+      "testStrategy": "Test task initialization with valid configuration.\nVerify context building with student work and rubric.\nTest validation for required data.\nVerify broadcaster configuration."
+    },
+    {
+      "id": 64,
+      "title": "Create StudentWorkResponseParser",
+      "description": "Implement parser for LLM-generated student feedback",
+      "status": "pending",
+      "dependencies": [45, 18, 19, 20, 21],
+      "priority": "medium",
+      "details": "Create StudentWorkResponseParser class.\nImplement parsing logic for structured feedback data.\nAdd validation for parsed feedback items and criterion levels.\nConfigure error handling for invalid responses.\nImplement mapping to database models.\nDocument parser with examples of valid input/output.",
+      "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
+    },
+    {
+      "id": 65,
+      "title": "Create StudentWork::FeedbackService",
+      "description": "Implement service for creating student work feedback records",
+      "status": "pending",
+      "dependencies": [64],
+      "priority": "medium",
+      "details": "Create StudentWork::FeedbackService class.\nImplement record creation for feedback items and criterion levels.\nAdd transaction for atomic creation.\nConfigure validation for input data.\nImplement qualitative feedback formatting.\nAdd error handling for invalid data.",
+      "testStrategy": "Test service with valid parsed feedback data.\nVerify transaction for atomic creation.\nTest qualitative feedback formatting.\nVerify error handling for invalid data."
+    },
+    {
+      "id": 66,
+      "title": "Create StudentWorkFeedbackJob",
+      "description": "Implement background job for processing student work feedback",
+      "status": "pending",
+      "dependencies": [63, 65],
+      "priority": "medium",
+      "details": "Create StudentWorkFeedbackJob class.\nImplement job execution logic with ProcessingPipeline.\nAdd error handling and retry configuration.\nConfigure job queue and priority.\nImplement progress tracking and status updates.\nAdd logging for job execution.",
+      "testStrategy": "Test job execution with valid student work.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
+    },
+    {
+      "id": 67,
+      "title": "Create GoogleDocsFeedbackAppender",
+      "description": "Implement service for appending feedback to Google Docs",
+      "status": "pending",
+      "dependencies": [30, 65],
+      "priority": "medium",
+      "details": "Create GoogleDocsFeedbackAppender class.\nImplement Google Docs API integration for content updates.\nAdd authentication handling with OAuth tokens.\nConfigure formatted feedback generation.\nImplement append operation with proper formatting.\nAdd error handling for API failures.",
+      "testStrategy": "Test appender with valid document and feedback.\nVerify formatted feedback generation.\nTest append operation with different feedback types.\nVerify error handling for API failures."
+    },
+    {
+      "id": 68,
+      "title": "Create AssignmentSummaryTask",
+      "description": "Implement processing task for assignment summary generation",
+      "status": "pending",
+      "dependencies": [43, 55],
+      "priority": "medium",
+      "details": "Create specialized ProcessingTask configuration for assignment summary.\nConfigure prompt template, response parser, and storage service.\nImplement context building with assignment and student works.\nAdd validation for completed student works.\nConfigure broadcaster for real-time updates.\nDocument task configuration options.",
+      "testStrategy": "Test task initialization with valid configuration.\nVerify context building with assignment and student works.\nTest validation for completed student works.\nVerify broadcaster configuration."
+    },
+    {
+      "id": 69,
+      "title": "Create AssignmentSummaryResponseParser",
+      "description": "Implement parser for LLM-generated assignment summaries",
+      "status": "pending",
+      "dependencies": [45, 22],
+      "priority": "medium",
+      "details": "Create AssignmentSummaryResponseParser class.\nImplement parsing logic for structured summary data.\nAdd validation for parsed insights and feedback items.\nConfigure error handling for invalid responses.\nImplement mapping to database models.\nDocument parser with examples of valid input/output.",
+      "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
+    },
+    {
+      "id": 70,
+      "title": "Create AssignmentSummary::CreationService",
+      "description": "Implement service for creating assignment summary records",
+      "status": "pending",
+      "dependencies": [69],
+      "priority": "medium",
+      "details": "Create AssignmentSummary::CreationService class.\nImplement record creation for summary and feedback items.\nAdd transaction for atomic creation.\nConfigure validation for input data.\nImplement insights formatting and processing.\nAdd error handling for invalid data.",
+      "testStrategy": "Test service with valid parsed summary data.\nVerify transaction for atomic creation.\nTest insights formatting and processing.\nVerify error handling for invalid data."
+    },
+    {
+      "id": 71,
+      "title": "Create AssignmentSummaryJob",
+      "description": "Implement background job for processing assignment summaries",
+      "status": "pending",
+      "dependencies": [68, 70],
+      "priority": "medium",
+      "details": "Create AssignmentSummaryJob class.\nImplement job execution logic with ProcessingPipeline.\nAdd error handling and retry configuration.\nConfigure job queue and priority.\nImplement progress tracking and status updates.\nAdd logging for job execution.",
+      "testStrategy": "Test job execution with valid assignment.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
+    },
+    {
+      "id": 72,
+      "title": "Create Assignment::ProcessingTimeEstimator",
+      "description": "Implement service for estimating processing time",
+      "status": "pending",
+      "dependencies": [13, 18],
+      "priority": "medium",
+      "details": "Create Assignment::ProcessingTimeEstimator class.\nImplement base time calculation (rubric: 30s, student work: 60s, summary: 45s).\nAdd dynamic adjustment based on document length.\nConfigure completion time estimation.\nImplement total time calculation methods.\nDocument estimator with calculation examples.",
+      "testStrategy": "Test estimator with different assignment configurations.\nVerify base time calculation.\nTest dynamic adjustment based on document length.\nVerify total time calculation methods."
+    },
+    {
+      "id": 73,
+      "title": "Create Assignment::ProcessingStatusTracker",
+      "description": "Implement tracker for assignment processing status",
+      "status": "pending",
+      "dependencies": [72],
+      "priority": "medium",
+      "details": "Create Assignment::ProcessingStatusTracker class.\nImplement overall status calculation logic.\nAdd progress percentage computation.\nConfigure time remaining estimation.\nImplement completion detection.\nAdd event broadcasting for status updates.",
+      "testStrategy": "Test status calculation with different processing states.\nVerify progress percentage computation.\nTest time remaining estimation.\nVerify completion detection and event broadcasting."
+    },
+    {
+      "id": 74,
+      "title": "Create AssignmentProcessingJob",
+      "description": "Implement master job for coordinating assignment processing",
+      "status": "pending",
+      "dependencies": [59, 66, 71],
+      "priority": "high",
+      "details": "Create AssignmentProcessingJob class.\nImplement sequential job scheduling for processing steps.\nAdd dependency management between processing stages.\nConfigure error handling and recovery mechanisms.\nImplement status tracking and progress updates.\nAdd completion notification handling.",
+      "testStrategy": "Test job execution with valid assignment.\nVerify sequential job scheduling.\nTest error handling and recovery mechanisms.\nVerify status tracking and progress updates."
+    },
+    {
+      "id": 75,
+      "title": "Create Stimulus controller for real-time updates",
+      "description": "Implement controller for handling real-time processing updates",
+      "status": "pending",
+      "dependencies": [3],
+      "priority": "high",
+      "details": "Create Stimulus controller for real-time updates.\nImplement ActionCable channel subscription.\nAdd DOM updating based on received events.\nConfigure progress bar and status indicator updates.\nImplement error message handling.\nDocument controller usage.",
+      "testStrategy": "Test controller connection and initialization.\nVerify channel subscription and event handling.\nTest DOM updating with various events.\nVerify error message handling."
+    },
+    {
+      "id": 76,
+      "title": "Create ProcessingChannel for ActionCable",
+      "description": "Implement ActionCable channel for processing updates",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "high",
+      "details": "Create ProcessingChannel class.\nImplement subscription handling and authentication.\nAdd broadcasting methods for different update types.\nConfigure stream identification by assignment ID.\nImplement serialization for update data.\nDocument channel API and usage.",
+      "testStrategy": "Test subscription handling and authentication.\nVerify broadcasting methods for different update types.\nTest stream identification by assignment ID.\nVerify serialization for update data."
+    },
+    {
+      "id": 77,
+      "title": "Create RubricBroadcaster",
+      "description": "Implement broadcaster for rubric generation updates",
+      "status": "pending",
+      "dependencies": [47, 76],
+      "priority": "medium",
+      "details": "Create RubricBroadcaster class.\nImplement update broadcasting for rubric status.\nAdd progress percentage computation.\nConfigure serialization for rubric data.\nImplement error message formatting.\nDocument broadcaster API and usage.",
+      "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for rubric data.\nVerify error message formatting."
+    },
+    {
+      "id": 78,
+      "title": "Create StudentWorkBroadcaster",
+      "description": "Implement broadcaster for student work updates",
+      "status": "pending",
+      "dependencies": [47, 76],
+      "priority": "medium",
+      "details": "Create StudentWorkBroadcaster class.\nImplement update broadcasting for student work status.\nAdd progress percentage computation.\nConfigure serialization for feedback data.\nImplement error message formatting.\nDocument broadcaster API and usage.",
+      "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for feedback data.\nVerify error message formatting."
+    },
+    {
+      "id": 79,
+      "title": "Create AssignmentSummaryBroadcaster",
+      "description": "Implement broadcaster for assignment summary updates",
+      "status": "pending",
+      "dependencies": [47, 76],
+      "priority": "medium",
+      "details": "Create AssignmentSummaryBroadcaster class.\nImplement update broadcasting for summary status.\nAdd progress percentage computation.\nConfigure serialization for summary data.\nImplement error message formatting.\nDocument broadcaster API and usage.",
+      "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for summary data.\nVerify error message formatting."
+    },
+    {
+      "id": 80,
+      "title": "Create Assignment::StatusManager",
+      "description": "Implement manager for tracking and updating assignment status",
+      "status": "pending",
+      "dependencies": [48, 73],
+      "priority": "medium",
+      "details": "Create Assignment::StatusManager class.\nImplement status update methods for different processing stages.\nAdd progress tracking for overall assignment.\nConfigure completion detection and notification.\nImplement error handling and recovery status.\nDocument manager API and usage.",
+      "testStrategy": "Test status update methods for different stages.\nVerify progress tracking for overall assignment.\nTest completion detection and notification.\nVerify error handling and recovery status."
+    },
+    {
+      "id": 81,
+      "title": "Create StudentWork::StatusManager",
+      "description": "Implement manager for tracking and updating student work status",
+      "status": "pending",
+      "dependencies": [48, 73],
+      "priority": "medium",
+      "details": "Create StudentWork::StatusManager class.\nImplement status update methods for feedback generation.\nAdd progress tracking for individual student work.\nConfigure completion detection and notification.\nImplement error handling and recovery status.\nDocument manager API and usage.",
+      "testStrategy": "Test status update methods for feedback generation.\nVerify progress tracking for individual student work.\nTest completion detection and notification.\nVerify error handling and recovery status."
+    },
+    {
+      "id": 82,
+      "title": "Create Rubric partial view",
+      "description": "Implement partial for displaying rubric details",
+      "status": "pending",
+      "dependencies": [15, 16, 17],
+      "priority": "medium",
+      "details": "Create partial view for displaying rubric details.\nImplement grid layout for criteria and levels.\nAdd styling with Tailwind classes.\nConfigure responsive design for different screen sizes.\nImplement print-friendly version.\nAdd documentation for partial usage.",
+      "testStrategy": "Verify partial renders correctly with sample rubric.\nTest responsive design at different screen sizes.\nCheck print-friendly version appearance.\nVerify styling matches design specifications."
+    },
+    {
+      "id": 83,
+      "title": "Create StudentWork partial view",
+      "description": "Implement partial for displaying student work feedback",
+      "status": "pending",
+      "dependencies": [18, 19, 20, 21],
+      "priority": "medium",
+      "details": "Create partial view for displaying student work feedback.\nImplement tabbed interface for different feedback components.\nAdd styling with Tailwind classes.\nConfigure responsive design for different screen sizes.\nImplement edit mode for feedback customization.\nAdd Google Docs integration UI.",
+      "testStrategy": "Verify partial renders correctly with sample feedback.\nTest tabbed interface functionality.\nCheck responsive design at different screen sizes.\nVerify edit mode for feedback customization."
+    },
+    {
+      "id": 84,
+      "title": "Create AssignmentSummary partial view",
+      "description": "Implement partial for displaying assignment summary",
+      "status": "pending",
+      "dependencies": [22],
+      "priority": "medium",
+      "details": "Create partial view for displaying assignment summary.\nImplement card layout for insights and trends.\nAdd styling with Tailwind classes.\nConfigure responsive design for different screen sizes.\nImplement visualization placeholders.\nAdd print-friendly version.",
+      "testStrategy": "Verify partial renders correctly with sample summary.\nTest card layout appearance and organization.\nCheck responsive design at different screen sizes.\nVerify print-friendly version appearance."
+    },
+    {
+      "id": 85,
+      "title": "Create ProcessingProgress partial view",
+      "description": "Implement partial for displaying processing progress",
+      "status": "pending",
+      "dependencies": [73],
+      "priority": "medium",
+      "details": "Create partial view for displaying processing progress.\nImplement progress bar with percentage completion.\nAdd time remaining estimation display.\nConfigure status message updates.\nImplement error state visualization.\nAdd animation for active processing.",
+      "testStrategy": "Verify partial renders correctly with different progress states.\nTest progress bar updates with percentage changes.\nCheck time remaining estimation display.\nVerify error state visualization."
+    },
+    {
+      "id": 86,
+      "title": "Create StudentWorkEditor Stimulus controller",
+      "description": "Implement controller for editing student work feedback",
+      "status": "pending",
+      "dependencies": [3, 83],
+      "priority": "medium",
+      "details": "Create Stimulus controller for student work feedback editing.\nImplement in-place editing for feedback items.\nAdd AJAX saving for edited content.\nConfigure validation for edited feedback.\nImplement optimistic UI updates.\nAdd error handling for failed saves.",
+      "testStrategy": "Test controller connection and initialization.\nVerify in-place editing functionality.\nTest AJAX saving with valid and invalid edits.\nVerify optimistic UI updates and error handling."
+    },
+    {
+      "id": 87,
+      "title": "Create FeedbackAppender Stimulus controller",
+      "description": "Implement controller for appending feedback to Google Docs",
+      "status": "pending",
+      "dependencies": [3, 67, 83],
+      "priority": "medium",
+      "details": "Create Stimulus controller for feedback appending.\nImplement AJAX call to append service.\nAdd progress indication during appending.\nConfigure success and error state handling.\nImplement confirmation dialog before appending.\nAdd notification for successful append.",
+      "testStrategy": "Test controller connection and initialization.\nVerify AJAX call to append service.\nTest progress indication during appending.\nVerify success and error state handling."
+    },
+    {
+      "id": 88,
+      "title": "Add edit action to StudentWorksController",
+      "description": "Implement action for editing student work feedback",
+      "status": "pending",
+      "dependencies": [18, 83],
+      "priority": "medium",
+      "details": "Create StudentWorksController if not exists.\nAdd edit action for feedback editing.\nImplement form for editing feedback.\nAdd validation for edited feedback.\nConfigure proper authorization checks.\nImplement redirection after successful edit.",
+      "testStrategy": "Test edit action with valid student work ID.\nVerify form includes current feedback data.\nTest authorization checks for different users.\nVerify redirection after successful edit."
+    },
+    {
+      "id": 89,
+      "title": "Add update action to StudentWorksController",
+      "description": "Implement action for saving edited student work feedback",
+      "status": "pending",
+      "dependencies": [88],
+      "priority": "medium",
+      "details": "Add update action to StudentWorksController.\nImplement strong parameters for feedback attributes.\nAdd validation for updated feedback.\nConfigure response format for AJAX and regular requests.\nImplement proper error handling.\nAdd flash messages for user feedback.",
+      "testStrategy": "Test update action with valid parameters.\nVerify validation for updated feedback.\nTest response format for AJAX and regular requests.\nVerify error handling and flash messages."
+    },
+    {
+      "id": 90,
+      "title": "Add append_feedback action to StudentWorksController",
+      "description": "Implement action for appending feedback to Google Docs",
+      "status": "pending",
+      "dependencies": [67, 89],
+      "priority": "medium",
+      "details": "Add append_feedback action to StudentWorksController.\nImplement service call to GoogleDocsFeedbackAppender.\nAdd response format for AJAX requests.\nConfigure proper authorization checks.\nImplement error handling for appending failures.\nAdd tracking for appended feedback.",
+      "testStrategy": "Test append_feedback action with valid student work ID.\nVerify service call to GoogleDocsFeedbackAppender.\nTest authorization checks for different users.\nVerify error handling for appending failures."
+    },
+    {
+      "id": 91,
+      "title": "Create FeedbackToneSelector Stimulus controller",
+      "description": "Implement controller for selecting feedback tone",
+      "status": "pending",
+      "dependencies": [3],
+      "priority": "medium",
+      "details": "Create Stimulus controller for feedback tone selection.\nImplement slider UI for tone selection.\nAdd visual indicators for different tones (encouraging, neutral, critical).\nConfigure form field updates based on selection.\nImplement tone description display.\nAdd default tone selection.",
+      "testStrategy": "Test controller connection and initialization.\nVerify slider UI functionality.\nTest form field updates based on selection.\nVerify tone description display."
+    },
+    {
+      "id": 92,
+      "title": "Create Assignment::RetryProcessingService",
+      "description": "Implement service for retrying failed processing tasks",
+      "status": "pending",
+      "dependencies": [74],
+      "priority": "medium",
+      "details": "Create Assignment::RetryProcessingService class.\nImplement retry logic for different processing stages.\nAdd status reset for retry targets.\nConfigure job re-enqueueing for retries.\nImplement validation for retry eligibility.\nDocument service API and usage.",
+      "testStrategy": "Test retry logic for different processing stages.\nVerify status reset for retry targets.\nTest job re-enqueueing for retries.\nVerify validation for retry eligibility."
+    },
+    {
+      "id": 93,
+      "title": "Add retry_processing action to AssignmentsController",
+      "description": "Implement action for retrying failed processing",
+      "status": "pending",
+      "dependencies": [92],
+      "priority": "medium",
+      "details": "Add retry_processing action to AssignmentsController.\nImplement service call to Assignment::RetryProcessingService.\nAdd response format for AJAX and regular requests.\nConfigure proper authorization checks.\nImplement error handling for retry failures.\nAdd flash messages for user feedback.",
+      "testStrategy": "Test retry_processing action with valid assignment ID.\nVerify service call to Assignment::RetryProcessingService.\nTest authorization checks for different users.\nVerify error handling for retry failures."
+    },
+    {
+      "id": 94,
+      "title": "Create ProcessingRetry Stimulus controller",
+      "description": "Implement controller for retrying failed processing",
+      "status": "pending",
+      "dependencies": [3, 93],
+      "priority": "medium",
+      "details": "Create Stimulus controller for processing retry.\nImplement retry button functionality.\nAdd confirmation dialog before retry.\nConfigure progress indication during retry.\nImplement success and error state handling.\nAdd notification for retry initiation.",
+      "testStrategy": "Test controller connection and initialization.\nVerify retry button functionality.\nTest confirmation dialog before retry.\nVerify progress indication and state handling."
+    },
+    {
+      "id": 95,
+      "title": "Create User::SubscriptionService",
+      "description": "Implement service for managing user subscriptions",
+      "status": "pending",
+      "dependencies": [25],
+      "priority": "low",
+      "details": "Create User::SubscriptionService class.\nImplement subscription status checking methods.\nAdd usage limit enforcement based on tier.\nConfigure upgrade flow for tier changes.\nImplement usage counting and tracking.\nDocument service API and usage.",
+      "testStrategy": "Test subscription status checking methods.\nVerify usage limit enforcement based on tier.\nTest upgrade flow for tier changes.\nVerify usage counting and tracking."
+    },
+    {
+      "id": 96,
+      "title": "Configure Stripe initializer",
+      "description": "Set up Stripe integration for billing",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "low",
+      "details": "Install Stripe gem.\nCreate Stripe initializer with API key configuration.\nConfigure webhook endpoints.\nImplement test mode for development environment.\nAdd error handling for API failures.\nDocument Stripe integration setup.",
+      "testStrategy": "Verify Stripe initializer loads correctly.\nTest webhook endpoint configuration.\nVerify test mode for development environment.\nTest error handling for API failures."
+    },
+    {
+      "id": 97,
+      "title": "Create SubscriptionsController",
+      "description": "Implement controller for managing subscriptions",
+      "status": "pending",
+      "dependencies": [95, 96],
+      "priority": "low",
+      "details": "Create SubscriptionsController.\nImplement new action for subscription creation.\nAdd create action for processing subscriptions.\nConfigure Stripe checkout integration.\nImplement proper error handling.\nAdd redirect flows for success and failure.",
+      "testStrategy": "Test new action renders the correct view.\nVerify Stripe checkout integration.\nTest error handling for failed subscriptions.\nVerify redirect flows for success and failure."
+    },
+    {
+      "id": 98,
+      "title": "Create StripeWebhooksController",
+      "description": "Implement controller for handling Stripe webhooks",
+      "status": "pending",
+      "dependencies": [96],
+      "priority": "low",
+      "details": "Create StripeWebhooksController.\nImplement create action for webhook processing.\nAdd handlers for relevant webhook events.\nConfigure signature verification for security.\nImplement subscription status updates based on events.\nAdd logging for webhook processing.",
+      "testStrategy": "Test create action with mock webhook events.\nVerify signature verification for security.\nTest subscription status updates based on events.\nVerify logging for webhook processing."
+    },
+    {
+      "id": 99,
+      "title": "Create User::SubscriptionUpgradeService",
+      "description": "Implement service for handling subscription upgrades",
+      "status": "pending",
+      "dependencies": [95, 96],
+      "priority": "low",
+      "details": "Create User::SubscriptionUpgradeService class.\nImplement upgrade logic for changing tiers.\nAdd Stripe customer and subscription creation.\nConfigure database updates for subscription changes.\nImplement email notification for upgrades.\nDocument service API and usage.",
+      "testStrategy": "Test upgrade logic with different scenarios.\nVerify Stripe customer and subscription creation.\nTest database updates for subscription changes.\nVerify email notification for upgrades."
+    },
+    {
+      "id": 100,
+      "title": "Create subscription views",
+      "description": "Implement views for subscription management",
+      "status": "pending",
+      "dependencies": [97],
+      "priority": "low",
+      "details": "Create view for subscription plan selection.\nImplement pricing display with feature comparison.\nAdd payment form integration with Stripe Elements.\nConfigure confirmation page for subscriptions.\nImplement subscription status display in user profile.\nAdd upgrade prompts for free tier users.",
+      "testStrategy": "Verify view renders correctly with plan options.\nTest payment form integration with Stripe Elements.\nVerify subscription status display in user profile.\nTest upgrade prompts for free tier users."
+    },
+    {
+      "id": 101,
+      "title": "Create User::UsageLimitService",
+      "description": "Implement service for enforcing usage limits",
+      "status": "pending",
+      "dependencies": [95],
+      "priority": "low",
+      "details": "Create User::UsageLimitService class.\nImplement limit checking methods based on tier.\nAdd rate limiting for API requests.\nConfigure redirect logic for limit exceeded.\nImplement usage tracking and updating.\nDocument service API and usage.",
+      "testStrategy": "Test limit checking methods with different tiers.\nVerify rate limiting for API requests.\nTest redirect logic for limit exceeded.\nVerify usage tracking and updating."
+    },
+    {
+      "id": 102,
+      "title": "Create UsageLimitConcern",
+      "description": "Implement controller concern for handling usage limits",
+      "status": "pending",
+      "dependencies": [101],
+      "priority": "low",
+      "details": "Create UsageLimitConcern.\nImplement check_usage_limit method for controllers.\nAdd before_action hook for limit checking.\nConfigure redirect for limit exceeded.\nImplement flash message configuration.\nDocument concern usage for controllers.",
+      "testStrategy": "Test check_usage_limit method with different scenarios.\nVerify before_action hook for limit checking.\nTest redirect for limit exceeded.\nVerify flash message configuration."
+    },
+    {
+      "id": 103,
+      "title": "Create subscription limit views",
+      "description": "Implement views for displaying subscription limits",
+      "status": "pending",
+      "dependencies": [100, 102],
+      "priority": "low",
+      "details": "Create view for displaying usage limits and current usage.\nImplement progress bar for usage visualization.\nAdd upgrade prompt for approaching limits.\nConfigure limit exceeded page.\nImplement usage history display.\nAdd FAQ section for subscription questions.",
+      "testStrategy": "Verify view renders correctly with usage data.\nTest progress bar for usage visualization.\nVerify upgrade prompt for approaching limits.\nTest limit exceeded page display."
+    },
+    {
+      "id": 104,
+      "title": "Create User::StreakTrackingService",
+      "description": "Implement service for tracking user activity streaks",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "low",
+      "details": "Create User::StreakTrackingService class.\nImplement daily activity tracking logic.\nAdd streak calculation methods.\nConfigure streak reset rules.\nImplement milestone detection for achievements.\nDocument service API and usage.",
+      "testStrategy": "Test daily activity tracking logic.\nVerify streak calculation methods.\nTest streak reset rules.\nVerify milestone detection for achievements."
+    },
+    {
+      "id": 105,
+      "title": "Create User::ContributionVisualizationService",
+      "description": "Implement service for visualizing user contributions",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "low",
+      "details": "Create User::ContributionVisualizationService class.\nImplement activity data aggregation methods.\nAdd GitHub-style activity graph data generation.\nConfigure time period filtering options.\nImplement statistics calculation for workload.\nDocument service API and usage.",
+      "testStrategy": "Test activity data aggregation methods.\nVerify GitHub-style activity graph data generation.\nTest time period filtering options.\nVerify statistics calculation for workload."
+    },
+    {
+      "id": 106,
+      "title": "Create user profile controller and views",
+      "description": "Implement controller and views for user profile",
+      "status": "pending",
+      "dependencies": [5],
+      "priority": "low",
+      "details": "Create UserProfileController.\nImplement show action for profile display.\nAdd edit action for profile updates.\nConfigure update action for saving changes.\nImplement views for profile display and editing.\nAdd avatar handling with Google profile image.",
+      "testStrategy": "Test show action with valid user.\nVerify edit action renders form with user data.\nTest update action with valid and invalid parameters.\nVerify avatar handling with Google profile image."
+    },
+    {
+      "id": 107,
+      "title": "Create activity dashboard view",
+      "description": "Implement view for displaying user activity metrics",
+      "status": "pending",
+      "dependencies": [104, 105, 106],
+      "priority": "low",
+      "details": "Create view for displaying user activity dashboard.\nImplement streak visualization component.\nAdd activity graph with GitHub-style heatmap.\nConfigure statistics cards for usage metrics.\nImplement filtering options for time periods.\nAdd print-friendly version for reports.",
+      "testStrategy": "Verify view renders correctly with activity data.\nTest streak visualization component.\nVerify activity graph with sample data.\nTest filtering options for time periods."
+    },
+    {
+      "id": 108,
+      "title": "Create AchievementSystem",
+      "description": "Implement system for tracking user achievements",
+      "status": "pending",
+      "dependencies": [107],
+      "priority": "low",
+      "details": "Create Achievement model and migration.\nImplement User::AchievementService for tracking achievements.\nAdd achievement definition configuration.\nConfigure achievement unlock triggers.\nImplement notification system for new achievements.\nDocument available achievements and requirements.",
+      "testStrategy": "Test Achievement model with valid attributes.\nVerify User::AchievementService functionality.\nTest achievement unlock triggers.\nVerify notification system for new achievements."
+    },
+    {
+      "id": 109,
+      "title": "Create AssignmentExport service",
+      "description": "Implement service for exporting assignment data",
+      "status": "pending",
+      "dependencies": [13, 18, 22],
+      "priority": "low",
+      "details": "Create AssignmentExport service.\nImplement CSV export format for assignment data.\nAdd PDF export option for reports.\nConfigure JSON export for API integration.\nImplement filtering options for export content.\nDocument export formats and options.",
+      "testStrategy": "Test CSV export format with sample assignment.\nVerify PDF export generation.\nTest JSON export for API integration.\nVerify filtering options for export content."
+    },
+    {
+      "id": 110,
+      "title": "Add export action to AssignmentsController",
+      "description": "Implement action for exporting assignment data",
+      "status": "pending",
+      "dependencies": [109],
+      "priority": "low",
+      "details": "Add export action to AssignmentsController.\nImplement format selection (CSV, PDF, JSON).\nAdd service call to AssignmentExport.\nConfigure proper content type headers.\nImplement filename generation.\nAdd authorization checks for export access.",
+      "testStrategy": "Test export action with different formats.\nVerify proper content type headers.\nTest filename generation for exports.\nVerify authorization checks for export access."
+    },
+    {
+      "id": 111,
+      "title": "Create system tests for authentication flow",
+      "description": "Implement end-to-end tests for authentication",
+      "status": "pending",
+      "dependencies": [12],
+      "priority": "medium",
+      "details": "Create system test for authentication flow.\nImplement test for sign-in with Google OAuth.\nAdd test for session management.\nConfigure test for sign-out functionality.\nImplement OmniAuth test mode setup.\nAdd documentation for authentication testing.",
+      "testStrategy": "Test complete sign-in flow with mock OAuth data.\nVerify session creation and persistence.\nTest sign-out functionality.\nVerify redirection after authentication actions."
+    },
+    {
+      "id": 112,
+      "title": "Create system tests for assignment creation",
+      "description": "Implement end-to-end tests for creating assignments",
+      "status": "pending",
+      "dependencies": [32],
+      "priority": "medium",
+      "details": "Create system test for assignment creation flow.\nImplement test for form submission with valid data.\nAdd test for Google Picker integration.\nConfigure test for validation errors.\nImplement test for rubric toggle behavior.\nAdd documentation for assignment creation testing.",
+      "testStrategy": "Test complete assignment creation flow.\nVerify form submission with valid data.\nTest validation error display.\nVerify rubric toggle behavior."
+    },
+    {
+      "id": 113,
+      "title": "Create system tests for assignment processing",
+      "description": "Implement end-to-end tests for assignment processing",
+      "status": "pending",
+      "dependencies": [74],
+      "priority": "medium",
+      "details": "Create system test for assignment processing flow.\nImplement test for processing status updates.\nAdd test for real-time progress display.\nConfigure test for completion notification.\nImplement test for error handling and retry.\nAdd documentation for processing testing.",
+      "testStrategy": "Test complete processing flow with mock LLM responses.\nVerify status updates and progress display.\nTest completion notification delivery.\nVerify error handling and retry functionality."
+    },
+    {
+      "id": 114,
+      "title": "Create system tests for student work feedback",
+      "description": "Implement end-to-end tests for student work feedback",
+      "status": "pending",
+      "dependencies": [90],
+      "priority": "medium",
+      "details": "Create system test for student work feedback flow.\nImplement test for feedback display and editing.\nAdd test for Google Docs appending.\nConfigure test for feedback customization.\nImplement test for error handling.\nAdd documentation for feedback testing.",
+      "testStrategy": "Test complete feedback interaction flow.\nVerify feedback display and editing.\nTest Google Docs appending with mock API.\nVerify error handling for feedback operations."
+    },
+    {
+      "id": 115,
+      "title": "Create integration tests for LLM clients",
+      "description": "Implement tests for LLM client integration",
+      "status": "pending",
+      "dependencies": [38],
+      "priority": "medium",
+      "details": "Create integration tests for LLM clients.\nImplement test for client factory.\nAdd test for retry and circuit breaker mechanisms.\nConfigure test for cost tracking.\nImplement mock responses for different scenarios.\nAdd documentation for LLM testing.",
+      "testStrategy": "Test client factory with different providers.\nVerify retry mechanism with forced failures.\nTest circuit breaker behavior under high failure rates.\nVerify cost tracking with known token counts."
+    },
+    {
+      "id": 116,
+      "title": "Create integration tests for processing pipeline",
+      "description": "Implement tests for processing pipeline execution",
+      "status": "pending",
+      "dependencies": [44],
+      "priority": "medium",
+      "details": "Create integration tests for processing pipeline.\nImplement test for complete pipeline execution.\nAdd test for error handling at different stages.\nConfigure test for metrics collection.\nImplement mock components for isolated testing.\nAdd documentation for pipeline testing.",
+      "testStrategy": "Test complete pipeline execution with mock components.\nVerify error handling at different stages.\nTest metrics collection during execution.\nVerify component isolation and interaction."
+    },
+    {
+      "id": 117,
+      "title": "Create documentation files",
+      "description": "Implement comprehensive documentation for the application",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "medium",
+      "details": "Create README.md with project overview and setup instructions.\nImplement CONTRIBUTING.md with development guidelines.\nAdd ARCHITECTURE.md with system design documentation.\nConfigure API.md with API reference.\nImplement LICENSE.md with appropriate license.\nAdd CHANGELOG.md for version history.",
+      "testStrategy": "Verify documentation covers all required topics.\nTest README.md setup instructions for accuracy.\nVerify API reference documentation completeness.\nEnsure architecture documentation reflects the current system."
+    },
+    {
+      "id": 118,
+      "title": "Create deployment configuration",
+      "description": "Implement Kamal deployment configuration for GCP",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "medium",
+      "details": "Create Kamal deployment configuration files.\nImplement GCP environment setup scripts.\nAdd 1Password integration for secrets management.\nConfigure staging and production environments.\nImplement database migration handling.\nAdd documentation for deployment process.",
+      "testStrategy": "Verify configuration files are correctly formatted.\nTest environment setup scripts with GCP.\nVerify 1Password integration for secrets.\nEnsure database migration handling works correctly."
+    },
+    {
+      "id": 119,
+      "title": "Create Docker configuration",
+      "description": "Implement Docker configuration for containerization",
+      "status": "pending",
+      "dependencies": [1],
+      "priority": "medium",
+      "details": "Create Dockerfile for application containerization.\nImplement docker-compose.yml for development environment.\nAdd .dockerignore file with appropriate exclusions.\nConfigure multi-stage builds for optimization.\nImplement environment variable handling.\nAdd documentation for Docker usage.",
+      "testStrategy": "Verify Dockerfile builds successfully.\nTest docker-compose configuration for development.\nVerify environment variable handling.\nEnsure optimized container size with multi-stage builds."
+    },
+    {
+      "id": 120,
+      "title": "Create CI/CD pipeline configuration",
+      "description": "Implement continuous integration and deployment pipeline",
+      "status": "pending",
+      "dependencies": [118, 119],
+      "priority": "medium",
+      "details": "Create GitHub Actions workflow configuration.\nImplement test execution in CI environment.\nAdd linting and code quality checks.\nConfigure automated deployment to staging.\nImplement manual approval for production deployment.\nAdd notification system for pipeline status.",
+      "testStrategy": "Verify workflow configuration is correctly formatted.\nTest execution in CI environment.\nVerify linting and code quality checks.\nEnsure deployment steps work correctly."
+    }
+  ],
+  "metadata": {
+    "projectName": "GradeBot Implementation",
+    "totalTasks": 120,
+    "sourceFile": "docs/plan.md",
+    "generatedAt": "2025-05-01"
+  }
+}

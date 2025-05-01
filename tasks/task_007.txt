@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: Implement Rubric Generation Pipeline
+# Status: pending
+# Dependencies: 5, 6
+# Priority: medium
+# Description: Build the rubric generation pipeline for creating structured rubrics from scratch or based on teacher guidelines.
+# Details:
+Create a specialized ProcessingTask configuration for rubric generation. Implement the custom prompt template for rubric creation. Build a response parser to convert LLM output to structured rubric data. Create the Rubric::CreationService for database record creation. Implement the job to process rubric generation in the background. Add the necessary UI components for displaying rubric criteria and levels. Implement the Rubric#to_prompt method for inclusion in subsequent prompts. Set up real-time updates for rubric generation progress.
+
+# Test Strategy:
+Test the rubric generation pipeline with various inputs. Verify the parsed output matches the expected structure. Test the database record creation with the parsed data. Ensure real-time updates are sent correctly. Test error handling and recovery for failed rubric generation.

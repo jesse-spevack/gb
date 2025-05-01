@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: Implement Prompt Management System
+# Status: pending
+# Dependencies: 5
+# Priority: medium
+# Description: Create the prompt management system with templates and builders for different LLM tasks.
+# Details:
+Create the PromptTemplate class for template loading and rendering using ERB. Implement the PromptBuilder to provide a simple interface for building prompts. Set up the directory structure for prompt templates in app/views/prompts/. Create the initial templates for rubric generation, student feedback, and assignment summary. Implement variable interpolation and context management for templates. Add error handling and logging for prompt generation issues. Create helper methods for common prompt operations.
+
+# Test Strategy:
+Test template rendering with various input parameters. Verify error handling with invalid templates or missing variables. Test the complete prompt building process for each template type. Ensure proper escaping and formatting in the generated prompts.
