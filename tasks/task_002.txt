@@ -1,6 +1,6 @@
 # Task ID: 2
 # Title: Configure Tailwind CSS
-# Status: pending
+# Status: done
 # Dependencies: 1
 # Priority: high
 # Description: Set up Tailwind CSS for styling the application

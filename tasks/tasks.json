@@ -4,7 +4,7 @@
       "id": 1,
       "title": "Project initialization with Rails",
       "description": "Set up the base Rails project with required gems and configurations",
-      "status": "pending",
+      "status": "done",
       "dependencies": [],
       "priority": "high",
       "details": "Create a new Rails 8 project with the specified name.\nConfigure the Gemfile with required dependencies (Tailwind, Stimulus, etc.).\nSet up the database configuration for SQLite.\nInitialize git repository and make initial commit.\nAdd .gitignore file with appropriate entries.\nConfigure test environment with Minitest.",
@@ -14,7 +14,7 @@
       "id": 2,
       "title": "Configure Tailwind CSS",
       "description": "Set up Tailwind CSS for styling the application",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         1
       ],
@@ -26,7 +26,7 @@
       "id": 3,
       "title": "Configure Stimulus JS",
       "description": "Set up Stimulus JS for interactive UI components",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         1
       ],
@@ -38,7 +38,7 @@
       "id": 4,
       "title": "Set up GitHub repository",
       "description": "Initialize GitHub repository with appropriate configuration",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         1
       ],

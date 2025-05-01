@@ -1,6 +1,6 @@
 # Task ID: 1
 # Title: Project initialization with Rails
-# Status: pending
+# Status: done
 # Dependencies: None
 # Priority: high
 # Description: Set up the base Rails project with required gems and configurations
