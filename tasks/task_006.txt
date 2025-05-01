@@ -1,11 +1,19 @@
 # Task ID: 6
-# Title: Implement Prompt Management System
+# Title: Create Session model and migration
 # Status: pending
 # Dependencies: 5
-# Priority: medium
-# Description: Create the prompt management system with templates and builders for different LLM tasks.
+# Priority: high
+# Description: Implement the Session model for maintaining user authentication state
 # Details:
-Create the PromptTemplate class for template loading and rendering using ERB. Implement the PromptBuilder to provide a simple interface for building prompts. Set up the directory structure for prompt templates in app/views/prompts/. Create the initial templates for rubric generation, student feedback, and assignment summary. Implement variable interpolation and context management for templates. Add error handling and logging for prompt generation issues. Create helper methods for common prompt operations.
+Generate model and migration for Session with fields: user:references user_agent:string ip_address:string expires_at:datetime.
+Add belongs_to association with User model.
+Add expiration logic methods (expired?, active?).
+Create session identifier generation method.
+Implement Session cleanup for expired sessions.
+Create Session factory/fixture for testing.
 
 # Test Strategy:
-Test template rendering with various input parameters. Verify error handling with invalid templates or missing variables. Test the complete prompt building process for each template type. Ensure proper escaping and formatting in the generated prompts.
+Test session creation with valid attributes.
+Test session expiration logic.
+Test association with User model.
+Test cleanup mechanism for expired sessions.

@@ -1,0 +1,19 @@
+# Task ID: 52
+# Title: Create prompt templates directory structure
+# Status: pending
+# Dependencies: 50
+# Priority: medium
+# Description: Set up directory structure for prompt templates
+# Details:
+Create app/views/prompts/ directory.
+Set up subdirectories for different prompt types.
+Add README with template guidelines.
+Implement template loading mechanism.
+Create example templates for common tasks.
+Document template format and conventions.
+
+# Test Strategy:
+Test directory structure is accessible.
+Verify template loading mechanism.
+Test example templates render correctly.
+Verify documentation is comprehensive.

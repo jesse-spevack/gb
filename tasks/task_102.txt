@@ -1,0 +1,19 @@
+# Task ID: 102
+# Title: Create UsageLimitConcern
+# Status: pending
+# Dependencies: 101
+# Priority: low
+# Description: Implement controller concern for handling usage limits
+# Details:
+Create UsageLimitConcern.
+Implement check_usage_limit method for controllers.
+Add before_action hook for limit checking.
+Configure redirect for limit exceeded.
+Implement flash message configuration.
+Document concern usage for controllers.
+
+# Test Strategy:
+Test check_usage_limit method with different scenarios.
+Verify before_action hook for limit checking.
+Test redirect for limit exceeded.
+Verify flash message configuration.

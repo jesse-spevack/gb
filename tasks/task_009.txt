@@ -1,11 +1,19 @@
 # Task ID: 9
-# Title: Implement Assignment Summary and Processing Time Estimation
+# Title: Implement Authentication Concern
 # Status: pending
 # Dependencies: 8
-# Priority: medium
-# Description: Create the assignment summary generation system and implement processing time estimation for better user experience.
+# Priority: high
+# Description: Create a controller concern for handling authentication logic
 # Details:
-Implement the summary generation pipeline for class-wide insights. Create the parser for summary feedback items. Build UI components for displaying trends and recommendations. Implement the base time calculation for different processing tasks (rubric: 30s, student work: 60s, summary: 45s). Add dynamic adjustment for progress tracking and completion updates. Create UI elements for progress indicators, time remaining displays, and completion notifications. Implement the job to generate assignment summaries in the background.
+Create Authentication concern in app/controllers/concerns.
+Implement authenticated? method to check if user is authenticated.
+Add require_authentication method to enforce authentication.
+Implement current_user method for accessing the authenticated user.
+Add allow_unauthenticated_access class method for exceptions.
+Write documentation for the concern.
 
 # Test Strategy:
-Test summary generation with various inputs. Verify the parsed output matches the expected structure. Test time estimation with different assignment sizes. Ensure progress tracking and time estimates update correctly. Test UI components for displaying progress and time estimates.
+Test authenticated? method with authenticated and unauthenticated requests.
+Test require_authentication redirects unauthenticated requests.
+Test current_user returns the correct user.
+Verify allow_unauthenticated_access works correctly.

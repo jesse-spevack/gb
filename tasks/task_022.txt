@@ -1,0 +1,18 @@
+# Task ID: 22
+# Title: Create AssignmentSummary model and migration
+# Status: pending
+# Dependencies: 13
+# Priority: high
+# Description: Implement the AssignmentSummary model for class-wide insights
+# Details:
+Generate model and migration for AssignmentSummary with fields: assignment:references student_work_count:integer qualitative_insights:text.
+Add belongs_to association with Assignment model.
+Add has_many association for feedback items (polymorphic, placeholder for now).
+Create AssignmentSummary factory/fixture for testing.
+Implement validation for required fields.
+
+# Test Strategy:
+Test association with Assignment model.
+Test has_many association for feedback items.
+Verify database constraints are properly set up.
+Test model instantiation with valid attributes.

@@ -1,0 +1,19 @@
+# Task ID: 21
+# Title: Create StudentWorkCheck model and migration
+# Status: pending
+# Dependencies: 18
+# Priority: high
+# Description: Implement the StudentWorkCheck model for verification checks
+# Details:
+Generate model and migration for StudentWorkCheck with fields: student_work:references check_type:string score:integer explanation:text.
+Add belongs_to association with StudentWork model.
+Add validation for check_type inclusion.
+Add validation for score range (0-100).
+Create StudentWorkCheck factory/fixture for testing.
+Implement scopes for filtering by type and score range.
+
+# Test Strategy:
+Test association with StudentWork model.
+Test check_type validation.
+Test score range validation.
+Verify scopes for filtering work correctly.

@@ -1,0 +1,19 @@
+# Task ID: 97
+# Title: Create SubscriptionsController
+# Status: pending
+# Dependencies: 95, 96
+# Priority: low
+# Description: Implement controller for managing subscriptions
+# Details:
+Create SubscriptionsController.
+Implement new action for subscription creation.
+Add create action for processing subscriptions.
+Configure Stripe checkout integration.
+Implement proper error handling.
+Add redirect flows for success and failure.
+
+# Test Strategy:
+Test new action renders the correct view.
+Verify Stripe checkout integration.
+Test error handling for failed subscriptions.
+Verify redirect flows for success and failure.

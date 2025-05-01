@@ -1,0 +1,21 @@
+# Task ID: 11
+# Title: Implement SessionsController callback action
+# Status: pending
+# Dependencies: 10
+# Priority: high
+# Description: Add callback handling to SessionsController for processing OAuth responses
+# Details:
+Implement callback action for handling OAuth responses.
+Add route for callback action.
+Implement user creation/update logic based on auth hash.
+Create UserToken from OAuth tokens.
+Establish user session and set cookie.
+Handle authentication failure scenarios.
+Redirect to appropriate location after successful authentication.
+
+# Test Strategy:
+Test successful authentication flow.
+Test user creation with valid auth hash.
+Test user update with existing user.
+Verify session is created correctly.
+Test error handling for invalid auth hash.

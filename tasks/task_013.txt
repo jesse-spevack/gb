@@ -1,0 +1,18 @@
+# Task ID: 13
+# Title: Create Assignment model and migration
+# Status: pending
+# Dependencies: 5
+# Priority: high
+# Description: Implement the core Assignment model for representing teacher assignments
+# Details:
+Generate model and migration for Assignment with fields: user:references title:string subject:string grade_level:string instructions:text raw_rubric_text:text total_processing_milliseconds:integer.
+Add belongs_to association with User model.
+Add validations for required fields.
+Create Assignment factory/fixture for testing.
+Document model with appropriate comments.
+
+# Test Strategy:
+Test model validations for presence of required fields.
+Test association with User model.
+Test model instantiation with valid attributes.
+Verify database constraints are properly set up.

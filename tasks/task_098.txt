@@ -1,0 +1,19 @@
+# Task ID: 98
+# Title: Create StripeWebhooksController
+# Status: pending
+# Dependencies: 96
+# Priority: low
+# Description: Implement controller for handling Stripe webhooks
+# Details:
+Create StripeWebhooksController.
+Implement create action for webhook processing.
+Add handlers for relevant webhook events.
+Configure signature verification for security.
+Implement subscription status updates based on events.
+Add logging for webhook processing.
+
+# Test Strategy:
+Test create action with mock webhook events.
+Verify signature verification for security.
+Test subscription status updates based on events.
+Verify logging for webhook processing.

@@ -1,11 +1,18 @@
 # Task ID: 3
-# Title: Build Assignment Creation Form with Google Picker
-# Status: pending
-# Dependencies: 1, 2
+# Title: Configure Stimulus JS
+# Status: done
+# Dependencies: 1
 # Priority: high
-# Description: Implement the assignment creation form with Google Picker integration for selecting student work documents.
+# Description: Set up Stimulus JS for interactive UI components
 # Details:
-Create the AssignmentsController with new and create actions. Build the assignment form with fields for title, subject, grade level, and instructions. Implement a toggle for AI-generated vs custom rubric. Integrate Google Picker API for document selection (up to 35 documents). Create a Stimulus controller to handle the Google Picker integration. Implement the feedback tone selection slider with three options (encouraging, neutral, critical). Add validation for the form fields. Create the necessary views and partials following the UX decisions in the PRD.
+Install Stimulus JS and configure it within the application.
+Create a test controller to verify Stimulus is working.
+Set up appropriate directory structure for controllers.
+Configure the build process to include Stimulus controllers.
+Create documentation for the Stimulus setup.
 
 # Test Strategy:
-Test form submission with valid and invalid inputs. Mock Google Picker API for integration tests. Verify document selection limits. Test the toggle behavior for rubric selection. Ensure proper validation messages are displayed.
+Create a simple Stimulus controller test.
+Verify the controller connects to elements on the page.
+Test that actions are triggered correctly.
+Ensure build process correctly includes Stimulus controllers.

@@ -1,0 +1,19 @@
+# Task ID: 94
+# Title: Create ProcessingRetry Stimulus controller
+# Status: pending
+# Dependencies: 3, 93
+# Priority: medium
+# Description: Implement controller for retrying failed processing
+# Details:
+Create Stimulus controller for processing retry.
+Implement retry button functionality.
+Add confirmation dialog before retry.
+Configure progress indication during retry.
+Implement success and error state handling.
+Add notification for retry initiation.
+
+# Test Strategy:
+Test controller connection and initialization.
+Verify retry button functionality.
+Test confirmation dialog before retry.
+Verify progress indication and state handling.

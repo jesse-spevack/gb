@@ -1,0 +1,18 @@
+# Task ID: 17
+# Title: Create Level model and migration
+# Status: pending
+# Dependencies: 16
+# Priority: high
+# Description: Implement the Level model for criterion achievement levels
+# Details:
+Generate model and migration for Level with fields: criterion:references title:string description:text position:integer.
+Add belongs_to association with Criterion model.
+Add validation for title presence.
+Create Level factory/fixture for testing.
+Implement position management for ordering levels.
+
+# Test Strategy:
+Test model validations for presence of required fields.
+Test association with Criterion model.
+Test position management for ordering.
+Verify database constraints are properly set up.

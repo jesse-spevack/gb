@@ -1,0 +1,18 @@
+# Task ID: 18
+# Title: Create StudentWork model and migration
+# Status: pending
+# Dependencies: 14
+# Priority: high
+# Description: Implement the StudentWork model for individual student submissions
+# Details:
+Generate model and migration for StudentWork with fields: assignment:references selected_document:references qualitative_feedback:text.
+Add belongs_to associations with Assignment and SelectedDocument models.
+Add has_many associations for feedbackItems and checks (placeholders for now).
+Create StudentWork factory/fixture for testing.
+Implement status tracking for processing state.
+
+# Test Strategy:
+Test associations with Assignment and SelectedDocument models.
+Test has_many associations for related models.
+Test model instantiation with valid attributes.
+Verify status tracking functionality.

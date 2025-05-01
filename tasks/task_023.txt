@@ -1,0 +1,18 @@
+# Task ID: 23
+# Title: Create LLMRequest model and migration
+# Status: pending
+# Dependencies: 5
+# Priority: high
+# Description: Implement the LLMRequest model for tracking LLM interactions
+# Details:
+Generate model and migration for LLMRequest with fields: trackable:references{polymorphic} prompt:text model:string request_type:string response:text status:string token_count:integer cost_usd:decimal.
+Add polymorphic belongs_to association with trackable.
+Implement status tracking methods.
+Create LLMRequest factory/fixture for testing.
+Add validation for required fields.
+
+# Test Strategy:
+Test polymorphic association functionality.
+Test status tracking methods.
+Verify database constraints are properly set up.
+Test model instantiation with valid attributes.

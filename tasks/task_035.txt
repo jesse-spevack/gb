@@ -1,0 +1,19 @@
+# Task ID: 35
+# Title: Create LLM::Client base class
+# Status: pending
+# Dependencies: 23
+# Priority: high
+# Description: Implement the base client class for LLM integration
+# Details:
+Create base LLM::Client class.
+Implement interface methods for prompt validation.
+Add abstract methods for LLM interaction.
+Implement common utility methods.
+Create configuration handling.
+Add error classes for different failure types.
+
+# Test Strategy:
+Test prompt validation methods.
+Verify configuration handling.
+Test utility methods.
+Verify error class hierarchy.

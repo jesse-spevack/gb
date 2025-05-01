@@ -1,0 +1,18 @@
+# Task ID: 24
+# Title: Create ProcessingMetric model and migration
+# Status: pending
+# Dependencies: 13
+# Priority: high
+# Description: Implement the ProcessingMetric model for tracking processing performance
+# Details:
+Generate model and migration for ProcessingMetric with fields: processable:references{polymorphic} process_type:string started_at:datetime completed_at:datetime duration_ms:integer status:string metadata:json.
+Add polymorphic belongs_to association with processable.
+Implement status tracking methods.
+Create ProcessingMetric factory/fixture for testing.
+Implement duration calculation method.
+
+# Test Strategy:
+Test polymorphic association functionality.
+Test duration calculation method.
+Test status tracking methods.
+Verify database constraints are properly set up.
