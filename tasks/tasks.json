@@ -62,7 +62,7 @@
       "id": 6,
       "title": "Create Session model and migration",
       "description": "Implement the Session model for maintaining user authentication state",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         5
       ],
