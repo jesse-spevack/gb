@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: Create Core Database Models and Relationships
+# Status: pending
+# Dependencies: 1
+# Priority: high
+# Description: Implement the core database models for assignments, rubrics, student work, and related entities as specified in the PRD.
+# Details:
+Create migration files and models for Assignment, SelectedDocument, Rubric, Criterion, Level, StudentWork, StudentWorkCriterionLevel, FeedbackItem, StudentWorkCheck, AssignmentSummary, LLMRequest, and ProcessingMetric. Set up the associations between models (belongs_to, has_many, etc.). Implement validation rules for each model. Create necessary indexes for performance. Add scopes and utility methods as specified in the PRD (e.g., latest_first for UserToken). Ensure all models follow Rails conventions and are properly tested.
+
+# Test Strategy:
+Create comprehensive fixtures for all models. Write unit tests for model validations, associations, and scopes. Test edge cases like maximum limits and validation constraints. Ensure database integrity with foreign key tests.

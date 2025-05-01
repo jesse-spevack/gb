@@ -1,24 +1,24 @@
-# README
+# GradeB🤖t
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+AI-powered assignment grading system that automates feedback for student work in Google Docs. Built with Rails 8, integrates with Google Drive, and uses LLM technology for intelligent grading.
 
-Things you may want to cover:
+## Features
+See: [Changelog](/docs/changelog.md)
 
-* Ruby version
+## Setup
+Requires Google OAuth credentials and LLM API key.
 
-* System dependencies
+## Product vision
+See: [Gradebot plan](/docs/plan.md)
 
-* Configuration
+## Troubleshooting
 
-* Database creation
+### Common Issues
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+1. `kamal deploy` fails on step #12
+   - Run `kamal prune all` and then `kamal deploy --verbose` 
+   
+## Competition 
+- [EssayGrader](https://www.essaygrader.ai/)
+- [BriskTeaching](https://www.briskteaching.com/)
+- [CogGrader](https://cograder.com/)

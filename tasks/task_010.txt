@@ -1,0 +1,11 @@
+# Task ID: 10
+# Title: Implement Subscription Model with Stripe Integration
+# Status: pending
+# Dependencies: 9
+# Priority: low
+# Description: Set up the subscription model with free and paid tiers, and integrate Stripe for billing.
+# Details:
+Add subscription-related fields to the User model. Implement the free tier limit (1 assignment per month) and paid tier limit (300 assignments per month). Integrate Stripe for payment processing and subscription management. Create the necessary controllers and views for subscription management. Implement the logic to redirect users when limits are reached. Add usage tracking for assignments. Create UI components for displaying subscription status and limits. Implement the upgrade flow for converting from free to paid tier.
+
+# Test Strategy:
+Test subscription limits with various usage scenarios. Verify Stripe integration with test API keys. Test the upgrade flow from free to paid tier. Ensure proper error handling for payment failures. Test the redirect logic when limits are reached.
