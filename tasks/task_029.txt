@@ -1,0 +1,19 @@
+# Task ID: 29
+# Title: Add new action to AssignmentsController
+# Status: pending
+# Dependencies: 28
+# Priority: high
+# Description: Implement action and view for creating new assignments
+# Details:
+Add new action to AssignmentsController.
+Add route for new assignment.
+Create form view with fields for title, subject, grade level, and instructions.
+Implement rubric toggle for AI-generated vs custom rubric.
+Add placeholder for Google Picker integration.
+Add feedback tone selection UI.
+
+# Test Strategy:
+Test that new action renders the form view.
+Verify form includes all required fields.
+Test rubric toggle functionality.
+Verify route is correctly defined.

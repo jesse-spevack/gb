@@ -1,0 +1,19 @@
+# Task ID: 53
+# Title: Create rubric generation prompt template
+# Status: pending
+# Dependencies: 52
+# Priority: medium
+# Description: Implement template for generating structured rubrics
+# Details:
+Create rubric generation prompt template.
+Define variables for assignment details.
+Implement instructional sections for rubric structure.
+Add examples of good rubric criteria.
+Configure output format specification.
+Document template with appropriate comments.
+
+# Test Strategy:
+Test template rendering with sample assignment details.
+Verify variable interpolation works correctly.
+Test output format meets requirements.
+Ensure the template is properly loaded.

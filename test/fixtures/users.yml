@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+admin:
+  email: admin@example.com
+  name: Admin User
+  google_uid: google_123456_admin
+  profile_picture_url: https://example.com/admin_profile.jpg
+  admin: true
+
+teacher:
+  email: teacher@example.com
+  name: Teacher User
+  google_uid: google_123456_teacher
+  profile_picture_url: https://example.com/teacher_profile.jpg
+  admin: false

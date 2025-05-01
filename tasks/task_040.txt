@@ -1,0 +1,19 @@
+# Task ID: 40
+# Title: Implement LLM::CircuitBreaker
+# Status: pending
+# Dependencies: 39
+# Priority: high
+# Description: Create circuit breaker for preventing cascading failures
+# Details:
+Create LLM::CircuitBreaker class.
+Implement failure rate tracking.
+Add circuit state management (open, closed, half-open).
+Configure failure threshold and reset timeout.
+Implement per-provider circuit isolation.
+Add circuit state change notifications.
+
+# Test Strategy:
+Test circuit opening on high failure rate.
+Verify circuit reset after timeout.
+Test half-open state behavior.
+Verify per-provider isolation.

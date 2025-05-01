@@ -1,0 +1,19 @@
+# Task ID: 77
+# Title: Create RubricBroadcaster
+# Status: pending
+# Dependencies: 47, 76
+# Priority: medium
+# Description: Implement broadcaster for rubric generation updates
+# Details:
+Create RubricBroadcaster class.
+Implement update broadcasting for rubric status.
+Add progress percentage computation.
+Configure serialization for rubric data.
+Implement error message formatting.
+Document broadcaster API and usage.
+
+# Test Strategy:
+Test update broadcasting for different statuses.
+Verify progress percentage computation.
+Test serialization for rubric data.
+Verify error message formatting.

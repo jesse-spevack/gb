@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+echo -e "=== 🔐 Running Brakeman security checks ===\n"
+bin/brakeman
+
+if [ $? -ne 0 ]; then
+  echo -e "\n=== ❌ Brakeman security checks failed! ===\n"
+  exit 1
+fi
+
+echo -e "=== ✅ Brakeman security checks passed! ===\n\n"
+
+echo -e "=== 👮 Running Rubocop with auto-correct ===\n"
+bundle exec rubocop -a
+
+if [ $? -ne 0 ]; then
+  echo -e "\n=== ❌ Rubocop with auto-correct failed! ===\n"
+  exit 1
+fi
+
+echo -e "=== ✅ Rubocop with auto-correct passed! ===\n\n"
+
+echo -e "=== 🧪 Running Rails tests ===\n"
+bin/rails test
+
+if [ $? -ne 0 ]; then
+  echo -e "\n=== ❌ Rails tests failed! ===\n\n"
+  exit 1
+fi
+
+echo -e "=== ✅ Rails tests passed! ===\n\n"
+
+echo -e "\n=== 🎉 All checks completed successfully! ===\n\n" 

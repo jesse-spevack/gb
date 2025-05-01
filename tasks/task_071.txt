@@ -1,0 +1,19 @@
+# Task ID: 71
+# Title: Create AssignmentSummaryJob
+# Status: pending
+# Dependencies: 68, 70
+# Priority: medium
+# Description: Implement background job for processing assignment summaries
+# Details:
+Create AssignmentSummaryJob class.
+Implement job execution logic with ProcessingPipeline.
+Add error handling and retry configuration.
+Configure job queue and priority.
+Implement progress tracking and status updates.
+Add logging for job execution.
+
+# Test Strategy:
+Test job execution with valid assignment.
+Verify error handling and retry behavior.
+Test progress tracking and status updates.
+Verify logging functionality.

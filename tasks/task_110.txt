@@ -1,0 +1,19 @@
+# Task ID: 110
+# Title: Add export action to AssignmentsController
+# Status: pending
+# Dependencies: 109
+# Priority: low
+# Description: Implement action for exporting assignment data
+# Details:
+Add export action to AssignmentsController.
+Implement format selection (CSV, PDF, JSON).
+Add service call to AssignmentExport.
+Configure proper content type headers.
+Implement filename generation.
+Add authorization checks for export access.
+
+# Test Strategy:
+Test export action with different formats.
+Verify proper content type headers.
+Test filename generation for exports.
+Verify authorization checks for export access.

@@ -9,3 +9,6 @@ All notable changes to this project will be documented in this file.
 - Root route to "coming soon" page
 - Prefixes for ids
 - Added tasks.json
+- Generated User model with validations for email, name, and google_uid
+- Added test fixtures for admin and teacher users
+- Created bin/check script for running Brakeman, Rubocop, and Rails tests

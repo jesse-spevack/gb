@@ -1,0 +1,19 @@
+# Task ID: 61
+# Title: Add show action to AssignmentsController
+# Status: pending
+# Dependencies: 32
+# Priority: high
+# Description: Implement action for viewing assignment details
+# Details:
+Add show action to AssignmentsController.
+Implement query to retrieve assignment with associated records.
+Create view for assignment details.
+Add sections for rubric, student works, and summary.
+Implement basic navigation between sections.
+Add progress tracking display.
+
+# Test Strategy:
+Test show action with valid assignment ID.
+Verify view displays correct assignment details.
+Test navigation between sections.
+Verify progress tracking display.

@@ -1,0 +1,19 @@
+# Task ID: 95
+# Title: Create User::SubscriptionService
+# Status: pending
+# Dependencies: 25
+# Priority: low
+# Description: Implement service for managing user subscriptions
+# Details:
+Create User::SubscriptionService class.
+Implement subscription status checking methods.
+Add usage limit enforcement based on tier.
+Configure upgrade flow for tier changes.
+Implement usage counting and tracking.
+Document service API and usage.
+
+# Test Strategy:
+Test subscription status checking methods.
+Verify usage limit enforcement based on tier.
+Test upgrade flow for tier changes.
+Verify usage counting and tracking.

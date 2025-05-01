@@ -1,11 +1,19 @@
 # Task ID: 8
-# Title: Build Student Work Feedback Generation System
+# Title: Configure OmniAuth for Google OAuth2
 # Status: pending
-# Dependencies: 7
-# Priority: medium
-# Description: Implement the system for analyzing student work against assignment requirements and rubrics to generate detailed feedback.
+# Dependencies: 5, 6, 7
+# Priority: high
+# Description: Set up OmniAuth with Google OAuth2 provider for authentication
 # Details:
-Create the document content retrieval service for Google Docs. Implement prompt construction combining student work, assignment, and rubric. Build the response parser to extract structured feedback from LLM responses. Set up progress tracking and real-time UI updates. Create the necessary UI components for reviewing and editing feedback. Implement the functionality to append feedback to Google Docs. Add retry mechanisms for failed processing. Create the job to process student work feedback in the background.
+Install OmniAuth and OmniAuth Google OAuth2 gems.
+Create OmniAuth initializer with Google provider configuration.
+Configure required scopes (email, profile, drive.file).
+Set up access_type to 'offline' for refresh tokens.
+Configure prompt to 'consent' for explicit user approval.
+Implement OmniAuth test mode configuration for testing.
 
 # Test Strategy:
-Test document retrieval with mock Google API responses. Verify prompt construction with various inputs. Test response parsing with sample LLM outputs. Ensure progress tracking accurately reflects processing status. Test the feedback editing and Google Docs integration. Verify retry mechanisms work as expected.
+Create mock OmniAuth authentication hash for testing.
+Verify OmniAuth configuration loads correctly.
+Test that required scopes are present.
+Ensure prompt and access_type are configured properly.
