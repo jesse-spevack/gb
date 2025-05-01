@@ -12,3 +12,6 @@ All notable changes to this project will be documented in this file.
 - Generated User model with validations for email, name, and google_uid
 - Added test fixtures for admin and teacher users
 - Created bin/check script for running Brakeman, Rubocop, and Rails tests
+- Created Session model with user, user_agent, and ip_address attributes
+- Added Session model validations and tests
+- Added test fixtures for user sessions

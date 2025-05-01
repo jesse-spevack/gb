@@ -1,6 +1,6 @@
 # Task ID: 6
 # Title: Create Session model and migration
-# Status: pending
+# Status: done
 # Dependencies: 5
 # Priority: high
 # Description: Implement the Session model for maintaining user authentication state
