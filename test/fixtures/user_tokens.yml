@@ -1,0 +1,7 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: teacher
+  access_token: "test_access_token"
+  refresh_token: "test_refresh_token"
+  expires_at: <%= 1.hour.from_now %>
