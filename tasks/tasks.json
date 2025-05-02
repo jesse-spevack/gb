@@ -74,7 +74,7 @@
       "id": 7,
       "title": "Create UserToken model and migration",
       "description": "Implement the UserToken model for storing OAuth tokens",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         5
       ],

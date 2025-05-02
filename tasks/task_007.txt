@@ -1,6 +1,6 @@
 # Task ID: 7
 # Title: Create UserToken model and migration
-# Status: in-progress
+# Status: done
 # Dependencies: 5
 # Priority: high
 # Description: Implement the UserToken model for storing OAuth tokens
