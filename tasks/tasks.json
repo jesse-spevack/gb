@@ -148,7 +148,7 @@
       "id": 13,
       "title": "Add logo and favicon",
       "description": "Create and implement application logo and favicon for consistent branding",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         1,
         2
@@ -161,7 +161,7 @@
       "id": 14,
       "title": "Create Assignment model and migration",
       "description": "Implement the core Assignment model for representing teacher assignments",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         5
       ],
