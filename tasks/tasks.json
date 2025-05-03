@@ -173,7 +173,7 @@
       "id": 15,
       "title": "Create SelectedDocument model and migration",
       "description": "Implement the SelectedDocument model for Google Doc selections",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         14
       ],
@@ -185,7 +185,7 @@
       "id": 16,
       "title": "Create Rubric model and migration",
       "description": "Implement the Rubric model for structured grading rubrics",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         14
       ],
