@@ -1,19 +1,19 @@
 # Task ID: 58
-# Title: Create Rubric::CreationService
+# Title: Create RubricResponseParser
 # Status: pending
-# Dependencies: 57
+# Dependencies: 45, 15, 16, 17
 # Priority: medium
-# Description: Implement service for creating rubric records from parsed data
+# Description: Implement parser for LLM-generated rubric responses
 # Details:
-Create Rubric::CreationService class.
-Implement record creation for Rubric and associated models.
-Add transaction for atomic creation.
-Configure validation for input data.
-Implement position ordering for criteria and levels.
-Add error handling for invalid data.
+Create RubricResponseParser class.
+Implement parsing logic for structured rubric data.
+Add validation for parsed criteria and levels.
+Configure error handling for invalid responses.
+Implement mapping to database models.
+Document parser with examples of valid input/output.
 
 # Test Strategy:
-Test service with valid parsed rubric data.
-Verify transaction for atomic creation.
-Test position ordering for criteria and levels.
-Verify error handling for invalid data.
+Test parsing with valid LLM responses.
+Verify validation for parsed data.
+Test error handling with invalid responses.
+Verify mapping to database models.

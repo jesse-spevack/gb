@@ -1,19 +1,19 @@
 # Task ID: 111
-# Title: Create system tests for authentication flow
+# Title: Add export action to AssignmentsController
 # Status: pending
-# Dependencies: 12
-# Priority: medium
-# Description: Implement end-to-end tests for authentication
+# Dependencies: 109
+# Priority: low
+# Description: Implement action for exporting assignment data
 # Details:
-Create system test for authentication flow.
-Implement test for sign-in with Google OAuth.
-Add test for session management.
-Configure test for sign-out functionality.
-Implement OmniAuth test mode setup.
-Add documentation for authentication testing.
+Add export action to AssignmentsController.
+Implement format selection (CSV, PDF, JSON).
+Add service call to AssignmentExport.
+Configure proper content type headers.
+Implement filename generation.
+Add authorization checks for export access.
 
 # Test Strategy:
-Test complete sign-in flow with mock OAuth data.
-Verify session creation and persistence.
-Test sign-out functionality.
-Verify redirection after authentication actions.
+Test export action with different formats.
+Verify proper content type headers.
+Test filename generation for exports.
+Verify authorization checks for export access.

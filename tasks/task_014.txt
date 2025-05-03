@@ -1,18 +1,18 @@
 # Task ID: 14
-# Title: Create SelectedDocument model and migration
-# Status: pending
-# Dependencies: 13
+# Title: Create Assignment model and migration
+# Status: in-progress
+# Dependencies: 5
 # Priority: high
-# Description: Implement the SelectedDocument model for Google Doc selections
+# Description: Implement the core Assignment model for representing teacher assignments
 # Details:
-Generate model and migration for SelectedDocument with fields: assignment:references google_doc_id:string title:string url:string.
-Add belongs_to association with Assignment model.
+Generate model and migration for Assignment with fields: user:references title:string subject:string grade_level:string instructions:text raw_rubric_text:text total_processing_milliseconds:integer.
+Add belongs_to association with User model.
 Add validations for required fields.
-Create SelectedDocument factory/fixture for testing.
-Implement validations for Google Doc ID format.
+Create Assignment factory/fixture for testing.
+Document model with appropriate comments.
 
 # Test Strategy:
 Test model validations for presence of required fields.
-Test association with Assignment model.
-Test Google Doc ID format validation.
+Test association with User model.
+Test model instantiation with valid attributes.
 Verify database constraints are properly set up.

@@ -1,19 +1,19 @@
 # Task ID: 76
-# Title: Create ProcessingChannel for ActionCable
+# Title: Create Stimulus controller for real-time updates
 # Status: pending
-# Dependencies: 1
+# Dependencies: 3
 # Priority: high
-# Description: Implement ActionCable channel for processing updates
+# Description: Implement controller for handling real-time processing updates
 # Details:
-Create ProcessingChannel class.
-Implement subscription handling and authentication.
-Add broadcasting methods for different update types.
-Configure stream identification by assignment ID.
-Implement serialization for update data.
-Document channel API and usage.
+Create Stimulus controller for real-time updates.
+Implement ActionCable channel subscription.
+Add DOM updating based on received events.
+Configure progress bar and status indicator updates.
+Implement error message handling.
+Document controller usage.
 
 # Test Strategy:
-Test subscription handling and authentication.
-Verify broadcasting methods for different update types.
-Test stream identification by assignment ID.
-Verify serialization for update data.
+Test controller connection and initialization.
+Verify channel subscription and event handling.
+Test DOM updating with various events.
+Verify error message handling.

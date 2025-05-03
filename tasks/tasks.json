@@ -146,9 +146,22 @@
     },
     {
       "id": 13,
+      "title": "Add logo and favicon",
+      "description": "Create and implement application logo and favicon for consistent branding",
+      "status": "done",
+      "dependencies": [
+        1,
+        2
+      ],
+      "priority": "medium",
+      "details": "Design a simple, recognizable logo that represents GradeBot.\nCreate favicon from the logo in multiple required sizes (16x16, 32x32, 192x192, 512x512).\nAdd logo to application layout header.\nConfigure favicon in app/views/layouts/application.html.erb.\nEnsure proper asset organization for images.\nOptimize images for web performance.",
+      "testStrategy": "Verify logo appears correctly in application header.\nCheck favicon displays in browser tabs.\nTest favicon works across different browsers.\nVerify appropriate image sizes are generated for different devices."
+    },
+    {
+      "id": 14,
       "title": "Create Assignment model and migration",
       "description": "Implement the core Assignment model for representing teacher assignments",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         5
       ],
@@ -157,55 +170,55 @@
       "testStrategy": "Test model validations for presence of required fields.\nTest association with User model.\nTest model instantiation with valid attributes.\nVerify database constraints are properly set up."
     },
     {
-      "id": 14,
+      "id": 15,
       "title": "Create SelectedDocument model and migration",
       "description": "Implement the SelectedDocument model for Google Doc selections",
       "status": "pending",
       "dependencies": [
-        13
+        14
       ],
       "priority": "high",
       "details": "Generate model and migration for SelectedDocument with fields: assignment:references google_doc_id:string title:string url:string.\nAdd belongs_to association with Assignment model.\nAdd validations for required fields.\nCreate SelectedDocument factory/fixture for testing.\nImplement validations for Google Doc ID format.",
       "testStrategy": "Test model validations for presence of required fields.\nTest association with Assignment model.\nTest Google Doc ID format validation.\nVerify database constraints are properly set up."
     },
     {
-      "id": 15,
+      "id": 16,
       "title": "Create Rubric model and migration",
       "description": "Implement the Rubric model for structured grading rubrics",
       "status": "pending",
       "dependencies": [
-        13
+        14
       ],
       "priority": "high",
       "details": "Generate model and migration for Rubric with fields: assignment:references.\nAdd belongs_to association with Assignment model.\nAdd has_many association for criteria (placeholder for now).\nCreate Rubric factory/fixture for testing.\nImplement to_prompt method placeholder for inclusion in subsequent prompts.",
       "testStrategy": "Test association with Assignment model.\nTest has_many association for criteria.\nTest model instantiation with valid attributes.\nVerify database constraints are properly set up."
     },
     {
-      "id": 16,
+      "id": 17,
       "title": "Create Criterion model and migration",
       "description": "Implement the Criterion model for rubric criteria",
       "status": "pending",
       "dependencies": [
-        15
+        16
       ],
       "priority": "high",
       "details": "Generate model and migration for Criterion with fields: rubric:references title:string description:text position:integer.\nAdd belongs_to association with Rubric model.\nAdd has_many association for levels (placeholder for now).\nAdd validation for title presence.\nCreate Criterion factory/fixture for testing.\nImplement position management for ordering criteria.",
       "testStrategy": "Test model validations for presence of required fields.\nTest association with Rubric model.\nTest has_many association for levels.\nVerify position management works correctly."
     },
     {
-      "id": 17,
+      "id": 18,
       "title": "Create Level model and migration",
       "description": "Implement the Level model for criterion achievement levels",
       "status": "pending",
       "dependencies": [
-        16
+        17
       ],
       "priority": "high",
       "details": "Generate model and migration for Level with fields: criterion:references title:string description:text position:integer.\nAdd belongs_to association with Criterion model.\nAdd validation for title presence.\nCreate Level factory/fixture for testing.\nImplement position management for ordering levels.",
       "testStrategy": "Test model validations for presence of required fields.\nTest association with Criterion model.\nTest position management for ordering.\nVerify database constraints are properly set up."
     },
     {
-      "id": 18,
+      "id": 19,
       "title": "Create StudentWork model and migration",
       "description": "Implement the StudentWork model for individual student submissions",
       "status": "pending",
@@ -217,7 +230,7 @@
       "testStrategy": "Test associations with Assignment and SelectedDocument models.\nTest has_many associations for related models.\nTest model instantiation with valid attributes.\nVerify status tracking functionality."
     },
     {
-      "id": 19,
+      "id": 20,
       "title": "Create StudentWorkCriterionLevel model and migration",
       "description": "Implement the join model between StudentWork, Criterion, and Level",
       "status": "pending",
@@ -230,7 +243,7 @@
       "testStrategy": "Test associations with StudentWork, Criterion, and Level models.\nTest explanation field storage and retrieval.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
     },
     {
-      "id": 20,
+      "id": 21,
       "title": "Create FeedbackItem model and migration",
       "description": "Implement the FeedbackItem model for structured feedback points",
       "status": "pending",
@@ -242,7 +255,7 @@
       "testStrategy": "Test polymorphic association functionality.\nTest item_type validation.\nTest scopes for filtering.\nVerify database constraints are properly set up."
     },
     {
-      "id": 21,
+      "id": 22,
       "title": "Create StudentWorkCheck model and migration",
       "description": "Implement the StudentWorkCheck model for verification checks",
       "status": "pending",
@@ -254,19 +267,19 @@
       "testStrategy": "Test association with StudentWork model.\nTest check_type validation.\nTest score range validation.\nVerify scopes for filtering work correctly."
     },
     {
-      "id": 22,
+      "id": 23,
       "title": "Create AssignmentSummary model and migration",
       "description": "Implement the AssignmentSummary model for class-wide insights",
       "status": "pending",
       "dependencies": [
-        13
+        14
       ],
       "priority": "high",
       "details": "Generate model and migration for AssignmentSummary with fields: assignment:references student_work_count:integer qualitative_insights:text.\nAdd belongs_to association with Assignment model.\nAdd has_many association for feedback items (polymorphic, placeholder for now).\nCreate AssignmentSummary factory/fixture for testing.\nImplement validation for required fields.",
       "testStrategy": "Test association with Assignment model.\nTest has_many association for feedback items.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
     },
     {
-      "id": 23,
+      "id": 24,
       "title": "Create LLMRequest model and migration",
       "description": "Implement the LLMRequest model for tracking LLM interactions",
       "status": "pending",
@@ -278,19 +291,19 @@
       "testStrategy": "Test polymorphic association functionality.\nTest status tracking methods.\nVerify database constraints are properly set up.\nTest model instantiation with valid attributes."
     },
     {
-      "id": 24,
+      "id": 25,
       "title": "Create ProcessingMetric model and migration",
       "description": "Implement the ProcessingMetric model for tracking processing performance",
       "status": "pending",
       "dependencies": [
-        13
+        14
       ],
       "priority": "high",
       "details": "Generate model and migration for ProcessingMetric with fields: processable:references{polymorphic} process_type:string started_at:datetime completed_at:datetime duration_ms:integer status:string metadata:json.\nAdd polymorphic belongs_to association with processable.\nImplement status tracking methods.\nCreate ProcessingMetric factory/fixture for testing.\nImplement duration calculation method.",
       "testStrategy": "Test polymorphic association functionality.\nTest duration calculation method.\nTest status tracking methods.\nVerify database constraints are properly set up."
     },
     {
-      "id": 25,
+      "id": 26,
       "title": "Add subscription fields to User model",
       "description": "Update User model with subscription-related fields",
       "status": "pending",
@@ -302,7 +315,7 @@
       "testStrategy": "Test subscription status checking methods.\nVerify subscription tier validation.\nTest monthly assignment counting mechanism.\nVerify database constraints for new fields."
     },
     {
-      "id": 26,
+      "id": 27,
       "title": "Implement ApplicationController authentication",
       "description": "Configure ApplicationController with authentication requirements",
       "status": "pending",
@@ -314,7 +327,7 @@
       "testStrategy": "Test that unauthenticated requests are redirected.\nVerify authenticated? helper is available in views.\nTest current_user helper method.\nVerify unauthenticated action renders correct response."
     },
     {
-      "id": 27,
+      "id": 28,
       "title": "Create home page controller and view",
       "description": "Implement basic home page for the application",
       "status": "pending",
@@ -326,7 +339,7 @@
       "testStrategy": "Test that index action renders the correct view.\nVerify sign-in button for unauthenticated users.\nTest dashboard preview for authenticated users.\nVerify route is correctly defined."
     },
     {
-      "id": 28,
+      "id": 29,
       "title": "Create AssignmentsController with index action",
       "description": "Implement controller and view for listing assignments",
       "status": "pending",
@@ -339,7 +352,7 @@
       "testStrategy": "Test that index action returns the current user's assignments.\nVerify empty state is shown when no assignments exist.\nTest sorting and filtering functionality.\nVerify view correctly displays assignment data."
     },
     {
-      "id": 29,
+      "id": 30,
       "title": "Add new action to AssignmentsController",
       "description": "Implement action and view for creating new assignments",
       "status": "pending",
@@ -351,7 +364,7 @@
       "testStrategy": "Test that new action renders the form view.\nVerify form includes all required fields.\nTest rubric toggle functionality.\nVerify route is correctly defined."
     },
     {
-      "id": 30,
+      "id": 31,
       "title": "Create Google API configuration",
       "description": "Set up configuration for Google API integration",
       "status": "pending",
@@ -363,7 +376,7 @@
       "testStrategy": "Test configuration loading with valid environment variables.\nVerify API client initialization.\nTest service wrapper methods.\nVerify test mocks work correctly."
     },
     {
-      "id": 31,
+      "id": 32,
       "title": "Implement Google Picker Stimulus controller",
       "description": "Create Stimulus controller for Google Picker integration",
       "status": "pending",
@@ -376,7 +389,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify document selection functionality.\nTest document validation logic.\nVerify UI updates correctly with selected documents."
     },
     {
-      "id": 32,
+      "id": 33,
       "title": "Add create action to AssignmentsController",
       "description": "Implement action for saving new assignments",
       "status": "pending",
@@ -389,7 +402,7 @@
       "testStrategy": "Test create action with valid parameters.\nTest validation for required fields.\nVerify error handling for invalid submissions.\nTest successful creation and redirect."
     },
     {
-      "id": 33,
+      "id": 34,
       "title": "Create DocumentSelection::BulkCreationService",
       "description": "Implement service for creating document selections in bulk",
       "status": "pending",
@@ -402,7 +415,7 @@
       "testStrategy": "Test service with valid document selections.\nTest validation for document length.\nVerify error handling for invalid selections.\nTest transaction rollback on failure."
     },
     {
-      "id": 34,
+      "id": 35,
       "title": "Create Assignment::InitializerService",
       "description": "Implement service for initializing assignments with related records",
       "status": "pending",
@@ -414,7 +427,7 @@
       "testStrategy": "Test service with valid assignment.\nVerify creation of associated records.\nTest job enqueueing.\nVerify transaction rollback on failure."
     },
     {
-      "id": 35,
+      "id": 36,
       "title": "Create LLM::Client base class",
       "description": "Implement the base client class for LLM integration",
       "status": "pending",
@@ -426,7 +439,7 @@
       "testStrategy": "Test prompt validation methods.\nVerify configuration handling.\nTest utility methods.\nVerify error class hierarchy."
     },
     {
-      "id": 36,
+      "id": 37,
       "title": "Implement LLM::AnthropicClient",
       "description": "Create client implementation for Anthropic's Claude API",
       "status": "pending",
@@ -438,7 +451,7 @@
       "testStrategy": "Test API request handling with mock responses.\nVerify token counting accuracy.\nTest error handling for different error types.\nVerify model selection configuration."
     },
     {
-      "id": 37,
+      "id": 38,
       "title": "Implement LLM::GoogleClient",
       "description": "Create client implementation for Google's PaLM API",
       "status": "pending",
@@ -450,7 +463,7 @@
       "testStrategy": "Test API request handling with mock responses.\nVerify token counting accuracy.\nTest error handling for different error types.\nVerify model selection configuration."
     },
     {
-      "id": 38,
+      "id": 39,
       "title": "Create LLM::ClientFactory",
       "description": "Implement factory for creating appropriate LLM client instances",
       "status": "pending",
@@ -463,7 +476,7 @@
       "testStrategy": "Test client creation for different providers.\nVerify configuration handling.\nTest caching mechanism.\nVerify test client creation."
     },
     {
-      "id": 39,
+      "id": 40,
       "title": "Implement LLM::RetryHandler",
       "description": "Create retry mechanism for handling LLM request failures",
       "status": "pending",
@@ -475,7 +488,7 @@
       "testStrategy": "Test retry logic with simulated failures.\nVerify exponential backoff timing.\nTest retry count configuration.\nVerify retry tracking and logging."
     },
     {
-      "id": 40,
+      "id": 41,
       "title": "Implement LLM::CircuitBreaker",
       "description": "Create circuit breaker for preventing cascading failures",
       "status": "pending",
@@ -487,7 +500,7 @@
       "testStrategy": "Test circuit opening on high failure rate.\nVerify circuit reset after timeout.\nTest half-open state behavior.\nVerify per-provider isolation."
     },
     {
-      "id": 41,
+      "id": 42,
       "title": "Create LLM::CostCalculator",
       "description": "Implement calculator for determining LLM request costs",
       "status": "pending",
@@ -499,7 +512,7 @@
       "testStrategy": "Test token counting accuracy.\nVerify cost calculation with known token counts.\nTest per-model pricing configuration.\nVerify total cost calculation."
     },
     {
-      "id": 42,
+      "id": 43,
       "title": "Create LLM::CostTracker",
       "description": "Implement tracker for recording LLM request costs",
       "status": "pending",
@@ -512,7 +525,7 @@
       "testStrategy": "Test callback mechanism with sample requests.\nVerify database persistence.\nTest aggregation methods.\nVerify user and assignment-level tracking."
     },
     {
-      "id": 43,
+      "id": 44,
       "title": "Create ProcessingTask class",
       "description": "Implement base class for processing task configuration",
       "status": "pending",
@@ -524,7 +537,7 @@
       "testStrategy": "Test configuration handling.\nVerify timing methods accuracy.\nTest validation for required parameters.\nVerify metric recording functionality."
     },
     {
-      "id": 44,
+      "id": 45,
       "title": "Create ProcessingPipeline class",
       "description": "Implement orchestration pipeline for processing tasks",
       "status": "pending",
@@ -536,7 +549,7 @@
       "testStrategy": "Test complete pipeline execution with mock components.\nVerify error handling and recovery.\nTest metrics collection.\nVerify each stage functions correctly."
     },
     {
-      "id": 45,
+      "id": 46,
       "title": "Create ResponseParserFactory",
       "description": "Implement factory for creating response parsers",
       "status": "pending",
@@ -548,7 +561,7 @@
       "testStrategy": "Test parser creation for different process types.\nVerify configuration handling.\nTest default parser fallback.\nVerify error handling for unsupported types."
     },
     {
-      "id": 46,
+      "id": 47,
       "title": "Create StorageServiceFactory",
       "description": "Implement factory for creating storage services",
       "status": "pending",
@@ -560,7 +573,7 @@
       "testStrategy": "Test service creation for different process types.\nVerify configuration handling.\nTest default service fallback.\nVerify error handling for unsupported types."
     },
     {
-      "id": 47,
+      "id": 48,
       "title": "Create BroadcasterFactory",
       "description": "Implement factory for creating broadcasters",
       "status": "pending",
@@ -572,7 +585,7 @@
       "testStrategy": "Test broadcaster creation for different process types.\nVerify configuration handling.\nTest default broadcaster fallback.\nVerify error handling for unsupported types."
     },
     {
-      "id": 48,
+      "id": 49,
       "title": "Create StatusManagerFactory",
       "description": "Implement factory for creating status managers",
       "status": "pending",
@@ -584,7 +597,7 @@
       "testStrategy": "Test manager creation for different process types.\nVerify configuration handling.\nTest default manager fallback.\nVerify error handling for unsupported types."
     },
     {
-      "id": 49,
+      "id": 50,
       "title": "Create DataCollectionService",
       "description": "Implement service for gathering data for processing",
       "status": "pending",
@@ -596,7 +609,7 @@
       "testStrategy": "Test data collection for different processable types.\nVerify context building functionality.\nTest entity-specific collection methods.\nVerify error handling for missing data."
     },
     {
-      "id": 50,
+      "id": 51,
       "title": "Create PromptTemplate class",
       "description": "Implement template handling for LLM prompts",
       "status": "pending",
@@ -608,7 +621,7 @@
       "testStrategy": "Test template rendering with various input parameters.\nVerify error handling with invalid templates.\nTest variable interpolation functionality.\nVerify caching mechanism works correctly."
     },
     {
-      "id": 51,
+      "id": 52,
       "title": "Create PromptBuilder class",
       "description": "Implement builder for constructing LLM prompts",
       "status": "pending",
@@ -620,7 +633,7 @@
       "testStrategy": "Test prompt building with various templates.\nVerify context management functionality.\nTest helper methods for prompt operations.\nVerify error handling for invalid prompts."
     },
     {
-      "id": 52,
+      "id": 53,
       "title": "Create prompt templates directory structure",
       "description": "Set up directory structure for prompt templates",
       "status": "pending",
@@ -632,7 +645,7 @@
       "testStrategy": "Test directory structure is accessible.\nVerify template loading mechanism.\nTest example templates render correctly.\nVerify documentation is comprehensive."
     },
     {
-      "id": 53,
+      "id": 54,
       "title": "Create rubric generation prompt template",
       "description": "Implement template for generating structured rubrics",
       "status": "pending",
@@ -644,7 +657,7 @@
       "testStrategy": "Test template rendering with sample assignment details.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nEnsure the template is properly loaded."
     },
     {
-      "id": 54,
+      "id": 55,
       "title": "Create student feedback prompt template",
       "description": "Implement template for generating student work feedback",
       "status": "pending",
@@ -656,7 +669,7 @@
       "testStrategy": "Test template rendering with sample student work and rubric.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nTest feedback tone customization."
     },
     {
-      "id": 55,
+      "id": 56,
       "title": "Create assignment summary prompt template",
       "description": "Implement template for generating assignment-level insights",
       "status": "pending",
@@ -668,7 +681,7 @@
       "testStrategy": "Test template rendering with sample assignment data.\nVerify variable interpolation works correctly.\nTest output format meets requirements.\nVerify inclusion of multiple student works."
     },
     {
-      "id": 56,
+      "id": 57,
       "title": "Create RubricGenerationTask",
       "description": "Implement processing task configuration for rubric generation",
       "status": "pending",
@@ -681,7 +694,7 @@
       "testStrategy": "Test task initialization with valid configuration.\nVerify context building for rubric generation.\nTest validation for required data.\nVerify broadcaster configuration."
     },
     {
-      "id": 57,
+      "id": 58,
       "title": "Create RubricResponseParser",
       "description": "Implement parser for LLM-generated rubric responses",
       "status": "pending",
@@ -696,7 +709,7 @@
       "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
     },
     {
-      "id": 58,
+      "id": 59,
       "title": "Create Rubric::CreationService",
       "description": "Implement service for creating rubric records from parsed data",
       "status": "pending",
@@ -708,7 +721,7 @@
       "testStrategy": "Test service with valid parsed rubric data.\nVerify transaction for atomic creation.\nTest position ordering for criteria and levels.\nVerify error handling for invalid data."
     },
     {
-      "id": 59,
+      "id": 60,
       "title": "Create RubricGenerationJob",
       "description": "Implement background job for processing rubric generation",
       "status": "pending",
@@ -721,7 +734,7 @@
       "testStrategy": "Test job execution with valid assignment.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
     },
     {
-      "id": 60,
+      "id": 61,
       "title": "Create Rubric#to_prompt method",
       "description": "Implement method for converting rubric to prompt format",
       "status": "pending",
@@ -735,7 +748,7 @@
       "testStrategy": "Test method with different rubric structures.\nVerify formatting for prompts.\nTest caching functionality.\nVerify output meets format requirements."
     },
     {
-      "id": 61,
+      "id": 62,
       "title": "Add show action to AssignmentsController",
       "description": "Implement action for viewing assignment details",
       "status": "pending",
@@ -747,7 +760,7 @@
       "testStrategy": "Test show action with valid assignment ID.\nVerify view displays correct assignment details.\nTest navigation between sections.\nVerify progress tracking display."
     },
     {
-      "id": 62,
+      "id": 63,
       "title": "Create DocumentContentRetrievalService",
       "description": "Implement service for retrieving Google Doc content",
       "status": "pending",
@@ -759,7 +772,7 @@
       "testStrategy": "Test service with valid document IDs.\nVerify content extraction and formatting.\nTest caching functionality.\nVerify error handling for API failures."
     },
     {
-      "id": 63,
+      "id": 64,
       "title": "Create StudentWorkFeedbackTask",
       "description": "Implement processing task for student work feedback",
       "status": "pending",
@@ -773,7 +786,7 @@
       "testStrategy": "Test task initialization with valid configuration.\nVerify context building with student work and rubric.\nTest validation for required data.\nVerify broadcaster configuration."
     },
     {
-      "id": 64,
+      "id": 65,
       "title": "Create StudentWorkResponseParser",
       "description": "Implement parser for LLM-generated student feedback",
       "status": "pending",
@@ -789,7 +802,7 @@
       "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
     },
     {
-      "id": 65,
+      "id": 66,
       "title": "Create StudentWork::FeedbackService",
       "description": "Implement service for creating student work feedback records",
       "status": "pending",
@@ -801,7 +814,7 @@
       "testStrategy": "Test service with valid parsed feedback data.\nVerify transaction for atomic creation.\nTest qualitative feedback formatting.\nVerify error handling for invalid data."
     },
     {
-      "id": 66,
+      "id": 67,
       "title": "Create StudentWorkFeedbackJob",
       "description": "Implement background job for processing student work feedback",
       "status": "pending",
@@ -814,7 +827,7 @@
       "testStrategy": "Test job execution with valid student work.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
     },
     {
-      "id": 67,
+      "id": 68,
       "title": "Create GoogleDocsFeedbackAppender",
       "description": "Implement service for appending feedback to Google Docs",
       "status": "pending",
@@ -827,7 +840,7 @@
       "testStrategy": "Test appender with valid document and feedback.\nVerify formatted feedback generation.\nTest append operation with different feedback types.\nVerify error handling for API failures."
     },
     {
-      "id": 68,
+      "id": 69,
       "title": "Create AssignmentSummaryTask",
       "description": "Implement processing task for assignment summary generation",
       "status": "pending",
@@ -840,7 +853,7 @@
       "testStrategy": "Test task initialization with valid configuration.\nVerify context building with assignment and student works.\nTest validation for completed student works.\nVerify broadcaster configuration."
     },
     {
-      "id": 69,
+      "id": 70,
       "title": "Create AssignmentSummaryResponseParser",
       "description": "Implement parser for LLM-generated assignment summaries",
       "status": "pending",
@@ -853,7 +866,7 @@
       "testStrategy": "Test parsing with valid LLM responses.\nVerify validation for parsed data.\nTest error handling with invalid responses.\nVerify mapping to database models."
     },
     {
-      "id": 70,
+      "id": 71,
       "title": "Create AssignmentSummary::CreationService",
       "description": "Implement service for creating assignment summary records",
       "status": "pending",
@@ -865,7 +878,7 @@
       "testStrategy": "Test service with valid parsed summary data.\nVerify transaction for atomic creation.\nTest insights formatting and processing.\nVerify error handling for invalid data."
     },
     {
-      "id": 71,
+      "id": 72,
       "title": "Create AssignmentSummaryJob",
       "description": "Implement background job for processing assignment summaries",
       "status": "pending",
@@ -878,7 +891,7 @@
       "testStrategy": "Test job execution with valid assignment.\nVerify error handling and retry behavior.\nTest progress tracking and status updates.\nVerify logging functionality."
     },
     {
-      "id": 72,
+      "id": 73,
       "title": "Create Assignment::ProcessingTimeEstimator",
       "description": "Implement service for estimating processing time",
       "status": "pending",
@@ -891,7 +904,7 @@
       "testStrategy": "Test estimator with different assignment configurations.\nVerify base time calculation.\nTest dynamic adjustment based on document length.\nVerify total time calculation methods."
     },
     {
-      "id": 73,
+      "id": 74,
       "title": "Create Assignment::ProcessingStatusTracker",
       "description": "Implement tracker for assignment processing status",
       "status": "pending",
@@ -903,7 +916,7 @@
       "testStrategy": "Test status calculation with different processing states.\nVerify progress percentage computation.\nTest time remaining estimation.\nVerify completion detection and event broadcasting."
     },
     {
-      "id": 74,
+      "id": 75,
       "title": "Create AssignmentProcessingJob",
       "description": "Implement master job for coordinating assignment processing",
       "status": "pending",
@@ -917,7 +930,7 @@
       "testStrategy": "Test job execution with valid assignment.\nVerify sequential job scheduling.\nTest error handling and recovery mechanisms.\nVerify status tracking and progress updates."
     },
     {
-      "id": 75,
+      "id": 76,
       "title": "Create Stimulus controller for real-time updates",
       "description": "Implement controller for handling real-time processing updates",
       "status": "pending",
@@ -929,7 +942,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify channel subscription and event handling.\nTest DOM updating with various events.\nVerify error message handling."
     },
     {
-      "id": 76,
+      "id": 77,
       "title": "Create ProcessingChannel for ActionCable",
       "description": "Implement ActionCable channel for processing updates",
       "status": "pending",
@@ -941,7 +954,7 @@
       "testStrategy": "Test subscription handling and authentication.\nVerify broadcasting methods for different update types.\nTest stream identification by assignment ID.\nVerify serialization for update data."
     },
     {
-      "id": 77,
+      "id": 78,
       "title": "Create RubricBroadcaster",
       "description": "Implement broadcaster for rubric generation updates",
       "status": "pending",
@@ -954,7 +967,7 @@
       "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for rubric data.\nVerify error message formatting."
     },
     {
-      "id": 78,
+      "id": 79,
       "title": "Create StudentWorkBroadcaster",
       "description": "Implement broadcaster for student work updates",
       "status": "pending",
@@ -967,7 +980,7 @@
       "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for feedback data.\nVerify error message formatting."
     },
     {
-      "id": 79,
+      "id": 80,
       "title": "Create AssignmentSummaryBroadcaster",
       "description": "Implement broadcaster for assignment summary updates",
       "status": "pending",
@@ -980,7 +993,7 @@
       "testStrategy": "Test update broadcasting for different statuses.\nVerify progress percentage computation.\nTest serialization for summary data.\nVerify error message formatting."
     },
     {
-      "id": 80,
+      "id": 81,
       "title": "Create Assignment::StatusManager",
       "description": "Implement manager for tracking and updating assignment status",
       "status": "pending",
@@ -993,7 +1006,7 @@
       "testStrategy": "Test status update methods for different stages.\nVerify progress tracking for overall assignment.\nTest completion detection and notification.\nVerify error handling and recovery status."
     },
     {
-      "id": 81,
+      "id": 82,
       "title": "Create StudentWork::StatusManager",
       "description": "Implement manager for tracking and updating student work status",
       "status": "pending",
@@ -1006,7 +1019,7 @@
       "testStrategy": "Test status update methods for feedback generation.\nVerify progress tracking for individual student work.\nTest completion detection and notification.\nVerify error handling and recovery status."
     },
     {
-      "id": 82,
+      "id": 83,
       "title": "Create Rubric partial view",
       "description": "Implement partial for displaying rubric details",
       "status": "pending",
@@ -1020,7 +1033,7 @@
       "testStrategy": "Verify partial renders correctly with sample rubric.\nTest responsive design at different screen sizes.\nCheck print-friendly version appearance.\nVerify styling matches design specifications."
     },
     {
-      "id": 83,
+      "id": 84,
       "title": "Create StudentWork partial view",
       "description": "Implement partial for displaying student work feedback",
       "status": "pending",
@@ -1035,7 +1048,7 @@
       "testStrategy": "Verify partial renders correctly with sample feedback.\nTest tabbed interface functionality.\nCheck responsive design at different screen sizes.\nVerify edit mode for feedback customization."
     },
     {
-      "id": 84,
+      "id": 85,
       "title": "Create AssignmentSummary partial view",
       "description": "Implement partial for displaying assignment summary",
       "status": "pending",
@@ -1047,7 +1060,7 @@
       "testStrategy": "Verify partial renders correctly with sample summary.\nTest card layout appearance and organization.\nCheck responsive design at different screen sizes.\nVerify print-friendly version appearance."
     },
     {
-      "id": 85,
+      "id": 86,
       "title": "Create ProcessingProgress partial view",
       "description": "Implement partial for displaying processing progress",
       "status": "pending",
@@ -1059,7 +1072,7 @@
       "testStrategy": "Verify partial renders correctly with different progress states.\nTest progress bar updates with percentage changes.\nCheck time remaining estimation display.\nVerify error state visualization."
     },
     {
-      "id": 86,
+      "id": 87,
       "title": "Create StudentWorkEditor Stimulus controller",
       "description": "Implement controller for editing student work feedback",
       "status": "pending",
@@ -1072,7 +1085,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify in-place editing functionality.\nTest AJAX saving with valid and invalid edits.\nVerify optimistic UI updates and error handling."
     },
     {
-      "id": 87,
+      "id": 88,
       "title": "Create FeedbackAppender Stimulus controller",
       "description": "Implement controller for appending feedback to Google Docs",
       "status": "pending",
@@ -1086,7 +1099,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify AJAX call to append service.\nTest progress indication during appending.\nVerify success and error state handling."
     },
     {
-      "id": 88,
+      "id": 89,
       "title": "Add edit action to StudentWorksController",
       "description": "Implement action for editing student work feedback",
       "status": "pending",
@@ -1099,7 +1112,7 @@
       "testStrategy": "Test edit action with valid student work ID.\nVerify form includes current feedback data.\nTest authorization checks for different users.\nVerify redirection after successful edit."
     },
     {
-      "id": 89,
+      "id": 90,
       "title": "Add update action to StudentWorksController",
       "description": "Implement action for saving edited student work feedback",
       "status": "pending",
@@ -1111,7 +1124,7 @@
       "testStrategy": "Test update action with valid parameters.\nVerify validation for updated feedback.\nTest response format for AJAX and regular requests.\nVerify error handling and flash messages."
     },
     {
-      "id": 90,
+      "id": 91,
       "title": "Add append_feedback action to StudentWorksController",
       "description": "Implement action for appending feedback to Google Docs",
       "status": "pending",
@@ -1124,7 +1137,7 @@
       "testStrategy": "Test append_feedback action with valid student work ID.\nVerify service call to GoogleDocsFeedbackAppender.\nTest authorization checks for different users.\nVerify error handling for appending failures."
     },
     {
-      "id": 91,
+      "id": 92,
       "title": "Create FeedbackToneSelector Stimulus controller",
       "description": "Implement controller for selecting feedback tone",
       "status": "pending",
@@ -1136,7 +1149,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify slider UI functionality.\nTest form field updates based on selection.\nVerify tone description display."
     },
     {
-      "id": 92,
+      "id": 93,
       "title": "Create Assignment::RetryProcessingService",
       "description": "Implement service for retrying failed processing tasks",
       "status": "pending",
@@ -1148,7 +1161,7 @@
       "testStrategy": "Test retry logic for different processing stages.\nVerify status reset for retry targets.\nTest job re-enqueueing for retries.\nVerify validation for retry eligibility."
     },
     {
-      "id": 93,
+      "id": 94,
       "title": "Add retry_processing action to AssignmentsController",
       "description": "Implement action for retrying failed processing",
       "status": "pending",
@@ -1160,7 +1173,7 @@
       "testStrategy": "Test retry_processing action with valid assignment ID.\nVerify service call to Assignment::RetryProcessingService.\nTest authorization checks for different users.\nVerify error handling for retry failures."
     },
     {
-      "id": 94,
+      "id": 95,
       "title": "Create ProcessingRetry Stimulus controller",
       "description": "Implement controller for retrying failed processing",
       "status": "pending",
@@ -1173,7 +1186,7 @@
       "testStrategy": "Test controller connection and initialization.\nVerify retry button functionality.\nTest confirmation dialog before retry.\nVerify progress indication and state handling."
     },
     {
-      "id": 95,
+      "id": 96,
       "title": "Create User::SubscriptionService",
       "description": "Implement service for managing user subscriptions",
       "status": "pending",
@@ -1185,7 +1198,7 @@
       "testStrategy": "Test subscription status checking methods.\nVerify usage limit enforcement based on tier.\nTest upgrade flow for tier changes.\nVerify usage counting and tracking."
     },
     {
-      "id": 96,
+      "id": 97,
       "title": "Configure Stripe initializer",
       "description": "Set up Stripe integration for billing",
       "status": "pending",
@@ -1197,7 +1210,7 @@
       "testStrategy": "Verify Stripe initializer loads correctly.\nTest webhook endpoint configuration.\nVerify test mode for development environment.\nTest error handling for API failures."
     },
     {
-      "id": 97,
+      "id": 98,
       "title": "Create SubscriptionsController",
       "description": "Implement controller for managing subscriptions",
       "status": "pending",
@@ -1210,7 +1223,7 @@
       "testStrategy": "Test new action renders the correct view.\nVerify Stripe checkout integration.\nTest error handling for failed subscriptions.\nVerify redirect flows for success and failure."
     },
     {
-      "id": 98,
+      "id": 99,
       "title": "Create StripeWebhooksController",
       "description": "Implement controller for handling Stripe webhooks",
       "status": "pending",
@@ -1222,7 +1235,7 @@
       "testStrategy": "Test create action with mock webhook events.\nVerify signature verification for security.\nTest subscription status updates based on events.\nVerify logging for webhook processing."
     },
     {
-      "id": 99,
+      "id": 100,
       "title": "Create User::SubscriptionUpgradeService",
       "description": "Implement service for handling subscription upgrades",
       "status": "pending",
@@ -1235,7 +1248,7 @@
       "testStrategy": "Test upgrade logic with different scenarios.\nVerify Stripe customer and subscription creation.\nTest database updates for subscription changes.\nVerify email notification for upgrades."
     },
     {
-      "id": 100,
+      "id": 101,
       "title": "Create subscription views",
       "description": "Implement views for subscription management",
       "status": "pending",
@@ -1247,7 +1260,7 @@
       "testStrategy": "Verify view renders correctly with plan options.\nTest payment form integration with Stripe Elements.\nVerify subscription status display in user profile.\nTest upgrade prompts for free tier users."
     },
     {
-      "id": 101,
+      "id": 102,
       "title": "Create User::UsageLimitService",
       "description": "Implement service for enforcing usage limits",
       "status": "pending",
@@ -1259,7 +1272,7 @@
       "testStrategy": "Test limit checking methods with different tiers.\nVerify rate limiting for API requests.\nTest redirect logic for limit exceeded.\nVerify usage tracking and updating."
     },
     {
-      "id": 102,
+      "id": 103,
       "title": "Create UsageLimitConcern",
       "description": "Implement controller concern for handling usage limits",
       "status": "pending",
@@ -1271,7 +1284,7 @@
       "testStrategy": "Test check_usage_limit method with different scenarios.\nVerify before_action hook for limit checking.\nTest redirect for limit exceeded.\nVerify flash message configuration."
     },
     {
-      "id": 103,
+      "id": 104,
       "title": "Create subscription limit views",
       "description": "Implement views for displaying subscription limits",
       "status": "pending",
@@ -1284,7 +1297,7 @@
       "testStrategy": "Verify view renders correctly with usage data.\nTest progress bar for usage visualization.\nVerify upgrade prompt for approaching limits.\nTest limit exceeded page display."
     },
     {
-      "id": 104,
+      "id": 105,
       "title": "Create User::StreakTrackingService",
       "description": "Implement service for tracking user activity streaks",
       "status": "pending",
@@ -1296,7 +1309,7 @@
       "testStrategy": "Test daily activity tracking logic.\nVerify streak calculation methods.\nTest streak reset rules.\nVerify milestone detection for achievements."
     },
     {
-      "id": 105,
+      "id": 106,
       "title": "Create User::ContributionVisualizationService",
       "description": "Implement service for visualizing user contributions",
       "status": "pending",
@@ -1308,7 +1321,7 @@
       "testStrategy": "Test activity data aggregation methods.\nVerify GitHub-style activity graph data generation.\nTest time period filtering options.\nVerify statistics calculation for workload."
     },
     {
-      "id": 106,
+      "id": 107,
       "title": "Create user profile controller and views",
       "description": "Implement controller and views for user profile",
       "status": "pending",
@@ -1320,7 +1333,7 @@
       "testStrategy": "Test show action with valid user.\nVerify edit action renders form with user data.\nTest update action with valid and invalid parameters.\nVerify avatar handling with Google profile image."
     },
     {
-      "id": 107,
+      "id": 108,
       "title": "Create activity dashboard view",
       "description": "Implement view for displaying user activity metrics",
       "status": "pending",
@@ -1334,7 +1347,7 @@
       "testStrategy": "Verify view renders correctly with activity data.\nTest streak visualization component.\nVerify activity graph with sample data.\nTest filtering options for time periods."
     },
     {
-      "id": 108,
+      "id": 109,
       "title": "Create AchievementSystem",
       "description": "Implement system for tracking user achievements",
       "status": "pending",
@@ -1346,7 +1359,7 @@
       "testStrategy": "Test Achievement model with valid attributes.\nVerify User::AchievementService functionality.\nTest achievement unlock triggers.\nVerify notification system for new achievements."
     },
     {
-      "id": 109,
+      "id": 110,
       "title": "Create AssignmentExport service",
       "description": "Implement service for exporting assignment data",
       "status": "pending",
@@ -1360,7 +1373,7 @@
       "testStrategy": "Test CSV export format with sample assignment.\nVerify PDF export generation.\nTest JSON export for API integration.\nVerify filtering options for export content."
     },
     {
-      "id": 110,
+      "id": 111,
       "title": "Add export action to AssignmentsController",
       "description": "Implement action for exporting assignment data",
       "status": "pending",
@@ -1372,7 +1385,7 @@
       "testStrategy": "Test export action with different formats.\nVerify proper content type headers.\nTest filename generation for exports.\nVerify authorization checks for export access."
     },
     {
-      "id": 111,
+      "id": 112,
       "title": "Create system tests for authentication flow",
       "description": "Implement end-to-end tests for authentication",
       "status": "pending",
@@ -1384,7 +1397,7 @@
       "testStrategy": "Test complete sign-in flow with mock OAuth data.\nVerify session creation and persistence.\nTest sign-out functionality.\nVerify redirection after authentication actions."
     },
     {
-      "id": 112,
+      "id": 113,
       "title": "Create system tests for assignment creation",
       "description": "Implement end-to-end tests for creating assignments",
       "status": "pending",
@@ -1396,7 +1409,7 @@
       "testStrategy": "Test complete assignment creation flow.\nVerify form submission with valid data.\nTest validation error display.\nVerify rubric toggle behavior."
     },
     {
-      "id": 113,
+      "id": 114,
       "title": "Create system tests for assignment processing",
       "description": "Implement end-to-end tests for assignment processing",
       "status": "pending",
@@ -1408,7 +1421,7 @@
       "testStrategy": "Test complete processing flow with mock LLM responses.\nVerify status updates and progress display.\nTest completion notification delivery.\nVerify error handling and retry functionality."
     },
     {
-      "id": 114,
+      "id": 115,
       "title": "Create system tests for student work feedback",
       "description": "Implement end-to-end tests for student work feedback",
       "status": "pending",
@@ -1420,7 +1433,7 @@
       "testStrategy": "Test complete feedback interaction flow.\nVerify feedback display and editing.\nTest Google Docs appending with mock API.\nVerify error handling for feedback operations."
     },
     {
-      "id": 115,
+      "id": 116,
       "title": "Create integration tests for LLM clients",
       "description": "Implement tests for LLM client integration",
       "status": "pending",
@@ -1432,7 +1445,7 @@
       "testStrategy": "Test client factory with different providers.\nVerify retry mechanism with forced failures.\nTest circuit breaker behavior under high failure rates.\nVerify cost tracking with known token counts."
     },
     {
-      "id": 116,
+      "id": 117,
       "title": "Create integration tests for processing pipeline",
       "description": "Implement tests for processing pipeline execution",
       "status": "pending",
@@ -1444,7 +1457,7 @@
       "testStrategy": "Test complete pipeline execution with mock components.\nVerify error handling at different stages.\nTest metrics collection during execution.\nVerify component isolation and interaction."
     },
     {
-      "id": 117,
+      "id": 118,
       "title": "Create documentation files",
       "description": "Implement comprehensive documentation for the application",
       "status": "pending",
@@ -1456,7 +1469,7 @@
       "testStrategy": "Verify documentation covers all required topics.\nTest README.md setup instructions for accuracy.\nVerify API reference documentation completeness.\nEnsure architecture documentation reflects the current system."
     },
     {
-      "id": 118,
+      "id": 119,
       "title": "Create deployment configuration",
       "description": "Implement Kamal deployment configuration for GCP",
       "status": "pending",
@@ -1468,7 +1481,7 @@
       "testStrategy": "Verify configuration files are correctly formatted.\nTest environment setup scripts with GCP.\nVerify 1Password integration for secrets.\nEnsure database migration handling works correctly."
     },
     {
-      "id": 119,
+      "id": 120,
       "title": "Create Docker configuration",
       "description": "Implement Docker configuration for containerization",
       "status": "pending",
@@ -1480,7 +1493,7 @@
       "testStrategy": "Verify Dockerfile builds successfully.\nTest docker-compose configuration for development.\nVerify environment variable handling.\nEnsure optimized container size with multi-stage builds."
     },
     {
-      "id": 120,
+      "id": 121,
       "title": "Create CI/CD pipeline configuration",
       "description": "Implement continuous integration and deployment pipeline",
       "status": "pending",
@@ -1495,7 +1508,7 @@
   ],
   "metadata": {
     "projectName": "GradeBot Implementation",
-    "totalTasks": 120,
+    "totalTasks": 121,
     "sourceFile": "docs/plan.md",
     "generatedAt": "2025-05-01"
   }

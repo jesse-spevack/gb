@@ -1,19 +1,19 @@
 # Task ID: 102
-# Title: Create UsageLimitConcern
+# Title: Create User::UsageLimitService
 # Status: pending
-# Dependencies: 101
+# Dependencies: 95
 # Priority: low
-# Description: Implement controller concern for handling usage limits
+# Description: Implement service for enforcing usage limits
 # Details:
-Create UsageLimitConcern.
-Implement check_usage_limit method for controllers.
-Add before_action hook for limit checking.
-Configure redirect for limit exceeded.
-Implement flash message configuration.
-Document concern usage for controllers.
+Create User::UsageLimitService class.
+Implement limit checking methods based on tier.
+Add rate limiting for API requests.
+Configure redirect logic for limit exceeded.
+Implement usage tracking and updating.
+Document service API and usage.
 
 # Test Strategy:
-Test check_usage_limit method with different scenarios.
-Verify before_action hook for limit checking.
-Test redirect for limit exceeded.
-Verify flash message configuration.
+Test limit checking methods with different tiers.
+Verify rate limiting for API requests.
+Test redirect logic for limit exceeded.
+Verify usage tracking and updating.

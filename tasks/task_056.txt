@@ -1,19 +1,19 @@
 # Task ID: 56
-# Title: Create RubricGenerationTask
+# Title: Create assignment summary prompt template
 # Status: pending
-# Dependencies: 43, 53
+# Dependencies: 52
 # Priority: medium
-# Description: Implement processing task configuration for rubric generation
+# Description: Implement template for generating assignment-level insights
 # Details:
-Create specialized ProcessingTask configuration for rubric generation.
-Configure prompt template, response parser, and storage service.
-Implement context building for rubric generation.
-Add validation for required assignment data.
-Configure broadcaster for real-time updates.
-Document task configuration options.
+Create assignment summary prompt template.
+Define variables for assignment and student work collection.
+Implement instructional sections for summary structure.
+Add examples of good class-wide insights.
+Configure output format specification.
+Document template with appropriate comments.
 
 # Test Strategy:
-Test task initialization with valid configuration.
-Verify context building for rubric generation.
-Test validation for required data.
-Verify broadcaster configuration.
+Test template rendering with sample assignment data.
+Verify variable interpolation works correctly.
+Test output format meets requirements.
+Verify inclusion of multiple student works.

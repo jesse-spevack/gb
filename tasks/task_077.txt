@@ -1,19 +1,19 @@
 # Task ID: 77
-# Title: Create RubricBroadcaster
+# Title: Create ProcessingChannel for ActionCable
 # Status: pending
-# Dependencies: 47, 76
-# Priority: medium
-# Description: Implement broadcaster for rubric generation updates
+# Dependencies: 1
+# Priority: high
+# Description: Implement ActionCable channel for processing updates
 # Details:
-Create RubricBroadcaster class.
-Implement update broadcasting for rubric status.
-Add progress percentage computation.
-Configure serialization for rubric data.
-Implement error message formatting.
-Document broadcaster API and usage.
+Create ProcessingChannel class.
+Implement subscription handling and authentication.
+Add broadcasting methods for different update types.
+Configure stream identification by assignment ID.
+Implement serialization for update data.
+Document channel API and usage.
 
 # Test Strategy:
-Test update broadcasting for different statuses.
-Verify progress percentage computation.
-Test serialization for rubric data.
-Verify error message formatting.
+Test subscription handling and authentication.
+Verify broadcasting methods for different update types.
+Test stream identification by assignment ID.
+Verify serialization for update data.

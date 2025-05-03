@@ -1,18 +1,17 @@
 # Task ID: 20
-# Title: Create FeedbackItem model and migration
+# Title: Create StudentWorkCriterionLevel model and migration
 # Status: pending
-# Dependencies: 18
+# Dependencies: 17, 18
 # Priority: high
-# Description: Implement the FeedbackItem model for structured feedback points
+# Description: Implement the join model between StudentWork, Criterion, and Level
 # Details:
-Generate model and migration for FeedbackItem with fields: feedbackable:references{polymorphic} item_type:string title:string description:text evidence:text.
-Add polymorphic belongs_to association with feedbackable.
-Add validations for item_type inclusion (strength, opportunity).
-Create FeedbackItem factory/fixture for testing.
-Implement scopes for filtering by type.
+Generate model and migration for StudentWorkCriterionLevel with fields: student_work:references criterion:references level:references explanation:text.
+Add belongs_to associations with StudentWork, Criterion, and Level models.
+Create StudentWorkCriterionLevel factory/fixture for testing.
+Implement validation for required associations.
 
 # Test Strategy:
-Test polymorphic association functionality.
-Test item_type validation.
-Test scopes for filtering.
+Test associations with StudentWork, Criterion, and Level models.
+Test explanation field storage and retrieval.
 Verify database constraints are properly set up.
+Test model instantiation with valid attributes.

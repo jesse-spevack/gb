@@ -1,19 +1,19 @@
 # Task ID: 47
-# Title: Create BroadcasterFactory
+# Title: Create StorageServiceFactory
 # Status: pending
 # Dependencies: 44
 # Priority: high
-# Description: Implement factory for creating broadcasters
+# Description: Implement factory for creating storage services
 # Details:
-Create BroadcasterFactory class.
-Implement broadcaster creation based on process type.
-Add configuration handling for broadcaster initialization.
-Implement default broadcaster fallback.
-Document supported broadcaster types.
+Create StorageServiceFactory class.
+Implement service creation based on process type.
+Add configuration handling for service initialization.
+Implement default service fallback.
+Document supported service types.
 Add error handling for unsupported types.
 
 # Test Strategy:
-Test broadcaster creation for different process types.
+Test service creation for different process types.
 Verify configuration handling.
-Test default broadcaster fallback.
+Test default service fallback.
 Verify error handling for unsupported types.

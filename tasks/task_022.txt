@@ -1,18 +1,19 @@
 # Task ID: 22
-# Title: Create AssignmentSummary model and migration
+# Title: Create StudentWorkCheck model and migration
 # Status: pending
-# Dependencies: 13
+# Dependencies: 18
 # Priority: high
-# Description: Implement the AssignmentSummary model for class-wide insights
+# Description: Implement the StudentWorkCheck model for verification checks
 # Details:
-Generate model and migration for AssignmentSummary with fields: assignment:references student_work_count:integer qualitative_insights:text.
-Add belongs_to association with Assignment model.
-Add has_many association for feedback items (polymorphic, placeholder for now).
-Create AssignmentSummary factory/fixture for testing.
-Implement validation for required fields.
+Generate model and migration for StudentWorkCheck with fields: student_work:references check_type:string score:integer explanation:text.
+Add belongs_to association with StudentWork model.
+Add validation for check_type inclusion.
+Add validation for score range (0-100).
+Create StudentWorkCheck factory/fixture for testing.
+Implement scopes for filtering by type and score range.
 
 # Test Strategy:
-Test association with Assignment model.
-Test has_many association for feedback items.
-Verify database constraints are properly set up.
-Test model instantiation with valid attributes.
+Test association with StudentWork model.
+Test check_type validation.
+Test score range validation.
+Verify scopes for filtering work correctly.

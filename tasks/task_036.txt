@@ -1,19 +1,19 @@
 # Task ID: 36
-# Title: Implement LLM::AnthropicClient
+# Title: Create LLM::Client base class
 # Status: pending
-# Dependencies: 35
+# Dependencies: 23
 # Priority: high
-# Description: Create client implementation for Anthropic's Claude API
+# Description: Implement the base client class for LLM integration
 # Details:
-Create LLM::AnthropicClient implementation.
-Implement API request handling.
-Add response parsing.
-Configure model selection options.
-Implement token counting mechanisms.
-Add error handling for API-specific errors.
+Create base LLM::Client class.
+Implement interface methods for prompt validation.
+Add abstract methods for LLM interaction.
+Implement common utility methods.
+Create configuration handling.
+Add error classes for different failure types.
 
 # Test Strategy:
-Test API request handling with mock responses.
-Verify token counting accuracy.
-Test error handling for different error types.
-Verify model selection configuration.
+Test prompt validation methods.
+Verify configuration handling.
+Test utility methods.
+Verify error class hierarchy.

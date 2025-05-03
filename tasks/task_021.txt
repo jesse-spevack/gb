@@ -1,19 +1,18 @@
 # Task ID: 21
-# Title: Create StudentWorkCheck model and migration
+# Title: Create FeedbackItem model and migration
 # Status: pending
 # Dependencies: 18
 # Priority: high
-# Description: Implement the StudentWorkCheck model for verification checks
+# Description: Implement the FeedbackItem model for structured feedback points
 # Details:
-Generate model and migration for StudentWorkCheck with fields: student_work:references check_type:string score:integer explanation:text.
-Add belongs_to association with StudentWork model.
-Add validation for check_type inclusion.
-Add validation for score range (0-100).
-Create StudentWorkCheck factory/fixture for testing.
-Implement scopes for filtering by type and score range.
+Generate model and migration for FeedbackItem with fields: feedbackable:references{polymorphic} item_type:string title:string description:text evidence:text.
+Add polymorphic belongs_to association with feedbackable.
+Add validations for item_type inclusion (strength, opportunity).
+Create FeedbackItem factory/fixture for testing.
+Implement scopes for filtering by type.
 
 # Test Strategy:
-Test association with StudentWork model.
-Test check_type validation.
-Test score range validation.
-Verify scopes for filtering work correctly.
+Test polymorphic association functionality.
+Test item_type validation.
+Test scopes for filtering.
+Verify database constraints are properly set up.

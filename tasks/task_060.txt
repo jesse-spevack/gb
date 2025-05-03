@@ -1,19 +1,19 @@
 # Task ID: 60
-# Title: Create Rubric#to_prompt method
+# Title: Create RubricGenerationJob
 # Status: pending
-# Dependencies: 15, 16, 17
+# Dependencies: 56, 58
 # Priority: medium
-# Description: Implement method for converting rubric to prompt format
+# Description: Implement background job for processing rubric generation
 # Details:
-Implement Rubric#to_prompt method.
-Format criteria and levels for inclusion in prompts.
-Add markdown formatting for better readability.
-Configure options for different output formats.
-Implement caching for performance optimization.
-Document method with example outputs.
+Create RubricGenerationJob class.
+Implement job execution logic with ProcessingPipeline.
+Add error handling and retry configuration.
+Configure job queue and priority.
+Implement progress tracking and status updates.
+Add logging for job execution.
 
 # Test Strategy:
-Test method with different rubric structures.
-Verify formatting for prompts.
-Test caching functionality.
-Verify output meets format requirements.
+Test job execution with valid assignment.
+Verify error handling and retry behavior.
+Test progress tracking and status updates.
+Verify logging functionality.

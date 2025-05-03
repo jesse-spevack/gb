@@ -1,19 +1,19 @@
 # Task ID: 74
-# Title: Create AssignmentProcessingJob
+# Title: Create Assignment::ProcessingStatusTracker
 # Status: pending
-# Dependencies: 59, 66, 71
-# Priority: high
-# Description: Implement master job for coordinating assignment processing
+# Dependencies: 72
+# Priority: medium
+# Description: Implement tracker for assignment processing status
 # Details:
-Create AssignmentProcessingJob class.
-Implement sequential job scheduling for processing steps.
-Add dependency management between processing stages.
-Configure error handling and recovery mechanisms.
-Implement status tracking and progress updates.
-Add completion notification handling.
+Create Assignment::ProcessingStatusTracker class.
+Implement overall status calculation logic.
+Add progress percentage computation.
+Configure time remaining estimation.
+Implement completion detection.
+Add event broadcasting for status updates.
 
 # Test Strategy:
-Test job execution with valid assignment.
-Verify sequential job scheduling.
-Test error handling and recovery mechanisms.
-Verify status tracking and progress updates.
+Test status calculation with different processing states.
+Verify progress percentage computation.
+Test time remaining estimation.
+Verify completion detection and event broadcasting.

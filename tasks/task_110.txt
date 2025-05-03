@@ -1,19 +1,19 @@
 # Task ID: 110
-# Title: Add export action to AssignmentsController
+# Title: Create AssignmentExport service
 # Status: pending
-# Dependencies: 109
+# Dependencies: 13, 18, 22
 # Priority: low
-# Description: Implement action for exporting assignment data
+# Description: Implement service for exporting assignment data
 # Details:
-Add export action to AssignmentsController.
-Implement format selection (CSV, PDF, JSON).
-Add service call to AssignmentExport.
-Configure proper content type headers.
-Implement filename generation.
-Add authorization checks for export access.
+Create AssignmentExport service.
+Implement CSV export format for assignment data.
+Add PDF export option for reports.
+Configure JSON export for API integration.
+Implement filtering options for export content.
+Document export formats and options.
 
 # Test Strategy:
-Test export action with different formats.
-Verify proper content type headers.
-Test filename generation for exports.
-Verify authorization checks for export access.
+Test CSV export format with sample assignment.
+Verify PDF export generation.
+Test JSON export for API integration.
+Verify filtering options for export content.

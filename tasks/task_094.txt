@@ -1,19 +1,19 @@
 # Task ID: 94
-# Title: Create ProcessingRetry Stimulus controller
+# Title: Add retry_processing action to AssignmentsController
 # Status: pending
-# Dependencies: 3, 93
+# Dependencies: 92
 # Priority: medium
-# Description: Implement controller for retrying failed processing
+# Description: Implement action for retrying failed processing
 # Details:
-Create Stimulus controller for processing retry.
-Implement retry button functionality.
-Add confirmation dialog before retry.
-Configure progress indication during retry.
-Implement success and error state handling.
-Add notification for retry initiation.
+Add retry_processing action to AssignmentsController.
+Implement service call to Assignment::RetryProcessingService.
+Add response format for AJAX and regular requests.
+Configure proper authorization checks.
+Implement error handling for retry failures.
+Add flash messages for user feedback.
 
 # Test Strategy:
-Test controller connection and initialization.
-Verify retry button functionality.
-Test confirmation dialog before retry.
-Verify progress indication and state handling.
+Test retry_processing action with valid assignment ID.
+Verify service call to Assignment::RetryProcessingService.
+Test authorization checks for different users.
+Verify error handling for retry failures.

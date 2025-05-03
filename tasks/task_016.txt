@@ -1,19 +1,18 @@
 # Task ID: 16
-# Title: Create Criterion model and migration
+# Title: Create Rubric model and migration
 # Status: pending
-# Dependencies: 15
+# Dependencies: 14
 # Priority: high
-# Description: Implement the Criterion model for rubric criteria
+# Description: Implement the Rubric model for structured grading rubrics
 # Details:
-Generate model and migration for Criterion with fields: rubric:references title:string description:text position:integer.
-Add belongs_to association with Rubric model.
-Add has_many association for levels (placeholder for now).
-Add validation for title presence.
-Create Criterion factory/fixture for testing.
-Implement position management for ordering criteria.
+Generate model and migration for Rubric with fields: assignment:references.
+Add belongs_to association with Assignment model.
+Add has_many association for criteria (placeholder for now).
+Create Rubric factory/fixture for testing.
+Implement to_prompt method placeholder for inclusion in subsequent prompts.
 
 # Test Strategy:
-Test model validations for presence of required fields.
-Test association with Rubric model.
-Test has_many association for levels.
-Verify position management works correctly.
+Test association with Assignment model.
+Test has_many association for criteria.
+Test model instantiation with valid attributes.
+Verify database constraints are properly set up.

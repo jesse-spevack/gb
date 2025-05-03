@@ -1,18 +1,18 @@
 # Task ID: 18
-# Title: Create StudentWork model and migration
+# Title: Create Level model and migration
 # Status: pending
-# Dependencies: 14
+# Dependencies: 17
 # Priority: high
-# Description: Implement the StudentWork model for individual student submissions
+# Description: Implement the Level model for criterion achievement levels
 # Details:
-Generate model and migration for StudentWork with fields: assignment:references selected_document:references qualitative_feedback:text.
-Add belongs_to associations with Assignment and SelectedDocument models.
-Add has_many associations for feedbackItems and checks (placeholders for now).
-Create StudentWork factory/fixture for testing.
-Implement status tracking for processing state.
+Generate model and migration for Level with fields: criterion:references title:string description:text position:integer.
+Add belongs_to association with Criterion model.
+Add validation for title presence.
+Create Level factory/fixture for testing.
+Implement position management for ordering levels.
 
 # Test Strategy:
-Test associations with Assignment and SelectedDocument models.
-Test has_many associations for related models.
-Test model instantiation with valid attributes.
-Verify status tracking functionality.
+Test model validations for presence of required fields.
+Test association with Criterion model.
+Test position management for ordering.
+Verify database constraints are properly set up.
