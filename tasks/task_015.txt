@@ -1,6 +1,6 @@
 # Task ID: 15
 # Title: Create SelectedDocument model and migration
-# Status: in-progress
+# Status: done
 # Dependencies: 14
 # Priority: high
 # Description: Implement the SelectedDocument model for Google Doc selections

@@ -1,6 +1,6 @@
 # Task ID: 16
 # Title: Create Rubric model and migration
-# Status: pending
+# Status: in-progress
 # Dependencies: 14
 # Priority: high
 # Description: Implement the Rubric model for structured grading rubrics
