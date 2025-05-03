@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-03]
+
+### Removed
+- Removed all classes from `application.html.erb` and `home/index.html.erb`, created backups of each.
+
 ## [2025-05-02]
 
 ### Added

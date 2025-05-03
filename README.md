@@ -18,6 +18,9 @@ See: [Changelog](/docs/changelog.md)
 
 1. `kamal deploy` fails on step #12
    - Run `kamal prune all` and then `kamal deploy --verbose` 
+
+### Worst Bug Ever
+- [Styles not loading properly. #534 - tailwindcss-rails](https://github.com/rails/tailwindcss-rails/issues/534#issuecomment-2848449567)
    
 ## Competition 
 - [EssayGrader](https://www.essaygrader.ai/)
