@@ -1,6 +1,6 @@
 # Task ID: 10
 # Title: Create SessionsController with new action
-# Status: pending
+# Status: done
 # Dependencies: 9
 # Priority: high
 # Description: Implement SessionsController with action for initiating Google OAuth

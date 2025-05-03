@@ -5,11 +5,12 @@ AI-powered assignment grading system that automates feedback for student work in
 ## Features
 See: [Changelog](/docs/changelog.md)
 
-## Setup
-Requires Google OAuth credentials and LLM API key.
+## Documentation
+0. [Plan](/docs/plan.md)
+1. [Authentication](/docs/authentication.md)
 
-## Product vision
-See: [Gradebot plan](/docs/plan.md)
+## Conventions
+0. [Git](/docs/git.md)
 
 ## Troubleshooting
 

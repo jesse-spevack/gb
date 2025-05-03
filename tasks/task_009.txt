@@ -1,6 +1,6 @@
 # Task ID: 9
 # Title: Implement Authentication Concern
-# Status: pending
+# Status: done
 # Dependencies: 8
 # Priority: high
 # Description: Create a controller concern for handling authentication logic

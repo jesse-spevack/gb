@@ -86,7 +86,7 @@
       "id": 8,
       "title": "Configure OmniAuth for Google OAuth2",
       "description": "Set up OmniAuth with Google OAuth2 provider for authentication",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         5,
         6,
@@ -100,7 +100,7 @@
       "id": 9,
       "title": "Implement Authentication Concern",
       "description": "Create a controller concern for handling authentication logic",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         8
       ],
@@ -112,7 +112,7 @@
       "id": 10,
       "title": "Create SessionsController with new action",
       "description": "Implement SessionsController with action for initiating Google OAuth",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         9
       ],
@@ -124,7 +124,7 @@
       "id": 11,
       "title": "Implement SessionsController callback action",
       "description": "Add callback handling to SessionsController for processing OAuth responses",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         10
       ],
@@ -136,7 +136,7 @@
       "id": 12,
       "title": "Add logout functionality to SessionsController",
       "description": "Implement action for logging out users and destroying sessions",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         11
       ],
