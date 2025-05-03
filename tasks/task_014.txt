@@ -1,6 +1,6 @@
 # Task ID: 14
 # Title: Create Assignment model and migration
-# Status: in-progress
+# Status: done
 # Dependencies: 5
 # Priority: high
 # Description: Implement the core Assignment model for representing teacher assignments

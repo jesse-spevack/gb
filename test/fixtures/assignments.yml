@@ -1,0 +1,38 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the "{}" from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+english_essay:
+  user: teacher
+  title: English Essay
+  instructions: Write an essay about your favorite book.
+  subject: English
+  grade_level: "10"
+
+history_essay:
+  user: teacher
+  title: History Essay
+  instructions: Write an essay about your favorite historical event.
+  subject: History
+  grade_level: "9"
+
+english_essay_with_rubric_text:
+  user: teacher
+  title: English Essay
+  instructions: Write an essay about your favorite book.
+  subject: English
+  grade_level: "10"
+  rubric_text: |-
+    Criteria:
+    - Writing
+    - Grammar
+    - Spelling
+    - Organization
+    Scoring:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5

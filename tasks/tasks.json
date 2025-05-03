@@ -161,7 +161,7 @@
       "id": 14,
       "title": "Create Assignment model and migration",
       "description": "Implement the core Assignment model for representing teacher assignments",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         5
       ],
@@ -173,7 +173,7 @@
       "id": 15,
       "title": "Create SelectedDocument model and migration",
       "description": "Implement the SelectedDocument model for Google Doc selections",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         14
       ],

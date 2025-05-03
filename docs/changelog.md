@@ -3,11 +3,15 @@ All notable changes to this project will be documented in this file.
 
 ## [2025-05-03]
 
+### Added
+- Restored tailwind classes.
+- Added favicon.
+- Updated `application.html.erb` and `home/index.html.erb` with tailwind classes.
+- Added Assignment model with validations for title, instructions, grade level, and feedback tone.
+
 ### Removed
 - Removed all classes from `application.html.erb` and `home/index.html.erb`, created backups of each.
 - Added remote build to `deploy.yml`. - THIS FIXED THE STYLES
-- Restored tailwind classes.
-- Added favicon.
 
 ## [2025-05-02]
 
