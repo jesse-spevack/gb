@@ -1,19 +1,19 @@
 # Task ID: 27
-# Title: Create home page controller and view
+# Title: Implement ApplicationController authentication
 # Status: pending
-# Dependencies: 26
-# Priority: medium
-# Description: Implement basic home page for the application
+# Dependencies: 9
+# Priority: high
+# Description: Configure ApplicationController with authentication requirements
 # Details:
-Generate HomeController with index action.
-Add route for the home page.
-Create view for home page with basic layout.
-Add sign-in button for unauthenticated users.
-Add dashboard preview for authenticated users.
-Include basic application information and value proposition.
+Include Authentication concern in ApplicationController.
+Add before_action to require authentication by default.
+Implement authenticated? check for views.
+Add helper method for current_user access in views.
+Create unauthenticated action for handling unauthorized access.
+Document authentication flow in controller.
 
 # Test Strategy:
-Test that index action renders the correct view.
-Verify sign-in button for unauthenticated users.
-Test dashboard preview for authenticated users.
-Verify route is correctly defined.
+Test that unauthenticated requests are redirected.
+Verify authenticated? helper is available in views.
+Test current_user helper method.
+Verify unauthenticated action renders correct response.

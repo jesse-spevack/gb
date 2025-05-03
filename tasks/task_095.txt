@@ -1,19 +1,19 @@
 # Task ID: 95
-# Title: Create User::SubscriptionService
+# Title: Create ProcessingRetry Stimulus controller
 # Status: pending
-# Dependencies: 25
-# Priority: low
-# Description: Implement service for managing user subscriptions
+# Dependencies: 3, 93
+# Priority: medium
+# Description: Implement controller for retrying failed processing
 # Details:
-Create User::SubscriptionService class.
-Implement subscription status checking methods.
-Add usage limit enforcement based on tier.
-Configure upgrade flow for tier changes.
-Implement usage counting and tracking.
-Document service API and usage.
+Create Stimulus controller for processing retry.
+Implement retry button functionality.
+Add confirmation dialog before retry.
+Configure progress indication during retry.
+Implement success and error state handling.
+Add notification for retry initiation.
 
 # Test Strategy:
-Test subscription status checking methods.
-Verify usage limit enforcement based on tier.
-Test upgrade flow for tier changes.
-Verify usage counting and tracking.
+Test controller connection and initialization.
+Verify retry button functionality.
+Test confirmation dialog before retry.
+Verify progress indication and state handling.

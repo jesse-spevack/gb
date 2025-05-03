@@ -1,18 +1,19 @@
 # Task ID: 13
-# Title: Create Assignment model and migration
-# Status: pending
-# Dependencies: 5
-# Priority: high
-# Description: Implement the core Assignment model for representing teacher assignments
+# Title: Add logo and favicon
+# Status: in-progress
+# Dependencies: 1, 2
+# Priority: medium
+# Description: Create and implement application logo and favicon for consistent branding
 # Details:
-Generate model and migration for Assignment with fields: user:references title:string subject:string grade_level:string instructions:text raw_rubric_text:text total_processing_milliseconds:integer.
-Add belongs_to association with User model.
-Add validations for required fields.
-Create Assignment factory/fixture for testing.
-Document model with appropriate comments.
+Design a simple, recognizable logo that represents GradeBot.
+Create favicon from the logo in multiple required sizes (16x16, 32x32, 192x192, 512x512).
+Add logo to application layout header.
+Configure favicon in app/views/layouts/application.html.erb.
+Ensure proper asset organization for images.
+Optimize images for web performance.
 
 # Test Strategy:
-Test model validations for presence of required fields.
-Test association with User model.
-Test model instantiation with valid attributes.
-Verify database constraints are properly set up.
+Verify logo appears correctly in application header.
+Check favicon displays in browser tabs.
+Test favicon works across different browsers.
+Verify appropriate image sizes are generated for different devices.

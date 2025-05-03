@@ -1,19 +1,19 @@
 # Task ID: 51
-# Title: Create PromptBuilder class
+# Title: Create PromptTemplate class
 # Status: pending
-# Dependencies: 50
+# Dependencies: 35
 # Priority: high
-# Description: Implement builder for constructing LLM prompts
+# Description: Implement template handling for LLM prompts
 # Details:
-Create PromptBuilder class for building prompts.
-Implement interface for template selection and rendering.
-Add context management for template variables.
-Implement helpers for common prompt operations.
-Add validation for generated prompts.
-Configure error handling for prompt building issues.
+Create PromptTemplate class for template loading and rendering.
+Implement ERB template rendering engine.
+Add variable interpolation for templates.
+Configure template directory structure.
+Implement template validation and error handling.
+Add caching mechanism for templates.
 
 # Test Strategy:
-Test prompt building with various templates.
-Verify context management functionality.
-Test helper methods for prompt operations.
-Verify error handling for invalid prompts.
+Test template rendering with various input parameters.
+Verify error handling with invalid templates.
+Test variable interpolation functionality.
+Verify caching mechanism works correctly.

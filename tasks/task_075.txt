@@ -1,19 +1,19 @@
 # Task ID: 75
-# Title: Create Stimulus controller for real-time updates
+# Title: Create AssignmentProcessingJob
 # Status: pending
-# Dependencies: 3
+# Dependencies: 59, 66, 71
 # Priority: high
-# Description: Implement controller for handling real-time processing updates
+# Description: Implement master job for coordinating assignment processing
 # Details:
-Create Stimulus controller for real-time updates.
-Implement ActionCable channel subscription.
-Add DOM updating based on received events.
-Configure progress bar and status indicator updates.
-Implement error message handling.
-Document controller usage.
+Create AssignmentProcessingJob class.
+Implement sequential job scheduling for processing steps.
+Add dependency management between processing stages.
+Configure error handling and recovery mechanisms.
+Implement status tracking and progress updates.
+Add completion notification handling.
 
 # Test Strategy:
-Test controller connection and initialization.
-Verify channel subscription and event handling.
-Test DOM updating with various events.
-Verify error message handling.
+Test job execution with valid assignment.
+Verify sequential job scheduling.
+Test error handling and recovery mechanisms.
+Verify status tracking and progress updates.

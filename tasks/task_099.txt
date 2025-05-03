@@ -1,19 +1,19 @@
 # Task ID: 99
-# Title: Create User::SubscriptionUpgradeService
+# Title: Create StripeWebhooksController
 # Status: pending
-# Dependencies: 95, 96
+# Dependencies: 96
 # Priority: low
-# Description: Implement service for handling subscription upgrades
+# Description: Implement controller for handling Stripe webhooks
 # Details:
-Create User::SubscriptionUpgradeService class.
-Implement upgrade logic for changing tiers.
-Add Stripe customer and subscription creation.
-Configure database updates for subscription changes.
-Implement email notification for upgrades.
-Document service API and usage.
+Create StripeWebhooksController.
+Implement create action for webhook processing.
+Add handlers for relevant webhook events.
+Configure signature verification for security.
+Implement subscription status updates based on events.
+Add logging for webhook processing.
 
 # Test Strategy:
-Test upgrade logic with different scenarios.
-Verify Stripe customer and subscription creation.
-Test database updates for subscription changes.
-Verify email notification for upgrades.
+Test create action with mock webhook events.
+Verify signature verification for security.
+Test subscription status updates based on events.
+Verify logging for webhook processing.

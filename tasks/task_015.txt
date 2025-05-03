@@ -1,18 +1,18 @@
 # Task ID: 15
-# Title: Create Rubric model and migration
+# Title: Create SelectedDocument model and migration
 # Status: pending
-# Dependencies: 13
+# Dependencies: 14
 # Priority: high
-# Description: Implement the Rubric model for structured grading rubrics
+# Description: Implement the SelectedDocument model for Google Doc selections
 # Details:
-Generate model and migration for Rubric with fields: assignment:references.
+Generate model and migration for SelectedDocument with fields: assignment:references google_doc_id:string title:string url:string.
 Add belongs_to association with Assignment model.
-Add has_many association for criteria (placeholder for now).
-Create Rubric factory/fixture for testing.
-Implement to_prompt method placeholder for inclusion in subsequent prompts.
+Add validations for required fields.
+Create SelectedDocument factory/fixture for testing.
+Implement validations for Google Doc ID format.
 
 # Test Strategy:
+Test model validations for presence of required fields.
 Test association with Assignment model.
-Test has_many association for criteria.
-Test model instantiation with valid attributes.
+Test Google Doc ID format validation.
 Verify database constraints are properly set up.

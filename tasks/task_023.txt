@@ -1,18 +1,18 @@
 # Task ID: 23
-# Title: Create LLMRequest model and migration
+# Title: Create AssignmentSummary model and migration
 # Status: pending
-# Dependencies: 5
+# Dependencies: 14
 # Priority: high
-# Description: Implement the LLMRequest model for tracking LLM interactions
+# Description: Implement the AssignmentSummary model for class-wide insights
 # Details:
-Generate model and migration for LLMRequest with fields: trackable:references{polymorphic} prompt:text model:string request_type:string response:text status:string token_count:integer cost_usd:decimal.
-Add polymorphic belongs_to association with trackable.
-Implement status tracking methods.
-Create LLMRequest factory/fixture for testing.
-Add validation for required fields.
+Generate model and migration for AssignmentSummary with fields: assignment:references student_work_count:integer qualitative_insights:text.
+Add belongs_to association with Assignment model.
+Add has_many association for feedback items (polymorphic, placeholder for now).
+Create AssignmentSummary factory/fixture for testing.
+Implement validation for required fields.
 
 # Test Strategy:
-Test polymorphic association functionality.
-Test status tracking methods.
+Test association with Assignment model.
+Test has_many association for feedback items.
 Verify database constraints are properly set up.
 Test model instantiation with valid attributes.

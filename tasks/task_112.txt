@@ -1,19 +1,19 @@
 # Task ID: 112
-# Title: Create system tests for assignment creation
+# Title: Create system tests for authentication flow
 # Status: pending
-# Dependencies: 32
+# Dependencies: 12
 # Priority: medium
-# Description: Implement end-to-end tests for creating assignments
+# Description: Implement end-to-end tests for authentication
 # Details:
-Create system test for assignment creation flow.
-Implement test for form submission with valid data.
-Add test for Google Picker integration.
-Configure test for validation errors.
-Implement test for rubric toggle behavior.
-Add documentation for assignment creation testing.
+Create system test for authentication flow.
+Implement test for sign-in with Google OAuth.
+Add test for session management.
+Configure test for sign-out functionality.
+Implement OmniAuth test mode setup.
+Add documentation for authentication testing.
 
 # Test Strategy:
-Test complete assignment creation flow.
-Verify form submission with valid data.
-Test validation error display.
-Verify rubric toggle behavior.
+Test complete sign-in flow with mock OAuth data.
+Verify session creation and persistence.
+Test sign-out functionality.
+Verify redirection after authentication actions.

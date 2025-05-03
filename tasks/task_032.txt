@@ -1,20 +1,19 @@
 # Task ID: 32
-# Title: Add create action to AssignmentsController
+# Title: Implement Google Picker Stimulus controller
 # Status: pending
-# Dependencies: 29, 31
+# Dependencies: 3, 30
 # Priority: high
-# Description: Implement action for saving new assignments
+# Description: Create Stimulus controller for Google Picker integration
 # Details:
-Add create action to AssignmentsController.
-Implement strong parameters for assignment attributes.
-Add validation for required fields.
-Handle selected documents data from form.
-Create assignment record with associated documents.
-Implement proper error handling and flash messages.
-Redirect to assignment show page on success.
+Create Stimulus controller for Google Picker.
+Implement Google Picker API initialization.
+Configure document selection callback.
+Add document validation logic (max 35 documents).
+Create UI for displaying selected documents.
+Implement document removal functionality.
 
 # Test Strategy:
-Test create action with valid parameters.
-Test validation for required fields.
-Verify error handling for invalid submissions.
-Test successful creation and redirect.
+Test controller connection and initialization.
+Verify document selection functionality.
+Test document validation logic.
+Verify UI updates correctly with selected documents.

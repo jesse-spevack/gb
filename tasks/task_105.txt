@@ -1,19 +1,19 @@
 # Task ID: 105
-# Title: Create User::ContributionVisualizationService
+# Title: Create User::StreakTrackingService
 # Status: pending
 # Dependencies: 5
 # Priority: low
-# Description: Implement service for visualizing user contributions
+# Description: Implement service for tracking user activity streaks
 # Details:
-Create User::ContributionVisualizationService class.
-Implement activity data aggregation methods.
-Add GitHub-style activity graph data generation.
-Configure time period filtering options.
-Implement statistics calculation for workload.
+Create User::StreakTrackingService class.
+Implement daily activity tracking logic.
+Add streak calculation methods.
+Configure streak reset rules.
+Implement milestone detection for achievements.
 Document service API and usage.
 
 # Test Strategy:
-Test activity data aggregation methods.
-Verify GitHub-style activity graph data generation.
-Test time period filtering options.
-Verify statistics calculation for workload.
+Test daily activity tracking logic.
+Verify streak calculation methods.
+Test streak reset rules.
+Verify milestone detection for achievements.

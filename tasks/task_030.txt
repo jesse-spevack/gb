@@ -1,19 +1,19 @@
 # Task ID: 30
-# Title: Create Google API configuration
+# Title: Add new action to AssignmentsController
 # Status: pending
-# Dependencies: 8
+# Dependencies: 28
 # Priority: high
-# Description: Set up configuration for Google API integration
+# Description: Implement action and view for creating new assignments
 # Details:
-Create configuration for Google API credentials.
-Implement ENV variable handling for API keys.
-Add Google API client initialization.
-Configure required API scopes.
-Create Google API service wrapper.
-Implement test mocks for Google API.
+Add new action to AssignmentsController.
+Add route for new assignment.
+Create form view with fields for title, subject, grade level, and instructions.
+Implement rubric toggle for AI-generated vs custom rubric.
+Add placeholder for Google Picker integration.
+Add feedback tone selection UI.
 
 # Test Strategy:
-Test configuration loading with valid environment variables.
-Verify API client initialization.
-Test service wrapper methods.
-Verify test mocks work correctly.
+Test that new action renders the form view.
+Verify form includes all required fields.
+Test rubric toggle functionality.
+Verify route is correctly defined.

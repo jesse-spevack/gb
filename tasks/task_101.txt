@@ -1,19 +1,19 @@
 # Task ID: 101
-# Title: Create User::UsageLimitService
+# Title: Create subscription views
 # Status: pending
-# Dependencies: 95
+# Dependencies: 97
 # Priority: low
-# Description: Implement service for enforcing usage limits
+# Description: Implement views for subscription management
 # Details:
-Create User::UsageLimitService class.
-Implement limit checking methods based on tier.
-Add rate limiting for API requests.
-Configure redirect logic for limit exceeded.
-Implement usage tracking and updating.
-Document service API and usage.
+Create view for subscription plan selection.
+Implement pricing display with feature comparison.
+Add payment form integration with Stripe Elements.
+Configure confirmation page for subscriptions.
+Implement subscription status display in user profile.
+Add upgrade prompts for free tier users.
 
 # Test Strategy:
-Test limit checking methods with different tiers.
-Verify rate limiting for API requests.
-Test redirect logic for limit exceeded.
-Verify usage tracking and updating.
+Verify view renders correctly with plan options.
+Test payment form integration with Stripe Elements.
+Verify subscription status display in user profile.
+Test upgrade prompts for free tier users.

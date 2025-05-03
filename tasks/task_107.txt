@@ -1,19 +1,19 @@
 # Task ID: 107
-# Title: Create activity dashboard view
+# Title: Create user profile controller and views
 # Status: pending
-# Dependencies: 104, 105, 106
+# Dependencies: 5
 # Priority: low
-# Description: Implement view for displaying user activity metrics
+# Description: Implement controller and views for user profile
 # Details:
-Create view for displaying user activity dashboard.
-Implement streak visualization component.
-Add activity graph with GitHub-style heatmap.
-Configure statistics cards for usage metrics.
-Implement filtering options for time periods.
-Add print-friendly version for reports.
+Create UserProfileController.
+Implement show action for profile display.
+Add edit action for profile updates.
+Configure update action for saving changes.
+Implement views for profile display and editing.
+Add avatar handling with Google profile image.
 
 # Test Strategy:
-Verify view renders correctly with activity data.
-Test streak visualization component.
-Verify activity graph with sample data.
-Test filtering options for time periods.
+Test show action with valid user.
+Verify edit action renders form with user data.
+Test update action with valid and invalid parameters.
+Verify avatar handling with Google profile image.

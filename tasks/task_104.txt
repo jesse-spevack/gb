@@ -1,19 +1,19 @@
 # Task ID: 104
-# Title: Create User::StreakTrackingService
+# Title: Create subscription limit views
 # Status: pending
-# Dependencies: 5
+# Dependencies: 100, 102
 # Priority: low
-# Description: Implement service for tracking user activity streaks
+# Description: Implement views for displaying subscription limits
 # Details:
-Create User::StreakTrackingService class.
-Implement daily activity tracking logic.
-Add streak calculation methods.
-Configure streak reset rules.
-Implement milestone detection for achievements.
-Document service API and usage.
+Create view for displaying usage limits and current usage.
+Implement progress bar for usage visualization.
+Add upgrade prompt for approaching limits.
+Configure limit exceeded page.
+Implement usage history display.
+Add FAQ section for subscription questions.
 
 # Test Strategy:
-Test daily activity tracking logic.
-Verify streak calculation methods.
-Test streak reset rules.
-Verify milestone detection for achievements.
+Verify view renders correctly with usage data.
+Test progress bar for usage visualization.
+Verify upgrade prompt for approaching limits.
+Test limit exceeded page display.

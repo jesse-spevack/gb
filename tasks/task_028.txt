@@ -1,19 +1,19 @@
 # Task ID: 28
-# Title: Create AssignmentsController with index action
+# Title: Create home page controller and view
 # Status: pending
-# Dependencies: 13, 26
-# Priority: high
-# Description: Implement controller and view for listing assignments
+# Dependencies: 26
+# Priority: medium
+# Description: Implement basic home page for the application
 # Details:
-Generate AssignmentsController with index action.
-Add route for assignments index.
-Implement query to retrieve current user's assignments.
-Create index view with assignment listing.
-Add empty state for no assignments.
-Implement sorting and basic filtering.
+Generate HomeController with index action.
+Add route for the home page.
+Create view for home page with basic layout.
+Add sign-in button for unauthenticated users.
+Add dashboard preview for authenticated users.
+Include basic application information and value proposition.
 
 # Test Strategy:
-Test that index action returns the current user's assignments.
-Verify empty state is shown when no assignments exist.
-Test sorting and filtering functionality.
-Verify view correctly displays assignment data.
+Test that index action renders the correct view.
+Verify sign-in button for unauthenticated users.
+Test dashboard preview for authenticated users.
+Verify route is correctly defined.

@@ -1,19 +1,19 @@
 # Task ID: 55
-# Title: Create assignment summary prompt template
+# Title: Create student feedback prompt template
 # Status: pending
 # Dependencies: 52
 # Priority: medium
-# Description: Implement template for generating assignment-level insights
+# Description: Implement template for generating student work feedback
 # Details:
-Create assignment summary prompt template.
-Define variables for assignment and student work collection.
-Implement instructional sections for summary structure.
-Add examples of good class-wide insights.
-Configure output format specification.
+Create student feedback prompt template.
+Define variables for student work and rubric details.
+Implement instructional sections for feedback structure.
+Add examples of good feedback items.
+Configure output format specification based on feedback tone.
 Document template with appropriate comments.
 
 # Test Strategy:
-Test template rendering with sample assignment data.
+Test template rendering with sample student work and rubric.
 Verify variable interpolation works correctly.
 Test output format meets requirements.
-Verify inclusion of multiple student works.
+Test feedback tone customization.

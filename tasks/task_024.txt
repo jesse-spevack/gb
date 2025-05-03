@@ -1,18 +1,18 @@
 # Task ID: 24
-# Title: Create ProcessingMetric model and migration
+# Title: Create LLMRequest model and migration
 # Status: pending
-# Dependencies: 13
+# Dependencies: 5
 # Priority: high
-# Description: Implement the ProcessingMetric model for tracking processing performance
+# Description: Implement the LLMRequest model for tracking LLM interactions
 # Details:
-Generate model and migration for ProcessingMetric with fields: processable:references{polymorphic} process_type:string started_at:datetime completed_at:datetime duration_ms:integer status:string metadata:json.
-Add polymorphic belongs_to association with processable.
+Generate model and migration for LLMRequest with fields: trackable:references{polymorphic} prompt:text model:string request_type:string response:text status:string token_count:integer cost_usd:decimal.
+Add polymorphic belongs_to association with trackable.
 Implement status tracking methods.
-Create ProcessingMetric factory/fixture for testing.
-Implement duration calculation method.
+Create LLMRequest factory/fixture for testing.
+Add validation for required fields.
 
 # Test Strategy:
 Test polymorphic association functionality.
-Test duration calculation method.
 Test status tracking methods.
 Verify database constraints are properly set up.
+Test model instantiation with valid attributes.
