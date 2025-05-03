@@ -19,6 +19,7 @@ class User < ApplicationRecord
   has_prefix_id :usr
 
   has_many :user_tokens, dependent: :destroy
+  has_many :sessions, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :name, presence: true

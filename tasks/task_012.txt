@@ -1,6 +1,6 @@
 # Task ID: 12
 # Title: Add logout functionality to SessionsController
-# Status: pending
+# Status: done
 # Dependencies: 11
 # Priority: high
 # Description: Implement action for logging out users and destroying sessions

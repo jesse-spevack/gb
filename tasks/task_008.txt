@@ -1,6 +1,6 @@
 # Task ID: 8
 # Title: Configure OmniAuth for Google OAuth2
-# Status: pending
+# Status: done
 # Dependencies: 5, 6, 7
 # Priority: high
 # Description: Set up OmniAuth with Google OAuth2 provider for authentication

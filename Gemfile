@@ -42,6 +42,10 @@ gem "thruster", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Authentication
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # Quality of life
 gem "prefixed_ids"
 
@@ -59,4 +63,5 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "dotenv"
 end
