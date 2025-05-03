@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_02_215826) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_03_203646) do
+  create_table "assignments", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.string "subject"
+    t.string "grade_level"
+    t.text "instructions", null: false
+    t.text "rubric_text"
+    t.string "feedback_tone", default: "encouraging", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_assignments_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "user_agent", null: false
@@ -42,6 +55,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_02_215826) do
     t.index ["google_uid"], name: "index_users_on_google_uid", unique: true
   end
 
+  add_foreign_key "assignments", "users"
   add_foreign_key "sessions", "users"
   add_foreign_key "user_tokens", "users"
 end
