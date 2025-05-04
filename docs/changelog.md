@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Added StudentWorkCheck model with validations for student work, check type, score, and explanation.
+- Added AssignmentSummary model with validations for assignment, student work count, and qualitative insights.
 
 ## [2025-05-03]
 
