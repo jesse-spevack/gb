@@ -18,6 +18,7 @@
 #
 class SelectedDocument < ApplicationRecord
   belongs_to :assignment
+  has_one :student_work, dependent: :destroy
 
   validates :assignment, presence: true
   validates :google_doc_id, presence: true

@@ -25,6 +25,8 @@ class Assignment < ApplicationRecord
   has_prefix_id :asgn
 
   belongs_to :user
+  has_many :selected_documents, through: :student_works
+  has_many :student_works, dependent: :destroy
 
   # Grade levels for assignment form
   GRADE_LEVELS = [ "5", "6", "7", "8", "9", "10", "11", "12", "university" ].freeze

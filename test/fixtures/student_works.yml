@@ -1,0 +1,20 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+student_essay_one:
+  assignment: english_essay
+  selected_document: one
+  qualitative_feedback: |
+    This essay shows strong analysis of the chosen book. The student demonstrates
+    good understanding of the themes and characters. However, there are some
+    grammar issues that need addressing. Overall, a promising piece of work that
+    could be improved with more careful proofreading.
+
+student_essay_with_rubric:
+  assignment: english_essay_with_rubric_text
+  selected_document: one
+  qualitative_feedback: |
+    Excellent work on this essay! The student has crafted a thoughtful analysis
+    with strong supporting evidence from the text. The writing is clear and
+    engaging, with only minor mechanical errors. The conclusion effectively
+    synthesizes the main points and offers insightful reflection on the book's
+    significance.
