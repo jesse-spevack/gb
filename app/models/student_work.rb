@@ -7,6 +7,8 @@ class StudentWork < ApplicationRecord
   has_many :feedback_items, as: :feedbackable
   has_many :llm_requests, as: :trackable
 
+  has_one :processing_metric, as: :processable, dependent: :destroy
+
   belongs_to :assignment
   belongs_to :selected_document
 

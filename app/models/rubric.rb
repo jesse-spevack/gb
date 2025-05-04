@@ -17,8 +17,11 @@ class Rubric < ApplicationRecord
   has_prefix_id :rbrc
 
   belongs_to :assignment
+
   has_many :criteria, dependent: :destroy
   has_many :llm_requests, as: :trackable
+
+  has_one :processing_metric, as: :processable, dependent: :destroy
 
   validates :assignment, presence: true
 end

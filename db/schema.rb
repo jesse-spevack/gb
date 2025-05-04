@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_144221) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_183553) do
   create_table "assignment_summaries", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "student_work_count", null: false
@@ -78,6 +78,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_144221) do
     t.datetime "updated_at", null: false
     t.index ["trackable_type", "trackable_id"], name: "index_llm_requests_on_trackable"
     t.index ["user_id"], name: "index_llm_requests_on_user_id"
+  end
+
+  create_table "processing_metrics", force: :cascade do |t|
+    t.string "processable_type", null: false
+    t.integer "processable_id", null: false
+    t.datetime "completed_at"
+    t.integer "duration_ms"
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["processable_type", "processable_id"], name: "index_processing_metrics_on_processable"
   end
 
   create_table "rubrics", force: :cascade do |t|
