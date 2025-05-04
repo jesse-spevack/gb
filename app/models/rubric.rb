@@ -18,6 +18,7 @@ class Rubric < ApplicationRecord
 
   belongs_to :assignment
   has_many :criteria, dependent: :destroy
+  has_many :llm_requests, as: :trackable
 
   validates :assignment, presence: true
 end
