@@ -1,6 +1,6 @@
 # Task ID: 28
 # Title: Create home page controller and view
-# Status: pending
+# Status: in-progress
 # Dependencies: 26
 # Priority: medium
 # Description: Implement basic home page for the application

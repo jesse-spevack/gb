@@ -294,7 +294,7 @@
       "id": 25,
       "title": "Create ProcessingMetric model and migration",
       "description": "Implement the ProcessingMetric model for tracking processing performance",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         14
       ],
@@ -318,7 +318,7 @@
       "id": 27,
       "title": "Implement ApplicationController authentication",
       "description": "Configure ApplicationController with authentication requirements",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         9
       ],
@@ -330,7 +330,7 @@
       "id": 28,
       "title": "Create home page controller and view",
       "description": "Implement basic home page for the application",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         26
       ],
