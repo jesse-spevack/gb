@@ -15,7 +15,7 @@ strong_thesis_feedback:
     establishes your argument and sets up the analysis that follows.
 
 clarity_improvement_feedback:
-  feedbackable: literary_analysis (Assignment)
+  feedbackable: literary_analysis_summary (AssignmentSummary)
   item_type: opportunity
   description: |
     Consider revising instructions regarding the required textual evidence.

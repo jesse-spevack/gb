@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_140014) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_141404) do
+  create_table "assignment_summaries", force: :cascade do |t|
+    t.integer "assignment_id", null: false
+    t.integer "student_work_count", null: false
+    t.text "qualitative_insights", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_assignment_summaries_on_assignment_id"
+  end
+
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -136,6 +145,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_140014) do
     t.index ["google_uid"], name: "index_users_on_google_uid", unique: true
   end
 
+  add_foreign_key "assignment_summaries", "assignments"
   add_foreign_key "assignments", "users"
   add_foreign_key "criteria", "rubrics"
   add_foreign_key "levels", "criteria"

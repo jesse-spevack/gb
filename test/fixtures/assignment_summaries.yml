@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+literary_analysis_summary:
+  assignment: english_essay
+  student_work_count: 23
+  qualitative_insights: |
+    Overall, students demonstrated strong understanding of literary analysis concepts.
+    Approximately 70% of students effectively identified and analyzed literary devices,
+    while 85% provided adequate textual evidence to support their claims. Common areas
+    for improvement include developing more nuanced thesis statements and connecting
+    analysis to broader themes in the literature. The assignment appears to have
+    effectively assessed students' critical thinking skills regarding the text.
+
+research_paper_summary:
+  assignment: history_essay
+  student_work_count: 18
+  qualitative_insights: |
+    Student submissions show varied levels of historical research competency. Strengths
+    include effective use of primary sources (65% of students) and chronological
+    organization (78% of students). Areas for improvement include critical analysis of
+    source credibility and development of original historical arguments rather than
+    simple narrative recounting. Consider revising the assignment instructions to
+    emphasize analytical approaches to historical documentation.

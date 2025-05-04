@@ -270,7 +270,7 @@
       "id": 23,
       "title": "Create AssignmentSummary model and migration",
       "description": "Implement the AssignmentSummary model for class-wide insights",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         14
       ],
@@ -282,7 +282,7 @@
       "id": 24,
       "title": "Create LLMRequest model and migration",
       "description": "Implement the LLMRequest model for tracking LLM interactions",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         5
       ],
