@@ -1,6 +1,6 @@
 # Task ID: 24
 # Title: Create LLMRequest model and migration
-# Status: in-progress
+# Status: done
 # Dependencies: 5
 # Priority: high
 # Description: Implement the LLMRequest model for tracking LLM interactions

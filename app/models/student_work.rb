@@ -5,6 +5,7 @@ class StudentWork < ApplicationRecord
 
   has_many :student_criterion_levels, dependent: :destroy
   has_many :feedback_items, as: :feedbackable
+  has_many :llm_requests, as: :trackable
 
   belongs_to :assignment
   belongs_to :selected_document

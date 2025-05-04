@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added StudentWorkCheck model with validations for student work, check type, score, and explanation.
 - Added AssignmentSummary model with validations for assignment, student work count, and qualitative insights.
+- Added LLMRequest model with validations for trackable, user, llm, request type, token count, micro USD, and prompt.
 
 ## [2025-05-03]
 
