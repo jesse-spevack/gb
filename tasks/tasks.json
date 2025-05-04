@@ -233,7 +233,7 @@
       "id": 20,
       "title": "Create StudentWorkCriterionLevel model and migration",
       "description": "Implement the join model between StudentWork, Criterion, and Level",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         17,
         18

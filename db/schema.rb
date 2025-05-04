@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_025423) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_030812) do
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -70,6 +70,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_025423) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "student_criterion_levels", force: :cascade do |t|
+    t.integer "student_work_id", null: false
+    t.integer "criterion_id", null: false
+    t.integer "level_id", null: false
+    t.text "explanation", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["criterion_id"], name: "index_student_criterion_levels_on_criterion_id"
+    t.index ["level_id"], name: "index_student_criterion_levels_on_level_id"
+    t.index ["student_work_id"], name: "index_student_criterion_levels_on_student_work_id"
+  end
+
   create_table "student_works", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "selected_document_id", null: false
@@ -108,6 +120,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_025423) do
   add_foreign_key "rubrics", "assignments"
   add_foreign_key "selected_documents", "assignments"
   add_foreign_key "sessions", "users"
+  add_foreign_key "student_criterion_levels", "criteria"
+  add_foreign_key "student_criterion_levels", "levels"
+  add_foreign_key "student_criterion_levels", "student_works"
   add_foreign_key "student_works", "assignments"
   add_foreign_key "student_works", "selected_documents"
   add_foreign_key "user_tokens", "users"

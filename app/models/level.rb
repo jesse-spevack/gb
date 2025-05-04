@@ -17,6 +17,7 @@
 #  index_levels_on_criterion_id  (criterion_id)
 class Level < ApplicationRecord
   belongs_to :criterion
+  has_many :student_criterion_levels, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true
