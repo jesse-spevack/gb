@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+plagiarism_check_essay_one:
+  student_work: student_essay_one
+  check_type: 0 
+  score: 98
+  explanation: "No significant matches found against reference database. Clean submission with high originality score."
+
+grammar_check_essay_one:
+  student_work: student_essay_one
+  check_type: 1 
+  score: 75
+  explanation: "Found 12 grammar issues and 8 spelling errors. Overall readability is still good but requires minor edits."

@@ -1,6 +1,6 @@
 # Task ID: 23
 # Title: Create AssignmentSummary model and migration
-# Status: pending
+# Status: in-progress
 # Dependencies: 14
 # Priority: high
 # Description: Implement the AssignmentSummary model for class-wide insights
