@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+english_essay_rubric:
+  assignment: english_essay
+
+history_essay_rubric:
+  assignment: history_essay
+
+rubric_from_text:
+  assignment: english_essay_with_rubric_text
