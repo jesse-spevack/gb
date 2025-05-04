@@ -1,4 +1,4 @@
-class CreateLlmRequests < ActiveRecord::Migration[8.0]
+class CreateLLMRequests < ActiveRecord::Migration[8.0]
   def change
     create_table :llm_requests do |t|
       t.references :trackable, polymorphic: true, null: false
