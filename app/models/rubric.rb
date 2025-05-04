@@ -17,6 +17,7 @@ class Rubric < ApplicationRecord
   has_prefix_id :rbrc
 
   belongs_to :assignment
+  has_many :criteria, dependent: :destroy
 
   validates :assignment, presence: true
 end

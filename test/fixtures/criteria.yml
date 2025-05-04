@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# English Essay Rubric Criteria
+writing_quality:
+  rubric: english_essay_rubric
+  title: "Writing Quality"
+  description: "Evaluates the overall quality of writing, including clarity, coherence, and style."
+  position: 1
+
+grammar_mechanics:
+  rubric: english_essay_rubric
+  title: "Grammar and Mechanics"
+  description: "Assesses correct usage of grammar, punctuation, spelling, and sentence structure."
+  position: 2
+
+content_depth:
+  rubric: english_essay_rubric
+  title: "Content Depth"
+  description: "Evaluates the depth of analysis, critical thinking, and insights demonstrated in the essay."
+  position: 3
+
+# History Essay Rubric Criteria
+historical_accuracy:
+  rubric: history_essay_rubric
+  title: "Historical Accuracy"
+  description: "Evaluates the accuracy of historical facts, events, and details presented in the essay."
+  position: 1
+
+source_quality:
+  rubric: history_essay_rubric
+  title: "Quality of Sources"
+  description: "Assesses the quality, reliability, and variety of historical sources used to support arguments."
+  position: 2
+
+argument_development:
+  rubric: history_essay_rubric
+  title: "Argument Development"
+  description: "Evaluates how well historical evidence is used to develop and support the main thesis."
+  position: 3
+
+contextualization:
+  rubric: history_essay_rubric
+  title: "Historical Contextualization"
+  description: "Assesses how well the essay places events within their broader historical context."
+  position: 4
