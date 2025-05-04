@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_023058) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_025423) do
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -70,6 +70,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_023058) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "student_works", force: :cascade do |t|
+    t.integer "assignment_id", null: false
+    t.integer "selected_document_id", null: false
+    t.text "qualitative_feedback"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_student_works_on_assignment_id"
+    t.index ["selected_document_id"], name: "index_student_works_on_selected_document_id"
+  end
+
   create_table "user_tokens", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "access_token", null: false
@@ -98,5 +108,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_023058) do
   add_foreign_key "rubrics", "assignments"
   add_foreign_key "selected_documents", "assignments"
   add_foreign_key "sessions", "users"
+  add_foreign_key "student_works", "assignments"
+  add_foreign_key "student_works", "selected_documents"
   add_foreign_key "user_tokens", "users"
 end
