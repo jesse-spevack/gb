@@ -25,4 +25,11 @@ class CriterionTest < ActiveSupport::TestCase
     criterion = Criterion.new(rubric: rubrics(:english_essay_rubric), title: "test_title", description: "test_description", position: 1)
     assert criterion.valid?
   end
+
+  test "order criteria by position" do
+    expected = [ criteria(:historical_accuracy), criteria(:source_quality), criteria(:argument_development), criteria(:contextualization) ].map(&:id)
+    actual = Criterion.where(rubric: rubrics(:history_essay_rubric)).map(&:id)
+
+    assert_equal expected, actual
+  end
 end

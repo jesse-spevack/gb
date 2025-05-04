@@ -1,6 +1,6 @@
 # Task ID: 18
 # Title: Create Level model and migration
-# Status: pending
+# Status: done
 # Dependencies: 17
 # Priority: high
 # Description: Implement the Level model for criterion achievement levels

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_021939) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_023058) do
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -32,6 +32,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_021939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rubric_id"], name: "index_criteria_on_rubric_id"
+  end
+
+  create_table "levels", force: :cascade do |t|
+    t.integer "criterion_id", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["criterion_id"], name: "index_levels_on_criterion_id"
   end
 
   create_table "rubrics", force: :cascade do |t|
@@ -84,6 +94,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_021939) do
 
   add_foreign_key "assignments", "users"
   add_foreign_key "criteria", "rubrics"
+  add_foreign_key "levels", "criteria"
   add_foreign_key "rubrics", "assignments"
   add_foreign_key "selected_documents", "assignments"
   add_foreign_key "sessions", "users"

@@ -2,10 +2,10 @@
 
 # == Schema Information
 #
-# Table name: criteria
+# Table name: levels
 #
 # id               :integer          not null, primary key
-# rubric_id        :integer          not null, foreign key
+# criterion_id     :integer          not null, foreign key
 # title            :string           not null
 # description      :text             not null
 # position         :integer          not null
@@ -14,15 +14,14 @@
 #
 # Indexes
 #
-#  index_criteria_on_rubric_id  (rubric_id)
-#
-class Criterion < ApplicationRecord
-  belongs_to :rubric
-  has_many :levels, dependent: :destroy
+#  index_levels_on_criterion_id  (criterion_id)
+class Level < ApplicationRecord
+  belongs_to :criterion
 
   validates :title, presence: true
   validates :description, presence: true
   validates :position, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
+  # Order levels by position (highest achievement level first)
   default_scope { order(position: :asc) }
 end
