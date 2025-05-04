@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-04]
+
+### Added
+- Added StudentWorkCheck model with validations for student work, check type, score, and explanation.
+
 ## [2025-05-03]
 
 ### Added

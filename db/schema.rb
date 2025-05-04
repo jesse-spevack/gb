@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_032701) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_140014) do
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -94,6 +94,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_032701) do
     t.index ["student_work_id"], name: "index_student_criterion_levels_on_student_work_id"
   end
 
+  create_table "student_work_checks", force: :cascade do |t|
+    t.integer "student_work_id", null: false
+    t.integer "check_type", null: false
+    t.integer "score", null: false
+    t.text "explanation", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_work_id"], name: "index_student_work_checks_on_student_work_id"
+  end
+
   create_table "student_works", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "selected_document_id", null: false
@@ -135,6 +145,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_032701) do
   add_foreign_key "student_criterion_levels", "criteria"
   add_foreign_key "student_criterion_levels", "levels"
   add_foreign_key "student_criterion_levels", "student_works"
+  add_foreign_key "student_work_checks", "student_works"
   add_foreign_key "student_works", "assignments"
   add_foreign_key "student_works", "selected_documents"
   add_foreign_key "user_tokens", "users"
