@@ -1,6 +1,6 @@
 # Task ID: 19
 # Title: Create StudentWork model and migration
-# Status: in-progress
+# Status: done
 # Dependencies: 14
 # Priority: high
 # Description: Implement the StudentWork model for individual student submissions

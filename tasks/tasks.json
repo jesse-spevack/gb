@@ -197,7 +197,7 @@
       "id": 17,
       "title": "Create Criterion model and migration",
       "description": "Implement the Criterion model for rubric criteria",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         16
       ],
@@ -221,7 +221,7 @@
       "id": 19,
       "title": "Create StudentWork model and migration",
       "description": "Implement the StudentWork model for individual student submissions",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         14
       ],
@@ -233,7 +233,7 @@
       "id": 20,
       "title": "Create StudentWorkCriterionLevel model and migration",
       "description": "Implement the join model between StudentWork, Criterion, and Level",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         17,
         18
@@ -246,7 +246,7 @@
       "id": 21,
       "title": "Create FeedbackItem model and migration",
       "description": "Implement the FeedbackItem model for structured feedback points",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         18
       ],
@@ -258,7 +258,7 @@
       "id": 22,
       "title": "Create StudentWorkCheck model and migration",
       "description": "Implement the StudentWorkCheck model for verification checks",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         18
       ],

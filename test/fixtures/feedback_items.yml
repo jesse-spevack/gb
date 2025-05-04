@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+strong_thesis_feedback:
+  feedbackable: student_essay_one (StudentWork)
+  item_type: strength
+  title: "Strong Thesis Statement"
+  description: |
+    Your thesis statement is clear, focused, and effectively establishes the purpose
+    of your essay. It provides specific direction for the paper and makes a claim
+    that requires support and evidence.
+  evidence: |
+    In your introduction, you wrote: "While Shakespeare's Macbeth portrays ambition
+    as a corrupting force, it is ultimately Macbeth's inability to reconcile his
+    actions with his conscience that leads to his downfall." This effectively
+    establishes your argument and sets up the analysis that follows.
+
+clarity_improvement_feedback:
+  feedbackable: literary_analysis (Assignment)
+  item_type: opportunity
+  description: |
+    Consider revising instructions regarding the required textual evidence.
+    Students appear confused about the expected quantity and quality of citations.
+  title: "Clarify Textual Evidence Requirements"
+  evidence: |
+    Several students submitted papers with minimal textual support or relied too
+    heavily on plot summary. For example, three papers contained fewer than
+    three direct quotations from the primary text, suggesting unclear expectations
+    about evidence requirements.
