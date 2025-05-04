@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Added Assignment model with validations for title, instructions, grade level, and feedback tone.
 - Added SelectedDocument model with validations for assignment, google_doc_id, title, and url.
 - Added "Just finished" to home page.
+- Added Rubric model with validations for assignment.
 
 ### Removed
 - Removed all classes from `application.html.erb` and `home/index.html.erb`, created backups of each.

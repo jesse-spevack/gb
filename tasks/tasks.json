@@ -185,7 +185,7 @@
       "id": 16,
       "title": "Create Rubric model and migration",
       "description": "Implement the Rubric model for structured grading rubrics",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         14
       ],
