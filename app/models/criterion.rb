@@ -19,6 +19,7 @@
 class Criterion < ApplicationRecord
   belongs_to :rubric
   has_many :levels, dependent: :destroy
+  has_many :student_criterion_levels, dependent: :destroy
 
   validates :title, presence: true
   validates :description, presence: true

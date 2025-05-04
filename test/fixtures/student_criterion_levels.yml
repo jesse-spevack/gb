@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+writing_assessment_proficient:
+  student_work: student_essay_one
+  criterion: writing_quality
+  level: writing_proficient
+  explanation: |
+    The student's writing is generally clear and coherent, demonstrating good
+    organization and logical flow. Ideas are connected with appropriate transitions,
+    and the voice remains consistent throughout most of the essay. Word choice is
+    effective and supports the main points being made.
+
+grammar_assessment_developing:
+  student_work: student_essay_one
+  criterion: grammar_mechanics
+  level: writing_developing
+  explanation: |
+    While the student shows understanding of basic grammar rules, there are several
+    errors in punctuation and sentence structure. Comma usage is inconsistent, and
+    there are a few run-on sentences that affect clarity. Spelling is mostly correct,
+    but there are a few errors that could have been caught with proofreading.
