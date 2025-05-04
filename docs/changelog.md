@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 - Added "Just finished" to home page.
 - Added Rubric model with validations for assignment.
 - Added Criterion model with validations for rubric, title, description, and position.
+- Added Level model with validations for criterion, title, description, and position.
 
 ### Removed
 - Removed all classes from `application.html.erb` and `home/index.html.erb`, created backups of each.

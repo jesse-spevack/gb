@@ -209,7 +209,7 @@
       "id": 18,
       "title": "Create Level model and migration",
       "description": "Implement the Level model for criterion achievement levels",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         17
       ],
@@ -221,7 +221,7 @@
       "id": 19,
       "title": "Create StudentWork model and migration",
       "description": "Implement the StudentWork model for individual student submissions",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         14
       ],
