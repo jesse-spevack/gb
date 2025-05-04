@@ -1,0 +1,22 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Processing metric for a rubric generation task
+rubric_generation:
+  processable: math_rubric (Rubric)
+  completed_at: <%= 2.days.ago %>
+  duration_ms: 1450
+  status: 1 # assuming 1 means 'completed'
+
+# Processing metric for a student work feedback task
+student_work_feedback:
+  processable: student_essay (StudentWork)
+  completed_at: <%= 1.day.ago %>
+  duration_ms: 3200
+  status: 1 # assuming 1 means 'completed'
+
+# Processing metric for a failed processing task
+failed_processing:
+  processable: science_assignment (Assignment)
+  completed_at: nil
+  duration_ms: nil
+  status: 2 # assuming 2 means 'failed'

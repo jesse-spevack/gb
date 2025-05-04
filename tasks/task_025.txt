@@ -1,6 +1,6 @@
 # Task ID: 25
 # Title: Create ProcessingMetric model and migration
-# Status: pending
+# Status: done
 # Dependencies: 14
 # Priority: high
 # Description: Implement the ProcessingMetric model for tracking processing performance
