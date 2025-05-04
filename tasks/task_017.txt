@@ -1,6 +1,6 @@
 # Task ID: 17
 # Title: Create Criterion model and migration
-# Status: pending
+# Status: done
 # Dependencies: 16
 # Priority: high
 # Description: Implement the Criterion model for rubric criteria

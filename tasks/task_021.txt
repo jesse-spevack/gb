@@ -1,6 +1,6 @@
 # Task ID: 21
 # Title: Create FeedbackItem model and migration
-# Status: pending
+# Status: done
 # Dependencies: 18
 # Priority: high
 # Description: Implement the FeedbackItem model for structured feedback points

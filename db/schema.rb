@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_04_030812) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_04_032701) do
   create_table "assignments", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "title", null: false
@@ -32,6 +32,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_04_030812) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["rubric_id"], name: "index_criteria_on_rubric_id"
+  end
+
+  create_table "feedback_items", force: :cascade do |t|
+    t.string "feedbackable_type", null: false
+    t.integer "feedbackable_id", null: false
+    t.integer "item_type", null: false
+    t.string "title", null: false
+    t.text "description", null: false
+    t.text "evidence", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["feedbackable_type", "feedbackable_id"], name: "index_feedback_items_on_feedbackable"
   end
 
   create_table "levels", force: :cascade do |t|
