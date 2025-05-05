@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full bg-white">
   <head>
     <title><%= content_for(:title) || "Gb" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,9 +22,25 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main>
-      <%= yield %>
-    </main>
+  <body class="h-full">
+    <% if authenticated? %>
+      <div data-controller="layout">
+        <%= render 'shared/sidebar' %>
+        
+        <div class="lg:pl-72">
+          <%= render 'shared/header' %>
+          
+          <main class="py-10">
+            <div class="px-4 sm:px-6 lg:px-8">
+              <%= yield %>
+            </div>
+          </main>
+        </div>
+      </div>
+    <% else %>
+      <main>
+        <%= yield %>
+      </main>
+    <% end %>
   </body>
 </html>
