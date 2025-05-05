@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
     if auth
       user = Authorization::UserService.user_from_google_auth(auth)
       start_new_session_for(user)
-      redirect_to root_path, notice: "Logged in."
+      redirect_to assignments_path, notice: "Logged in."
     else
       redirect_to root_path, alert: "Login attempt failed, try again."
     end
