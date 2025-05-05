@@ -1,19 +1,19 @@
 # Task ID: 98
-# Title: Create SubscriptionsController
+# Title: Create StripeWebhooksController
 # Status: pending
-# Dependencies: 95, 96
+# Dependencies: 96
 # Priority: low
-# Description: Implement controller for managing subscriptions
+# Description: Implement controller for handling Stripe webhooks
 # Details:
-Create SubscriptionsController.
-Implement new action for subscription creation.
-Add create action for processing subscriptions.
-Configure Stripe checkout integration.
-Implement proper error handling.
-Add redirect flows for success and failure.
+Create StripeWebhooksController.
+Implement webhook endpoint for handling Stripe events.
+Add signature verification.
+Implement handlers for relevant webhook events.
+Add proper error handling and logging.
+Ensure idempotency for webhook processing.
 
 # Test Strategy:
-Test new action renders the correct view.
-Verify Stripe checkout integration.
-Test error handling for failed subscriptions.
-Verify redirect flows for success and failure.
+Test webhook signature verification.
+Verify handling of different webhook events.
+Test idempotency of webhook processing.
+Verify error handling and logging.

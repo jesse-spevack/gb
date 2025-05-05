@@ -1,19 +1,19 @@
 # Task ID: 40
-# Title: Implement LLM::RetryHandler
+# Title: Implement LLM::CircuitBreaker
 # Status: pending
-# Dependencies: 35
+# Dependencies: 39
 # Priority: high
-# Description: Create retry mechanism for handling LLM request failures
+# Description: Create circuit breaker for preventing cascading failures
 # Details:
-Create LLM::RetryHandler class.
-Implement exponential backoff algorithm.
-Add retry count configuration.
-Configure retriable error types.
-Implement retry tracking and logging.
-Add circuit breaker integration placeholder.
+Create LLM::CircuitBreaker class.
+Implement failure rate tracking.
+Add circuit state management (open, closed, half-open).
+Configure failure threshold and reset timeout.
+Implement per-provider circuit isolation.
+Add circuit state change notifications.
 
 # Test Strategy:
-Test retry logic with simulated failures.
-Verify exponential backoff timing.
-Test retry count configuration.
-Verify retry tracking and logging.
+Test circuit opening on high failure rate.
+Verify circuit reset after timeout.
+Test half-open state behavior.
+Verify per-provider isolation.

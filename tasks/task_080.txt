@@ -1,19 +1,19 @@
 # Task ID: 80
-# Title: Create AssignmentSummaryBroadcaster
+# Title: Create Assignment::StatusManager
 # Status: pending
-# Dependencies: 47, 76
+# Dependencies: 48, 73
 # Priority: medium
-# Description: Implement broadcaster for assignment summary updates
+# Description: Implement manager for tracking and updating assignment status
 # Details:
-Create AssignmentSummaryBroadcaster class.
-Implement update broadcasting for summary status.
-Add progress percentage computation.
-Configure serialization for summary data.
-Implement error message formatting.
-Document broadcaster API and usage.
+Create Assignment::StatusManager class.
+Implement status update methods for different processing stages.
+Add progress tracking for overall assignment.
+Configure completion detection and notification.
+Implement error handling and recovery status.
+Document manager API and usage.
 
 # Test Strategy:
-Test update broadcasting for different statuses.
-Verify progress percentage computation.
-Test serialization for summary data.
-Verify error message formatting.
+Test status update methods for different stages.
+Verify progress tracking for overall assignment.
+Test completion detection and notification.
+Verify error handling and recovery status.

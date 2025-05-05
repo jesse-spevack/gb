@@ -1,19 +1,19 @@
 # Task ID: 82
-# Title: Create StudentWork::StatusManager
+# Title: Create Rubric partial view
 # Status: pending
-# Dependencies: 48, 73
+# Dependencies: 15, 16, 17
 # Priority: medium
-# Description: Implement manager for tracking and updating student work status
+# Description: Implement partial for displaying rubric details
 # Details:
-Create StudentWork::StatusManager class.
-Implement status update methods for feedback generation.
-Add progress tracking for individual student work.
-Configure completion detection and notification.
-Implement error handling and recovery status.
-Document manager API and usage.
+Create partial view for displaying rubric details.
+Implement grid layout for criteria and levels.
+Add styling with Tailwind classes.
+Configure responsive design for different screen sizes.
+Implement print-friendly version.
+Add documentation for partial usage.
 
 # Test Strategy:
-Test status update methods for feedback generation.
-Verify progress tracking for individual student work.
-Test completion detection and notification.
-Verify error handling and recovery status.
+Verify partial renders correctly with sample rubric.
+Test responsive design at different screen sizes.
+Check print-friendly version appearance.
+Verify styling matches design specifications.

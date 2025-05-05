@@ -1,19 +1,19 @@
 # Task ID: 46
-# Title: Create ResponseParserFactory
+# Title: Create StorageServiceFactory
 # Status: pending
 # Dependencies: 44
 # Priority: high
-# Description: Implement factory for creating response parsers
+# Description: Implement factory for creating storage services
 # Details:
-Create ResponseParserFactory class.
-Implement parser creation based on process type.
-Add configuration handling for parser initialization.
-Implement default parser fallback.
-Document supported parser types.
+Create StorageServiceFactory class.
+Implement service creation based on process type.
+Add configuration handling for service initialization.
+Implement default service fallback.
+Document supported service types.
 Add error handling for unsupported types.
 
 # Test Strategy:
-Test parser creation for different process types.
+Test service creation for different process types.
 Verify configuration handling.
-Test default parser fallback.
+Test default service fallback.
 Verify error handling for unsupported types.

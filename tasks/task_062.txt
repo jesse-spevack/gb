@@ -1,19 +1,19 @@
 # Task ID: 62
-# Title: Add show action to AssignmentsController
+# Title: Create DocumentContentRetrievalService
 # Status: pending
-# Dependencies: 32
+# Dependencies: 30
 # Priority: high
-# Description: Implement action for viewing assignment details
+# Description: Implement service for retrieving Google Doc content
 # Details:
-Add show action to AssignmentsController.
-Implement query to retrieve assignment with associated records.
-Create view for assignment details.
-Add sections for rubric, student works, and summary.
-Implement basic navigation between sections.
-Add progress tracking display.
+Create DocumentContentRetrievalService class.
+Implement Google Docs API integration.
+Add authentication handling with OAuth tokens.
+Configure content extraction and formatting.
+Implement caching for retrieved content.
+Add error handling for API failures.
 
 # Test Strategy:
-Test show action with valid assignment ID.
-Verify view displays correct assignment details.
-Test navigation between sections.
-Verify progress tracking display.
+Test service with valid document IDs.
+Verify content extraction and formatting.
+Test caching functionality.
+Verify error handling for API failures.

@@ -1,19 +1,19 @@
 # Task ID: 41
-# Title: Implement LLM::CircuitBreaker
+# Title: Create LLM::CostCalculator
 # Status: pending
-# Dependencies: 39
-# Priority: high
-# Description: Create circuit breaker for preventing cascading failures
+# Dependencies: 35
+# Priority: medium
+# Description: Implement calculator for determining LLM request costs
 # Details:
-Create LLM::CircuitBreaker class.
-Implement failure rate tracking.
-Add circuit state management (open, closed, half-open).
-Configure failure threshold and reset timeout.
-Implement per-provider circuit isolation.
-Add circuit state change notifications.
+Create LLM::CostCalculator class.
+Implement token counting for different LLM providers.
+Add cost calculation based on token usage.
+Configure per-model pricing.
+Implement methods for input and output token tracking.
+Add total cost calculation.
 
 # Test Strategy:
-Test circuit opening on high failure rate.
-Verify circuit reset after timeout.
-Test half-open state behavior.
-Verify per-provider isolation.
+Test token counting accuracy.
+Verify cost calculation with known token counts.
+Test per-model pricing configuration.
+Verify total cost calculation.

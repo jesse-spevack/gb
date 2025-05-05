@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Added AssignmentSummary model with validations for assignment, student work count, and qualitative insights.
 - Added LLMRequest model with validations for trackable, user, llm, request type, token count, micro USD, and prompt.
 - Added ProcessingMetric model with validations for processable, completed at, duration ms, and status.
+- Added new home page with Google sign-in button.
 
 ## [2025-05-03]
 

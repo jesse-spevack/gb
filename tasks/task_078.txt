@@ -1,19 +1,19 @@
 # Task ID: 78
-# Title: Create RubricBroadcaster
+# Title: Create StudentWorkBroadcaster
 # Status: pending
 # Dependencies: 47, 76
 # Priority: medium
-# Description: Implement broadcaster for rubric generation updates
+# Description: Implement broadcaster for student work updates
 # Details:
-Create RubricBroadcaster class.
-Implement update broadcasting for rubric status.
+Create StudentWorkBroadcaster class.
+Implement update broadcasting for student work status.
 Add progress percentage computation.
-Configure serialization for rubric data.
+Configure serialization for feedback data.
 Implement error message formatting.
 Document broadcaster API and usage.
 
 # Test Strategy:
 Test update broadcasting for different statuses.
 Verify progress percentage computation.
-Test serialization for rubric data.
+Test serialization for feedback data.
 Verify error message formatting.

@@ -1,19 +1,19 @@
 # Task ID: 29
-# Title: Create AssignmentsController with index action
+# Title: Add new action to AssignmentsController
 # Status: pending
-# Dependencies: 13, 26
+# Dependencies: 28
 # Priority: high
-# Description: Implement controller and view for listing assignments
+# Description: Implement action and view for creating new assignments
 # Details:
-Generate AssignmentsController with index action.
-Add route for assignments index.
-Implement query to retrieve current user's assignments.
-Create index view with assignment listing.
-Add empty state for no assignments.
-Implement sorting and basic filtering.
+Add new action to AssignmentsController.
+Add route for new assignment.
+Create form view with fields for title, subject, grade level, and instructions.
+Implement rubric toggle for AI-generated vs custom rubric.
+Add placeholder for Google Picker integration.
+Add feedback tone selection UI.
 
 # Test Strategy:
-Test that index action returns the current user's assignments.
-Verify empty state is shown when no assignments exist.
-Test sorting and filtering functionality.
-Verify view correctly displays assignment data.
+Test that new action renders the form view.
+Verify form includes all required fields.
+Test rubric toggle functionality.
+Verify route is correctly defined.

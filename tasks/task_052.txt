@@ -1,19 +1,19 @@
 # Task ID: 52
-# Title: Create PromptBuilder class
+# Title: Create prompt templates directory structure
 # Status: pending
 # Dependencies: 50
-# Priority: high
-# Description: Implement builder for constructing LLM prompts
+# Priority: medium
+# Description: Set up directory structure for prompt templates
 # Details:
-Create PromptBuilder class for building prompts.
-Implement interface for template selection and rendering.
-Add context management for template variables.
-Implement helpers for common prompt operations.
-Add validation for generated prompts.
-Configure error handling for prompt building issues.
+Create app/views/prompts/ directory.
+Set up subdirectories for different prompt types.
+Add README with template guidelines.
+Implement template loading mechanism.
+Create example templates for common tasks.
+Document template format and conventions.
 
 # Test Strategy:
-Test prompt building with various templates.
-Verify context management functionality.
-Test helper methods for prompt operations.
-Verify error handling for invalid prompts.
+Test directory structure is accessible.
+Verify template loading mechanism.
+Test example templates render correctly.
+Verify documentation is comprehensive.

@@ -1,19 +1,19 @@
 # Task ID: 97
-# Title: Configure Stripe initializer
+# Title: Create SubscriptionsController
 # Status: pending
-# Dependencies: 1
+# Dependencies: 95, 96
 # Priority: low
-# Description: Set up Stripe integration for billing
+# Description: Implement controller for managing subscriptions
 # Details:
-Install Stripe gem.
-Create Stripe initializer with API key configuration.
-Configure webhook endpoints.
-Implement test mode for development environment.
-Add error handling for API failures.
-Document Stripe integration setup.
+Create SubscriptionsController.
+Implement new action for subscription creation.
+Add create action for processing subscriptions.
+Configure Stripe checkout integration.
+Implement proper error handling.
+Add redirect flows for success and failure.
 
 # Test Strategy:
-Verify Stripe initializer loads correctly.
-Test webhook endpoint configuration.
-Verify test mode for development environment.
-Test error handling for API failures.
+Test new action renders the correct view.
+Verify Stripe checkout integration.
+Test error handling for failed subscriptions.
+Verify redirect flows for success and failure.

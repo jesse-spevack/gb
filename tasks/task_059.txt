@@ -1,19 +1,19 @@
 # Task ID: 59
-# Title: Create Rubric::CreationService
+# Title: Create RubricGenerationJob
 # Status: pending
-# Dependencies: 57
+# Dependencies: 56, 58
 # Priority: medium
-# Description: Implement service for creating rubric records from parsed data
+# Description: Implement background job for processing rubric generation
 # Details:
-Create Rubric::CreationService class.
-Implement record creation for Rubric and associated models.
-Add transaction for atomic creation.
-Configure validation for input data.
-Implement position ordering for criteria and levels.
-Add error handling for invalid data.
+Create RubricGenerationJob class.
+Implement job execution logic with ProcessingPipeline.
+Add error handling and retry configuration.
+Configure job queue and priority.
+Implement progress tracking and status updates.
+Add logging for job execution.
 
 # Test Strategy:
-Test service with valid parsed rubric data.
-Verify transaction for atomic creation.
-Test position ordering for criteria and levels.
-Verify error handling for invalid data.
+Test job execution with valid assignment.
+Verify error handling and retry behavior.
+Test progress tracking and status updates.
+Verify logging functionality.

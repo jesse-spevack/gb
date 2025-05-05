@@ -1,19 +1,19 @@
 # Task ID: 90
-# Title: Add update action to StudentWorksController
+# Title: Add append_feedback action to StudentWorksController
 # Status: pending
-# Dependencies: 88
+# Dependencies: 67, 89
 # Priority: medium
-# Description: Implement action for saving edited student work feedback
+# Description: Implement action for appending feedback to Google Docs
 # Details:
-Add update action to StudentWorksController.
-Implement strong parameters for feedback attributes.
-Add validation for updated feedback.
-Configure response format for AJAX and regular requests.
-Implement proper error handling.
-Add flash messages for user feedback.
+Add append_feedback action to StudentWorksController.
+Implement service call to GoogleDocsFeedbackAppender.
+Add response format for AJAX requests.
+Configure proper authorization checks.
+Implement error handling for appending failures.
+Add tracking for appended feedback.
 
 # Test Strategy:
-Test update action with valid parameters.
-Verify validation for updated feedback.
-Test response format for AJAX and regular requests.
-Verify error handling and flash messages.
+Test append_feedback action with valid student work ID.
+Verify service call to GoogleDocsFeedbackAppender.
+Test authorization checks for different users.
+Verify error handling for appending failures.

@@ -1,18 +1,19 @@
 # Task ID: 26
-# Title: Add subscription fields to User model
-# Status: pending
-# Dependencies: 5
-# Priority: medium
-# Description: Update User model with subscription-related fields
+# Title: Implement ApplicationController authentication
+# Status: done
+# Dependencies: 9
+# Priority: high
+# Description: Configure ApplicationController with authentication requirements
 # Details:
-Create migration to add subscription fields to User model: subscription_tier:string subscription_start_date:datetime subscription_end_date:datetime stripe_customer_id:string assignments_this_month:integer.
-Add validation for subscription_tier inclusion (free, paid).
-Implement subscription status checking methods.
-Update User factory/fixture with subscription fields.
-Add monthly assignment counting mechanism.
+Include Authentication concern in ApplicationController.
+Add before_action to require authentication by default.
+Implement authenticated? check for views.
+Add helper method for current_user access in views.
+Create unauthenticated action for handling unauthorized access.
+Document authentication flow in controller.
 
 # Test Strategy:
-Test subscription status checking methods.
-Verify subscription tier validation.
-Test monthly assignment counting mechanism.
-Verify database constraints for new fields.
+Test that unauthenticated requests are redirected.
+Verify authenticated? helper is available in views.
+Test current_user helper method.
+Verify unauthenticated action renders correct response.

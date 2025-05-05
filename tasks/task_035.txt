@@ -1,19 +1,19 @@
 # Task ID: 35
-# Title: Create Assignment::InitializerService
+# Title: Create LLM::Client base class
 # Status: pending
-# Dependencies: 33
+# Dependencies: 23
 # Priority: high
-# Description: Implement service for initializing assignments with related records
+# Description: Implement the base client class for LLM integration
 # Details:
-Create service for initializing assignments and related records.
-Implement creation of associated StudentWork records.
-Add placeholder for rubric initialization.
-Implement transaction for atomic creation.
-Add job enqueueing for background processing.
-Document service with appropriate comments.
+Create base LLM::Client class.
+Implement interface methods for prompt validation.
+Add abstract methods for LLM interaction.
+Implement common utility methods.
+Create configuration handling.
+Add error classes for different failure types.
 
 # Test Strategy:
-Test service with valid assignment.
-Verify creation of associated records.
-Test job enqueueing.
-Verify transaction rollback on failure.
+Test prompt validation methods.
+Verify configuration handling.
+Test utility methods.
+Verify error class hierarchy.
