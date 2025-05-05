@@ -1,19 +1,19 @@
 # Task ID: 42
-# Title: Create LLM::CostCalculator
+# Title: Create LLM::CostTracker
 # Status: pending
-# Dependencies: 35
+# Dependencies: 41, 23
 # Priority: medium
-# Description: Implement calculator for determining LLM request costs
+# Description: Implement tracker for recording LLM request costs
 # Details:
-Create LLM::CostCalculator class.
-Implement token counting for different LLM providers.
-Add cost calculation based on token usage.
-Configure per-model pricing.
-Implement methods for input and output token tracking.
-Add total cost calculation.
+Create LLM::CostTracker class.
+Implement callback mechanism for tracking requests.
+Add database persistence for cost data.
+Configure aggregation methods for reporting.
+Implement user-level and assignment-level tracking.
+Add periodic cost summary generation.
 
 # Test Strategy:
-Test token counting accuracy.
-Verify cost calculation with known token counts.
-Test per-model pricing configuration.
-Verify total cost calculation.
+Test callback mechanism with sample requests.
+Verify database persistence.
+Test aggregation methods.
+Verify user and assignment-level tracking.

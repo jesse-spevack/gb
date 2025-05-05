@@ -1,19 +1,19 @@
 # Task ID: 91
-# Title: Add append_feedback action to StudentWorksController
+# Title: Create FeedbackToneSelector Stimulus controller
 # Status: pending
-# Dependencies: 67, 89
+# Dependencies: 3
 # Priority: medium
-# Description: Implement action for appending feedback to Google Docs
+# Description: Implement controller for selecting feedback tone
 # Details:
-Add append_feedback action to StudentWorksController.
-Implement service call to GoogleDocsFeedbackAppender.
-Add response format for AJAX requests.
-Configure proper authorization checks.
-Implement error handling for appending failures.
-Add tracking for appended feedback.
+Create Stimulus controller for feedback tone selection.
+Implement slider UI for tone selection.
+Add visual indicators for different tones (encouraging, neutral, critical).
+Configure form field updates based on selection.
+Implement tone description display.
+Add default tone selection.
 
 # Test Strategy:
-Test append_feedback action with valid student work ID.
-Verify service call to GoogleDocsFeedbackAppender.
-Test authorization checks for different users.
-Verify error handling for appending failures.
+Test controller connection and initialization.
+Verify slider UI functionality.
+Test form field updates based on selection.
+Verify tone description display.

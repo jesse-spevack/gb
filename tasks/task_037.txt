@@ -1,11 +1,11 @@
 # Task ID: 37
-# Title: Implement LLM::AnthropicClient
+# Title: Implement LLM::GoogleClient
 # Status: pending
 # Dependencies: 35
 # Priority: high
-# Description: Create client implementation for Anthropic's Claude API
+# Description: Create client implementation for Google's PaLM API
 # Details:
-Create LLM::AnthropicClient implementation.
+Create LLM::GoogleClient implementation.
 Implement API request handling.
 Add response parsing.
 Configure model selection options.

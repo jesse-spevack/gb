@@ -318,7 +318,7 @@
       "id": 27,
       "title": "Create home page controller and view",
       "description": "Implement basic home page for the application",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         26
       ],
@@ -330,7 +330,7 @@
       "id": 28,
       "title": "Create AssignmentsController with index action",
       "description": "Implement controller and view for listing assignments",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         13,
         26

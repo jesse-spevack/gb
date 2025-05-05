@@ -1,19 +1,19 @@
 # Task ID: 43
-# Title: Create LLM::CostTracker
+# Title: Create ProcessingTask class
 # Status: pending
-# Dependencies: 41, 23
-# Priority: medium
-# Description: Implement tracker for recording LLM request costs
+# Dependencies: 38
+# Priority: high
+# Description: Implement base class for processing task configuration
 # Details:
-Create LLM::CostTracker class.
-Implement callback mechanism for tracking requests.
-Add database persistence for cost data.
-Configure aggregation methods for reporting.
-Implement user-level and assignment-level tracking.
-Add periodic cost summary generation.
+Create ProcessingTask class as defined in the PRD.
+Implement configuration handling for processing components.
+Add timing methods for performance tracking.
+Configure validation for required parameters.
+Implement metric recording mechanisms.
+Add process type definition and validation.
 
 # Test Strategy:
-Test callback mechanism with sample requests.
-Verify database persistence.
-Test aggregation methods.
-Verify user and assignment-level tracking.
+Test configuration handling.
+Verify timing methods accuracy.
+Test validation for required parameters.
+Verify metric recording functionality.

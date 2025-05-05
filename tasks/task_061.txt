@@ -1,19 +1,19 @@
 # Task ID: 61
-# Title: Create Rubric#to_prompt method
+# Title: Add show action to AssignmentsController
 # Status: pending
-# Dependencies: 15, 16, 17
-# Priority: medium
-# Description: Implement method for converting rubric to prompt format
+# Dependencies: 32
+# Priority: high
+# Description: Implement action for viewing assignment details
 # Details:
-Implement Rubric#to_prompt method.
-Format criteria and levels for inclusion in prompts.
-Add markdown formatting for better readability.
-Configure options for different output formats.
-Implement caching for performance optimization.
-Document method with example outputs.
+Add show action to AssignmentsController.
+Implement query to retrieve assignment with associated records.
+Create view for assignment details.
+Add sections for rubric, student works, and summary.
+Implement basic navigation between sections.
+Add progress tracking display.
 
 # Test Strategy:
-Test method with different rubric structures.
-Verify formatting for prompts.
-Test caching functionality.
-Verify output meets format requirements.
+Test show action with valid assignment ID.
+Verify view displays correct assignment details.
+Test navigation between sections.
+Verify progress tracking display.

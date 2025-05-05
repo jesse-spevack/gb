@@ -1,19 +1,19 @@
 # Task ID: 96
-# Title: Create User::SubscriptionService
+# Title: Configure Stripe initializer
 # Status: pending
-# Dependencies: 25
+# Dependencies: 1
 # Priority: low
-# Description: Implement service for managing user subscriptions
+# Description: Set up Stripe integration for billing
 # Details:
-Create User::SubscriptionService class.
-Implement subscription status checking methods.
-Add usage limit enforcement based on tier.
-Configure upgrade flow for tier changes.
-Implement usage counting and tracking.
-Document service API and usage.
+Install Stripe gem.
+Create Stripe initializer with API key configuration.
+Configure webhook endpoints.
+Implement test mode for development environment.
+Add error handling for API failures.
+Document Stripe integration setup.
 
 # Test Strategy:
-Test subscription status checking methods.
-Verify usage limit enforcement based on tier.
-Test upgrade flow for tier changes.
-Verify usage counting and tracking.
+Verify Stripe initializer loads correctly.
+Test webhook endpoint configuration.
+Verify test mode for development environment.
+Test error handling for API failures.

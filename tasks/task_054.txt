@@ -1,19 +1,19 @@
 # Task ID: 54
-# Title: Create rubric generation prompt template
+# Title: Create student feedback prompt template
 # Status: pending
 # Dependencies: 52
 # Priority: medium
-# Description: Implement template for generating structured rubrics
+# Description: Implement template for generating student work feedback
 # Details:
-Create rubric generation prompt template.
-Define variables for assignment details.
-Implement instructional sections for rubric structure.
-Add examples of good rubric criteria.
-Configure output format specification.
+Create student feedback prompt template.
+Define variables for student work and rubric details.
+Implement instructional sections for feedback structure.
+Add examples of good feedback items.
+Configure output format specification based on feedback tone.
 Document template with appropriate comments.
 
 # Test Strategy:
-Test template rendering with sample assignment details.
+Test template rendering with sample student work and rubric.
 Verify variable interpolation works correctly.
 Test output format meets requirements.
-Ensure the template is properly loaded.
+Test feedback tone customization.

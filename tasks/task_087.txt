@@ -1,19 +1,19 @@
 # Task ID: 87
-# Title: Create StudentWorkEditor Stimulus controller
+# Title: Create FeedbackAppender Stimulus controller
 # Status: pending
-# Dependencies: 3, 83
+# Dependencies: 3, 67, 83
 # Priority: medium
-# Description: Implement controller for editing student work feedback
+# Description: Implement controller for appending feedback to Google Docs
 # Details:
-Create Stimulus controller for student work feedback editing.
-Implement in-place editing for feedback items.
-Add AJAX saving for edited content.
-Configure validation for edited feedback.
-Implement optimistic UI updates.
-Add error handling for failed saves.
+Create Stimulus controller for feedback appending.
+Implement AJAX call to append service.
+Add progress indication during appending.
+Configure success and error state handling.
+Implement confirmation dialog before appending.
+Add notification for successful append.
 
 # Test Strategy:
 Test controller connection and initialization.
-Verify in-place editing functionality.
-Test AJAX saving with valid and invalid edits.
-Verify optimistic UI updates and error handling.
+Verify AJAX call to append service.
+Test progress indication during appending.
+Verify success and error state handling.

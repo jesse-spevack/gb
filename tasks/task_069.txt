@@ -1,19 +1,19 @@
 # Task ID: 69
-# Title: Create AssignmentSummaryTask
+# Title: Create AssignmentSummaryResponseParser
 # Status: pending
-# Dependencies: 43, 55
+# Dependencies: 45, 22
 # Priority: medium
-# Description: Implement processing task for assignment summary generation
+# Description: Implement parser for LLM-generated assignment summaries
 # Details:
-Create specialized ProcessingTask configuration for assignment summary.
-Configure prompt template, response parser, and storage service.
-Implement context building with assignment and student works.
-Add validation for completed student works.
-Configure broadcaster for real-time updates.
-Document task configuration options.
+Create AssignmentSummaryResponseParser class.
+Implement parsing logic for structured summary data.
+Add validation for parsed insights and feedback items.
+Configure error handling for invalid responses.
+Implement mapping to database models.
+Document parser with examples of valid input/output.
 
 # Test Strategy:
-Test task initialization with valid configuration.
-Verify context building with assignment and student works.
-Test validation for completed student works.
-Verify broadcaster configuration.
+Test parsing with valid LLM responses.
+Verify validation for parsed data.
+Test error handling with invalid responses.
+Verify mapping to database models.

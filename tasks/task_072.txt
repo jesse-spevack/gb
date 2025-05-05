@@ -1,19 +1,19 @@
 # Task ID: 72
-# Title: Create AssignmentSummaryJob
+# Title: Create Assignment::ProcessingTimeEstimator
 # Status: pending
-# Dependencies: 68, 70
+# Dependencies: 13, 18
 # Priority: medium
-# Description: Implement background job for processing assignment summaries
+# Description: Implement service for estimating processing time
 # Details:
-Create AssignmentSummaryJob class.
-Implement job execution logic with ProcessingPipeline.
-Add error handling and retry configuration.
-Configure job queue and priority.
-Implement progress tracking and status updates.
-Add logging for job execution.
+Create Assignment::ProcessingTimeEstimator class.
+Implement base time calculation (rubric: 30s, student work: 60s, summary: 45s).
+Add dynamic adjustment based on document length.
+Configure completion time estimation.
+Implement total time calculation methods.
+Document estimator with calculation examples.
 
 # Test Strategy:
-Test job execution with valid assignment.
-Verify error handling and retry behavior.
-Test progress tracking and status updates.
-Verify logging functionality.
+Test estimator with different assignment configurations.
+Verify base time calculation.
+Test dynamic adjustment based on document length.
+Verify total time calculation methods.

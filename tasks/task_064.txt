@@ -1,19 +1,19 @@
 # Task ID: 64
-# Title: Create StudentWorkFeedbackTask
+# Title: Create StudentWorkResponseParser
 # Status: pending
-# Dependencies: 43, 54, 60
+# Dependencies: 45, 18, 19, 20, 21
 # Priority: medium
-# Description: Implement processing task for student work feedback
+# Description: Implement parser for LLM-generated student feedback
 # Details:
-Create specialized ProcessingTask configuration for student work feedback.
-Configure prompt template, response parser, and storage service.
-Implement context building with student work and rubric.
-Add validation for required document content.
-Configure broadcaster for real-time updates.
-Document task configuration options.
+Create StudentWorkResponseParser class.
+Implement parsing logic for structured feedback data.
+Add validation for parsed feedback items and criterion levels.
+Configure error handling for invalid responses.
+Implement mapping to database models.
+Document parser with examples of valid input/output.
 
 # Test Strategy:
-Test task initialization with valid configuration.
-Verify context building with student work and rubric.
-Test validation for required data.
-Verify broadcaster configuration.
+Test parsing with valid LLM responses.
+Verify validation for parsed data.
+Test error handling with invalid responses.
+Verify mapping to database models.

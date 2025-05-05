@@ -1,19 +1,19 @@
 # Task ID: 81
-# Title: Create Assignment::StatusManager
+# Title: Create StudentWork::StatusManager
 # Status: pending
 # Dependencies: 48, 73
 # Priority: medium
-# Description: Implement manager for tracking and updating assignment status
+# Description: Implement manager for tracking and updating student work status
 # Details:
-Create Assignment::StatusManager class.
-Implement status update methods for different processing stages.
-Add progress tracking for overall assignment.
+Create StudentWork::StatusManager class.
+Implement status update methods for feedback generation.
+Add progress tracking for individual student work.
 Configure completion detection and notification.
 Implement error handling and recovery status.
 Document manager API and usage.
 
 # Test Strategy:
-Test status update methods for different stages.
-Verify progress tracking for overall assignment.
+Test status update methods for feedback generation.
+Verify progress tracking for individual student work.
 Test completion detection and notification.
 Verify error handling and recovery status.

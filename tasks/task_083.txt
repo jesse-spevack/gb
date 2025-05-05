@@ -1,19 +1,19 @@
 # Task ID: 83
-# Title: Create Rubric partial view
+# Title: Create StudentWork partial view
 # Status: pending
-# Dependencies: 15, 16, 17
+# Dependencies: 18, 19, 20, 21
 # Priority: medium
-# Description: Implement partial for displaying rubric details
+# Description: Implement partial for displaying student work feedback
 # Details:
-Create partial view for displaying rubric details.
-Implement grid layout for criteria and levels.
+Create partial view for displaying student work feedback.
+Implement tabbed interface for different feedback components.
 Add styling with Tailwind classes.
 Configure responsive design for different screen sizes.
-Implement print-friendly version.
-Add documentation for partial usage.
+Implement edit mode for feedback customization.
+Add Google Docs integration UI.
 
 # Test Strategy:
-Verify partial renders correctly with sample rubric.
-Test responsive design at different screen sizes.
-Check print-friendly version appearance.
-Verify styling matches design specifications.
+Verify partial renders correctly with sample feedback.
+Test tabbed interface functionality.
+Check responsive design at different screen sizes.
+Verify edit mode for feedback customization.

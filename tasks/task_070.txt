@@ -1,19 +1,19 @@
 # Task ID: 70
-# Title: Create AssignmentSummaryResponseParser
+# Title: Create AssignmentSummary::CreationService
 # Status: pending
-# Dependencies: 45, 22
+# Dependencies: 69
 # Priority: medium
-# Description: Implement parser for LLM-generated assignment summaries
+# Description: Implement service for creating assignment summary records
 # Details:
-Create AssignmentSummaryResponseParser class.
-Implement parsing logic for structured summary data.
-Add validation for parsed insights and feedback items.
-Configure error handling for invalid responses.
-Implement mapping to database models.
-Document parser with examples of valid input/output.
+Create AssignmentSummary::CreationService class.
+Implement record creation for summary and feedback items.
+Add transaction for atomic creation.
+Configure validation for input data.
+Implement insights formatting and processing.
+Add error handling for invalid data.
 
 # Test Strategy:
-Test parsing with valid LLM responses.
-Verify validation for parsed data.
-Test error handling with invalid responses.
-Verify mapping to database models.
+Test service with valid parsed summary data.
+Verify transaction for atomic creation.
+Test insights formatting and processing.
+Verify error handling for invalid data.

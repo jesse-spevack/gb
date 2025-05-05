@@ -1,19 +1,19 @@
 # Task ID: 49
-# Title: Create StatusManagerFactory
+# Title: Create DataCollectionService
 # Status: pending
 # Dependencies: 44
 # Priority: high
-# Description: Implement factory for creating status managers
+# Description: Implement service for gathering data for processing
 # Details:
-Create StatusManagerFactory class.
-Implement manager creation based on process type.
-Add configuration handling for manager initialization.
-Implement default manager fallback.
-Document supported manager types.
-Add error handling for unsupported types.
+Create DataCollectionService class.
+Implement data collection based on processable type.
+Add context building from collected data.
+Implement entity-specific collection methods.
+Add error handling for missing data.
+Document service with appropriate comments.
 
 # Test Strategy:
-Test manager creation for different process types.
-Verify configuration handling.
-Test default manager fallback.
-Verify error handling for unsupported types.
+Test data collection for different processable types.
+Verify context building functionality.
+Test entity-specific collection methods.
+Verify error handling for missing data.

@@ -1,19 +1,19 @@
 # Task ID: 53
-# Title: Create prompt templates directory structure
+# Title: Create rubric generation prompt template
 # Status: pending
-# Dependencies: 50
+# Dependencies: 52
 # Priority: medium
-# Description: Set up directory structure for prompt templates
+# Description: Implement template for generating structured rubrics
 # Details:
-Create app/views/prompts/ directory.
-Set up subdirectories for different prompt types.
-Add README with template guidelines.
-Implement template loading mechanism.
-Create example templates for common tasks.
-Document template format and conventions.
+Create rubric generation prompt template.
+Define variables for assignment details.
+Implement instructional sections for rubric structure.
+Add examples of good rubric criteria.
+Configure output format specification.
+Document template with appropriate comments.
 
 # Test Strategy:
-Test directory structure is accessible.
-Verify template loading mechanism.
-Test example templates render correctly.
-Verify documentation is comprehensive.
+Test template rendering with sample assignment details.
+Verify variable interpolation works correctly.
+Test output format meets requirements.
+Ensure the template is properly loaded.

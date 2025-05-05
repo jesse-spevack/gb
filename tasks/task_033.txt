@@ -1,20 +1,19 @@
 # Task ID: 33
-# Title: Add create action to AssignmentsController
+# Title: Create DocumentSelection::BulkCreationService
 # Status: pending
-# Dependencies: 29, 31
+# Dependencies: 14, 32
 # Priority: high
-# Description: Implement action for saving new assignments
+# Description: Implement service for creating document selections in bulk
 # Details:
-Add create action to AssignmentsController.
-Implement strong parameters for assignment attributes.
-Add validation for required fields.
-Handle selected documents data from form.
-Create assignment record with associated documents.
-Implement proper error handling and flash messages.
-Redirect to assignment show page on success.
+Create service for bulk creation of document selections.
+Implement validation for document selection parameters.
+Add document length validation (< 2000 words).
+Handle invalid document selections gracefully.
+Implement transaction for atomic creation.
+Document service with appropriate comments.
 
 # Test Strategy:
-Test create action with valid parameters.
-Test validation for required fields.
-Verify error handling for invalid submissions.
-Test successful creation and redirect.
+Test service with valid document selections.
+Test validation for document length.
+Verify error handling for invalid selections.
+Test transaction rollback on failure.
