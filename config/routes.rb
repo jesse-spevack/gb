@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback", to: "sessions#create"
   get "/auth/failure", to: redirect("/")
 
+  resources :assignments, only: [ :index ]
+
   # Marketing
   root "home#index"
 
