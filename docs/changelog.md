@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-05]
+- Updated the landing page copy to better reflect the value of GradeBot.
+
 ## [2025-05-04]
 
 ### Added
