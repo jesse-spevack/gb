@@ -1,0 +1,98 @@
+<%# COMPONENT: Product mockup/screenshot with sample feedback UI %>
+<div class="bg-white rounded-lg shadow-md overflow-hidden w-full">
+  <%# Assignment header with title and metadata %>
+  <div class="bg-blue-600 p-6 flex justify-between items-center">
+    <div>
+      <h2 class="text-white text-2xl font-bold">Literary Analysis Essay</h2>
+      <div class="text-blue-100 flex space-x-4 mt-1">
+        <span class="flex items-center"><svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>English</span>
+        <span class="flex items-center"><svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>Grade 10</span>
+      </div>
+    </div>
+    <div class="bg-white rounded-full px-4 py-2 text-blue-700 font-bold text-lg shadow-sm">
+      Score: 85%
+    </div>
+  </div>
+  
+  <%# Navigation tabs for feedback sections %>
+  <div class="border-b border-gray-200">
+    <nav class="-mb-px flex space-x-6 px-6" aria-label="Tabs">
+      <a href="#" class="py-4 px-1 text-sm font-medium text-blue-600 border-b-2 border-blue-600">Strengths & Opportunities</a>
+      <a href="#" class="py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700">Detailed Feedback</a>
+      <a href="#" class="py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700">Rubric</a>
+    </nav>
+  </div>
+  
+  <%# Feedback content area %>
+  <div class="p-6">
+    <%# Strengths feedback section %>
+    <div class="mb-8">
+      <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+        <svg class="h-5 w-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Strengths
+      </h3>
+      <div class="mt-4 pl-7">
+        <ul class="space-y-3">
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">1</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Strong thesis statement</span> – Your thesis clearly articulates your main argument about the text's symbolism.</p>
+          </li>
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">2</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Excellent textual evidence</span> – You consistently support your claims with relevant quotations from the text.</p>
+          </li>
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">3</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Insightful analysis</span> – Your interpretation shows depth of understanding and goes beyond surface-level observations.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <%# Opportunities/improvements feedback section %>
+    <div>
+      <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+        <svg class="h-5 w-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+        </svg>
+        Opportunities
+      </h3>
+      <div class="mt-4 pl-7">
+        <ul class="space-y-3">
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">1</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Paragraph organization</span> – Try using stronger topic sentences to guide your reader through your argument.</p>
+          </li>
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">2</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Citation formatting</span> – Review MLA citation guidelines for in-text citations; several are missing page numbers.</p>
+          </li>
+          <li class="flex">
+            <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0">
+              <span class="text-sm font-medium">3</span>
+            </div>
+            <p class="text-gray-700"><span class="font-medium">Conclusion development</span> – Expand your conclusion to more effectively synthesize your analysis and highlight broader implications.</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <%# Action buttons for feedback management %>
+    <div class="mt-8 flex justify-end space-x-4">
+      <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50">Save Feedback</button>
+      <button class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700">Send to Student</button>
+    </div>
+  </div>
+</div>
