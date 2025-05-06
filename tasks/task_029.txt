@@ -1,6 +1,6 @@
 # Task ID: 29
 # Title: Add new action to AssignmentsController
-# Status: pending
+# Status: done
 # Dependencies: 28
 # Priority: high
 # Description: Implement action and view for creating new assignments

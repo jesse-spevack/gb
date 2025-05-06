@@ -1,0 +1,215 @@
+<div class="bg-gray-50 min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center">
+        <%= link_to assignments_path, class: "mr-2 p-1 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" do %>
+          <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 inline-block align-middle" %>
+        <% end%>
+        <h2 class="text-xl font-semibold text-gray-900">New Assignment</h1>
+      </div>
+      <p class="text-sm text-gray-500">Create a new assignment and select student work to grade.</p>
+    </div>
+
+    <!-- Assignment Form -->
+    <%= form_with(model: @assignment, local: true, class: "space-y-6") do |form| %>
+
+      <!-- Hidden field for form processing -->
+      <%= form.hidden_field :id if @assignment.persisted? %>
+
+      <!-- Errors -->
+      <% if @assignment.errors.any? %>
+        <div class="mb-6 border-l-4 border-red-500 bg-red-50 px-4 py-3">
+          <div class="flex">
+            <div class="flex-shrink-0">
+              <svg class="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="ml-3">
+              <h3 class="text-sm font-medium text-red-800">
+                <%= pluralize(@assignment.errors.count, "error") %> prevented this assignment from being saved:
+              </h3>
+              <ul class="mt-2 list-disc pl-5 text-sm text-red-700">
+                <% @assignment.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Assignment Details Card -->
+      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+        <!-- Header -->
+        <div class="flex items-center mb-4">
+            <%= render "shared/icons/clipboard_document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+            <h3 class="font-medium text-gray-900">Assignment Details</h3>
+        </div>
+        <p class="text-sm text-gray-500 mb-4">Enter the details of the assignment you want to grade.</p>
+
+        <!-- Body -->
+        <div class="space-y-4">
+          <div class="mb-4">
+            <%= form.label :title, class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= form.text_field :title, class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm" %>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mb-4">
+              <%= form.label :subject, class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= form.text_field :subject, class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm" %>
+            </div>
+            <div class="mb-4">
+              <%= form.label :grade_level, class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= form.select :grade_level, options_for_grade_level_select, {}, class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm" %>
+            </div>
+          </div>
+        </div>
+        <div class="mb-4">
+          <%= form.label :instructions, class: "block text-sm font-medium text-gray-700 mb-1" %>
+          <%= form.text_area :instructions, rows: 5, class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm" %>
+        </div>
+      </div>
+
+      <!-- Rubric Card -->
+      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg" data-controller="rubric-toggle">
+        <div class="flex items-center mb-4">
+          <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+          <h4 class="text-lg font-medium leading-6 text-gray-900">Rubric</h4>
+        </div>
+        <p class="text-sm text-gray-500 mb-4">Choose how to provide the grading rubric. You can generate one using AI based on the assignment details or paste your own.</p>
+
+        <div class="flex items-center justify-between mb-4">
+          <span class="flex grow flex-col">
+            <%# Generate Label %>
+            <span class="text-sm font-medium text-gray-900 flex items-center gap-1" id="rubric-generate-label" data-rubric-toggle-target="generateLabel">
+              <%= render "shared/icons/sparkles", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+              Generate rubric
+            </span>
+            <%# Paste Label - initially hidden %>
+            <span class="text-sm font-medium text-gray-900 flex items-center gap-1 hidden" id="rubric-paste-label" data-rubric-toggle-target="pasteLabel">
+              <%= render "shared/icons/document_duplicate", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+              Paste rubric
+            </span>
+          </span>
+          <button type="button"
+            id="rubric-toggle-switch"
+            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-blue-600 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2" 
+            role="switch"
+            aria-checked="true" 
+            aria-labelledby="rubric-toggle-label"
+            data-action="click->rubric-toggle#toggle" 
+            data-rubric-toggle-target="switch">
+            <span class="sr-only">Toggle Rubric Option</span>
+            <span aria-hidden="true" 
+                  id="rubric-toggle-knob" 
+                  class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" 
+                  data-rubric-toggle-target="knob"></span> 
+          </button>
+        </div>
+
+        <!-- Paste rubric -->
+        <div> 
+          <%= form.text_area :raw_rubric_text, 
+                rows: 6, 
+                maxlength: 5000, 
+                placeholder: "GradeBot will generate an AI rubric based on your assignment details.", 
+                class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm bg-gray-100 text-gray-500", 
+                disabled: true, 
+                data: { rubric_toggle_target: "textarea" } %> 
+        </div>
+      </div>
+
+      <!-- Student Work Card (Google Picker) -->
+      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+        <div class="flex items-center mb-4">
+          <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+          <h4 class="text-lg font-medium leading-6 text-gray-900">Student Work</h4>
+        </div>
+        <p class="text-sm text-gray-500 mb-4">Select the Google Docs that contains the student work you want to grade.</p>
+
+        <div data-controller="doc-picker" 
+               data-doc-picker-hidden-class="hidden" 
+               data-doc-picker-error-class="text-red-700" 
+               data-doc-picker-max-documents-value="35">
+            <%= form.hidden_field :document_data, data: { doc_picker_target: "documentData" } %>
+            
+            <div data-doc-picker-target="error" class="hidden mb-4 p-2 text-red-700 bg-red-100 rounded-md"></div>
+            
+            <div data-doc-picker-target="countError" class="hidden mb-4 p-3 bg-red-100 text-red-800 rounded-md flex items-start">
+              <svg class="h-5 w-5 text-red-600 mt-0.5 mr-2 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <div>
+                <p class="font-medium">Too many documents selected!</p>
+                <p class="mt-1">Change your selection to not exceed 35 pieces of student work.</p>
+              </div>
+            </div>
+            
+            <div id="student-work-selector" 
+                 data-doc-picker-target="selectButtonContainer" 
+                 class="p-6 mt-4 text-center">
+              <button type="button" 
+                      data-doc-picker-target="button"
+                      data-action="click->doc-picker#showPicker"
+                      class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all">
+                <%= render 'shared/icons/google', class: 'mr-2 -ml-1 h-5 w-5' %>
+                Select student work
+              </button>
+            </div>
+
+            <div id="selected-documents" 
+                 data-doc-picker-target="selectedDocumentsContainer" class="mt-4 p-4 bg-gray-50 rounded-lg hidden">
+              <div class="flex justify-between items-center mb-3">
+                <p class="text-sm font-medium text-gray-700">Selected Google documents (<span data-doc-picker-target="documentCountText">0</span> of 35)</p>
+                <button type="button" 
+                       data-action="click->doc-picker#showPicker" 
+                       class="text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+                  Change selection
+                </button>
+              </div>
+              <ul id="document-list" 
+                  data-doc-picker-target="documentList" 
+                  class="space-y-2 max-h-64 overflow-y-auto">
+                <!-- Document entries will be inserted here dynamically -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      <!-- Grading Settings Card -->
+      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg mb-6">
+        <div class="flex items-center mb-4">
+          <%= render "shared/icons/adjustments_horizontal", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+          <h4 class="text-lg font-medium leading-6 text-gray-900">Grading Settings</h4>
+        </div>
+        <p class="text-sm text-gray-500 mb-4">Fine tune how GradeBot will grade your student work.</p>
+
+        <%# Pass tones array to Stimulus controller %>
+        <div class="mb-4" data-controller="feedback-tone-slider" data-feedback-tone-slider-tones-value="<%= Assignment::FEEDBACK_TONES.to_json %>">
+          <label class="block text-gray-700 text-sm font-bold mb-2">Feedback tone</label>
+          <div class="flex items-center gap-3">
+            <%# Removed name attribute, kept Stimulus target/action, updated max value %>
+            <input type="range" min="0" max="<%= Assignment::FEEDBACK_TONES.size - 1 %>" step="1" value="0" data-feedback-tone-slider-target="slider" data-action="input->feedback-tone-slider#updateTone" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" aria-label="Feedback Tone" />
+          </div>
+          <%# Added hidden field for the actual feedback_tone value %>
+          <%= form.hidden_field :feedback_tone, data: { feedback_tone_slider_target: "feedbackTone" } %>
+          <div class="flex flex-row flex-wrap justify-between mt-2">
+            <%# Use FEEDBACK_TONES for labels %>
+            <% Assignment::FEEDBACK_TONES.each do |tone| %>
+              <span class="text-sm text-gray-500 capitalize"><%= tone %></span>
+            <% end %>
+          </div>
+        </div>
+        
+        <div class="mt-6 flex items-center justify-between">
+          <%= form.button type: "submit", class: "inline-flex items-center justify-center gap-x-2 px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700" do %>
+            <span>Submit for grading</span>
+          <% end %>
+          <%= link_to "Cancel", assignments_path, class: "inline-block align-baseline font-medium text-sm text-blue-600 hover:text-blue-700" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
