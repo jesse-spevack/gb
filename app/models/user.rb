@@ -20,6 +20,7 @@ class User < ApplicationRecord
 
   has_many :user_tokens, dependent: :destroy
   has_many :sessions, dependent: :destroy
+  has_many :assignments, dependent: :destroy
   has_many :llm_requests
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }

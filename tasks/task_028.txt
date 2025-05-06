@@ -1,6 +1,6 @@
 # Task ID: 28
 # Title: Create AssignmentsController with index action
-# Status: in-progress
+# Status: done
 # Dependencies: 13, 26
 # Priority: high
 # Description: Implement controller and view for listing assignments

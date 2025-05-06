@@ -330,7 +330,7 @@
       "id": 28,
       "title": "Create AssignmentsController with index action",
       "description": "Implement controller and view for listing assignments",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         13,
         26
@@ -343,7 +343,7 @@
       "id": 29,
       "title": "Add new action to AssignmentsController",
       "description": "Implement action and view for creating new assignments",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         28
       ],
