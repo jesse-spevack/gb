@@ -43,7 +43,7 @@
 
         <div class="absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-hidden hidden" data-dropdown-target="menu" role="menu" aria-orientation="vertical" tabindex="-1">
           <%= link_to "Your profile", "#", class: "block px-3 py-1 text-sm/6 text-gray-900", role: "menuitem", tabindex: "-1" %>
-          <%= link_to "Sign out", "#", class: "block px-3 py-1 text-sm/6 text-gray-900", role: "menuitem", tabindex: "-1", data: { turbo_method: :delete } %>
+          <%= link_to "Sign out", session_path, class: "block px-3 py-1 text-sm/6 text-gray-900", role: "menuitem", tabindex: "-1", data: { turbo_method: :delete } %>
         </div>
       </div>
     </div>
