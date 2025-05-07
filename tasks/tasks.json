@@ -355,7 +355,7 @@
       "id": 30,
       "title": "Create Google API configuration",
       "description": "Set up configuration for Google API integration",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         8
       ],
