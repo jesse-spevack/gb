@@ -46,6 +46,11 @@ gem "thruster", require: false
 gem "omniauth-google-oauth2"
 gem "omniauth-rails_csrf_protection"
 
+# Google
+gem "google-apis-drive_v3"
+gem "google-apis-docs_v1"
+gem "googleauth"
+
 # Quality of life
 gem "prefixed_ids"
 
@@ -64,4 +69,8 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
   gem "dotenv"
+end
+
+group :test do
+  gem "mocha"
 end

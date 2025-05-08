@@ -12,6 +12,11 @@ Rails.application.routes.draw do
 
   resources :assignments, only: [ :index, :new ]
 
+  # Google
+  namespace :google do
+    resource :credentials, only: [ :show ]
+  end
+
   # Marketing
   root "home#index"
 
