@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-07]
+- Added Google::TokenService with methods for creating Google Drive and Docs clients, and accessing access tokens.
+- Added tests for Google::TokenService.
+- Added Google::DriveService with method for fetching document content.
+- Added tests for Google::DriveService.
+- Added Google::DocsService with method for appending content to document. This service only logs.
+- Added tests for Google::DocsService.
+- Added Google::PickerService with method for generating picker token, oauth token, and app id.
+- Added tests for Google::PickerService.
+
+
 ## [2025-05-05]
 - Updated the landing page copy to better reflect the value of GradeBot.
 - Added the assignment form

@@ -355,7 +355,7 @@
       "id": 30,
       "title": "Create Google API configuration",
       "description": "Set up configuration for Google API integration",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         8
       ],
@@ -367,7 +367,7 @@
       "id": 31,
       "title": "Implement Google Picker Stimulus controller",
       "description": "Create Stimulus controller for Google Picker integration",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         3,
         30

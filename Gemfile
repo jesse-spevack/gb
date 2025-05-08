@@ -70,3 +70,7 @@ group :development do
   gem "web-console"
   gem "dotenv"
 end
+
+group :test do
+  gem "mocha"
+end
