@@ -24,7 +24,9 @@ class Google::TokenService
   def access_token
     credentials = create_credentials
 
-    if credentials.access_token_expired?
+    # Refresh token if it's expired OR if the access token is nil
+    if credentials.access_token.nil? || credentials.expired?
+      Rails.logger.info("Refreshing access token for user #{@user.id}")
       credentials.fetch_access_token!
 
       token = get_valid_token

@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-10]
+- Fixed Google Picker integration by enhancing token refresh logic in `Google::TokenService` to handle nil access tokens
+- Updated environment variable loading from Kamal secrets to properly map credentials
+- Refactored credential handling for Google APIs to improve reliability
+- Removed dotenv gem
+- Cleaned up debugging logs and console output for production readiness
+- Created and implemented `rubric_toggle_controller.js` to enable toggling between AI-generated and manually entered rubrics
+- Refactored toggle controller to use Stimulus CSS Classes API for better separation of concerns and maintainability
+- Added accessibility enhancements including ARIA attributes and screen reader announcements
+
 ## [2025-05-07]
 - Added Google::TokenService with methods for creating Google Drive and Docs clients, and accessing access tokens.
 - Added tests for Google::TokenService.
@@ -10,7 +20,6 @@ All notable changes to this project will be documented in this file.
 - Added tests for Google::DocsService.
 - Added Google::PickerService with method for generating picker token, oauth token, and app id.
 - Added tests for Google::PickerService.
-
 
 ## [2025-05-05]
 - Updated the landing page copy to better reflect the value of GradeBot.
