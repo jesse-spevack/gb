@@ -453,7 +453,6 @@ DEPENDENCIES
   bootsnap
   brakeman
   debug
-  dotenv
   google-apis-docs_v1
   google-apis-drive_v3
   googleauth

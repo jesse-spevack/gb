@@ -1,4 +1,7 @@
 require "active_support/core_ext/integer/time"
+# Load local environment variables if they exist - which is how we load Google API credentials
+# from Kamal secrets.
+require File.expand_path("../../environments/development.local", __FILE__)
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.

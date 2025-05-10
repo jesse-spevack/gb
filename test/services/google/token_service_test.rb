@@ -38,8 +38,8 @@ class Google::TokenServiceTest < ActiveSupport::TestCase
   end
 
   test "access_token returns access token when credentials access token has not expired" do
-    @credentials.stubs(:access_token_expired?).returns(false)
     @credentials.stubs(:access_token).returns("access_token")
+    @credentials.stubs(:expired?).returns(false)
 
     result = Google::TokenService.new(@user).access_token
 
@@ -48,7 +48,8 @@ class Google::TokenServiceTest < ActiveSupport::TestCase
 
   test "access_token returns access token when credentials access token has expired" do
     freeze_time do
-      @credentials.stubs(:access_token_expired?).returns(true)
+      @credentials.stubs(:expired?).returns(true)
+      @credentials.stubs(:access_token).returns(nil)
       @credentials.stubs(:fetch_access_token!)
       @credentials.stubs(:access_token).returns("access_token")
       @credentials.stubs(:expires_in).returns(1_000)
