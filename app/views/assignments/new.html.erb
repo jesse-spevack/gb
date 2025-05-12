@@ -8,7 +8,7 @@
         <%= link_to assignments_path, class: "mr-2 p-1 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2" do %>
           <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 inline-block align-middle" %>
         <% end%>
-        <h2 class="text-xl font-semibold text-gray-900">New Assignment</h1>
+        <h2 class="text-xl font-semibold text-gray-900">New Assignment</h2>
       </div>
       <p class="text-sm text-gray-500">Create a new assignment and select student work to grade.</p>
     </div>
@@ -196,17 +196,13 @@
         </div>
         <p class="text-sm text-gray-500 mb-4">Fine tune how GradeBot will grade your student work.</p>
 
-        <%# Pass tones array to Stimulus controller %>
         <div class="mb-4" data-controller="feedback-tone-slider" data-feedback-tone-slider-tones-value="<%= Assignment::FEEDBACK_TONES.to_json %>">
           <label class="block text-gray-700 text-sm font-bold mb-2">Feedback tone</label>
           <div class="flex items-center gap-3">
-            <%# Removed name attribute, kept Stimulus target/action, updated max value %>
             <input type="range" min="0" max="<%= Assignment::FEEDBACK_TONES.size - 1 %>" step="1" value="0" data-feedback-tone-slider-target="slider" data-action="input->feedback-tone-slider#updateTone" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" aria-label="Feedback Tone" />
           </div>
-          <%# Added hidden field for the actual feedback_tone value %>
           <%= form.hidden_field :feedback_tone, data: { feedback_tone_slider_target: "feedbackTone" } %>
           <div class="flex flex-row flex-wrap justify-between mt-2">
-            <%# Use FEEDBACK_TONES for labels %>
             <% Assignment::FEEDBACK_TONES.each do |tone| %>
               <span class="text-sm text-gray-500 capitalize"><%= tone %></span>
             <% end %>

@@ -1,6 +1,18 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-11]
+- Improved error handling in the `Assignments::CreationService` with a structured Result object that includes success state and error messages
+- Enhanced the assignments controller with proper authorization checks for show and destroy actions
+- Added before_action filters in AssignmentsController to set assignment and verify ownership
+- Updated controller actions to properly handle service results with appropriate flash messages and status codes
+- Implemented code to leverage Rails 8's `params.expect` for type-safe parameter handling
+- Cleaned up debugging logs in the document picker controller
+- Added default scope to Assignment model to order by creation date (newest first)
+- Redesigned the assignments index view to display assignments with folder icons and links
+- Added service objects for bulk creation of selected documents and student works
+- Expanded routing to include show, create, and destroy actions for assignments
+
 ## [2025-05-10]
 - Fixed Google Picker integration by enhancing token refresh logic in `Google::TokenService` to handle nil access tokens
 - Updated environment variable loading from Kamal secrets to properly map credentials

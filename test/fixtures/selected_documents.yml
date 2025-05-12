@@ -9,3 +9,9 @@ one:
   google_doc_id: "test_google_doc_id"
   title: "Test Document"
   url: "https://example.com/test_document"
+
+two:
+  assignment: english_essay
+  google_doc_id: "test_google_doc_id_2"
+  title: "Test Document 2"
+  url: "https://example.com/test_document_2"

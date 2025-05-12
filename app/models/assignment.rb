@@ -42,4 +42,6 @@ class Assignment < ApplicationRecord
   validates :grade_level, presence: true, inclusion: { in: GRADE_LEVELS }
   validates :feedback_tone, presence: true, inclusion: { in: FEEDBACK_TONES }
   validates :rubric_text, length: { maximum: 5000 }, allow_blank: true
+
+  default_scope { order(created_at: :desc) }
 end
