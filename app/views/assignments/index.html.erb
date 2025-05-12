@@ -1,4 +1,11 @@
-<div>
-  <h1 class="font-bold text-4xl">Assignments#index</h1>
-  <p>Find me in app/views/assignments/index.html.erb</p>
-</div>
+<% @assignments.each do |assignment| %>
+  <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+    <div class="flex items-center mb-4">
+      <%= render "shared/icons/folder", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+      <h3 class="font-medium text-gray-900"><%= assignment.title %></h3>
+    </div>
+    <%= link_to assignment_path(assignment), class: "text-blue-500 hover:underline" do %>
+      View assignment
+    <% end %>
+  </div>
+<% end %>

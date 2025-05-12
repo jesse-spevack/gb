@@ -8,8 +8,6 @@ class GoogleApiInitializerCommand {
   
   async execute(retryCount = 0) {
     try {
-      this.controller.log('info', 'Initializing Google API');
-      
       // First check if the picker is already available
       if (window.google && window.google.picker) {
         this.controller.transitionToState(DocPickerStates.READY);
@@ -23,7 +21,6 @@ class GoogleApiInitializerCommand {
       await new Promise((resolve, reject) => {
         gapi.load('picker', {
           callback: () => {
-            this.controller.log('info', 'Picker API loaded successfully');
             resolve();
           },
           onerror: (error) => {
@@ -42,7 +39,6 @@ class GoogleApiInitializerCommand {
     } catch (error) {
       // Implement retry logic
       if (retryCount < 2 && !(error instanceof GoogleApiError)) {
-        this.controller.log('warn', `API initialization failed, retrying (${retryCount + 1}/2)...`);
         await new Promise(resolve => setTimeout(resolve, 1000));
         return this.execute(retryCount + 1);
       }
@@ -61,7 +57,6 @@ class PickerCreatorCommand {
   
   execute(credentials) {
     try {
-      this.controller.log('info', 'Creating document picker');
       this.controller.element.setAttribute('aria-busy', 'true');
       
       // Create a view that shows both folders for navigation and documents for selection
@@ -96,7 +91,6 @@ class PickerCreatorCommand {
         .setAppId(credentials.app_id)
         .setTitle('Select multiple student documents')
         .setCallback((data) => {
-          console.log('Picker response:', data);
           this.controller.handlePickerResponse(data);
         })
         .build();
@@ -121,8 +115,6 @@ class CredentialsFetcherCommand {
   
   async execute() {
     try {
-      this.controller.log('info', 'Fetching Google API credentials');
-      
       const response = await fetch('/google/credentials', {
         headers: {
           'X-CSRF-Token': this.getCSRFToken(),
@@ -342,9 +334,6 @@ export default class extends Controller {
   }
   
   connect() {
-    console.log('Document picker controller connected');
-    this.log('info', 'Document picker controller connected');
-    
     if (this.hasInstructionsTarget) {
       this.instructionsTarget.classList.remove(this.hiddenClass);
     }
@@ -370,9 +359,6 @@ export default class extends Controller {
   }
   
   loadGooglePlatform() {
-    this.log('info', 'Loading Google Platform API dynamically');
-    
-    // Add Google Platform API script dynamically if not already loaded
     const script = document.createElement('script');
     script.src = 'https://apis.google.com/js/platform.js';
     script.async = true;
@@ -550,8 +536,6 @@ export default class extends Controller {
     
     const previousState = this.state;
     this.state = newState;
-    this.log('info', `State transition: ${previousState} -> ${newState}`);
-    
     // Update UI based on new state
     this.updateUiForState(newState);
     
