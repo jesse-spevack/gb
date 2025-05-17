@@ -9,14 +9,12 @@
 
   <!-- Separator -->
   <div class="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true"></div>
-
+  <span class="text-xs text-gray-500">Beta: under development</span>
   <div class="flex flex-1 justify-end gap-x-4 self-stretch lg:gap-x-6">
     <div class="flex items-center gap-x-4 lg:gap-x-6">
       <button type="button" class="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
         <span class="sr-only">View notifications</span>
-        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-        </svg>
+        <%= render "shared/icons/notifications", aria_hidden: true, focusable: false, class: "size-6" %>
       </button>
 
       <!-- Separator -->
@@ -29,9 +27,7 @@
           <% if Current.user&.profile_picture_url.present? %>
             <img class="size-8 rounded-full bg-gray-50" src="<%= Current.user.profile_picture_url %>" alt="<%= Current.user.name %>">
           <% else %>
-            <div class="size-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-semibold">
-              <%= Current.user&.name&.first || "U" %>
-            </div>
+            <%= render "shared/icons/user_circle", aria_hidden: true, focusable: false, class: "size-8 rounded-full bg-gray-50 flex items-center justify-center text-white font-semibold" %>
           <% end %>
           <span class="hidden lg:flex lg:items-center">
             <span class="ml-4 text-sm/6 font-semibold text-gray-900" aria-hidden="true"><%= Current.user&.name || "Guest" %></span>
