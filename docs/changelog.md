@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-17]
+- Created `Rubric::CreationService` to handle rubric creation for assignments
+- Implemented `AssignmentJob` for background processing of assignments
+- Updated `Assignments::CreationService` to create rubrics and enqueue assignment processing jobs
+- Adopted exception-based error handling pattern instead of result objects
+- Added documentation to standardize coding conventions across the application
+- Improved test structure with combined assertions and focused test cases
+
 ## [2025-05-11]
 - Improved error handling in the `Assignments::CreationService` with a structured Result object that includes success state and error messages
 - Enhanced the assignments controller with proper authorization checks for show and destroy actions
