@@ -1,6 +1,6 @@
 # Task ID: 34
 # Title: Create Assignment::InitializerService
-# Status: in-progress
+# Status: done
 # Dependencies: 33
 # Priority: high
 # Description: Implement service for initializing assignments with related records

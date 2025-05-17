@@ -1,0 +1,87 @@
+---
+description: Guidelines for general organization preferences 
+globs: **/*
+alwaysApply: false
+---
+# Rails Code Organization
+
+- **Transaction Boundaries**
+  - Keep transactions focused on atomic database operations only
+  - Place job enqueueing outside of transactions
+  - Let exceptions propagate naturally within transactions
+  
+  ```ruby
+  # ✅ DO: Keep transactions focused and place jobs outside
+  ActiveRecord::Base.transaction do
+    # Database operations
+    assignment = Assignment.create!(params)
+    SelectedDocument::BulkCreationService.create(assignment: assignment, document_data: data)
+  end
+  
+  # Enqueue jobs after transaction succeeds
+  AssignmentJob.perform_later(assignment.id)
+  
+  # ❌ DON'T: Mix job enqueueing inside transactions
+  # ActiveRecord::Base.transaction do
+  #   # Database operations...
+  #   AssignmentJob.perform_later(assignment.id) # Might be lost on rollback
+  # end
+  ```
+
+- **Method Simplicity**
+  - Keep methods focused on a single responsibility
+  - Avoid unnecessary variable assignments
+  - Remove redundant code like explicit returns
+  
+  ```ruby
+  # ✅ DO: Write clean, direct methods
+  def create
+    assignment = Assignment.create!(@assignment_input.params)
+    process_documents(assignment)
+    assignment
+  end
+  
+  # ❌ DON'T: Use unnecessary variables or conditions
+  # def create
+  #   assignment = nil
+  #   success = false
+  #   
+  #   # Complex logic with multiple assignments to same variables
+  #   if condition
+  #     assignment = Assignment.create!(...)
+  #     success = true
+  #   end
+  #   
+  #   return assignment if success
+  #   nil
+  # end
+  ```
+
+- **Service Pattern**
+  - Use class methods for simple service object entry points
+  - Keep initialization focused on storing dependencies
+  - Use instance methods for implementation details
+  
+  ```ruby
+  # ✅ DO: Use clean service object pattern
+  class SomeService
+    def self.perform(argument)
+      new(argument).perform
+    end
+    
+    def initialize(argument)
+      @argument = argument
+    end
+    
+    def perform
+      # Implementation
+    end
+  end
+  
+  # ❌ DON'T: Mix class and instance responsibilities
+  # class SomeService
+  #   def self.perform(argument)
+  #     # Implementation directly in class method
+  #   end
+  # end
+  ```

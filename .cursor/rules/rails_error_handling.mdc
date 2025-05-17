@@ -1,0 +1,76 @@
+---
+description: Guideliens for error handling preferences
+globs: **/*
+alwaysApply: false
+---
+# Rails Exception Handling
+
+- **Favor Natural Exceptions Over Result Objects**
+  - Let Rails validation and Active Record exceptions propagate naturally
+  - Catch exceptions only when specific recovery logic is needed
+  - Avoid creating custom Result objects just to communicate failure
+  
+  ```ruby
+  # ✅ DO: Let Rails exceptions flow naturally
+  def create(assignment:)
+    rubric = Rubric.new(assignment: assignment)
+    rubric.save!
+    rubric
+  end
+  
+  # ❌ DON'T: Wrap operations in result objects unnecessarily
+  # def create(assignment:)
+  #   return Result.new(success: false, error: "Assignment required") if assignment.nil?
+  #   
+  #   rubric = Rubric.new(assignment: assignment)
+  #   if rubric.save
+  #     Result.new(success: true, rubric: rubric)
+  #   else
+  #     Result.new(success: false, error: rubric.errors.full_messages)
+  #   end
+  # end
+  ```
+
+- **Use Direct Finders For Required Records**
+  - Use `find` instead of `find_by` when a record should exist
+  - Let `ActiveRecord::RecordNotFound` indicate a real application error
+  
+  ```ruby
+  # ✅ DO: Use find when expecting a record to exist
+  def perform(assignment_id)
+    assignment = Assignment.find(assignment_id)
+    # Rest of implementation...
+  end
+  
+  # ❌ DON'T: Use find_by with nil checks unnecessarily
+  # def perform(assignment_id)
+  #   assignment = Assignment.find_by(id: assignment_id)
+  #   if assignment.nil?
+  #     Rails.logger.error("Assignment not found with ID #{assignment_id}")
+  #     return
+  #   end
+  #   # Rest of implementation...
+  # end
+  ```
+
+- **Exception Testing**
+  - Test exception behavior directly using `assert_raises`
+  - Specify the exact exception class being tested
+  
+  ```ruby
+  # ✅ DO: Test exception raising directly
+  test "raises error when assignment not found" do
+    nonexistent_id = 999999
+    
+    assert_raises(ActiveRecord::RecordNotFound) do
+      AssignmentJob.perform_now(nonexistent_id)
+    end
+  end
+  
+  # ❌ DON'T: Use result objects in tests
+  # test "returns error when invalid" do
+  #   result = Service.create(invalid_params)
+  #   assert_not result.success?
+  #   assert_not_nil result.error_message
+  # end
+  ```

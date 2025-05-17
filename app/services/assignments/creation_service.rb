@@ -29,7 +29,11 @@ class Assignments::CreationService
           assignment: assignment,
           selected_documents: selected_documents
         )
+
+        Rubric::CreationService.create(assignment: assignment)
       end
+
+      AssignmentJob.perform_later(assignment.id)
 
       Result.new(success: true, assignment: assignment, error_message: nil)
     rescue StandardError => e
