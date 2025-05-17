@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Adopted exception-based error handling pattern instead of result objects
 - Added documentation to standardize coding conventions across the application
 - Improved test structure with combined assertions and focused test cases
+- Created shared admin navigation links partial for consistent UI across mobile and desktop sidebars
 
 ## [2025-05-11]
 - Improved error handling in the `Assignments::CreationService` with a structured Result object that includes success state and error messages
