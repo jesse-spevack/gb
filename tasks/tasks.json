@@ -418,7 +418,7 @@
       "id": 35,
       "title": "Create LLM::Client base class",
       "description": "Implement the base client class for LLM integration",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         23
       ],
@@ -430,7 +430,7 @@
       "id": 36,
       "title": "Implement LLM::AnthropicClient",
       "description": "Create client implementation for Anthropic's Claude API",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         35
       ],
@@ -442,7 +442,7 @@
       "id": 37,
       "title": "Implement LLM::GoogleClient",
       "description": "Create client implementation for Google's PaLM API",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         35
       ],
@@ -454,7 +454,7 @@
       "id": 38,
       "title": "Create LLM::ClientFactory",
       "description": "Implement factory for creating appropriate LLM client instances",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         36,
         37
