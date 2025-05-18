@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-18]
+- Enhanced `LLMResponse.from_google` to extract and use the actual model version from Google API responses
+- Fixed deprecation warning by updating `Net::HTTPServerException` to `Net::HTTPServerError` in LLM client error handling
+- Ensured proper handling of Google Gemini API response structure in the LLM client
+
 ## [2025-05-17]
 - Created `Rubric::CreationService` to handle rubric creation for assignments
 - Implemented `AssignmentJob` for background processing of assignments

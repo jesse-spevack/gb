@@ -1,0 +1,85 @@
+---
+description: Guidelines for continuously improving Cursor rules based on emerging code patterns and best practices.
+globs: **/*
+alwaysApply: true
+---
+
+# PORO Simplicity
+
+- **Focus on Core Responsibilities**
+  - Keep Plain Old Ruby Objects focused on representing domain concepts
+  - Avoid adding unnecessary convenience methods
+  - Let Ruby's natural behaviors work for you
+
+  ```ruby
+  # ✅ DO: Keep POROs clean and simple
+  class LLMResponse
+    attr_reader :text, :input_tokens, :output_tokens, :model, :raw_response
+
+    def initialize(text:, input_tokens: nil, output_tokens: nil, model: nil, raw_response: nil)
+      @text = text
+      @input_tokens = input_tokens
+      @output_tokens = output_tokens
+      @model = model
+      @raw_response = raw_response
+    end
+
+    def total_tokens
+      input_tokens.to_i + output_tokens.to_i
+    end
+  end
+  
+  # ❌ DON'T: Add excessive convenience methods and overrides
+  class LLMResponse
+    attr_reader :text, :input_tokens, :output_tokens, :model, :raw_response
+    
+    # ... initialization ...
+    
+    def to_s
+      @text.to_s
+    end
+    
+    def inspect
+      "LLMResponse(text: #{@text.inspect}, tokens: #{total_tokens})"
+    end
+    
+    def as_json
+      { text: @text, tokens: total_tokens }
+    end
+    
+    def formatted_text
+      @text.strip.gsub(/\s+/, " ")
+    end
+  end
+  ```
+
+- **Use Minimal Defaults**
+  - Only provide defaults when truly necessary
+  - Accept nil values when they represent actual state
+  - Use lightweight nil-safe operations (like `to_i`) rather than nil checks
+  
+  ```ruby
+  # ✅ DO: Use simple nil-safe operations
+  def total_tokens
+    input_tokens.to_i + output_tokens.to_i  # Works even if nil
+  end
+  
+  # ❌ DON'T: Add excessive nil guards
+  def total_tokens
+    i_tokens = input_tokens || 0
+    o_tokens = output_tokens || 0
+    i_tokens + o_tokens
+  end
+  ```
+
+- **Favor Core Ruby Behaviors**
+  - Let Ruby's default object behaviors work where possible
+  - Only override core methods (`to_s`, `inspect`, etc.) when essential
+  - Use basic Ruby techniques (like `nil.to_i == 0`) rather than custom methods
+  - Remember that implicit returns and simple expressions lead to clean code
+
+- **Avoid Premature Optimization**
+  - Start with the simplest solution that works
+  - Only add complexity when a specific need arises
+  - Let the object's usage guide its evolution
+  - Don't add methods "just in case" they might be needed 
