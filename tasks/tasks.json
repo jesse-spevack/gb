@@ -467,7 +467,7 @@
       "id": 39,
       "title": "Implement LLM::RetryHandler",
       "description": "Create retry mechanism for handling LLM request failures",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         35
       ],
@@ -479,7 +479,7 @@
       "id": 40,
       "title": "Implement LLM::CircuitBreaker",
       "description": "Create circuit breaker for preventing cascading failures",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         39
       ],
