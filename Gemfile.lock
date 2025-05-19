@@ -122,7 +122,7 @@ GEM
       retriable (>= 2.0, < 4.a)
     google-apis-docs_v1 (0.33.0)
       google-apis-core (>= 0.15.0, < 2.a)
-    google-apis-drive_v3 (0.65.0)
+    google-apis-drive_v3 (0.66.0)
       google-apis-core (>= 0.15.0, < 2.a)
     google-cloud-env (2.3.0)
       base64 (~> 0.2)

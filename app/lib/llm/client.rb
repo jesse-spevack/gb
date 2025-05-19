@@ -1,10 +1,10 @@
 module LLM
   class Error < StandardError; end
-  class RequestError < Error; end
-  class AuthenticationError < RequestError; end
-  class RateLimitError < RequestError; end
-  class ServiceUnavailableError < RequestError; end
   class PromptValidationError < Error; end
+  class RequestError < Error; end
+  class RateLimitError < RequestError; end
+  class AuthenticationError < RequestError; end
+  class ServiceUnavailableError < RequestError; end
 
   class Client
     attr_reader :temperature

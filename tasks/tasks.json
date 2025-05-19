@@ -454,7 +454,7 @@
       "id": 38,
       "title": "Create LLM::ClientFactory",
       "description": "Implement factory for creating appropriate LLM client instances",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         36,
         37
