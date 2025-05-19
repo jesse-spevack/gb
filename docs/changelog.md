@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 - Enhanced `LLMResponse.from_google` to extract and use the actual model version from Google API responses
 - Fixed deprecation warning by updating `Net::HTTPServerException` to `Net::HTTPServerError` in LLM client error handling
 - Ensured proper handling of Google Gemini API response structure in the LLM client
+- Implemented `LLM::ClientFactory` with task-specific methods for selecting appropriate LLM providers
+- Added factory methods for rubric generation (Google), student work feedback (Anthropic), and assignment summary feedback (Anthropic)
 
 ## [2025-05-17]
 - Created `Rubric::CreationService` to handle rubric creation for assignments
