@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-19]
+- Integrated RetryHandler with HTTP requests in LLM client for improved resilience
+- Enhanced RetryHandler to handle network-level exceptions (timeouts, connection issues)
+- Updated RetryHandler API with consistent method naming (changed `with_retry` to `with_retries`)
+- Optimized interaction between CircuitBreaker and RetryHandler for proper error handling
+- Applied layered resilience pattern with CircuitBreaker (outer) → RetryHandler (inner) → API call
+
 ## [2025-05-18]
 - Enhanced `LLMResponse.from_google` to extract and use the actual model version from Google API responses
 - Fixed deprecation warning by updating `Net::HTTPServerException` to `Net::HTTPServerError` in LLM client error handling

@@ -34,7 +34,9 @@ module LLM
       http.read_timeout = 30
 
       begin
-        response = http.request(request)
+        response = LLM::RetryHandler.with_retries do
+          http.request(request)
+        end
 
         unless response.code.to_i == 200
           error_data = JSON.parse(response.body) rescue { "error" => { "message" => response.message } }

@@ -22,8 +22,11 @@ module LLM
     end
 
     def send_request(prompt)
-      http_response = make_http_request(uri, request(prompt))
-      LLMResponse.from_anthropic(http_response.body)
+      response = LLM::CircuitBreaker.run(:anthropic) do
+        make_http_request(uri, request(prompt))
+      end
+
+      LLMResponse.from_anthropic(response.body)
     end
 
     def handle_error_response(response, error_data)

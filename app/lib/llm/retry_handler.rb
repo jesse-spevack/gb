@@ -6,12 +6,19 @@ module LLM
     DEFAULT_MAX_RETRIES = 3
     DEFAULT_BASE_DELAY = 1 # second
     DEFAULT_MAX_DELAY = 30 # seconds
-    RETRIABLE_ERRORS = [ LLM::RateLimitError, LLM::ServiceUnavailableError ].freeze
+    RETRIABLE_ERRORS = [
+      LLM::RateLimitError,
+      LLM::ServiceUnavailableError,
+      Net::OpenTimeout,
+      Net::ReadTimeout,
+      Net::HTTPServerError,
+      Net::HTTPServiceUnavailable
+    ].freeze
     JITTER_PERCENTAGE = 0.2 # 20% jitter
 
     # Executes a block with automatic retry behavior
-    def self.with_retry(**options, &block)
-      new(**options).with_retry(&block)
+    def self.with_retries(**options, &block)
+      new(**options).with_retries(&block)
     end
 
     attr_reader :attempt_logs
@@ -27,7 +34,7 @@ module LLM
       @retries = 0
     end
 
-    def with_retry
+    def with_retries
       begin
         yield
       rescue StandardError => error
@@ -54,7 +61,7 @@ module LLM
     end
 
     def can_retry?(error)
-      under_retry_limit? && retriable_error?(error) && circuit_allows_retry?
+      under_retry_limit? && retriable_error?(error)
     end
 
     def under_retry_limit?
@@ -63,15 +70,6 @@ module LLM
 
     def retriable_error?(error)
       @retriable_errors.any? { |err| error.is_a?(err) }
-    end
-
-    def circuit_allows_retry?
-      !circuit_breaker_open?
-    end
-
-    # Placeholder for future circuit breaker integration
-    def circuit_breaker_open?
-      false
     end
 
     def pause_before_retry
