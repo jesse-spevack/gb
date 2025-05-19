@@ -22,8 +22,11 @@ module LLM
     end
 
     def send_request(prompt)
-      http_response = make_http_request(uri, request(prompt))
-      LLMResponse.from_google(http_response.body)
+      response = LLM::CircuitBreaker.run(:google) do
+        make_http_request(uri, request(prompt))
+      end
+
+      LLMResponse.from_google(response.body)
     end
 
     def handle_error_response(response, error_data)

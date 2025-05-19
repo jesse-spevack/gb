@@ -1,11 +1,10 @@
 require "test_helper"
-require_relative "../../../app/lib/llm/client"
 
 class LLM::RetryHandlerTest < ActiveSupport::TestCase
   test "retries specified number of times and eventually succeeds" do
     call_count = 0
 
-    result = LLM::RetryHandler.with_retry(max_retries: 3, base_delay: 0.01, max_delay: 0.05) do
+    result = LLM::RetryHandler.with_retries(max_retries: 3, base_delay: 0.01, max_delay: 0.05) do
       call_count += 1
 
       if call_count < 3
@@ -23,7 +22,7 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
     call_count = 0
 
     assert_raises(LLM::ServiceUnavailableError) do
-      LLM::RetryHandler.with_retry(max_retries: 2, base_delay: 0.01, max_delay: 0.05) do
+      LLM::RetryHandler.with_retries(max_retries: 2, base_delay: 0.01, max_delay: 0.05) do
         call_count += 1
         raise LLM::ServiceUnavailableError, "Service unavailable"
       end
@@ -36,7 +35,7 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
     call_count = 0
 
     assert_raises(LLM::PromptValidationError) do
-      LLM::RetryHandler.with_retry(max_retries: 3, base_delay: 0.01, max_delay: 0.05) do
+      LLM::RetryHandler.with_retries(max_retries: 3, base_delay: 0.01, max_delay: 0.05) do
         call_count += 1
         raise LLM::PromptValidationError, "Invalid prompt"
       end
@@ -48,17 +47,15 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
   test "uses exponential backoff for retry delays" do
     delays = []
 
-    # Mock the sleep method on the instance
-    original_instance_method = LLM::RetryHandler.instance_method(:sleep)
-
+    # Capture the delay without actually sleeping
+    original_sleep_method = LLM::RetryHandler.instance_method(:sleep)
     LLM::RetryHandler.define_method(:sleep) do |seconds|
       delays << seconds
-      # Don't actually sleep in tests
     end
 
     begin
       assert_raises(LLM::ServiceUnavailableError) do
-        LLM::RetryHandler.with_retry(max_retries: 3, base_delay: 0.1, max_delay: 10) do
+        LLM::RetryHandler.with_retries(max_retries: 3, base_delay: 0.1, max_delay: 10) do
           raise LLM::ServiceUnavailableError, "Service unavailable"
         end
       end
@@ -79,16 +76,15 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
       assert_includes 0.32..0.48, delays[2]
     ensure
       # Restore original sleep method
-      LLM::RetryHandler.define_method(:sleep, original_instance_method)
+      LLM::RetryHandler.define_method(:sleep, original_sleep_method)
     end
   end
 
   test "respects max_delay setting" do
     delays = []
 
-    # Mock the sleep method on the instance
-    original_instance_method = LLM::RetryHandler.instance_method(:sleep)
-
+    # Capture the delay without actually sleeping
+    original_sleep_method = LLM::RetryHandler.instance_method(:sleep)
     LLM::RetryHandler.define_method(:sleep) do |seconds|
       delays << seconds
       # Don't actually sleep in tests
@@ -96,7 +92,7 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
 
     begin
       assert_raises(LLM::ServiceUnavailableError) do
-        LLM::RetryHandler.with_retry(max_retries: 5, base_delay: 1, max_delay: 2) do
+        LLM::RetryHandler.with_retries(max_retries: 5, base_delay: 1, max_delay: 2) do
           raise LLM::ServiceUnavailableError, "Service unavailable"
         end
       end
@@ -110,7 +106,7 @@ class LLM::RetryHandlerTest < ActiveSupport::TestCase
       assert_in_delta 2, delays.last, 0.4, "Later delays should approach max_delay"
     ensure
       # Restore original sleep method
-      LLM::RetryHandler.define_method(:sleep, original_instance_method)
+      LLM::RetryHandler.define_method(:sleep, original_sleep_method)
     end
   end
 end
