@@ -1,0 +1,94 @@
+models:
+  # Anthropic Models - Updated with latest from API
+  "claude-opus-4-20250514":
+    provider: "anthropic"
+    display_name: "Claude Opus 4"
+    input_cost_per_million_tokens: 15.00
+    output_cost_per_million_tokens: 75.00
+    context_window: 200000
+    description: "Most powerful Claude model. Best for complex reasoning, advanced analysis, sophisticated coding tasks, and research requiring deep understanding."
+
+  "claude-sonnet-4-20250514":
+    provider: "anthropic"
+    display_name: "Claude Sonnet 4"
+    input_cost_per_million_tokens: 3.00
+    output_cost_per_million_tokens: 15.00
+    context_window: 200000
+    description: "Balanced high-performance model. Excellent for general-purpose tasks, coding, writing, and analysis with good speed-to-capability ratio."
+
+  "claude-3-7-sonnet-20250219":
+    provider: "anthropic"
+    display_name: "Claude Sonnet 3.7"
+    input_cost_per_million_tokens: 3.00
+    output_cost_per_million_tokens: 15.00
+    context_window: 200000
+    description: "Enhanced version of Claude 3.5. Good for complex tasks requiring improved reasoning while maintaining efficiency."
+
+  "claude-3-5-sonnet-20241022":
+    provider: "anthropic"
+    display_name: "Claude 3.5 Sonnet (New)"
+    input_cost_per_million_tokens: 3.00
+    output_cost_per_million_tokens: 15.00
+    context_window: 200000
+    description: "Latest stable Claude 3.5 version. Ideal for most production use cases requiring reliable performance across coding, analysis, and writing tasks."
+    
+  "claude-3-5-haiku-20241022":
+    provider: "anthropic"
+    display_name: "Claude 3.5 Haiku"
+    input_cost_per_million_tokens: 0.80
+    output_cost_per_million_tokens: 4.00
+    context_window: 200000
+    default: true
+    description: "Fastest and most cost-effective Claude model. Perfect for simple tasks, quick responses, content moderation, and high-volume applications."
+
+  "claude-3-5-sonnet-20240620":
+    provider: "anthropic"
+    display_name: "Claude 3.5 Sonnet (Old)"
+    input_cost_per_million_tokens: 3.00
+    output_cost_per_million_tokens: 15.00
+    context_window: 200000
+    description: "Previous Claude 3.5 version. Maintained for compatibility with existing applications that depend on this specific model version."
+
+  # Google Models - Updated with latest releases
+  "gemini-2.0-flash":
+    provider: "google"
+    display_name: "Gemini 2.0 Flash"
+    input_cost_per_million_tokens: 0.10   # Text/image/video, audio is 0.70
+    output_cost_per_million_tokens: 0.40
+    context_window: 1000000
+    description: "Balanced multimodal model built for the era of AI agents. Excellent for applications requiring text, image, and video processing with good performance across all tasks."
+
+  "gemini-2.5-flash-preview":
+    provider: "google"
+    display_name: "Gemini 2.5 Flash Preview"
+    input_cost_per_million_tokens: 0.15
+    output_cost_per_million_tokens: 0.60  # Non-thinking mode, thinking mode is 3.50
+    context_window: 1000000
+    notes: "Hybrid reasoning model with thinking budgets. Thinking output costs $3.50/M tokens."
+    description: "First hybrid reasoning model with thinking capabilities. Best for complex problems requiring step-by-step reasoning and transparent thought processes."
+
+  "gemini-2.5-pro-preview":
+    provider: "google"
+    display_name: "Gemini 2.5 Pro Preview"
+    input_cost_per_million_tokens: 1.25   # For prompts <= 200k tokens
+    output_cost_per_million_tokens: 10.00 # For prompts <= 200k tokens
+    context_window: 2000000
+    notes: "Tiered pricing: >200k prompts cost $2.50 input/$15.00 output per million tokens."
+    description: "State-of-the-art multipurpose model excelling at coding and complex reasoning tasks. Best for advanced development work and sophisticated analysis."
+
+  "gemini-2.0-flash-lite":
+    provider: "google"
+    display_name: "Gemini 2.0 Flash-Lite"
+    input_cost_per_million_tokens: 0.075
+    output_cost_per_million_tokens: 0.30
+    context_window: 1000000
+    default: true
+    description: "Smallest and most cost-effective Gemini model. Ideal for high-volume applications, simple tasks, and cost-sensitive deployments at scale."
+
+  "gemini-2.5-flash-preview-04-17":
+    provider: "google"
+    display_name: "Gemini 2.5 Flash (Preview)"
+    input_cost_per_million_tokens: 0.15
+    output_cost_per_million_tokens: 0.60
+    context_window: 1000000
+    description: "Earlier preview version of Gemini 2.5 Flash. Maintained for compatibility with applications developed during the preview period." 

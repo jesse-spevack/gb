@@ -1,6 +1,6 @@
 # Task ID: 42
 # Title: Create LLM::CostTracker
-# Status: pending
+# Status: in-progress
 # Dependencies: 41, 23
 # Priority: medium
 # Description: Implement tracker for recording LLM request costs

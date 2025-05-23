@@ -1,24 +1,20 @@
 require "net/http"
 require "uri"
 require "json"
+require_relative "models_config"
 
 module LLM
   class AnthropicClient < Client
     BASE_URL = "https://api.anthropic.com".freeze
     API_VERSION = "2023-06-01".freeze
-    MODELS = {
-      "sonnet" => "claude-3-7-sonnet-latest",
-      "haiku" => "claude-3-5-haiku-20241022"
-    }.freeze
-    DEFAULT_MODEL = MODELS["sonnet"]
 
     attr_reader :model
 
-    def initialize(model: DEFAULT_MODEL, temperature: 0.7)
+    def initialize(model: nil, temperature: 0.7)
       super(temperature: temperature)
-      @model = model
-      @last_response = nil
+      @model = model || default_model
       validate_api_key!
+      validate_model!
     end
 
     def send_request(prompt)
@@ -73,6 +69,17 @@ module LLM
 
     def validate_api_key!
       raise AuthenticationError, "Anthropic API key is missing. Set the ANTHROPIC_API_KEY environment variable." unless api_key
+    end
+
+    def validate_model!
+      available_models = ModelsConfig.model_names_for_provider("anthropic")
+      unless available_models.include?(@model)
+        raise ArgumentError, "Invalid Anthropic model: #{@model}. Available models: #{available_models.join(', ')}"
+      end
+    end
+
+    def default_model
+      ModelsConfig.default_model_for_provider("anthropic")
     end
   end
 end
