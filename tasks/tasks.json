@@ -491,7 +491,7 @@
       "id": 41,
       "title": "Create LLM::CostCalculator",
       "description": "Implement calculator for determining LLM request costs",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         35
       ],
@@ -503,7 +503,7 @@
       "id": 42,
       "title": "Create LLM::CostTracker",
       "description": "Implement tracker for recording LLM request costs",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         41,
         23

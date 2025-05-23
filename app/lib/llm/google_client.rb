@@ -1,24 +1,20 @@
 require "net/http"
 require "uri"
 require "json"
+require_relative "models_config"
 
 module LLM
   class GoogleClient < Client
-    # API endpoint for Gemini
     BASE_URL = "https://generativelanguage.googleapis.com".freeze
     API_VERSION = "v1beta".freeze
-    MODELS = {
-      "flash-2-0" => "gemini-2.0-flash",
-      "flash-2-5" => "gemini-2.5-flash-preview-04-17"
-    }.freeze
-    DEFAULT_MODEL = MODELS["flash-2-0"]
 
     attr_reader :model
 
-    def initialize(model: DEFAULT_MODEL, temperature: 0.7)
+    def initialize(model: nil, temperature: 0.7)
       super(temperature: temperature)
-      @model = model
+      @model = model || default_model
       validate_api_key!
+      validate_model!
     end
 
     def send_request(prompt)
@@ -75,6 +71,17 @@ module LLM
 
     def validate_api_key!
       raise AuthenticationError, "Google AI key is missing. Set the GOOGLE_AI_KEY environment variable." unless api_key
+    end
+
+    def validate_model!
+      available_models = ModelsConfig.model_names_for_provider("google")
+      unless available_models.include?(@model)
+        raise ArgumentError, "Invalid Google model: #{@model}. Available models: #{available_models.join(', ')}"
+      end
+    end
+
+    def default_model
+      ModelsConfig.default_model_for_provider("google")
     end
   end
 end

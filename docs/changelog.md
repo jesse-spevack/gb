@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-22]
+- Implemented `LLM::CostCalculator` class for calculating API costs based on token usage
+- Added comprehensive LLM model configuration system with centralized YAML-based pricing data
+- Updated model catalog with latest Anthropic models (Claude Opus 4, Sonnet 4, Sonnet 3.7) and Google models (Gemini 2.5 Flash Preview, 2.5 Pro Preview, 2.0 Flash-Lite)
+- Added descriptive documentation for each model explaining optimal use cases and capabilities
+- Implemented explicit default model selection system using `default: true` flags in configuration
+- Changed default models to most cost-effective options: Claude 3.5 Haiku for Anthropic ($0.80/$4.00 per million tokens) and Gemini 2.0 Flash-Lite for Google ($0.075/$0.30 per million tokens)
+- Created comprehensive YAML validation tests ensuring configuration integrity, required fields, proper data types, and exactly one default model per provider
+- Enhanced `LLM::ModelsConfig` module with memoized configuration loading and default model resolution
+- Updated both AnthropicClient and GoogleClient to use centralized YAML configuration instead of hardcoded model constants
+- Added cost calculation support for all models with micro-USD precision for accurate billing tracking
+- Removed unused `reload!` method to clean up codebase
+
 ## [2025-05-19]
 - Integrated RetryHandler with HTTP requests in LLM client for improved resilience
 - Enhanced RetryHandler to handle network-level exceptions (timeouts, connection issues)
