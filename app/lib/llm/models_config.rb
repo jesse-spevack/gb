@@ -16,10 +16,8 @@ module LLM
       end
 
       def default_model_for_provider(provider)
-        default_model = models.find { |_, config| config["provider"] == provider && config["default"] == true }
-        # Return the model name (first element) from the default model pair if one was found
-        # default_model is an array pair like ["gemini-pro", {"provider"=>"google", "default"=>true}]
-        default_model[0] if default_model
+        model_name, _config = models.find { |_, config| config["provider"] == provider && config["default"] == true }
+        model_name
       end
     end
   end
