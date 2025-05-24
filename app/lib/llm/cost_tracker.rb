@@ -1,12 +1,13 @@
 require_relative "cost_calculator"
+require_relative "models_config"
 
 module LLM
   class CostTracker
     class UnknownModelError < LLM::Error; end
 
     class << self
-      def record(llm_response:, trackable:, user:, request_type:, prompt:)
-        validate_arguments!(llm_response, trackable, user, request_type, prompt)
+      def record(llm_response:, trackable:, user:, request_type:)
+        validate_arguments!(llm_response, trackable, user, request_type)
 
         # Calculate cost using existing calculator
         cost_micro_usd = LLM::CostCalculator.get_cost(llm_response)
@@ -14,18 +15,18 @@ module LLM
         # Calculate total tokens
         total_tokens = llm_response.total_tokens
 
-        # Map model to LLM enum value (simplified for now)
-        llm_enum_value = map_model_to_enum(llm_response.model)
+        # Map model to provider enum value
+        llm_provider = map_model_to_provider(llm_response.model)
 
         # Create and save the LLM usage record
         LLMUsageRecord.create!(
           trackable: trackable,
           user: user,
-          llm: llm_enum_value,
+          llm_provider: llm_provider,
+          llm_model: llm_response.model,
           request_type: request_type,
           token_count: total_tokens,
-          micro_usd: cost_micro_usd,
-          prompt: prompt
+          micro_usd: cost_micro_usd
         )
       rescue LLM::CostCalculator::UnknownModelError => e
         raise UnknownModelError, e.message
@@ -33,26 +34,32 @@ module LLM
 
       private
 
-      def validate_arguments!(llm_response, trackable, user, request_type, prompt)
+      def validate_arguments!(llm_response, trackable, user, request_type)
         raise ArgumentError, "llm_response is required" if llm_response.nil?
         raise ArgumentError, "trackable is required" if trackable.nil?
         raise ArgumentError, "user is required" if user.nil?
         raise ArgumentError, "request_type is required" if request_type.nil?
-        raise ArgumentError, "prompt is required" if prompt.nil?
       end
 
-      def map_model_to_enum(model_name)
-        # Simplified mapping for now - this could be improved later
-        # to be more comprehensive or use a different approach
-        case model_name
-        when /claude/i
-          :claude_3_7_sonnet
-        when /gemini/i
-          :gemini_2_5_pro
+      def map_model_to_provider(model_name)
+        raise UnknownModelError, "Model cannot be nil" if model_name.nil?
+
+        # Look up the model in the centralized config
+        model_config = LLM::ModelsConfig.model_config(model_name)
+
+        if model_config.nil?
+          raise UnknownModelError, "Unknown model: #{model_name}"
+        end
+
+        provider = model_config["provider"]
+
+        case provider
+        when "anthropic"
+          :anthropic
+        when "google"
+          :google
         else
-          # Default to claude for now, but this will trigger validation
-          # in the LLMUsageRecord model if the model is truly unknown
-          :claude_3_7_sonnet
+          raise UnknownModelError, "Unsupported provider '#{provider}' for model: #{model_name}"
         end
       end
     end

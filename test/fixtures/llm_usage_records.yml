@@ -3,22 +3,8 @@
 rubric_request:
   trackable: english_essay_rubric (Rubric)
   user: teacher
-  llm: :gemini_2_5_pro
+  llm_provider: :google
+  llm_model: "gemini-2.0-flash-lite"
   request_type: :generate_rubric
   token_count: 3245
   micro_usd: 1623 # $0.001623
-  prompt: |
-    You are an expert educator with extensive experience creating rubrics for student assessment.
-    Create a detailed, standards-aligned rubric for the following English essay assignment:
-    
-    Title: Literary Analysis of Macbeth
-    Grade Level: 10th Grade
-    Assignment: Students will analyze the character development of Macbeth, focusing on how
-    Shakespeare portrays the psychological effects of ambition and guilt throughout the play.
-    
-    Please create a rubric with the following characteristics:
-    - Include 4 criteria: Analysis Depth, Evidence Usage, Writing Quality, and Organization
-    - For each criterion, create 4 performance levels: Exemplary, Proficient, Developing, and Beginning
-    - For each level, provide specific, descriptive language about what performance at that level looks like
-    - Focus on observable qualities in student work rather than vague statements
-    - Ensure language is aligned with 10th grade writing standards

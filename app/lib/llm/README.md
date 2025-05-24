@@ -1,108 +1,167 @@
-# LLM Module
+# LLM Library
 
-This module provides utilities for working with Large Language Models (LLMs) in the application.
+This library provides utilities for working with Large Language Models (LLMs) including cost tracking, cost calculation, and response handling.
 
-## Classes
-
-### LLM::CostCalculator
-
-Calculates the cost of LLM API calls based on model usage and token consumption.
+## Components
 
 ### LLM::CostTracker
 
-Records LLM usage and cost data by taking an `LLMResponse` and saving an `LLMUsageRecord` record for tracking and business intelligence.
+A service class for recording LLM usage data and costs to the database.
 
-#### Usage
+**Key Features:**
+- Automatic cost calculation using `LLM::CostCalculator`
+- Automatic provider detection using centralized model configuration
+- Comprehensive error handling for invalid models and missing data
+- Support for various trackable entity types (Users, Assignments, Rubrics, etc.)
 
+**Usage:**
 ```ruby
-# After making an LLM API call and getting a response
-response = llm_client.send_request(prompt)
-
-# Track the cost and usage
-LLM::CostTracker.record(
+# Record LLM usage
+record = LLM::CostTracker.record(
   llm_response: response,
-  trackable: assignment,          # The business object this request relates to
-  user: current_user,            # Who made the request
-  request_type: :generate_rubric, # What type of operation this was
-  prompt: original_prompt        # The prompt that was sent
+  trackable: user,
+  user: current_user,
+  request_type: :generate_rubric
 )
 ```
 
-#### Parameters
+**Model/Provider Mapping:**
+The CostTracker automatically maps model names to providers using the centralized configuration in `config/llm_models.yml`. This ensures consistency across the application and makes it easy to add new models without code changes.
 
-- `llm_response`: An `LLMResponse` object containing the API response and token usage
-- `trackable`: Any ActiveRecord object this request relates to (Assignment, Rubric, etc.)
-- `user`: The User who initiated the request
-- `request_type`: Symbol indicating the type of operation (`:generate_rubric`, `:grade_student_work`)
-- `prompt`: The original prompt text sent to the LLM
+Currently supported providers:
+- `:anthropic` - Claude models (claude-3-5-sonnet, claude-3-5-haiku, etc.)
+- `:google` - Gemini models (gemini-2.0-flash, gemini-2.5-flash-preview, etc.)
 
-#### What it does
+### LLM::CostCalculator
 
-1. Calculates the total cost using `LLM::CostCalculator`
-2. Extracts token usage from the response
-3. Maps the model name to the appropriate enum value
-4. Creates and saves an `LLMUsageRecord` record for tracking
+Calculates usage costs in micro-USD based on model pricing and token counts.
 
-#### Error Handling
+**Features:**
+- Uses centralized model configuration for pricing data
+- Returns costs in micro-USD (1 USD = 1,000,000 micro-USD) for precision
+- Handles both input and output token pricing
+- Comprehensive error handling for unknown models
 
-- Raises `ArgumentError` for missing required parameters
-- Raises `LLM::CostTracker::UnknownModelError` for unrecognized models
-- Re-raises validation errors from the `LLMUsageRecord` model
+### LLMResponse
 
-## Models
+A Plain Old Ruby Object (PORO) representing an LLM response with token tracking.
+
+**Attributes:**
+- `text` - The response text
+- `input_tokens` - Number of input tokens (optional)
+- `output_tokens` - Number of output tokens (optional) 
+- `model` - Model identifier string
+- `raw_response` - Original response data (optional)
+
+**Methods:**
+- `total_tokens` - Sum of input and output tokens (nil-safe)
 
 ### LLMUsageRecord
 
-Records individual LLM API calls with cost and usage information for business analytics.
+ActiveRecord model for persisting LLM usage data.
 
-#### Fields
+**Fields:**
+- `trackable` - Polymorphic association to any entity the LLM interaction relates to
+- `user` - The user who initiated the request
+- `llm_provider` - Enum: `:google`, `:anthropic`
+- `llm_model` - Exact model name used (e.g., "claude-3-5-sonnet-20241022")
+- `request_type` - Enum: `:generate_rubric`, `:grade_student_work`
+- `token_count` - Total tokens used
+- `micro_usd` - Cost in micro-USD
 
-- `trackable`: Polymorphic association to the business object
-- `user`: The user who made the request
-- `llm`: Enum for the LLM provider/model (maps to simplified categories)
-- `request_type`: Enum for the type of operation
-- `token_count`: Total tokens used (input + output)
-- `micro_usd`: Cost in micro-dollars (1,000,000 = $1.00)
-- `prompt`: The original prompt text
+**Methods:**
+- `dollars` - Convert micro_usd to dollar amount for display
 
-#### Methods
+## Configuration
 
-- `dollars`: Returns cost converted to dollars (divides micro_usd by 1,000,000)
+Model definitions, pricing, and provider mappings are centralized in `config/llm_models.yml`. This YAML file contains:
 
-## Integration Points
+- Model identifiers and display names
+- Provider mappings (anthropic, google)
+- Input/output costs per million tokens
+- Context window sizes
+- Descriptions and metadata
 
-### Processing Pipeline
+To add support for a new model:
+1. Add the model definition to `config/llm_models.yml`
+2. Ensure the provider is supported in `CostTracker#map_model_to_provider`
+3. Update the `llm_provider` enum in `LLMUsageRecord` if needed
 
-The CostTracker should be called explicitly from processing pipelines after LLM API calls:
+## Error Handling
 
+**LLM::CostTracker::UnknownModelError** - Raised when:
+- Model name is nil
+- Model is not found in configuration
+- Provider is not supported by the system
+
+**LLM::CostCalculator::UnknownModelError** - Raised when:
+- Model configuration is missing pricing data
+- Model name cannot be resolved
+
+**ArgumentError** - Raised for missing required parameters
+
+## Examples
+
+### Basic Usage
 ```ruby
-# In a service class
-def generate_rubric_for_assignment(assignment, user)
-  prompt = build_rubric_prompt(assignment)
-  response = llm_client.generate(prompt)
-  
-  # Track the cost
-  LLM::CostTracker.record(
-    llm_response: response,
-    trackable: assignment,
-    user: user,
-    request_type: :generate_rubric,
-    prompt: prompt
-  )
-  
-  # Process the response
-  process_rubric_response(response.text)
-end
+# Create an LLM response object
+response = LLMResponse.new(
+  text: "Generated rubric content...",
+  input_tokens: 150,
+  output_tokens: 300,
+  model: "claude-3-5-haiku-20241022"
+)
+
+# Record the usage
+record = LLM::CostTracker.record(
+  llm_response: response,
+  trackable: assignment,
+  user: current_user,
+  request_type: :generate_rubric
+)
+
+puts "Cost: $#{record.dollars}"
+puts "Provider: #{record.llm_provider}"
+puts "Model: #{record.llm_model}"
 ```
 
-### Future Reporting
+### Cost Calculation Only
+```ruby
+cost_micro_usd = LLM::CostCalculator.get_cost(response)
+puts "Cost: $#{cost_micro_usd / 1_000_000.0}"
+```
 
-The tracked data can be used for:
+### Different Trackable Types
+```ruby
+# Track usage for different entity types
+rubric_record = LLM::CostTracker.record(
+  llm_response: response,
+  trackable: rubric,
+  user: current_user,
+  request_type: :generate_rubric
+)
 
-- Cost analysis per user, assignment, or time period
-- Usage patterns and optimization opportunities
-- Business intelligence and budgeting
-- Performance monitoring
+user_record = LLM::CostTracker.record(
+  llm_response: response,
+  trackable: student,
+  user: current_user,
+  request_type: :grade_student_work
+)
+```
+
+## Testing
+
+Comprehensive test coverage includes:
+- Valid usage recording with different models and providers
+- Error handling for invalid inputs
+- Token count calculations including nil/zero values
+- Different trackable entity types
+- Cost calculations and conversions
+
+Run tests with:
+```bash
+bundle exec ruby -Itest test/lib/llm/cost_tracker_test.rb
+```
 
 ## Current Limitations
 

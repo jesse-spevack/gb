@@ -4,7 +4,6 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
   def setup
     @user = users(:teacher)
     @assignment = assignments(:english_essay)
-    @prompt = "Generate a rubric for this essay assignment"
   end
 
   test "records cost for Claude response" do
@@ -20,16 +19,16 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
     llm_usage_record = LLMUsageRecord.last
     assert_equal @assignment, llm_usage_record.trackable
     assert_equal @user, llm_usage_record.user
+    assert_equal "anthropic", llm_usage_record.llm_provider
+    assert_equal "claude-3-5-haiku-20241022", llm_usage_record.llm_model
     assert_equal "generate_rubric", llm_usage_record.request_type
-    assert_equal @prompt, llm_usage_record.prompt
     assert_equal 1500, llm_usage_record.token_count # 1000 + 500
     assert_equal 2800, llm_usage_record.micro_usd # Expected cost for haiku
   end
@@ -47,12 +46,16 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :grade_student_work,
-        prompt: @prompt
+        request_type: :grade_student_work
       )
     end
 
     llm_usage_record = LLMUsageRecord.last
+    assert_equal @assignment, llm_usage_record.trackable
+    assert_equal @user, llm_usage_record.user
+    assert_equal "google", llm_usage_record.llm_provider
+    assert_equal "gemini-2.0-flash-lite", llm_usage_record.llm_model
+    assert_equal "grade_student_work", llm_usage_record.request_type
     assert_equal 2800, llm_usage_record.token_count # 2000 + 800
     assert_equal 390, llm_usage_record.micro_usd # Expected cost for gemini
   end
@@ -70,14 +73,15 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
     llm_usage_record = LLMUsageRecord.last
     assert_equal 0, llm_usage_record.token_count
     assert_equal 0, llm_usage_record.micro_usd
+    assert_equal "anthropic", llm_usage_record.llm_provider
+    assert_equal "claude-3-5-haiku-20241022", llm_usage_record.llm_model
   end
 
   test "handles nil token responses" do
@@ -93,14 +97,65 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
     llm_usage_record = LLMUsageRecord.last
     assert_equal 0, llm_usage_record.token_count
     assert_equal 0, llm_usage_record.micro_usd
+    assert_equal "anthropic", llm_usage_record.llm_provider
+    assert_equal "claude-3-5-haiku-20241022", llm_usage_record.llm_model
+  end
+
+  test "maps various claude models to anthropic provider" do
+    [
+      "claude-3-5-sonnet-20241022",
+      "claude-3-5-haiku-20241022",
+      "claude-opus-4-20250514"
+    ].each do |model_name|
+      llm_response = LLMResponse.new(
+        text: "Test response",
+        input_tokens: 100,
+        output_tokens: 50,
+        model: model_name
+      )
+
+      record = LLM::CostTracker.record(
+        llm_response: llm_response,
+        trackable: @user,
+        user: @user,
+        request_type: :generate_rubric
+      )
+
+      assert_equal "anthropic", record.llm_provider
+      assert_equal model_name, record.llm_model
+    end
+  end
+
+  test "maps various google models to google provider" do
+    [
+      "gemini-2.0-flash",
+      "gemini-2.5-flash-preview",
+      "gemini-2.0-flash-lite"
+    ].each do |model_name|
+      llm_response = LLMResponse.new(
+        text: "Test response",
+        input_tokens: 100,
+        output_tokens: 50,
+        model: model_name
+      )
+
+      record = LLM::CostTracker.record(
+        llm_response: llm_response,
+        trackable: @user,
+        user: @user,
+        request_type: :generate_rubric
+      )
+
+      assert_equal "google", record.llm_provider
+      assert_equal model_name, record.llm_model
+    end
   end
 
   test "raises error for unknown model" do
@@ -116,8 +171,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -137,8 +191,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -158,8 +211,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: nil,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -168,8 +220,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: nil,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -178,8 +229,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: nil,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -188,18 +238,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: @assignment,
         user: @user,
-        request_type: nil,
-        prompt: @prompt
-      )
-    end
-
-    assert_raises(ArgumentError) do
-      LLM::CostTracker.record(
-        llm_response: response,
-        trackable: @assignment,
-        user: @user,
-        request_type: :generate_rubric,
-        prompt: nil
+        request_type: nil
       )
     end
   end
@@ -218,12 +257,13 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
         llm_response: response,
         trackable: rubric,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: @prompt
+        request_type: :generate_rubric
       )
     end
 
     llm_usage_record = LLMUsageRecord.last
     assert_equal rubric, llm_usage_record.trackable
+    assert_equal "anthropic", llm_usage_record.llm_provider
+    assert_equal "claude-3-5-haiku-20241022", llm_usage_record.llm_model
   end
 end

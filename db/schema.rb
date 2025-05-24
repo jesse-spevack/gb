@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_24_012432) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_24_021718) do
   create_table "assignment_summaries", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "student_work_count", null: false
@@ -69,14 +69,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_24_012432) do
     t.string "trackable_type", null: false
     t.integer "trackable_id", null: false
     t.integer "user_id", null: false
-    t.integer "llm"
+    t.integer "llm_provider"
     t.integer "request_type"
     t.integer "token_count"
     t.integer "micro_usd"
-    t.text "prompt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "llm_model", default: "", null: false
+    t.index ["created_at"], name: "index_llm_usage_records_on_created_at"
+    t.index ["llm_model"], name: "index_llm_usage_records_on_llm_model"
+    t.index ["trackable_type", "trackable_id", "created_at"], name: "idx_on_trackable_type_trackable_id_created_at_83465e1418"
     t.index ["trackable_type", "trackable_id"], name: "index_llm_requests_on_trackable"
+    t.index ["user_id", "created_at"], name: "index_llm_usage_records_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_llm_usage_records_on_user_id"
   end
 

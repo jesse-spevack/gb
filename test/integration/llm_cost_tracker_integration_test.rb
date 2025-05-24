@@ -16,44 +16,54 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
       "content" => [
         {
           "type" => "text",
-          "text" => "Here is a comprehensive rubric for the essay assignment:\n\n# Essay Rubric\n\n## Content (40%)\n- Clear thesis statement\n- Supporting arguments\n- Evidence and examples\n\n## Organization (30%)\n- Logical structure\n- Smooth transitions\n- Clear introduction and conclusion\n\n## Language (30%)\n- Grammar and mechanics\n- Vocabulary usage\n- Writing style"
+          "text" => "Here is a comprehensive rubric for the essay assignment:\n\n# Essay Rubric\n\n## Content (40%)\n- Clear thesis statement\n- Supporting arguments\n- Evidence and examples\n\n## Organization (30%)\n- Logical structure\n- Smooth transitions\n- Clear introduction and conclusion\n\n## Writing Quality (20%)\n- Grammar and mechanics\n- Sentence variety\n- Appropriate vocabulary\n\n## Creativity (10%)\n- Original insights\n- Engaging presentation"
         }
       ],
       "stop_reason" => "end_turn",
       "stop_sequence" => nil,
       "usage" => {
-        "input_tokens" => 1250,
-        "output_tokens" => 420
+        "input_tokens" => 1234,
+        "output_tokens" => 567
       }
     }.to_json
 
-    # Create LLMResponse from API response
+    # Parse the response using our LLMResponse class
     llm_response = LLMResponse.from_anthropic(raw_response)
 
-    # Prepare tracking data
-    prompt = "Generate a detailed rubric for evaluating student essays in the English class assignment about climate change impacts."
+    # Verify the response was parsed correctly
+    assert_equal "claude-3-5-haiku-20241022", llm_response.model
+    assert_equal 1234, llm_response.input_tokens
+    assert_equal 567, llm_response.output_tokens
+    assert_equal 1801, llm_response.total_tokens
+    assert_includes llm_response.text, "Essay Rubric"
 
-    # Track the cost
+    # Track the cost using CostTracker
     assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: prompt
+        request_type: :generate_rubric
       )
     end
 
-    # Verify the recorded data
-    llm_usage_record = LLMUsageRecord.last
-    assert_equal @assignment, llm_usage_record.trackable
-    assert_equal @user, llm_usage_record.user
-    assert_equal "claude_3_7_sonnet", llm_usage_record.llm # Maps claude models to this enum
-    assert_equal "generate_rubric", llm_usage_record.request_type
-    assert_equal prompt, llm_usage_record.prompt
-    assert_equal 1670, llm_usage_record.token_count # 1250 + 420
-    assert_operator llm_usage_record.micro_usd, :>, 0 # Should have calculated a cost
-    assert_operator llm_usage_record.dollars, :>, 0 # Should convert to dollars
+    # Verify the usage record was created correctly
+    usage_record = LLMUsageRecord.last
+    assert_equal @assignment, usage_record.trackable
+    assert_equal @user, usage_record.user
+    assert_equal "anthropic", usage_record.llm_provider
+    assert_equal "claude-3-5-haiku-20241022", usage_record.llm_model
+    assert_equal "generate_rubric", usage_record.request_type
+    assert_equal 1801, usage_record.token_count
+
+    # Verify cost calculation (1234 input + 567 output for haiku model)
+    # From config: input $0.80/MTok, output $4.00/MTok
+    expected_cost = ((1234 * 0.80) + (567 * 4.00)).to_i # input: $0.80/MTok, output: $4.00/MTok
+    assert_equal expected_cost, usage_record.micro_usd
+
+    # Verify the dollars method
+    expected_dollars = expected_cost.to_f / 1_000_000
+    assert_equal expected_dollars, usage_record.dollars
   end
 
   test "full cost tracking workflow with Google response" do
@@ -64,50 +74,58 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
           "content" => {
             "parts" => [
               {
-                "text" => "Based on the student's essay, here is the grading feedback:\n\n**Grade: B+**\n\n**Strengths:**\n- Clear thesis statement addressing climate change impacts\n- Good use of scientific evidence\n- Well-organized structure\n\n**Areas for improvement:**\n- Could include more specific examples\n- Some transitions could be smoother\n- Citation format needs attention\n\n**Overall:** A solid essay that demonstrates understanding of the topic with room for refinement in supporting details."
+                "text" => "Here is the feedback for the student submission:\n\n## Overall Grade: B+\n\n### Strengths\n- Clear thesis statement\n- Good use of textual evidence\n- Proper essay structure\n\n### Areas for Improvement\n- Could develop arguments more fully\n- Minor grammar issues to address\n\n### Specific Comments\nYour analysis of Macbeth's character development shows good understanding..."
               }
             ]
           },
-          "finishReason" => "STOP",
-          "index" => 0,
-          "safetyRatings" => []
+          "finishReason" => "STOP"
         }
       ],
       "usageMetadata" => {
         "promptTokenCount" => 2100,
-        "candidatesTokenCount" => 380,
-        "totalTokenCount" => 2480
+        "candidatesTokenCount" => 850,
+        "totalTokenCount" => 2950
       },
       "modelVersion" => "gemini-2.0-flash-lite"
     }.to_json
 
-    # Create LLMResponse from API response
+    # Parse the response using our LLMResponse class
     llm_response = LLMResponse.from_google(raw_response)
 
-    # Prepare tracking data
-    prompt = "Please grade this student essay and provide detailed feedback on strengths and areas for improvement."
+    # Verify the response was parsed correctly
+    assert_equal "gemini-2.0-flash-lite", llm_response.model
+    assert_equal 2100, llm_response.input_tokens
+    assert_equal 850, llm_response.output_tokens
+    assert_equal 2950, llm_response.total_tokens
+    assert_includes llm_response.text, "Overall Grade: B+"
 
-    # Track the cost
+    # Track the cost using CostTracker
     assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: @assignment,
         user: @user,
-        request_type: :grade_student_work,
-        prompt: prompt
+        request_type: :grade_student_work
       )
     end
 
-    # Verify the recorded data
-    llm_usage_record = LLMUsageRecord.last
-    assert_equal @assignment, llm_usage_record.trackable
-    assert_equal @user, llm_usage_record.user
-    assert_equal "gemini_2_5_pro", llm_usage_record.llm # Maps gemini models to this enum
-    assert_equal "grade_student_work", llm_usage_record.request_type
-    assert_equal prompt, llm_usage_record.prompt
-    assert_equal 2480, llm_usage_record.token_count # 2100 + 380
-    assert_operator llm_usage_record.micro_usd, :>, 0 # Should have calculated a cost
-    assert_operator llm_usage_record.dollars, :>, 0 # Should convert to dollars
+    # Verify the usage record was created correctly
+    usage_record = LLMUsageRecord.last
+    assert_equal @assignment, usage_record.trackable
+    assert_equal @user, usage_record.user
+    assert_equal "google", usage_record.llm_provider
+    assert_equal "gemini-2.0-flash-lite", usage_record.llm_model
+    assert_equal "grade_student_work", usage_record.request_type
+    assert_equal 2950, usage_record.token_count
+
+    # Verify cost calculation for gemini flash lite
+    # From config: input $0.075/MTok, output $0.30/MTok
+    expected_cost = ((2100 * 0.075) + (850 * 0.30)).to_i # input: $0.075/MTok, output: $0.30/MTok
+    assert_equal expected_cost, usage_record.micro_usd
+
+    # Verify the dollars method
+    expected_dollars = expected_cost.to_f / 1_000_000
+    assert_equal expected_dollars, usage_record.dollars
   end
 
   test "cost tracking with different trackable types" do
@@ -120,15 +138,12 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
       model: "claude-3-5-haiku-20241022"
     )
 
-    prompt = "Suggest improvements to this rubric for better assessment clarity."
-
     assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: rubric,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: prompt
+        request_type: :generate_rubric
       )
     end
 
@@ -151,8 +166,7 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
         llm_response: llm_response,
         trackable: @assignment,
         user: @user,
-        request_type: :generate_rubric,
-        prompt: "Test prompt #{i + 1}"
+        request_type: :generate_rubric
       )
     end
 
