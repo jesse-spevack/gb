@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 
 ## [2025-05-24]
+- Enhanced `student_feedback.txt.erb` template to produce structured JSON output matching database models
+- Updated template to output `qualitative_feedback`, `feedback_items`, `criterion_levels`, and `checks` data structures
+- Added `document_content` field to `StudentWorkPromptInput` with Google Docs API integration placeholder
+- Implemented 4-step educational analysis framework for systematic student work evaluation
+- Added comprehensive 0-100 scoring criteria for plagiarism and LLM generation detection
+- Removed rubric conditional checks since rubrics are always generated for assignments
+- Enhanced template with educational best practices including growth mindset language and evidence-based feedback
+- Added detailed scoring rubrics and tone calibration guidelines for different feedback styles
+- Maintained full test coverage with all 348 tests passing
 - Implemented `StorageServiceFactory` class in `app/services/storage_service_factory.rb` following the same proven pattern as `ResponseParserFactory`
 - Created four storage service classes for the processing abstraction system:
   - `RubricStorageService` for "generate_rubric" process type with structured result handling

@@ -2,21 +2,20 @@ You are an educational expert tasked with creating a structured rubric for gradi
 
 ## Assignment Details
 
-**Title:** <%= data[:assignment][:title] %>
-**Subject:** <%= data[:assignment][:subject] %>
-**Grade Level:** <%= data[:assignment][:grade_level] %>
-**Feedback Tone:** <%= data[:assignment][:feedback_tone] %>
+**Title:** <%= rubric_prompt_input.assignment_title %>
+**Subject:** <%= rubric_prompt_input.subject %>
+**Grade Level:** <%= rubric_prompt_input.grade_level %>
 
 ## Assignment Instructions
 
-<%= data[:assignment][:instructions] %>
+<%= rubric_prompt_input.instructions %>
 
-<% if data[:assignment][:rubric_text].present? -%>
+<% if rubric_prompt_input.rubric_text_present? -%>
 ## Existing Rubric Guidelines
 
 The teacher has provided the following rubric guidelines to incorporate:
 
-<%= data[:assignment][:rubric_text] %>
+<%= rubric_prompt_input.rubric_text %>
 <% end -%>
 
 ## Task
@@ -28,6 +27,44 @@ Create a comprehensive rubric with 3-5 criteria that evaluates student performan
 3. Include specific descriptors for each level
 4. Ensure alignment with the assignment requirements and grade level
 
-The rubric should be appropriate for <%= data[:assignment][:grade_level] %> grade students and maintain a <%= data[:assignment][:feedback_tone] %> tone.
+The rubric should be appropriate for <%= rubric_prompt_input.grade_level %> grade students and maintain a <%= rubric_prompt_input.feedback_tone %> tone.
 
-Return the rubric in a structured format suitable for educational use. 
+Return the rubric in the following JSON format:
+
+Ensure the JSON is valid and properly formatted for easy parsing.
+
+Return nothing but the JSON.
+
+```json
+{
+  "criteria": [
+    {
+      "title": "Criterion Title",
+      "description": "Brief description of what this criterion measures",
+      "position": 1, // The position of the criterion in the rubric, starting from 1
+      "levels": [
+        {
+          "name": "Excellent",
+          "description": "Specific descriptors for excellent performance",
+          "position": 1
+        },
+        {
+          "name": "Good", 
+          "description": "Specific descriptors for good performance",
+          "position": 2
+        },
+        {
+          "name": "Satisfactory",
+          "description": "Specific descriptors for satisfactory performance",
+          "position": 3
+        },
+        {
+          "name": "Needs Improvement",
+          "description": "Specific descriptors for performance needing improvement",
+          "position": 4
+        }
+      ]
+    }
+  ]
+}
+```

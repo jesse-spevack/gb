@@ -4,7 +4,18 @@ class ProcessingPipelineTest < ActiveSupport::TestCase
   # Mock classes for testing
   class MockPromptTemplate
     def self.build(template_type, variables)
-      "Mock prompt for #{template_type} with #{variables.keys.join(', ')}"
+      case variables
+      when RubricPromptInput
+        "Mock prompt for #{template_type} with RubricPromptInput"
+      when StudentWorkPromptInput
+        "Mock prompt for #{template_type} with StudentWorkPromptInput"
+      when SummaryFeedbackPromptInput
+        "Mock prompt for #{template_type} with SummaryFeedbackPromptInput"
+      when Hash
+        "Mock prompt for #{template_type} with #{variables.keys.join(', ')}"
+      else
+        "Mock prompt for #{template_type} with #{variables.class.name}"
+      end
     end
   end
 

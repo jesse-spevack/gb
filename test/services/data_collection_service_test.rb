@@ -7,85 +7,85 @@ class DataCollectionServiceTest < ActiveSupport::TestCase
     @user = users(:teacher)
   end
 
-  test "collects basic data for all process types" do
-    data = DataCollectionService.collect(@assignment, "generate_rubric", @user)
+  test "returns only template-needed data for rubric generation" do
+    result = DataCollectionService.collect(@assignment, "generate_rubric", @user)
 
-    assert_equal "Assignment", data[:processable_type]
-    assert_equal @assignment.id, data[:processable_id]
-    assert_equal "generate_rubric", data[:process_type]
-    assert_equal @user.id, data[:user_id]
-    assert_not_nil data[:collected_at]
+    # Should return RubricPromptInput directly, not wrapped in metadata hash
+    assert result.is_a?(RubricPromptInput)
+    assert_equal @assignment.title, result.assignment_title
+    assert_equal @assignment.subject, result.subject
   end
 
-  test "collects assignment data for rubric generation" do
-    data = DataCollectionService.collect(@assignment, "generate_rubric", @user)
+    test "returns RubricPromptInput directly for rubric generation" do
+    result = DataCollectionService.collect(@assignment, "generate_rubric", @user)
 
-    # Basic assignment data
-    assert_equal @assignment.title, data[:assignment][:title]
-    assert_equal @assignment.subject, data[:assignment][:subject]
-    assert_equal @assignment.grade_level, data[:assignment][:grade_level]
-    assert_equal @assignment.instructions, data[:assignment][:instructions]
-    assert_equal @assignment.feedback_tone, data[:assignment][:feedback_tone]
-
-    # Existing rubric text if present
-    if @assignment.rubric_text.present?
-      assert_equal @assignment.rubric_text, data[:assignment][:rubric_text]
-    end
-
-    # User context
-    assert_equal @user.name, data[:user][:name]
-    assert_equal @user.email, data[:user][:email]
+    # Should return RubricPromptInput directly
+    assert result.is_a?(RubricPromptInput)
+    assert_equal @assignment.title, result.assignment_title
+    assert_equal @assignment.subject, result.subject
+    assert_equal @assignment.grade_level, result.grade_level
+    assert_equal @assignment.instructions, result.instructions
+    assert_nil result.rubric_text  # english_essay fixture has no rubric_text
+    assert_equal @assignment.feedback_tone, result.feedback_tone
   end
 
   test "collects student work data for grading" do
-    data = DataCollectionService.collect(@student_work, "grade_student_work", @user)
+    student_work_prompt_input = DataCollectionService.collect(@student_work, "grade_student_work", @user)
+
+    # Should return StudentWorkPromptInput directly
+    assert student_work_prompt_input.is_a?(StudentWorkPromptInput)
 
     # Student work context
-    assert_equal @student_work.id, data[:student_work][:id]
-    assert_equal @student_work.assignment_id, data[:student_work][:assignment_id]
-    assert_equal @student_work.selected_document_id, data[:student_work][:selected_document_id]
+    assert_equal @student_work.id, student_work_prompt_input.student_work_id
+    assert_equal @student_work.assignment_id, student_work_prompt_input.assignment_id
+    assert_equal @student_work.selected_document_id, student_work_prompt_input.selected_document_id
 
     # Assignment context for grading
-    assignment = data[:assignment]
-    assert_equal @student_work.assignment.title, assignment[:title]
-    assert_equal @student_work.assignment.instructions, assignment[:instructions]
-    assert_equal @student_work.assignment.feedback_tone, assignment[:feedback_tone]
+    assert_equal @student_work.assignment.title, student_work_prompt_input.assignment_title
+    assert_equal @student_work.assignment.instructions, student_work_prompt_input.assignment_instructions
+    assert_equal @student_work.assignment.feedback_tone, student_work_prompt_input.assignment_feedback_tone
 
     # Selected document info
-    document = data[:selected_document]
-    assert_equal @student_work.selected_document.title, document[:title]
-    assert_equal @student_work.selected_document.google_doc_id, document[:google_doc_id]
+    assert_equal @student_work.selected_document.title, student_work_prompt_input.selected_document_title
+    assert_equal @student_work.selected_document.google_doc_id, student_work_prompt_input.selected_document_google_doc_id
 
     # Rubric data if available
     if @student_work.assignment.rubric.present?
-      assert_not_nil data[:rubric]
+      assert student_work_prompt_input.rubric_present?
+    else
+      assert_not student_work_prompt_input.rubric_present?
     end
   end
 
   test "collects assignment summary data for summary feedback" do
-    data = DataCollectionService.collect(@assignment, "generate_summary_feedback", @user)
+    summary_feedback_prompt_input = DataCollectionService.collect(@assignment, "generate_summary_feedback", @user)
+
+    # Should return SummaryFeedbackPromptInput directly
+    assert summary_feedback_prompt_input.is_a?(SummaryFeedbackPromptInput)
 
     # Assignment context
-    assert_equal @assignment.title, data[:assignment][:title]
-    assert_equal @assignment.instructions, data[:assignment][:instructions]
+    assert_equal @assignment.title, summary_feedback_prompt_input.assignment_title
+    assert_equal @assignment.instructions, summary_feedback_prompt_input.assignment_instructions
 
     # Student works collection
-    assert data[:student_works].is_a?(Array)
-    assert_equal @assignment.student_works.count, data[:student_works].length
+    assert summary_feedback_prompt_input.student_works.is_a?(Array)
+    assert_equal @assignment.student_works.count, summary_feedback_prompt_input.student_works_count
 
     if @assignment.student_works.any?
-      first_work = data[:student_works].first
+      first_work = summary_feedback_prompt_input.student_works.first
       assert_not_nil first_work[:id]
       assert_not_nil first_work[:qualitative_feedback] if first_work[:qualitative_feedback]
     end
 
     # Rubric context
     if @assignment.rubric.present?
-      assert_not_nil data[:rubric]
+      assert summary_feedback_prompt_input.rubric_present?
+    else
+      assert_not summary_feedback_prompt_input.rubric_present?
     end
   end
 
-  test "handles missing rubric gracefully" do
+  test "handles assignment without rubric text" do
     # Create an assignment that definitely has no rubric
     assignment_without_rubric = Assignment.create!(
       user: @user,
@@ -96,10 +96,11 @@ class DataCollectionServiceTest < ActiveSupport::TestCase
       feedback_tone: "encouraging"
     )
 
-    data = DataCollectionService.collect(assignment_without_rubric, "generate_rubric", @user)
+    result = DataCollectionService.collect(assignment_without_rubric, "generate_rubric", @user)
 
-    assert_nil data[:rubric]
-    assert_not_nil data[:assignment]
+    assert result.is_a?(RubricPromptInput)
+    assert_nil result.rubric_text
+    assert_not result.rubric_text_present?
   end
 
   test "raises error for unsupported processable type" do
@@ -120,25 +121,24 @@ class DataCollectionServiceTest < ActiveSupport::TestCase
     assert_match(/Unsupported process type/, error.message)
   end
 
-  test "handles nil user gracefully" do
-    data = DataCollectionService.collect(@assignment, "generate_rubric", nil)
+  test "handles nil user gracefully for rubric generation" do
+    result = DataCollectionService.collect(@assignment, "generate_rubric", nil)
 
-    assert_nil data[:user_id]
-    assert_nil data[:user]
+    # Should still return RubricPromptInput even with nil user
+    assert result.is_a?(RubricPromptInput)
+    assert_equal @assignment.title, result.assignment_title
   end
 
   test "includes relevant associations in collected data" do
-    # Test that associations are properly loaded
-    data = DataCollectionService.collect(@student_work, "grade_student_work", @user)
+    # Test that associations are properly loaded via the POROes
+    student_work_prompt_input = DataCollectionService.collect(@student_work, "grade_student_work", @user)
 
-    # Should include related models without causing N+1 queries
-    assert_not_nil data[:assignment]
-    assert_not_nil data[:selected_document]
+    # Should include related models through the PORO structure
+    assert_not_nil student_work_prompt_input.assignment_title
+    assert_not_nil student_work_prompt_input.selected_document_title
 
-    # Check that we're not making excessive database calls
-    # This is more of a design principle test
-    assert data.keys.include?(:student_work)
-    assert data.keys.include?(:assignment)
-    assert data.keys.include?(:selected_document)
+    # Verify we're getting complete data from associations
+    assert_equal @student_work.assignment.title, student_work_prompt_input.assignment_title
+    assert_equal @student_work.selected_document.title, student_work_prompt_input.selected_document_title
   end
 end

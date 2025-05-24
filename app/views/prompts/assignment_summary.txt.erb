@@ -2,19 +2,19 @@ You are an educational expert providing class-wide insights and summary feedback
 
 ## Assignment Overview
 
-**Title:** <%= data[:assignment][:title] %>
-**Subject:** <%= data[:assignment][:subject] %>
-**Grade Level:** <%= data[:assignment][:grade_level] %>
-**Number of Student Works:** <%= data[:student_works].length %>
+**Title:** <%= summary_feedback_prompt_input.assignment_title %>
+**Subject:** <%= summary_feedback_prompt_input.assignment_subject %>
+**Grade Level:** <%= summary_feedback_prompt_input.assignment_grade_level %>
+**Number of Student Works:** <%= summary_feedback_prompt_input.student_works_count %>
 
 ## Assignment Instructions
 
-<%= data[:assignment][:instructions] %>
+<%= summary_feedback_prompt_input.assignment_instructions %>
 
-<% if data[:rubric].present? -%>
+<% if summary_feedback_prompt_input.rubric_present? -%>
 ## Grading Rubric
 
-<% data[:rubric][:criteria].each do |criterion| -%>
+<% summary_feedback_prompt_input.rubric[:criteria].each do |criterion| -%>
 ### <%= criterion[:title] %>
 <%= criterion[:description] %>
 <% end -%>
@@ -22,7 +22,7 @@ You are an educational expert providing class-wide insights and summary feedback
 
 ## Student Work Summary
 
-<% data[:student_works].each_with_index do |work, index| -%>
+<% summary_feedback_prompt_input.student_works.each_with_index do |work, index| -%>
 **Student Work <%= index + 1 %>:**
 <% if work[:qualitative_feedback].present? -%>
 <%= work[:qualitative_feedback] %>
@@ -42,10 +42,10 @@ Analyze the collective performance across all student works and provide:
 4. **Instructional Recommendations:** Suggestions for future teaching based on observed patterns
 5. **Individual Standouts:** Notable examples of exceptional work or students who may need additional support
 
-<% if data[:rubric].present? -%>
+<% if summary_feedback_prompt_input.rubric_present? -%>
 6. **Criterion Analysis:** Performance patterns for each rubric criterion
 <% end -%>
 
 Focus on actionable insights that can help improve instruction and student learning. Maintain a constructive, professional tone suitable for educator reflection and planning.
 
-Consider both the <%= data[:assignment][:grade_level] %> grade level expectations and the overall learning objectives demonstrated in this assignment. 
+Consider both the <%= summary_feedback_prompt_input.assignment_grade_level %> grade level expectations and the overall learning objectives demonstrated in this assignment. 
