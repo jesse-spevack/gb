@@ -34,12 +34,7 @@ class ProcessingPipeline
   end
 
   def collect_data
-    {
-      processable_type: @task.processable.class.name,
-      processable_id: @task.processable.id,
-      process_type: @task.process_type,
-      user_id: @task.user&.id
-    }
+    DataCollectionService.collect(@task.processable, @task.process_type, @task.user)
   end
 
   def send_to_llm(prompt)
