@@ -1,0 +1,74 @@
+---
+description: Load essential project context at the start of each GradeBot development task
+globs: "**/*"
+alwaysApply: true
+---
+
+# GradeBot Project Context Loading
+
+- **Initial Context Review (Required)**
+  - Review [plan.md](mdc:docs/plan.md) to understand project architecture and features
+  - Check [schema.rb](mdc:db/schema.rb) for current database structure
+  - Examine [tasks.json](mdc:tasks/tasks.json) to identify task status and dependencies
+  - Use [taskmaster.mdc](mdc:.cursor/rules/taskmaster.mdc) for task management commands
+  - Review [routes.rb](mdc:config/routes.rb) to understand existing endpoints
+  - Check [Gemfile](mdc:Gemfile) for available dependencies and versions
+
+- **Task-Specific Context Building**
+  - Identify the current task ID and review its details, dependencies, and test strategy
+  - Check dependency tasks to understand what's already implemented
+  - Look for existing implementations of related features
+  - Review test files for established testing patterns
+  - If anything is unclear, ask the user specific questions
+
+- **Efficient Context Loading Strategy**
+  ```
+  1. Start with the specific task in tasks.json
+  2. Review its dependencies and their implementation status
+  3. Only load files directly related to the current task
+  4. Use grep/search for relevant class/module names before loading entire files
+  ```
+
+- **Key Project Patterns**
+  - **Models**: Located in `app/models/` - review related models for associations
+  - **Controllers**: Located in `app/controllers/` - check for existing patterns
+  - **Services**: Located in `app/services/` - follow established service patterns
+  - **Jobs**: Located in `app/jobs/` - understand background processing approach
+  - **Views**: Located in `app/views/` - maintain consistent UI patterns
+  - **Concerns**: Located in `app/controllers/concerns/` and `app/models/concerns/`
+  - **Initializers**: Located in `config/initializers/` - for third-party configurations
+  - **Migrations**: Located in `db/migrate/` - understand database evolution
+
+- **Before Starting Implementation**
+  - ✅ Verify all task dependencies are marked as "done"
+  - ✅ Check if similar features exist to maintain consistency
+  - ✅ Review any existing tests for related functionality
+  - ✅ Look for TODOs or placeholders in dependent code
+
+- **Context Search Patterns**
+  ```ruby
+  # Find related implementations
+  grep -r "ModelName" app/
+  grep -r "def method_name" app/
+  
+  # Find test patterns
+  grep -r "test.*ModelName" test/
+  grep -r "describe.*ServiceName" spec/
+  ```
+
+- **Minimal File Loading**
+  - Only load files mentioned in the task or its dependencies
+  - Use targeted searches instead of loading entire directories
+  - Prefer reading specific line ranges over entire files
+  - Cache understanding of core patterns to avoid re-reading
+
+- **Task Status Awareness**
+  - "pending" tasks can be started if dependencies are "done"
+  - "in-progress" tasks may have partial implementations to review
+  - Check for any linked PRs or branches for in-progress work
+
+- **Self-Improvement Integration**
+  - After implementing features, consider if new patterns emerge
+  - Document any new conventions discovered during implementation
+  - Update rules if better patterns are established
+  - Reference [self_improve.mdc](mdc:.cursor/rules/self_improve.mdc) for guidelines
