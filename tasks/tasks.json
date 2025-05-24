@@ -564,13 +564,13 @@
       "id": 47,
       "title": "Create BroadcasterFactory",
       "description": "Implement factory for creating broadcasters",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         44
       ],
       "priority": "high",
-      "details": "Create BroadcasterFactory class.\nImplement broadcaster creation based on process type.\nAdd configuration handling for broadcaster initialization.\nImplement default broadcaster fallback.\nDocument supported broadcaster types.\nAdd error handling for unsupported types.",
-      "testStrategy": "Test broadcaster creation for different process types.\nVerify configuration handling.\nTest default broadcaster fallback.\nVerify error handling for unsupported types."
+      "details": "Create BroadcasterFactory class following established factory patterns.\nImplement broadcaster creation based on process type with three types: RubricBroadcaster, StudentWorkBroadcaster, and SummaryFeedbackBroadcaster.\nAdd configuration handling for broadcaster initialization.\nImplement DefaultBroadcaster for fallback handling.\nCreate shared BroadcastBehavior module for DRY progress calculation logic.\nEnsure all broadcasters respond to `broadcast(processable, status, data)` method.\nImplement specific progress percentages for different statuses in each broadcaster type.\nAdd error handling with UnsupportedProcessTypeError for strict mode and graceful fallback otherwise.\nInclude configuration parameter for future enhancements.\nDocument supported broadcaster types with comprehensive YARD documentation and usage examples.",
+      "testStrategy": "Create comprehensive test suite with 16 test cases covering all factory methods and edge cases.\nTest broadcaster creation for different process types (RubricBroadcaster, StudentWorkBroadcaster, SummaryFeedbackBroadcaster).\nVerify configuration handling and parameter passing.\nTest DefaultBroadcaster fallback functionality.\nVerify error handling for unsupported types in both strict and non-strict modes.\nTest progress calculation logic for different statuses across broadcaster types.\nEnsure all broadcasters properly implement the required interface.\nVerify integration with the overall test suite to prevent regressions."
     },
     {
       "id": 48,
