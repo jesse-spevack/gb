@@ -516,7 +516,7 @@
       "id": 43,
       "title": "Create ProcessingTask class",
       "description": "Implement base class for processing task configuration",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         38
       ],
