@@ -1,0 +1,10 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+rubric_request:
+  trackable: english_essay_rubric (Rubric)
+  user: teacher
+  llm_provider: :google
+  llm_model: "gemini-2.0-flash-lite"
+  request_type: :generate_rubric
+  token_count: 3245
+  micro_usd: 1623 # $0.001623

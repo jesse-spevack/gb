@@ -53,6 +53,6 @@ class LLMResponse
   end
 
   def total_tokens
-    input_tokens + output_tokens
+    input_tokens.to_i + output_tokens.to_i
   end
 end

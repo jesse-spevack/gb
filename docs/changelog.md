@@ -1,6 +1,23 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-23]
+- Implemented `LLM::CostTracker` service class for recording LLM usage data and costs to the database
+- Created comprehensive LLMUsageRecord model with polymorphic trackable associations and proper validations
+- Major database schema improvements:
+  - Renamed LLMRequest model to LLMUsageRecord for better clarity
+  - Added `llm_model` field for exact model tracking (e.g., "claude-3-5-haiku-20241022")
+  - Changed provider enum from `llm` to `llm_provider` with values `:google`, `:anthropic`
+  - Removed `prompt` column to ensure PII compliance and reduce storage overhead
+  - Added performance indexes on `llm_model`, `created_at`, `user_id`, and `trackable`
+- Enhanced CostTracker to use centralized `LLM::ModelsConfig` instead of hardcoded regex patterns for model-to-provider mapping
+- Added comprehensive error handling with custom `UnknownModelError` for unsupported models
+- Integrated automatic cost calculation using existing `LLM::CostCalculator` with micro-USD precision
+- Created extensive test coverage including unit tests, integration tests, and error scenarios
+- Updated integration tests to remove deprecated prompt parameter and fix cost calculations to match actual model pricing
+- Added complete documentation in `app/lib/llm/README.md` with usage examples and configuration guidance
+- Ensured full backward compatibility while improving maintainability and extensibility
+
 ## [2025-05-22]
 - Implemented `LLM::CostCalculator` class for calculating API costs based on token usage
 - Added comprehensive LLM model configuration system with centralized YAML-based pricing data
