@@ -11,106 +11,304 @@
       <p class="text-sm text-gray-500">View assignment details and student work.</p>
     </div>
 
-    <!-- Assignment Details Card -->
+    <!-- Progress Tracking Card -->
     <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
       <div class="flex items-center mb-4">
-        <%= render "shared/icons/clipboard_document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
-        <h3 class="font-medium text-gray-900">Assignment Details</h3>
+        <%= render "shared/icons/chart_bar", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-green-500" %>
+        <h3 class="font-medium text-gray-900">Progress Overview</h3>
       </div>
 
-      <div class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="text-sm font-medium text-gray-700 mb-1">Subject</h4>
-            <p class="text-base text-gray-900"><%= @assignment.subject.presence || "Not specified" %></p>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <!-- Student Work Progress -->
+        <div class="text-center">
+          <div class="text-2xl font-bold text-blue-600"><%= @progress_metrics[:completed] %>/<%= @progress_metrics[:total] %></div>
+          <div class="text-sm text-gray-500">Student Works Graded</div>
+          <div class="w-full bg-gray-200 rounded-full h-2 mt-2">
+            <div class="bg-blue-600 h-2 rounded-full" style="width: <%= @progress_metrics[:percentage] %>%"></div>
           </div>
-          <div>
-            <h4 class="text-sm font-medium text-gray-700 mb-1">Grade Level</h4>
-            <p class="text-base text-gray-900"><%= @assignment.grade_level.presence || "Not specified" %></p>
+          <div class="text-xs text-gray-400 mt-1"><%= @progress_metrics[:percentage] %>% Complete</div>
+        </div>
+
+        <!-- Rubric Status -->
+        <div class="text-center">
+          <div class="text-2xl font-bold <%= @progress_metrics[:rubric_generated] ? 'text-green-600' : 'text-gray-400' %>">
+            <%= @progress_metrics[:rubric_generated] ? '✓' : '○' %>
+          </div>
+          <div class="text-sm text-gray-500">Rubric</div>
+          <div class="text-xs mt-1 <%= @progress_metrics[:rubric_generated] ? 'text-green-600' : 'text-gray-400' %>">
+            <%= @progress_metrics[:rubric_generated] ? 'Generated' : 'Pending' %>
           </div>
         </div>
 
-        <div>
-          <h4 class="text-sm font-medium text-gray-700 mb-1">Instructions</h4>
-          <div class="p-4 bg-gray-50 rounded-md text-gray-900">
-            <%= simple_format @assignment.instructions %>
+        <!-- Summary Status -->
+        <div class="text-center">
+          <div class="text-2xl font-bold <%= @progress_metrics[:summary_generated] ? 'text-green-600' : 'text-gray-400' %>">
+            <%= @progress_metrics[:summary_generated] ? '✓' : '○' %>
+          </div>
+          <div class="text-sm text-gray-500">Summary</div>
+          <div class="text-xs mt-1 <%= @progress_metrics[:summary_generated] ? 'text-green-600' : 'text-gray-400' %>">
+            <%= @progress_metrics[:summary_generated] ? 'Generated' : 'Pending' %>
           </div>
         </div>
 
-        <div>
-          <h4 class="text-sm font-medium text-gray-700 mb-1">Feedback Tone</h4>
-          <p class="text-base text-gray-900 capitalize"><%= @assignment.feedback_tone %></p>
+        <!-- Overall Progress -->
+        <div class="text-center">
+          <div class="text-2xl font-bold text-purple-600">
+            <%= [@progress_metrics[:rubric_generated], @progress_metrics[:summary_generated], @progress_metrics[:percentage] > 0].count(true) %>/3
+          </div>
+          <div class="text-sm text-gray-500">Tasks Complete</div>
+          <div class="text-xs text-purple-600 mt-1">Overall Status</div>
         </div>
       </div>
     </div>
 
-    <!-- Rubric Card -->
-    <% if @assignment.respond_to?(:rubric) && @assignment.rubric.present? %>
-      <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
-        <div class="flex items-center mb-4">
-          <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
-          <h3 class="font-medium text-gray-900">Rubric</h3>
-        </div>
+    <!-- Navigation Tabs -->
+    <div class="mb-6">
+      <nav class="flex space-x-1 bg-white rounded-lg shadow-sm p-1" aria-label="Assignment sections">
+        <%= link_to assignment_path(@assignment, section: 'details'), 
+              class: "flex-1 text-center py-2 px-4 rounded-md text-sm font-medium transition-all #{@active_section == 'details' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}" do %>
+          <%= render "shared/icons/clipboard_document", aria_hidden: true, focusable: false, class: "h-4 w-4 mr-1 inline-block align-middle" %>
+          Details
+        <% end %>
+        
+        <%= link_to assignment_path(@assignment, section: 'rubric'), 
+              class: "flex-1 text-center py-2 px-4 rounded-md text-sm font-medium transition-all #{@active_section == 'rubric' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}" do %>
+          <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-4 w-4 mr-1 inline-block align-middle" %>
+          Rubric
+          <% if @progress_metrics[:rubric_generated] %>
+            <span class="ml-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+          <% end %>
+        <% end %>
+        
+        <%= link_to assignment_path(@assignment, section: 'student_works'), 
+              class: "flex-1 text-center py-2 px-4 rounded-md text-sm font-medium transition-all #{@active_section == 'student_works' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}" do %>
+          <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-4 w-4 mr-1 inline-block align-middle" %>
+          Student Work
+          <span class="ml-1 bg-gray-200 text-gray-700 text-xs px-2 py-0.5 rounded-full"><%= @student_works.count %></span>
+        <% end %>
+        
+        <%= link_to assignment_path(@assignment, section: 'summary'), 
+              class: "flex-1 text-center py-2 px-4 rounded-md text-sm font-medium transition-all #{@active_section == 'summary' ? 'bg-blue-100 text-blue-700' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'}" do %>
+          <%= render "shared/icons/chart_bar", aria_hidden: true, focusable: false, class: "h-4 w-4 mr-1 inline-block align-middle" %>
+          Summary
+          <% if @progress_metrics[:summary_generated] %>
+            <span class="ml-1 inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+          <% end %>
+        <% end %>
+      </nav>
+    </div>
 
-        <div class="space-y-4">
-          <% @assignment.rubric.criteria.each do |criterion| %>
-            <div class="border-b border-gray-200 pb-4">
-              <h4 class="text-sm font-medium text-gray-900 mb-2"><%= criterion.title %></h4>
-              <p class="text-sm text-gray-600 mb-3"><%= criterion.description %></p>
-              
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3 mt-2">
-                <% criterion.levels.order(position: :asc).each do |level| %>
-                  <div class="bg-gray-50 p-3 rounded-md">
-                    <h5 class="text-xs font-medium text-gray-700 mb-1"><%= level.title %></h5>
-                    <p class="text-xs text-gray-600"><%= level.description %></p>
-                  </div>
-                <% end %>
+    <!-- Content Sections -->
+    <div class="content-sections">
+      <!-- Assignment Details Section -->
+      <% if @active_section == 'details' %>
+        <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+          <div class="flex items-center mb-4">
+            <%= render "shared/icons/clipboard_document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+            <h3 class="font-medium text-gray-900">Assignment Details</h3>
+          </div>
+
+          <div class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="text-sm font-medium text-gray-700 mb-1">Subject</h4>
+                <p class="text-base text-gray-900"><%= @assignment.subject.presence || "Not specified" %></p>
               </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-700 mb-1">Grade Level</h4>
+                <p class="text-base text-gray-900"><%= @assignment.grade_level.presence || "Not specified" %></p>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-700 mb-1">Instructions</h4>
+              <div class="p-4 bg-gray-50 rounded-md text-gray-900">
+                <%= simple_format @assignment.instructions %>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-sm font-medium text-gray-700 mb-1">Feedback Tone</h4>
+              <p class="text-base text-gray-900 capitalize"><%= @assignment.feedback_tone %></p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <!-- Rubric Section -->
+      <% if @active_section == 'rubric' %>
+        <% if @rubric.present? %>
+          <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+            <div class="flex items-center mb-4">
+              <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+              <h3 class="font-medium text-gray-900">Rubric</h3>
+            </div>
+
+            <div class="space-y-4">
+              <% @rubric.criteria.each do |criterion| %>
+                <div class="border-b border-gray-200 pb-4">
+                  <h4 class="text-sm font-medium text-gray-900 mb-2"><%= criterion.title %></h4>
+                  <p class="text-sm text-gray-600 mb-3"><%= criterion.description %></p>
+                  
+                  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3 mt-2">
+                    <% criterion.levels.order(position: :asc).each do |level| %>
+                      <div class="bg-gray-50 p-3 rounded-md">
+                        <h5 class="text-xs font-medium text-gray-700 mb-1"><%= level.title %></h5>
+                        <p class="text-xs text-gray-600"><%= level.description %></p>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+            <div class="flex items-center mb-4">
+              <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+              <h3 class="font-medium text-gray-900">Rubric</h3>
+            </div>
+            <div class="text-center py-8">
+              <div class="text-gray-400 mb-4">
+                <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-12 w-12 mx-auto" %>
+              </div>
+              <p class="text-gray-500 italic">No rubric available for this assignment.</p>
+              <p class="text-sm text-gray-400 mt-2">The rubric will be generated when assignment processing begins.</p>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+
+      <!-- Student Work Section -->
+      <% if @active_section == 'student_works' %>
+        <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+              <h3 class="font-medium text-gray-900">Student Work</h3>
+            </div>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
+              <%= pluralize(@student_works.count, 'document') %>
+            </span>
+          </div>
+
+          <% if @student_works.any? %>
+            <div class="grid gap-4">
+              <% @student_works.each_with_index do |work, index| %>
+                <div class="border border-gray-200 rounded-md p-4 transition-all hover:bg-gray-50">
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                        <span class="text-sm font-medium text-blue-600"><%= index + 1 %></span>
+                      </div>
+                      <div>
+                        <h4 class="text-sm font-medium text-gray-900"><%= work.selected_document.title %></h4>
+                        <% if work.qualitative_feedback.present? %>
+                          <p class="text-xs text-green-600 mt-1">✓ Feedback complete</p>
+                        <% else %>
+                          <p class="text-xs text-gray-400 mt-1">Pending feedback</p>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                      <% if work.qualitative_feedback.present? %>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          Complete
+                        </span>
+                      <% else %>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                          Pending
+                        </span>
+                      <% end %>
+                      <a href="<%= work.selected_document.url %>" target="_blank" rel="noopener noreferrer" 
+                         class="inline-flex items-center text-xs text-blue-600 hover:text-blue-800 bg-blue-50 hover:bg-blue-100 px-2 py-1 rounded">
+                        <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-3 w-3 mr-1" %>
+                        View
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-8">
+              <div class="text-gray-400 mb-4">
+                <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-12 w-12 mx-auto" %>
+              </div>
+              <p class="text-gray-500 italic">No student work has been added to this assignment.</p>
             </div>
           <% end %>
         </div>
-      </div>
-    <% else %>
-      <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
-        <div class="flex items-center mb-4">
-          <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
-          <h3 class="font-medium text-gray-900">Rubric</h3>
-        </div>
-        <p class="text-gray-500 italic">No rubric available for this assignment.</p>
-      </div>
-    <% end %>
+      <% end %>
 
-    <!-- Student Work Card -->
-    <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
-      <div class="flex items-center justify-between mb-4">
-        <div class="flex items-center">
-          <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
-          <h3 class="font-medium text-gray-900">Student Work</h3>
-        </div>
-        <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded">
-          <%= pluralize(@student_works.count, 'document') %>
-        </span>
-      </div>
+      <!-- Assignment Summary Section -->
+      <% if @active_section == 'summary' %>
+        <% if @assignment_summary.present? %>
+          <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+            <div class="flex items-center mb-4">
+              <%= render "shared/icons/chart_bar", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-purple-500" %>
+              <h3 class="font-medium text-gray-900">Class Summary</h3>
+            </div>
 
-      <% if @student_works.any? %>
-        <ul class="space-y-3">
-          <% @student_works.each do |work| %>
-            <li class="border border-gray-200 rounded-md p-3 transition-all hover:bg-gray-50">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <span class="text-sm text-gray-900"><%= work.selected_document.title %></span>
-                </div>
-                <div>
-                  <a href="<%= work.selected_document.url %>" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-xs text-blue-600 hover:text-blue-800">
-                    <%= render "shared/icons/document", aria_hidden: true, focusable: false, class: "h-4 w-4 ml-1" %>
-                  </a>
+            <div class="space-y-6">
+              <div class="bg-purple-50 p-4 rounded-md">
+                <h4 class="text-sm font-medium text-purple-900 mb-2">Overview</h4>
+                <p class="text-sm text-purple-800">
+                  Based on <%= pluralize(@assignment_summary.student_work_count, 'student work') %>
+                </p>
+              </div>
+
+              <div>
+                <h4 class="text-sm font-medium text-gray-700 mb-3">Qualitative Insights</h4>
+                <div class="prose prose-sm max-w-none text-gray-700">
+                  <%= simple_format @assignment_summary.qualitative_insights %>
                 </div>
               </div>
-            </li>
-          <% end %>
-        </ul>
-      <% else %>
-        <p class="text-gray-500 italic">No student work has been added to this assignment.</p>
+
+              <% if @assignment_summary.feedback_items.any? %>
+                <div>
+                  <h4 class="text-sm font-medium text-gray-700 mb-3">Key Observations</h4>
+                  <div class="space-y-3">
+                    <% @assignment_summary.feedback_items.each do |item| %>
+                      <div class="border-l-4 <%= item.item_type == 'strength' ? 'border-green-400 bg-green-50' : 'border-yellow-400 bg-yellow-50' %> p-4">
+                        <div class="flex">
+                          <div class="flex-shrink-0">
+                            <% if item.item_type == 'strength' %>
+                              <div class="h-5 w-5 text-green-400">✓</div>
+                            <% else %>
+                              <div class="h-5 w-5 text-yellow-400">!</div>
+                            <% end %>
+                          </div>
+                          <div class="ml-3">
+                            <h5 class="text-sm font-medium text-gray-900"><%= item.title %></h5>
+                            <p class="text-sm text-gray-700 mt-1"><%= item.description %></p>
+                            <% if item.evidence.present? %>
+                              <p class="text-xs text-gray-500 mt-2 italic"><%= item.evidence %></p>
+                            <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="mb-6 bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
+            <div class="flex items-center mb-4">
+              <%= render "shared/icons/chart_bar", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-purple-500" %>
+              <h3 class="font-medium text-gray-900">Class Summary</h3>
+            </div>
+            <div class="text-center py-8">
+              <div class="text-gray-400 mb-4">
+                <%= render "shared/icons/chart_bar", aria_hidden: true, focusable: false, class: "h-12 w-12 mx-auto" %>
+              </div>
+              <p class="text-gray-500 italic">Assignment summary is not yet available.</p>
+              <p class="text-sm text-gray-400 mt-2">The summary will be generated after student work has been processed.</p>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
 

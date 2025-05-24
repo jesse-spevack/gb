@@ -28,6 +28,7 @@ class Assignment < ApplicationRecord
   has_many :selected_documents, through: :student_works
   has_many :student_works, dependent: :destroy
 
+  has_one :rubric, dependent: :destroy
   has_one :assignment_summary, dependent: :destroy
   has_one :processing_metric, as: :processable, dependent: :destroy
 

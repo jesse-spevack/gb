@@ -1,0 +1,33 @@
+You are an educational expert tasked with creating a structured rubric for grading student assignments.
+
+## Assignment Details
+
+**Title:** <%= data[:assignment][:title] %>
+**Subject:** <%= data[:assignment][:subject] %>
+**Grade Level:** <%= data[:assignment][:grade_level] %>
+**Feedback Tone:** <%= data[:assignment][:feedback_tone] %>
+
+## Assignment Instructions
+
+<%= data[:assignment][:instructions] %>
+
+<% if data[:assignment][:rubric_text].present? -%>
+## Existing Rubric Guidelines
+
+The teacher has provided the following rubric guidelines to incorporate:
+
+<%= data[:assignment][:rubric_text] %>
+<% end -%>
+
+## Task
+
+Create a comprehensive rubric with 3-5 criteria that evaluates student performance on this assignment. For each criterion:
+
+1. Provide a clear title and description
+2. Define 4 performance levels (Excellent, Good, Satisfactory, Needs Improvement)
+3. Include specific descriptors for each level
+4. Ensure alignment with the assignment requirements and grade level
+
+The rubric should be appropriate for <%= data[:assignment][:grade_level] %> grade students and maintain a <%= data[:assignment][:feedback_tone] %> tone.
+
+Return the rubric in a structured format suitable for educational use. 

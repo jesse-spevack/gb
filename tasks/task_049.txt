@@ -1,6 +1,6 @@
 # Task ID: 49
 # Title: Create DataCollectionService
-# Status: pending
+# Status: done
 # Dependencies: 44
 # Priority: high
 # Description: Implement service for gathering data for processing

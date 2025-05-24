@@ -22,7 +22,16 @@ class AssignmentsController < ApplicationController
   end
 
   def show
-    @student_works = @assignment.student_works
+    # Load associated records efficiently to avoid N+1 queries
+    @student_works = @assignment.student_works.includes(:selected_document, :feedback_items)
+    @rubric = @assignment.rubric
+    @assignment_summary = @assignment.assignment_summary
+
+    # Calculate progress metrics
+    @progress_metrics = calculate_progress_metrics
+
+    # Determine active section from params, default to 'details'
+    @active_section = params[:section]&.in?(%w[details rubric student_works summary]) ? params[:section] : "details"
   end
 
   def destroy
@@ -49,5 +58,24 @@ class AssignmentsController < ApplicationController
       assignment_params: assignment_params,
       user: Current.user
     )
+  end
+
+  # Calculate progress metrics for the assignment
+  def calculate_progress_metrics
+    total_student_works = @student_works.count
+    return { total: 0, completed: 0, percentage: 0 } if total_student_works == 0
+
+    # Count student works with feedback
+    completed_student_works = @student_works.select { |sw| sw.qualitative_feedback.present? }.count
+
+    percentage = total_student_works > 0 ? (completed_student_works.to_f / total_student_works * 100).round : 0
+
+    {
+      total: total_student_works,
+      completed: completed_student_works,
+      percentage: percentage,
+      rubric_generated: @rubric.present?,
+      summary_generated: @assignment_summary.present?
+    }
   end
 end

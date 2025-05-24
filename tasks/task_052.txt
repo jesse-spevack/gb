@@ -1,6 +1,6 @@
 # Task ID: 52
 # Title: Create prompt templates directory structure
-# Status: pending
+# Status: done
 # Dependencies: 50
 # Priority: medium
 # Description: Set up directory structure for prompt templates
