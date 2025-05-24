@@ -32,17 +32,6 @@ class ProcessingPipelineTest < ActiveSupport::TestCase
     end
   end
 
-  class MockLLMClient
-    def self.completion(prompt, model: "gpt-4")
-      LLMResponse.new(
-        text: "Mock LLM response for: #{prompt[0..50]}...",
-        input_tokens: 100,
-        output_tokens: 50,
-        model: model
-      )
-    end
-  end
-
   def setup
     @assignment = assignments(:english_essay)
     @user = users(:teacher)
@@ -60,16 +49,6 @@ class ProcessingPipelineTest < ActiveSupport::TestCase
       process_type: "generate_rubric",
       user: @user,
       configuration: @configuration
-    )
-
-    # Mock LLM client
-    MockLLMClient.stubs(:completion).returns(
-      LLMResponse.new(
-        text: "Mock response",
-        input_tokens: 100,
-        output_tokens: 50,
-        model: "gpt-4"
-      )
     )
   end
 
