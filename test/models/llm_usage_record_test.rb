@@ -1,8 +1,8 @@
 require "test_helper"
 
-class LLMRequestTest < ActiveSupport::TestCase
+class LLMUsageRecordTest < ActiveSupport::TestCase
   test "it should be valid with valid attributes" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -11,11 +11,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert llm_request.valid?
+    assert llm_usage_record.valid?
   end
 
   test "it should be valid with zero token count and cost" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -24,11 +24,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 0,
       prompt: "Generate a rubric for the assignment"
     )
-    assert llm_request.valid?
+    assert llm_usage_record.valid?
   end
 
   test "it should not be valid without a trackable" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: nil,
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -37,11 +37,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid without a user" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: nil,
       llm: :gemini_2_5_pro,
@@ -50,11 +50,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid without an llm" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: nil,
@@ -63,11 +63,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid without a request type" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -76,11 +76,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid without a token count" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -89,11 +89,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?, llm_request.errors.full_messages
+    assert_not llm_usage_record.valid?, llm_usage_record.errors.full_messages
   end
 
   test "it should not be valid without a micro usd" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -102,11 +102,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: nil,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid without a prompt" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -115,11 +115,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: nil
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid with negative token count" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -128,11 +128,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "it should not be valid with negative micro usd" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -141,11 +141,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: -1,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_not llm_request.valid?
+    assert_not llm_usage_record.valid?
   end
 
   test "dollars should return the price in dollars" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -154,11 +154,11 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 100,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_equal 0.0001, llm_request.dollars
+    assert_equal 0.0001, llm_usage_record.dollars
   end
 
   test "dollars should return zero for zero micro_usd" do
-    llm_request = LLMRequest.new(
+    llm_usage_record = LLMUsageRecord.new(
       trackable: assignments(:english_essay),
       user: users(:teacher),
       llm: :gemini_2_5_pro,
@@ -167,6 +167,6 @@ class LLMRequestTest < ActiveSupport::TestCase
       micro_usd: 0,
       prompt: "Generate a rubric for the assignment"
     )
-    assert_equal 0.0, llm_request.dollars
+    assert_equal 0.0, llm_usage_record.dollars
   end
 end

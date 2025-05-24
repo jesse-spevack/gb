@@ -15,7 +15,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       model: "claude-3-5-haiku-20241022"
     )
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: response,
         trackable: @assignment,
@@ -25,13 +25,13 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal @assignment, llm_request.trackable
-    assert_equal @user, llm_request.user
-    assert_equal "generate_rubric", llm_request.request_type
-    assert_equal @prompt, llm_request.prompt
-    assert_equal 1500, llm_request.token_count # 1000 + 500
-    assert_equal 2800, llm_request.micro_usd # Expected cost for haiku
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal @assignment, llm_usage_record.trackable
+    assert_equal @user, llm_usage_record.user
+    assert_equal "generate_rubric", llm_usage_record.request_type
+    assert_equal @prompt, llm_usage_record.prompt
+    assert_equal 1500, llm_usage_record.token_count # 1000 + 500
+    assert_equal 2800, llm_usage_record.micro_usd # Expected cost for haiku
   end
 
   test "records cost for Google response" do
@@ -42,7 +42,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       model: "gemini-2.0-flash-lite"
     )
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: response,
         trackable: @assignment,
@@ -52,9 +52,9 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal 2800, llm_request.token_count # 2000 + 800
-    assert_equal 390, llm_request.micro_usd # Expected cost for gemini
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal 2800, llm_usage_record.token_count # 2000 + 800
+    assert_equal 390, llm_usage_record.micro_usd # Expected cost for gemini
   end
 
   test "handles zero token responses" do
@@ -65,7 +65,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       model: "claude-3-5-haiku-20241022"
     )
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: response,
         trackable: @assignment,
@@ -75,9 +75,9 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal 0, llm_request.token_count
-    assert_equal 0, llm_request.micro_usd
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal 0, llm_usage_record.token_count
+    assert_equal 0, llm_usage_record.micro_usd
   end
 
   test "handles nil token responses" do
@@ -88,7 +88,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       model: "claude-3-5-haiku-20241022"
     )
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: response,
         trackable: @assignment,
@@ -98,9 +98,9 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal 0, llm_request.token_count
-    assert_equal 0, llm_request.micro_usd
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal 0, llm_usage_record.token_count
+    assert_equal 0, llm_usage_record.micro_usd
   end
 
   test "raises error for unknown model" do
@@ -213,7 +213,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       model: "claude-3-5-haiku-20241022"
     )
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: response,
         trackable: rubric,
@@ -223,7 +223,7 @@ class LLM::CostTrackerTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal rubric, llm_request.trackable
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal rubric, llm_usage_record.trackable
   end
 end

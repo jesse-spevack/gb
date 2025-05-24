@@ -10,7 +10,7 @@ Calculates the cost of LLM API calls based on model usage and token consumption.
 
 ### LLM::CostTracker
 
-Records LLM usage and cost data by taking an `LLMResponse` and saving an `LLMRequest` record for tracking and business intelligence.
+Records LLM usage and cost data by taking an `LLMResponse` and saving an `LLMUsageRecord` record for tracking and business intelligence.
 
 #### Usage
 
@@ -41,19 +41,17 @@ LLM::CostTracker.record(
 1. Calculates the total cost using `LLM::CostCalculator`
 2. Extracts token usage from the response
 3. Maps the model name to the appropriate enum value
-4. Creates and saves an `LLMRequest` record for tracking
+4. Creates and saves an `LLMUsageRecord` record for tracking
 
 #### Error Handling
 
 - Raises `ArgumentError` for missing required parameters
 - Raises `LLM::CostTracker::UnknownModelError` for unrecognized models
-- Re-raises validation errors from the `LLMRequest` model
+- Re-raises validation errors from the `LLMUsageRecord` model
 
 ## Models
 
-### LLMRequest
-
-**Note: Consider renaming to `LLMUsageRecord`** to better reflect that it tracks both usage and cost data.
+### LLMUsageRecord
 
 Records individual LLM API calls with cost and usage information for business analytics.
 

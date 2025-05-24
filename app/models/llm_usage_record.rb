@@ -2,7 +2,7 @@
 
 # == Schema Information
 #
-# Table name: llm_requests
+# Table name: llm_usage_records
 #
 # id               :integer          not null, primary key
 # trackable_type   :string           not null
@@ -19,15 +19,15 @@
 #
 # Indexes
 #
-#  index_llm_requests_on_trackable  (trackable_type,trackable_id)
-#  index_llm_requests_on_user_id    (user_id)
+#  index_llm_usage_records_on_trackable  (trackable_type,trackable_id)
+#  index_llm_usage_records_on_user_id    (user_id)
 #
 # Foreign Keys
 #
-#  llm_requests_user_id  (user_id => users.id)
+#  llm_usage_records_user_id  (user_id => users.id)
 #
-class LLMRequest < ApplicationRecord
-  has_prefix_id :llmrq
+class LLMUsageRecord < ApplicationRecord
+  has_prefix_id :llmur
 
   belongs_to :user
   belongs_to :trackable, polymorphic: true

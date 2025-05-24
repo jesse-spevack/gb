@@ -17,8 +17,8 @@ module LLM
         # Map model to LLM enum value (simplified for now)
         llm_enum_value = map_model_to_enum(llm_response.model)
 
-        # Create and save the LLM request record
-        LLMRequest.create!(
+        # Create and save the LLM usage record
+        LLMUsageRecord.create!(
           trackable: trackable,
           user: user,
           llm: llm_enum_value,
@@ -51,7 +51,7 @@ module LLM
           :gemini_2_5_pro
         else
           # Default to claude for now, but this will trigger validation
-          # in the LLMRequest model if the model is truly unknown
+          # in the LLMUsageRecord model if the model is truly unknown
           :claude_3_7_sonnet
         end
       end

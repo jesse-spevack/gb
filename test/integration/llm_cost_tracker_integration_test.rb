@@ -34,7 +34,7 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
     prompt = "Generate a detailed rubric for evaluating student essays in the English class assignment about climate change impacts."
 
     # Track the cost
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: @assignment,
@@ -45,15 +45,15 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
     end
 
     # Verify the recorded data
-    llm_request = LLMRequest.last
-    assert_equal @assignment, llm_request.trackable
-    assert_equal @user, llm_request.user
-    assert_equal "claude_3_7_sonnet", llm_request.llm # Maps claude models to this enum
-    assert_equal "generate_rubric", llm_request.request_type
-    assert_equal prompt, llm_request.prompt
-    assert_equal 1670, llm_request.token_count # 1250 + 420
-    assert_operator llm_request.micro_usd, :>, 0 # Should have calculated a cost
-    assert_operator llm_request.dollars, :>, 0 # Should convert to dollars
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal @assignment, llm_usage_record.trackable
+    assert_equal @user, llm_usage_record.user
+    assert_equal "claude_3_7_sonnet", llm_usage_record.llm # Maps claude models to this enum
+    assert_equal "generate_rubric", llm_usage_record.request_type
+    assert_equal prompt, llm_usage_record.prompt
+    assert_equal 1670, llm_usage_record.token_count # 1250 + 420
+    assert_operator llm_usage_record.micro_usd, :>, 0 # Should have calculated a cost
+    assert_operator llm_usage_record.dollars, :>, 0 # Should convert to dollars
   end
 
   test "full cost tracking workflow with Google response" do
@@ -88,7 +88,7 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
     prompt = "Please grade this student essay and provide detailed feedback on strengths and areas for improvement."
 
     # Track the cost
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: @assignment,
@@ -99,15 +99,15 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
     end
 
     # Verify the recorded data
-    llm_request = LLMRequest.last
-    assert_equal @assignment, llm_request.trackable
-    assert_equal @user, llm_request.user
-    assert_equal "gemini_2_5_pro", llm_request.llm # Maps gemini models to this enum
-    assert_equal "grade_student_work", llm_request.request_type
-    assert_equal prompt, llm_request.prompt
-    assert_equal 2480, llm_request.token_count # 2100 + 380
-    assert_operator llm_request.micro_usd, :>, 0 # Should have calculated a cost
-    assert_operator llm_request.dollars, :>, 0 # Should convert to dollars
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal @assignment, llm_usage_record.trackable
+    assert_equal @user, llm_usage_record.user
+    assert_equal "gemini_2_5_pro", llm_usage_record.llm # Maps gemini models to this enum
+    assert_equal "grade_student_work", llm_usage_record.request_type
+    assert_equal prompt, llm_usage_record.prompt
+    assert_equal 2480, llm_usage_record.token_count # 2100 + 380
+    assert_operator llm_usage_record.micro_usd, :>, 0 # Should have calculated a cost
+    assert_operator llm_usage_record.dollars, :>, 0 # Should convert to dollars
   end
 
   test "cost tracking with different trackable types" do
@@ -122,7 +122,7 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
 
     prompt = "Suggest improvements to this rubric for better assessment clarity."
 
-    assert_difference "LLMRequest.count", 1 do
+    assert_difference "LLMUsageRecord.count", 1 do
       LLM::CostTracker.record(
         llm_response: llm_response,
         trackable: rubric,
@@ -132,9 +132,9 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
       )
     end
 
-    llm_request = LLMRequest.last
-    assert_equal rubric, llm_request.trackable
-    assert_equal "Rubric", llm_request.trackable_type
+    llm_usage_record = LLMUsageRecord.last
+    assert_equal rubric, llm_usage_record.trackable
+    assert_equal "Rubric", llm_usage_record.trackable_type
   end
 
   test "cost reporting across multiple requests" do
@@ -157,10 +157,10 @@ class LLMCostTrackerIntegrationTest < ActiveSupport::TestCase
     end
 
     # Verify we can query and aggregate data
-    assignment_requests = LLMRequest.where(trackable: @assignment)
+    assignment_requests = LLMUsageRecord.where(trackable: @assignment)
     assert_equal 3, assignment_requests.count
 
-    user_requests = LLMRequest.where(user: @user)
+    user_requests = LLMUsageRecord.where(user: @user)
     assert_operator user_requests.count, :>=, 3
 
     # Total cost for this assignment
