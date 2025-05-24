@@ -503,7 +503,7 @@
       "id": 42,
       "title": "Create LLM::CostTracker",
       "description": "Implement tracker for recording LLM request costs",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         41,
         23

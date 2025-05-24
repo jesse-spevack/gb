@@ -36,8 +36,8 @@ class LLMRequest < ApplicationRecord
   validates :trackable, presence: true
   validates :llm, presence: true
   validates :request_type, presence: true
-  validates :token_count, presence: true, numericality: { greater_than: 0 }
-  validates :micro_usd, presence: true, numericality: { greater_than: 0 }
+  validates :token_count, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :micro_usd, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :prompt, presence: true
 
   enum :llm, { gemini_2_5_pro: 0, claude_3_7_sonnet: 1 }
