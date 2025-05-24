@@ -678,7 +678,7 @@
       "id": 53,
       "title": "Create rubric generation prompt template",
       "description": "Implement template for generating structured rubrics",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         52
       ],
@@ -690,7 +690,7 @@
       "id": 54,
       "title": "Create student feedback prompt template",
       "description": "Implement template for generating student work feedback",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         52
       ],
@@ -702,7 +702,7 @@
       "id": 55,
       "title": "Create assignment summary prompt template",
       "description": "Implement template for generating assignment-level insights",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         52
       ],

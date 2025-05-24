@@ -1,6 +1,6 @@
 # Task ID: 55
 # Title: Create assignment summary prompt template
-# Status: pending
+# Status: in-progress
 # Dependencies: 52
 # Priority: medium
 # Description: Implement template for generating assignment-level insights

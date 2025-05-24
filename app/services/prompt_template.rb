@@ -1,15 +1,16 @@
 # @example Basic usage
 #   template = PromptTemplate.new
-#   data = DataCollectionService.collect(assignment, "generate_rubric", user)
-#   prompt = template.build("generate_rubric", data)
+#   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
+#   prompt = template.build("generate_rubric", rubric_prompt_input)
 #   puts prompt # => Rendered prompt with interpolated variables
 #
 # @example Template caching
 #   template = PromptTemplate.new
+#   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
 #   # First call loads template from file
-#   prompt1 = template.build("generate_rubric", data)
+#   prompt1 = template.build("generate_rubric", rubric_prompt_input)
 #   # Second call uses cached template
-#   prompt2 = template.build("generate_rubric", data)
+#   prompt2 = template.build("generate_rubric", rubric_prompt_input)
 #
 class PromptTemplate
   class UnsupportedProcessTypeError < StandardError; end
@@ -35,14 +36,14 @@ class PromptTemplate
   # Build a prompt for the given process type with the provided data
   #
   # @param process_type [String] The type of processing ("generate_rubric", "grade_student_work", "generate_summary_feedback")
-  # @param data [Hash] The data collected by DataCollectionService for template interpolation
+  # @param data [Object] The data collected by DataCollectionService (RubricPromptInput for rubric generation, StudentWorkPromptInput for student grading, SummaryFeedbackPromptInput for assignment summaries)
   # @return [String] The rendered prompt text ready for LLM processing
   # @raise [UnsupportedProcessTypeError] When process_type is not supported
   # @raise [InvalidDataError] When required data fields are missing
   #
   # @example Build a rubric generation prompt
-  #   data = DataCollectionService.collect(assignment, "generate_rubric", user)
-  #   prompt = template.build("generate_rubric", data)
+  #   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
+  #   prompt = template.build("generate_rubric", rubric_prompt_input)
   #
   def build(process_type, data)
     validate_process_type!(process_type)
@@ -90,8 +91,6 @@ class PromptTemplate
 
   # Validate that the required data fields are present
   def validate_data!(data, process_type)
-    return unless data.is_a?(Hash)
-
     case process_type
     when "generate_rubric"
       validate_rubric_data!(data)
@@ -104,22 +103,22 @@ class PromptTemplate
 
   # Validate data for rubric generation
   def validate_rubric_data!(data)
-    unless data[:assignment].is_a?(Hash) && data[:assignment][:title].present?
-      raise InvalidDataError, "Invalid or incomplete data for rubric generation: missing assignment details"
+    unless data.is_a?(RubricPromptInput)
+      raise InvalidDataError, "Invalid or incomplete data for rubric generation: missing rubric_prompt_input"
     end
   end
 
   # Validate data for student work grading
   def validate_student_work_data!(data)
-    unless data[:assignment].is_a?(Hash) && data[:student_work].is_a?(Hash) && data[:selected_document].is_a?(Hash)
-      raise InvalidDataError, "Invalid or incomplete data for student work grading: missing assignment, student work, or document details"
+    unless data.is_a?(StudentWorkPromptInput)
+      raise InvalidDataError, "Invalid or incomplete data for student work grading: missing student_work_prompt_input"
     end
   end
 
   # Validate data for assignment summary
   def validate_summary_data!(data)
-    unless data[:assignment].is_a?(Hash) && data[:student_works].is_a?(Array)
-      raise InvalidDataError, "Invalid or incomplete data for assignment summary: missing assignment or student works"
+    unless data.is_a?(SummaryFeedbackPromptInput)
+      raise InvalidDataError, "Invalid or incomplete data for assignment summary: missing summary_feedback_prompt_input"
     end
   end
 
@@ -134,9 +133,20 @@ class PromptTemplate
 
   # Render ERB template with provided data
   def render_template(erb_template, data)
-    # Create a binding with the data available as 'data' variable
     template_binding = binding
-    template_binding.local_variable_set(:data, data)
+
+    # Set the appropriate variable name based on data type
+    case data
+    when RubricPromptInput
+      template_binding.local_variable_set(:rubric_prompt_input, data)
+    when StudentWorkPromptInput
+      template_binding.local_variable_set(:student_work_prompt_input, data)
+    when SummaryFeedbackPromptInput
+      template_binding.local_variable_set(:summary_feedback_prompt_input, data)
+    else
+      # Fallback for legacy hash structure (shouldn't be needed anymore)
+      template_binding.local_variable_set(:data, data)
+    end
 
     erb_template.result(template_binding)
   end

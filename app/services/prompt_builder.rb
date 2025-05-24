@@ -1,7 +1,7 @@
 # @example Basic usage
 #   builder = PromptBuilder.new
-#   data = DataCollectionService.collect(assignment, "generate_rubric", user)
-#   prompt = builder.build("generate_rubric", data)
+#   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
+#   prompt = builder.build("generate_rubric", rubric_prompt_input)
 #   puts prompt # => Rendered prompt text
 #
 # @example Convenience method for assignments
@@ -26,14 +26,14 @@ class PromptBuilder
   # Build a prompt for the given process type with the provided data
   #
   # @param process_type [String] The type of processing ("generate_rubric", "grade_student_work", "generate_summary_feedback")
-  # @param data [Hash] The data collected by DataCollectionService for template interpolation
+  # @param data [Object] The data collected by DataCollectionService (RubricPromptInput for rubric generation, StudentWorkPromptInput for student grading, SummaryFeedbackPromptInput for assignment summaries)
   # @return [String] The rendered prompt text ready for LLM processing
   # @raise [PromptGenerationError] When prompt generation fails
   # @raise [InvalidContextError] When data context doesn't match process type
   #
   # @example Build a rubric generation prompt
-  #   data = DataCollectionService.collect(assignment, "generate_rubric", user)
-  #   prompt = builder.build("generate_rubric", data)
+  #   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
+  #   prompt = builder.build("generate_rubric", rubric_prompt_input)
   #
   def build(process_type, data)
     @logger.info("Building prompt for #{process_type}")
@@ -55,7 +55,7 @@ class PromptBuilder
   # Build a prompt with additional metadata
   #
   # @param process_type [String] The type of processing
-  # @param data [Hash] The data for template interpolation
+  # @param data [Object] The data for template interpolation (RubricPromptInput for rubric generation, StudentWorkPromptInput for student grading, SummaryFeedbackPromptInput for assignment summaries)
   # @return [Hash] Hash containing :prompt and :metadata keys
   #
   # @example Build with metadata
@@ -125,29 +125,37 @@ class PromptBuilder
 
   # Validate that the data context matches the expected process type
   def validate_data_context!(process_type, data)
-    return unless data.is_a?(Hash)
-
     case process_type
-    when "generate_rubric", "generate_summary_feedback"
-      validate_assignment_context!(data, process_type)
+    when "generate_rubric"
+      validate_rubric_generation_context!(data)
+    when "generate_summary_feedback"
+      validate_summary_feedback_context!(data)
     when "grade_student_work"
       validate_student_work_context!(data)
     end
   end
 
-  # Validate data for assignment-level processes
-  def validate_assignment_context!(data, process_type)
-    unless data[:processable_type] == "Assignment"
+  # Validate data for rubric generation
+  def validate_rubric_generation_context!(data)
+    unless data.is_a?(RubricPromptInput)
       raise InvalidContextError,
-            "Invalid data context for #{process_type}: expected Assignment processable, got #{data[:processable_type]}"
+            "Invalid data context for generate_rubric: expected RubricPromptInput, got #{data.class.name}"
+    end
+  end
+
+  # Validate data for summary feedback generation
+  def validate_summary_feedback_context!(data)
+    unless data.is_a?(SummaryFeedbackPromptInput)
+      raise InvalidContextError,
+            "Invalid data context for generate_summary_feedback: expected SummaryFeedbackPromptInput, got #{data.class.name}"
     end
   end
 
   # Validate data for student work grading
   def validate_student_work_context!(data)
-    unless data[:processable_type] == "StudentWork"
+    unless data.is_a?(StudentWorkPromptInput)
       raise InvalidContextError,
-            "Invalid data context for grade_student_work: expected StudentWork processable, got #{data[:processable_type]}"
+            "Invalid data context for grade_student_work: expected StudentWorkPromptInput, got #{data.class.name}"
     end
   end
 
