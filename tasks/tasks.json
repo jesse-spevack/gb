@@ -516,7 +516,7 @@
       "id": 43,
       "title": "Create ProcessingTask class",
       "description": "Implement base class for processing task configuration",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         38
       ],
@@ -528,7 +528,7 @@
       "id": 44,
       "title": "Create ProcessingPipeline class",
       "description": "Implement orchestration pipeline for processing tasks",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         43
       ],
