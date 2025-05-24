@@ -540,7 +540,7 @@
       "id": 45,
       "title": "Create ResponseParserFactory",
       "description": "Implement factory for creating response parsers",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         44
       ],
