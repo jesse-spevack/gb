@@ -1,176 +1,42 @@
-# @example Basic usage
-#   builder = PromptBuilder.new
-#   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
-#   prompt = builder.build("generate_rubric", rubric_prompt_input)
-#   puts prompt # => Rendered prompt text
-#
-# @example Convenience method for assignments
-#   builder = PromptBuilder.new
-#   prompt = builder.build_for_assignment(assignment, "generate_rubric", user)
-#
-# @example Building with metadata
-#   builder = PromptBuilder.new
-#   result = builder.build_with_metadata("generate_rubric", data)
-#   puts result[:prompt]
-#   puts result[:metadata][:prompt_length]
-#
 class PromptBuilder
-  class PromptGenerationError < StandardError; end
-  class InvalidContextError < StandardError; end
-
-  def initialize
-    @template = PromptTemplate.new
-    @logger = Rails.logger
+  def self.build_for(task)
+    new(task).build
   end
 
-  # Build a prompt for the given process type with the provided data
-  #
-  # @param process_type [String] The type of processing ("generate_rubric", "grade_student_work", "generate_summary_feedback")
-  # @param data [Object] The data collected by DataCollectionService (RubricPromptInput for rubric generation, StudentWorkPromptInput for student grading, SummaryFeedbackPromptInput for assignment summaries)
-  # @return [String] The rendered prompt text ready for LLM processing
-  # @raise [PromptGenerationError] When prompt generation fails
-  # @raise [InvalidContextError] When data context doesn't match process type
-  #
-  # @example Build a rubric generation prompt
-  #   rubric_prompt_input = DataCollectionService.collect(assignment, "generate_rubric", user)
-  #   prompt = builder.build("generate_rubric", rubric_prompt_input)
-  #
-  def build(process_type, data)
-    @logger.info("Building prompt for #{process_type}")
 
-    validate_data_context!(process_type, data)
-
-    begin
-      prompt = @template.build(process_type, data)
-      validate_prompt_quality!(prompt)
-
-      @logger.info("Successfully built prompt for #{process_type} (#{prompt.length} characters)")
-      prompt
-    rescue => e
-      @logger.error("Failed to generate prompt for #{process_type}: #{e.message}")
-      raise PromptGenerationError, "Failed to generate prompt for #{process_type}: #{e.message}"
-    end
+  def initialize(task)
+    @task = task
+    @template = template
   end
 
-  # Build a prompt with additional metadata
-  #
-  # @param process_type [String] The type of processing
-  # @param data [Object] The data for template interpolation (RubricPromptInput for rubric generation, StudentWorkPromptInput for student grading, SummaryFeedbackPromptInput for assignment summaries)
-  # @return [Hash] Hash containing :prompt and :metadata keys
-  #
-  # @example Build with metadata
-  #   result = builder.build_with_metadata("generate_rubric", data)
-  #   # => { prompt: "...", metadata: { process_type: "generate_rubric", ... } }
-  #
-  def build_with_metadata(process_type, data)
-    generated_at = Time.current
-    prompt = build(process_type, data)
-
-    {
-      prompt: prompt,
-      metadata: {
-        process_type: process_type,
-        generated_at: generated_at,
-        prompt_length: prompt.length,
-        data_size: data.to_s.length,
-        template_used: @template.class::TEMPLATE_MAPPING[process_type]
-      }
-    }
-  end
-
-  # Convenience method for building assignment-level prompts
-  #
-  # @param assignment [Assignment] The assignment object
-  # @param process_type [String] The type of processing ("generate_rubric" or "generate_summary_feedback")
-  # @param user [User] The user initiating the process
-  # @return [String] The rendered prompt text
-  #
-  # @example Build rubric generation prompt
-  #   prompt = builder.build_for_assignment(assignment, "generate_rubric", user)
-  #
-  def build_for_assignment(assignment, process_type, user = nil)
-    unless %w[generate_rubric generate_summary_feedback].include?(process_type)
-      raise InvalidContextError, "Invalid process type '#{process_type}' for assignment context. Use 'generate_rubric' or 'generate_summary_feedback'."
-    end
-
-    data = DataCollectionService.collect(assignment, process_type, user)
-    build(process_type, data)
-  end
-
-  # Convenience method for building student work feedback prompts
-  #
-  # @param student_work [StudentWork] The student work object
-  # @param user [User] The user initiating the process
-  # @return [String] The rendered prompt text
-  #
-  # @example Build student work feedback prompt
-  #   prompt = builder.build_for_student_work(student_work, user)
-  #
-  def build_for_student_work(student_work, user = nil)
-    data = DataCollectionService.collect(student_work, "grade_student_work", user)
-    build("grade_student_work", data)
-  end
-
-  # Clear the underlying template cache
-  #
-  # @example Clear cache to reload templates in development
-  #   builder.clear_cache!
-  #
-  def clear_cache!
-    @template.clear_cache!
-    @logger.info("Cleared prompt template cache")
+  def build
+    PromptTemplate.build(
+      template: @template,
+      input: input
+    )
   end
 
   private
 
-  # Validate that the data context matches the expected process type
-  def validate_data_context!(process_type, data)
-    case process_type
-    when "generate_rubric"
-      validate_rubric_generation_context!(data)
-    when "generate_summary_feedback"
-      validate_summary_feedback_context!(data)
-    when "grade_student_work"
-      validate_student_work_context!(data)
+  def template
+    case @task.process_type
+    when :generate_rubric
+      "rubric_generation.txt.erb"
+    when :generate_student_work_feedback
+      "student_feedback.txt.erb"
+    when :generate_assignment_summary_feedback
+      "assignment_summary.txt.erb"
     end
   end
 
-  # Validate data for rubric generation
-  def validate_rubric_generation_context!(data)
-    unless data.is_a?(RubricPromptInput)
-      raise InvalidContextError,
-            "Invalid data context for generate_rubric: expected RubricPromptInput, got #{data.class.name}"
-    end
-  end
-
-  # Validate data for summary feedback generation
-  def validate_summary_feedback_context!(data)
-    unless data.is_a?(SummaryFeedbackPromptInput)
-      raise InvalidContextError,
-            "Invalid data context for generate_summary_feedback: expected SummaryFeedbackPromptInput, got #{data.class.name}"
-    end
-  end
-
-  # Validate data for student work grading
-  def validate_student_work_context!(data)
-    unless data.is_a?(StudentWorkPromptInput)
-      raise InvalidContextError,
-            "Invalid data context for grade_student_work: expected StudentWorkPromptInput, got #{data.class.name}"
-    end
-  end
-
-  # Validate that the generated prompt meets quality standards
-  def validate_prompt_quality!(prompt)
-    if prompt.blank?
-      raise PromptGenerationError, "Generated prompt is empty"
-    end
-
-    if prompt.length < 50
-      @logger.warn("Generated prompt is suspiciously short (#{prompt.length} characters)")
-    end
-
-    if prompt.length > 20000
-      @logger.warn("Generated prompt is very long (#{prompt.length} characters)")
+  def input
+    case @task.process_type
+    when :generate_rubric
+      PromptInput::Rubric.from(assignment: @task.processable)
+    when :generate_student_work_feedback
+      PromptInput::StudentWorkFeedback.from(student_work: @task.processable)
+    when :generate_assignment_summary_feedback
+      PromptInput::AssignmentSummary.from(assignment: @task.processable)
     end
   end
 end

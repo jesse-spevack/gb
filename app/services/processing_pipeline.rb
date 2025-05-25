@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ProcessingPipeline
   attr_reader :task
 
@@ -8,33 +10,24 @@ class ProcessingPipeline
   def execute
     Rails.logger.info("Starting processing pipeline for #{@task.process_type} on #{@task.processable.class.name}")
 
-    @task.mark_started
-    update_status(:processing)
-    broadcast_update(:processing)
-
     begin
-      processed_data = process_steps
-      finalize_success(processed_data)
-      ProcessingResult.new(success: true, data: processed_data)
+      prompt = @task.prompt
+      response = @task.llm_service.dispatch(prompt)
+      parsed_result = @task.response_parser.parse(response.text)
+      @task.storage_service.call(parsed_result)
     rescue => e
       finalize_error(e)
-      ProcessingResult.new(success: false, error_message: e.message)
     end
   end
 
   private
 
   def process_steps
-    data = collect_data
     prompt = @task.prompt_template.build(@task.process_type, data)
     response = send_to_llm(prompt)
     parsed_result = @task.response_parser.parse(response.text)
     @task.storage_service.store(@task.processable, parsed_result)
     parsed_result
-  end
-
-  def collect_data
-    DataCollectionService.collect(@task.processable, @task.process_type, @task.user)
   end
 
   def send_to_llm(prompt)

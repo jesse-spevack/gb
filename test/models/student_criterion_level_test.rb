@@ -50,4 +50,26 @@ class StudentCriterionLevelTest < ActiveSupport::TestCase
     )
     assert student_criterion_level.valid?, student_criterion_level.errors.full_messages
   end
+
+  test "criterion_title returns the title of the associated criterion" do
+    student_criterion_level = StudentCriterionLevel.new(
+      student_work: student_works(:student_essay_one),
+      explanation: "This is a valid explanation",
+      criterion: criteria(:writing_quality),
+      level: levels(:writing_proficient)
+    )
+
+    assert_equal criteria(:writing_quality).title, student_criterion_level.criterion_title
+  end
+
+  test "level_title returns the title of the associated level" do
+    student_criterion_level = StudentCriterionLevel.new(
+      student_work: student_works(:student_essay_one),
+      explanation: "This is a valid explanation",
+      criterion: criteria(:writing_quality),
+      level: levels(:writing_proficient)
+    )
+
+    assert_equal levels(:writing_proficient).title, student_criterion_level.level_title
+  end
 end

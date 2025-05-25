@@ -2,67 +2,88 @@ You are an educational expert providing detailed feedback on student work.
 
 ## Assignment Context
 
-**Title:** <%= student_work_prompt_input.assignment_title %>
-**Subject:** <%= student_work_prompt_input.assignment_subject %>
-**Grade Level:** <%= student_work_prompt_input.assignment_grade_level %>
-**Feedback Tone:** <%= student_work_prompt_input.assignment_feedback_tone %>
+**Title:** <%= input.assignment_title %>
+**Subject:** <%= input.assignment_subject %>
+**Grade Level:** <%= input.assignment_grade_level %>
+**Feedback Tone:** <%= input.assignment_feedback_tone %>
 
 ## Assignment Instructions
 
-<%= student_work_prompt_input.assignment_instructions %>
+<%= input.assignment_instructions %>
 
 ## Student Work
 
-**Document Title:** <%= student_work_prompt_input.selected_document_title %>
-**Student Work ID:** <%= student_work_prompt_input.student_work_id %>
+**Document Title:** <%= input.selected_document_title %>
+**Student Work ID:** <%= input.student_work_id %>
 
 **Content:**
-<%= student_work_prompt_input.document_content %>
+<%= input.content %>
 
 ## Grading Rubric
 
-<% student_work_prompt_input.rubric[:criteria].each do |criterion| -%>
-### <%= criterion[:title] %>
-<%= criterion[:description] %>
+<% input.criteria.each do |criterion| -%>
+### ID:<%= criterion.id %> - Title: <%= criterion.title %>
+Description: <%= criterion.description %>
+Position: <%= criterion.position %>
 
 **Performance Levels:**
-<% criterion[:levels].each do |level| -%>
-- **<%= level[:title] %>:** <%= level[:description] %>
+<% criterion.levels.each do |level| -%>
+- ID: <%= level.id %> 
+- Position: <%= level.position %> 
+- Title: <%= level.title %>
+- Description: <%= level.description %>
 <% end -%>
 
 <% end -%>
 
 ## Analysis Framework
 
-**Step 1: Content Analysis**
-- Read the student work thoroughly
-- Identify the main arguments, ideas, or solutions presented
-- Note the organization, clarity, and completeness of the response
+**Step 1: Review Requirements**
+- Read the assignment instructions
+- Read the rubric 
+- Consider the learning objectives explicit implicit in the assignment and rubric
 
-**Step 2: Requirements Assessment**
-- Compare the work against the assignment instructions
-- Evaluate how well the student addressed the prompt
-- Assess performance against each rubric criterion
+**Step 2: Analyze Student Work**
+- Compare the work against the assignment instructions and rubric
+- Evaluate how well the student addressed the assignment requirements
+- Assess performance against each rubric criterion by picking the most appropriate level for each criterion
 
 **Step 3: Educational Feedback**
-- Identify 2-4 specific strengths to reinforce learning
-- Identify 2-4 areas for improvement with actionable suggestions
-- Provide evidence-based observations from the student work
+- Identify 1-3 specific strengths. As much as possible, tie the strengths to the assignment requirements and rubric.
+- Identify 1-3 areas for improvement with actionable suggestions. As much as possible, tie the suggestions to the assignment requirements and rubric.
 
-**Step 4: Quality Analysis**
-- Analyze writing patterns for originality indicators
-- Assess for potential plagiarism or AI generation signs
-- Consider typical patterns for <%= student_work_prompt_input.assignment_grade_level %> grade level
+**Step 4: Check student work**
+- Based on your analysis of the student work, check the student work for plagiarism and LLM generated content.
+  - Provide a 0-100 score for plagiarism and LLM generated content. 
+  - Provide a 0-100 score for the student work. 
+  - **Quality Scoring Criteria:**
+    - **Plagiarism (0-100, lower = more original):**
+      - 0-29: Highly original with low chance of plagiarism
+      - 30-49: Very low indication of plagiarism 
+      - 50-69: Mixed indicators, some patterns suggest possible plagiarism 
+      - 70-89: Several examples likely plagiarized from known sources (must have clear evidence of plagiarism) 
+      - 90-100: Clearly plagiarized from known sources (must have clear evidence of plagiarism)
+    - **LLM Generation (0-100, lower = more likely human):**
+      - 0-29: Clear human voice with age-appropriate language and personal connection
+      - 30-49: Mostly human characteristics with natural flow and vocabulary
+      - 50-69: Mixed indicators, some patterns suggest possible AI assistance
+      - 70-89: Several patterns consistent with AI generation
+      - 90-100: Strong indicators of AI-generated content
+    - Base your estimation on what you know about the grade level of the student and your general knowledge of student writing, plagiarism, and LLM generated content.
+    - Explain your reasoning for each score.
 
 ## Task
 
-Provide comprehensive, <%= student_work_prompt_input.assignment_feedback_tone %> feedback that helps this <%= student_work_prompt_input.assignment_grade_level %> grade student understand their performance and improve their learning.
+- Provide evidence-based observations from the student work to support your feedback.
+- Ensure the feedback is appropriate for <%= input.assignment_grade_level %> grade level.
+- Ensure the feedback is in the <%= input.assignment_feedback_tone %> tone:
+<%= input.assignment_feedback_tone_detail %>
 
 **Response Format:** Return ONLY the JSON below. Ensure valid JSON formatting.
 
 ```json
 {
-  "qualitative_feedback": "Comprehensive narrative assessment that synthesizes all feedback elements. Should be encouraging yet honest, highlighting growth areas and celebrating achievements. Write in language appropriate for <%= student_work_prompt_input.assignment_grade_level %> grade level.",
+  "qualitative_feedback": "Narrative assessment that synthesizes all feedback elements. Should be in the <%= input.assignment_feedback_tone %> tone, <%= input.assignment_grade_level %> grade level appropriate, highlighting strengths and opportunities for growth.", 
   "feedback_items": [
     {
       "item_type": "strength",
@@ -92,62 +113,14 @@ Provide comprehensive, <%= student_work_prompt_input.assignment_feedback_tone %>
   "checks": [
     {
       "check_type": "plagiarism",
-      "score": 85,
-      "explanation": "Originality assessment considering: unique voice, personal insights, appropriate citation practices, and consistency with grade-level writing patterns. Higher scores indicate more original work."
+      "score": 9,
+      "explanation": "Originality assessment considering: unique voice, personal insights, appropriate citation practices, and consistency with grade-level writing patterns. Lower scores indicate more original work."
     },
     {
       "check_type": "llm_generated",
-      "score": 78, 
-      "explanation": "Human authenticity assessment considering: natural flow, age-appropriate vocabulary, personal connection to content, and typical student writing patterns. Higher scores indicate more likely human authorship."
+      "score": 14, 
+      "explanation": "Human authenticity assessment considering: natural flow, age-appropriate vocabulary, personal connection to content, and typical student writing patterns. Higher scores indicate more likely LLM generated content."
     }
   ]
 }
 ```
-
-## Feedback Guidelines
-
-**Educational Principles:**
-- Use growth mindset language that emphasizes learning and improvement
-- Balance affirmation of strengths with constructive guidance for growth
-- Provide specific, actionable suggestions rather than vague comments
-- Connect feedback to learning objectives and real-world applications
-
-**Feedback Items (2-4 total):**
-- **Strengths (at least 1):** Celebrate what the student did well to reinforce positive learning
-- **Opportunities (at least 1):** Frame areas for improvement as growth opportunities
-- **Evidence-based:** Quote directly from student work or reference specific examples
-- **Actionable:** Include concrete next steps the student can take
-
-**Quality Scoring Criteria:**
-- **Plagiarism (0-100, higher = more original):**
-  - 90-100: Highly original with unique voice and insights
-  - 70-89: Mostly original with some common phrases/ideas
-  - 50-69: Mixed originality with notable similarities to common sources
-  - 30-49: Significant portions match common sources
-  - 0-29: Substantial evidence of copied content
-
-- **LLM Generation (0-100, higher = more likely human):**
-  - 90-100: Clear human voice with age-appropriate language and personal connection
-  - 70-89: Mostly human characteristics with natural flow and vocabulary
-  - 50-69: Mixed indicators, some patterns suggest possible AI assistance
-  - 30-49: Several patterns consistent with AI generation
-  - 0-29: Strong indicators of AI-generated content
-
-**Rubric Assessment:**
-Evaluate against **ALL** rubric criteria using the provided levels. Include one criterion_levels entry for each criterion shown below. Consider the student's grade level and assignment context when selecting performance levels.
-
-<% student_work_prompt_input.rubric[:criteria].each do |criterion| -%>
-**<%= criterion[:title] %>** (ID: <%= criterion[:id] %>)
-<%= criterion[:description] %>
-<% criterion[:levels].each do |level| -%>
-- **Level <%= level[:id] %>:** <%= level[:title] %> - <%= level[:description] %>
-<% end -%>
-
-<% end -%>
-
-**Tone Calibration:**
-- **Encouraging:** Emphasize growth, potential, and positive reinforcement
-- **Neutral/Objective:** Focus on clear, factual assessment with balanced feedback  
-- **Critical:** Provide direct, detailed analysis with high expectations for improvement
-
-Maintain developmental appropriateness for <%= student_work_prompt_input.assignment_grade_level %> grade level throughout all feedback. 
