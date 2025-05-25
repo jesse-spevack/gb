@@ -2,20 +2,20 @@ You are an educational expert tasked with creating a structured rubric for gradi
 
 ## Assignment Details
 
-**Title:** <%= rubric_prompt_input.assignment_title %>
-**Subject:** <%= rubric_prompt_input.subject %>
-**Grade Level:** <%= rubric_prompt_input.grade_level %>
+**Title:** <%= input.assignment_title %>
+**Subject:** <%= input.subject %>
+**Grade Level:** <%= input.grade_level %>
 
 ## Assignment Instructions
 
-<%= rubric_prompt_input.instructions %>
+<%= input.instructions %>
 
-<% if rubric_prompt_input.rubric_text_present? -%>
+<% if input.rubric_text_present? -%>
 ## Existing Rubric Guidelines
 
 The teacher has provided the following rubric guidelines to incorporate:
 
-<%= rubric_prompt_input.rubric_text %>
+<%= input.rubric_text %>
 <% end -%>
 
 ## Task
@@ -27,7 +27,7 @@ Create a comprehensive rubric with 3-5 criteria that evaluates student performan
 3. Include specific descriptors for each level
 4. Ensure alignment with the assignment requirements and grade level
 
-The rubric should be appropriate for <%= rubric_prompt_input.grade_level %> grade students and maintain a <%= rubric_prompt_input.feedback_tone %> tone.
+The rubric should be appropriate for <%= input.grade_level %> grade students and maintain a <%= input.feedback_tone %> tone.
 
 Return the rubric in the following JSON format:
 
@@ -41,27 +41,27 @@ Return nothing but the JSON.
     {
       "title": "Criterion Title",
       "description": "Brief description of what this criterion measures",
-      "position": 1, // The position of the criterion in the rubric, starting from 1
+      "position": 1, // The position of the criterion in the rubric, starting from 1 controlling the order of the criteria 
       "levels": [
         {
           "name": "Excellent",
           "description": "Specific descriptors for excellent performance",
-          "position": 1
+          "position": 4 // The position of the level in the rubric, 4 is the best
         },
         {
           "name": "Good", 
           "description": "Specific descriptors for good performance",
-          "position": 2
+          "position": 3 // The position of the level in the rubric, 3 is the second best
         },
         {
           "name": "Satisfactory",
           "description": "Specific descriptors for satisfactory performance",
-          "position": 3
+          "position": 2 // The position of the level in the rubric, 2 is the second worst
         },
         {
           "name": "Needs Improvement",
           "description": "Specific descriptors for performance needing improvement",
-          "position": 4
+          "position": 1 // The position of the level in the rubric, 1 is the worst
         }
       ]
     }

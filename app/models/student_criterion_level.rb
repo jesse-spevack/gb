@@ -26,6 +26,14 @@ class StudentCriterionLevel < ApplicationRecord
   validates :explanation, presence: true
   validate :level_must_belong_to_criterion
 
+  def criterion_title
+    criterion.title
+  end
+
+  def level_title
+    level.title
+  end
+
   private
 
   def level_must_belong_to_criterion

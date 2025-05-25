@@ -3,9 +3,9 @@ class ProcessingTask
   attr_accessor :started_at, :completed_at, :error_message, :metrics
 
   VALID_PROCESS_TYPES = [
-    "generate_rubric",
-    "grade_student_work",
-    "generate_summary_feedback"
+    :generate_rubric,
+    :grade_student_work,
+    :generate_summary_feedback
   ].freeze
 
   def initialize(processable:, process_type:, user: nil, configuration:)
@@ -17,9 +17,8 @@ class ProcessingTask
     validate!
   end
 
-  # Configuration accessors - delegate to configuration object
-  def prompt_template
-    configuration.prompt_template
+  def prompt
+    PromptBuilder.build_for(self)
   end
 
   def response_parser

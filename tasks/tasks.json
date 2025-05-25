@@ -702,7 +702,7 @@
       "id": 55,
       "title": "Create assignment summary prompt template",
       "description": "Implement template for generating assignment-level insights",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         52
       ],
