@@ -1,5 +1,41 @@
 # Decision Log
 
+## 2025-05-25
+
+### Processing Pipeline Architecture Redesign
+
+- **Identified Issues:**
+  - Current `ProcessingTask` architecture lacks explicit data flow between steps
+  - Error handling is complex and inconsistent across processing types
+  - State management during processing is difficult to track and debug
+  - Testing individual components requires extensive mocking
+  - Real-time progress updates are difficult to implement consistently
+
+- **Solution Approach:**
+  - Redesign as pipeline architecture with explicit step composition
+  - Use context objects to maintain state throughout processing
+  - Standardize interfaces for all pipeline components
+  - Create dedicated pipelines for each major processing type (Rubric, StudentWork, AssignmentSummary)
+  - Implement consistent event broadcasting for real-time updates
+
+- **Key Benefits:**
+  - Clearer data flow with explicit handoffs between steps
+  - Improved testability with isolated components
+  - Better error handling with standardized result objects
+  - More maintainable code with single-responsibility classes
+  - Consistent logging and metrics collection across all pipelines
+
+- **Implementation Plan:**
+  - Create core pipeline components first (context objects, result objects)
+  - Implement pipelines one at a time, starting with rubric generation
+  - Update background jobs to use new architecture
+  - Add comprehensive tests for all components
+
+- **Migration Strategy:**
+  - Implement new architecture alongside existing code
+  - Transition one processing type at a time to minimize disruption
+  - Maintain backward compatibility for in-progress assignments
+
 ## 2025-05-10
 
 ### Google Picker Authentication Recovery

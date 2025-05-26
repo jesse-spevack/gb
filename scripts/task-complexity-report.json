@@ -1,0 +1,1030 @@
+{
+  "meta": {
+    "generatedAt": "2025-05-25T23:15:00.000Z",
+    "tasksAnalyzed": 78,
+    "totalTasks": 78,
+    "analysisCount": 78,
+    "thresholdScore": 6,
+    "projectName": "GradeBot - AI Feedback Assistant",
+    "usedResearch": true,
+    "basedOnFile": "tasks.json",
+    "analysisMethod": "Complete complexity analysis including all tasks from foundation through enhancement phases"
+  },
+  "executiveSummary": {
+    "highestComplexityTasks": [
+      {
+        "taskId": 65,
+        "title": "Implement Google Docs feedback integration",
+        "complexity": 9,
+        "phase": "mvp_ui",
+        "priority": "critical",
+        "note": "External API integration with high user value impact"
+      },
+      {
+        "taskId": 55,
+        "title": "Implement LLM Generator Classes",
+        "complexity": 9,
+        "phase": "mvp_pipeline",
+        "priority": "high",
+        "note": "Core AI functionality with multiple provider support"
+      },
+      {
+        "taskId": 58,
+        "title": "Implement Core Pipeline Orchestration Classes",
+        "complexity": 9,
+        "phase": "mvp_pipeline",
+        "priority": "high",
+        "note": "Complex orchestration with error handling and transactions"
+      }
+    ],
+    "criticalPathComplexity": {
+      "totalTasks": 15,
+      "averageComplexity": 7.2,
+      "totalEstimatedHours": 242,
+      "highestRiskTasks": [65, 55, 58, 51, 53, 56, 57, 59]
+    },
+    "phaseComplexityBreakdown": {
+      "foundation": {
+        "averageComplexity": 4.5,
+        "status": "completed",
+        "riskLevel": "low"
+      },
+      "mvp_pipeline": {
+        "averageComplexity": 7.3,
+        "status": "in_progress", 
+        "riskLevel": "high"
+      },
+      "mvp_ui": {
+        "averageComplexity": 7.5,
+        "status": "not_started",
+        "riskLevel": "critical"
+      },
+      "business_model": {
+        "averageComplexity": 6.5,
+        "status": "not_started",
+        "riskLevel": "medium"
+      }
+    }
+  },
+  "complexityAnalysis": [
+    {
+      "taskId": 1,
+      "taskTitle": "Project initialization with Rails",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Standard Rails setup with well-established patterns"
+    },
+    {
+      "taskId": 2,
+      "taskTitle": "Configure Tailwind CSS",
+      "complexityScore": 3,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard CSS framework configuration with established patterns"
+    },
+    {
+      "taskId": 3,
+      "taskTitle": "Configure Stimulus JS",
+      "complexityScore": 3,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard JavaScript framework setup with Rails integration"
+    },
+    {
+      "taskId": 4,
+      "taskTitle": "Set up GitHub repository",
+      "complexityScore": 2,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 1,
+      "estimatedHours": 2,
+      "reasoning": "Simple repository initialization with basic configuration"
+    },
+    {
+      "taskId": 5,
+      "taskTitle": "Create User model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 6,
+      "reasoning": "Standard model creation with OAuth fields and basic validation"
+    },
+    {
+      "taskId": 6,
+      "taskTitle": "Create Session model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard session model for authentication state management"
+    },
+    {
+      "taskId": 7,
+      "taskTitle": "Create UserToken model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard token storage model with encryption considerations"
+    },
+    {
+      "taskId": 8,
+      "taskTitle": "Configure OmniAuth for Google OAuth2",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "OAuth integration requires careful configuration and security considerations"
+    },
+    {
+      "taskId": 9,
+      "taskTitle": "Implement Authentication Concern",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Controller concern with authentication logic and session management"
+    },
+    {
+      "taskId": 10,
+      "taskTitle": "Create SessionsController with new action",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard controller action for OAuth initiation"
+    },
+    {
+      "taskId": 11,
+      "taskTitle": "Implement SessionsController callback action",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Complex OAuth callback handling with error scenarios and token management"
+    },
+    {
+      "taskId": 12,
+      "taskTitle": "Add logout functionality to SessionsController",
+      "complexityScore": 3,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 3,
+      "reasoning": "Simple session destruction with cleanup"
+    },
+    {
+      "taskId": 13,
+      "taskTitle": "Add logo and favicon",
+      "complexityScore": 2,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 1,
+      "estimatedHours": 3,
+      "reasoning": "Simple asset addition and configuration"
+    },
+    {
+      "taskId": 14,
+      "taskTitle": "Create Assignment model and migration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Core domain model with relationships and validations"
+    },
+    {
+      "taskId": 15,
+      "taskTitle": "Create SelectedDocument model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for Google Doc selections with metadata"
+    },
+    {
+      "taskId": 16,
+      "taskTitle": "Create Rubric model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for rubric data with JSON fields"
+    },
+    {
+      "taskId": 17,
+      "taskTitle": "Create Criterion model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for rubric criteria with relationships"
+    },
+    {
+      "taskId": 18,
+      "taskTitle": "Create Level model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for achievement levels within criteria"
+    },
+    {
+      "taskId": 19,
+      "taskTitle": "Create StudentWork model and migration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Core model for student submissions with metadata and content"
+    },
+    {
+      "taskId": 20,
+      "taskTitle": "Create StudentWorkCriterionLevel model and migration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 5,
+      "reasoning": "Complex join model with multiple relationships and constraints"
+    },
+    {
+      "taskId": 21,
+      "taskTitle": "Create FeedbackItem model and migration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 5,
+      "reasoning": "Model for structured feedback with categorization and content"
+    },
+    {
+      "taskId": 22,
+      "taskTitle": "Create StudentWorkCheck model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for verification checks with status tracking"
+    },
+    {
+      "taskId": 23,
+      "taskTitle": "Create AssignmentSummary model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for class-wide insights and analytics"
+    },
+    {
+      "taskId": 24,
+      "taskTitle": "Create LLMRequest model and migration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 5,
+      "reasoning": "Model for tracking LLM interactions with cost and performance data"
+    },
+    {
+      "taskId": 25,
+      "taskTitle": "Create ProcessingMetric model and migration",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard model for processing performance metrics"
+    },
+    {
+      "taskId": 26,
+      "taskTitle": "Implement ApplicationController authentication",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Standard authentication configuration with before_action filters"
+    },
+    {
+      "taskId": 27,
+      "taskTitle": "Create home page controller and view",
+      "complexityScore": 3,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Simple landing page with basic styling and navigation"
+    },
+    {
+      "taskId": 28,
+      "taskTitle": "Create AssignmentsController with index action",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 6,
+      "reasoning": "Standard CRUD controller with view and basic styling"
+    },
+    {
+      "taskId": 29,
+      "taskTitle": "Add new action to AssignmentsController",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Form handling with Google Picker integration requirements"
+    },
+    {
+      "taskId": 30,
+      "taskTitle": "Create Google API configuration",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "API key management and OAuth scope configuration"
+    },
+    {
+      "taskId": 31,
+      "taskTitle": "Implement Google Picker Stimulus controller",
+      "complexityScore": 7,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 12,
+      "reasoning": "Complex JavaScript integration with Google Picker API and event handling"
+    },
+    {
+      "taskId": 32,
+      "taskTitle": "Add create action to AssignmentsController",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Form processing with service integration and error handling"
+    },
+    {
+      "taskId": 33,
+      "taskTitle": "Create DocumentSelection::BulkCreationService",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Service class for bulk operations with transaction management"
+    },
+    {
+      "taskId": 34,
+      "taskTitle": "Create Assignment::InitializerService",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Complex service orchestrating multiple model creation with dependencies"
+    },
+    {
+      "taskId": 35,
+      "taskTitle": "Create LLM::Client base class",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Abstract base class with common HTTP client patterns and error handling"
+    },
+    {
+      "taskId": 36,
+      "taskTitle": "Implement LLM::AnthropicClient",
+      "complexityScore": 7,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 12,
+      "reasoning": "Specific API integration with Anthropic-specific request/response handling"
+    },
+    {
+      "taskId": 37,
+      "taskTitle": "Implement LLM::GoogleClient",
+      "complexityScore": 7,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 12,
+      "reasoning": "Specific API integration with Google-specific request/response handling"
+    },
+    {
+      "taskId": 38,
+      "taskTitle": "Create LLM::ClientFactory",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 6,
+      "reasoning": "Factory pattern implementation with configuration-based client selection"
+    },
+    {
+      "taskId": 39,
+      "taskTitle": "Implement LLM::RetryHandler",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Sophisticated retry logic with exponential backoff and error classification"
+    },
+    {
+      "taskId": 40,
+      "taskTitle": "Implement LLM::CircuitBreaker",
+      "complexityScore": 7,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 10,
+      "reasoning": "Complex state management for preventing cascading failures"
+    },
+    {
+      "taskId": 41,
+      "taskTitle": "Create LLM::CostCalculator",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Token counting and cost calculation with provider-specific pricing"
+    },
+    {
+      "taskId": 42,
+      "taskTitle": "Create LLM::CostTracker",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Cost tracking with database persistence and aggregation logic"
+    },
+    {
+      "taskId": 43,
+      "taskTitle": "Create PromptTemplate class",
+      "complexityScore": 6,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Template system with variable substitution and formatting"
+    },
+    {
+      "taskId": 44,
+      "taskTitle": "Create PromptBuilder class",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 6,
+      "reasoning": "Builder pattern for constructing complex prompts with validation"
+    },
+    {
+      "taskId": 45,
+      "taskTitle": "Create prompt templates directory structure",
+      "complexityScore": 2,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 1,
+      "estimatedHours": 2,
+      "reasoning": "Simple directory organization with file structure setup"
+    },
+    {
+      "taskId": 46,
+      "taskTitle": "Create rubric generation prompt template",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 6,
+      "reasoning": "Structured prompt design with clear rubric generation instructions"
+    },
+    {
+      "taskId": 47,
+      "taskTitle": "Create student feedback prompt template",
+      "complexityScore": 5,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "reasoning": "Complex prompt requiring feedback quality and tone considerations"
+    },
+    {
+      "taskId": 48,
+      "taskTitle": "Create assignment summary prompt template",
+      "complexityScore": 4,
+      "phase": "foundation",
+      "priority": "medium",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 6,
+      "reasoning": "Structured prompt for class-wide insights and trend analysis"
+    },
+    {
+      "taskId": 49,
+      "taskTitle": "Document Pipeline Architecture Decision",
+      "complexityScore": 3,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Documentation task with architectural decision recording"
+    },
+    {
+      "taskId": 50,
+      "taskTitle": "Update plan.md with New Pipeline Architecture",
+      "complexityScore": 3,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "done",
+      "recommendedSubtasks": 2,
+      "estimatedHours": 4,
+      "reasoning": "Documentation update with technical specification changes"
+    },
+    {
+      "taskId": 51,
+      "taskTitle": "Implement Core Pipeline Context Objects",
+      "complexityScore": 8,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Base context class with state management, 2) Rubric context implementation, 3) StudentWork context implementation, 4) AssignmentSummary context implementation, 5) Testing and documentation framework",
+      "reasoning": "CRITICAL DEPENDENCY FIX: This task now has clean dependencies and is foundational for entire pipeline architecture. High complexity due to state management and inheritance hierarchy design.",
+      "riskFactors": [
+        "Complex state management requirements",
+        "Multiple inheritance patterns", 
+        "Integration with all pipeline steps",
+        "Thread safety considerations"
+      ]
+    },
+    {
+      "taskId": 52,
+      "taskTitle": "Implement ProcessingResult Classes",
+      "complexityScore": 6,
+      "phase": "mvp_pipeline", 
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 10,
+      "expansionPrompt": "Break down into: 1) ProcessingResult class with immutability patterns, 2) ProcessingResults aggregation class, 3) Serialization and testing",
+      "reasoning": "Moderate complexity for result encapsulation and aggregation logic"
+    },
+    {
+      "taskId": 53,
+      "taskTitle": "Implement Pipeline Support Services",
+      "complexityScore": 8,
+      "phase": "mvp_pipeline",
+      "priority": "high", 
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) BroadcastService with event subscription, 2) RecordMetricsService with aggregation, 3) Configuration system, 4) Service initialization, 5) Performance optimization",
+      "reasoning": "High complexity due to dual service implementation with real-time broadcasting and metrics collection",
+      "riskFactors": [
+        "Real-time event broadcasting complexity",
+        "Metrics aggregation and performance impact",
+        "Service initialization and configuration"
+      ]
+    },
+    {
+      "taskId": 54,
+      "taskTitle": "Implement PromptInput Classes",
+      "complexityScore": 7,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending", 
+      "recommendedSubtasks": 4,
+      "estimatedHours": 14,
+      "expansionPrompt": "Break down into: 1) Base PromptInput class, 2) Rubric PromptInput with complex formatting, 3) StudentWorkFeedback PromptInput, 4) AssignmentSummary PromptInput",
+      "reasoning": "Complex data preparation and formatting for different LLM input types"
+    },
+    {
+      "taskId": 55,
+      "taskTitle": "Implement LLM Generator Classes",
+      "complexityScore": 9,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 6,
+      "estimatedHours": 20,
+      "expansionPrompt": "Break down into: 1) ClientFactory with provider abstraction, 2) Base Generator class, 3) Rubric Generator, 4) StudentWorkFeedback Generator, 5) AssignmentFeedback Generator, 6) Utility methods and error handling",
+      "reasoning": "HIGHEST COMPLEXITY - Core AI functionality requiring multiple LLM provider support, retry logic, and specialized generators. This is the heart of the product's value proposition.",
+      "riskFactors": [
+        "Multiple LLM provider integration",
+        "Complex retry and error handling logic", 
+        "Token counting and cost management",
+        "Provider-specific response handling"
+      ]
+    },
+    {
+      "taskId": 56,
+      "taskTitle": "Implement LLM Response Parser Classes",
+      "complexityScore": 8,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Base parser with error handling, 2) Rubric parser for structured data, 3) StudentWork parser for feedback, 4) Assignment parser for summaries, 5) Validation and edge case handling",
+      "reasoning": "High complexity for parsing unstructured LLM responses into structured application data with robust error handling"
+    },
+    {
+      "taskId": 57,
+      "taskTitle": "Implement Pipeline Storage Services", 
+      "complexityScore": 7,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 14,
+      "expansionPrompt": "Break down into: 1) Base storage service patterns, 2) RubricService with transaction handling, 3) StudentFeedbackService, 4) AssignmentSummaryService",
+      "reasoning": "Complex database persistence with transaction management and error handling"
+    },
+    {
+      "taskId": 58,
+      "taskTitle": "Implement Core Pipeline Orchestration Classes",
+      "complexityScore": 9,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 20,
+      "expansionPrompt": "Break down into: 1) BasePipeline with step orchestration, 2) RubricPipeline, 3) StudentWorkFeedbackPipeline, 4) AssignmentSummaryPipeline, 5) Error handling and transaction support",
+      "reasoning": "HIGHEST COMPLEXITY - Orchestrates all pipeline components with complex error handling, progress tracking, and transaction management",
+      "riskFactors": [
+        "Complex step orchestration logic",
+        "Transaction management across services",
+        "Error recovery and retry mechanisms",
+        "Progress tracking and status updates"
+      ]
+    },
+    {
+      "taskId": 59,
+      "taskTitle": "Implement AssignmentProcessor Class",
+      "complexityScore": 8,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Core processor with pipeline coordination, 2) Error handling and recovery, 3) Progress tracking and status updates, 4) Result aggregation and reporting",
+      "reasoning": "High complexity main entry point that coordinates multiple pipelines and aggregates results"
+    },
+    {
+      "taskId": 60,
+      "taskTitle": "Update AssignmentJob to Use New Pipeline",
+      "complexityScore": 5,
+      "phase": "mvp_pipeline",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "expansionPrompt": "Break down into: 1) Job refactoring to use AssignmentProcessor, 2) Error handling and logging, 3) Testing and validation",
+      "reasoning": "Moderate complexity integration task with well-defined requirements"
+    },
+    {
+      "taskId": 61,
+      "taskTitle": "Add show action to AssignmentsController",
+      "complexityScore": 6,
+      "phase": "mvp_ui",
+      "priority": "critical",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 10,
+      "expansionPrompt": "Break down into: 1) Controller action implementation, 2) Status tracking integration, 3) Error handling for different states, 4) Route configuration and testing",
+      "reasoning": "CRITICAL MVP TASK - First step in completing user value loop. Moderate complexity but extremely high user impact.",
+      "userValueImpact": "HIGH - Without this, teachers cannot see what happens after creating assignments"
+    },
+    {
+      "taskId": 62,
+      "taskTitle": "Create assignment show view with status tracking",
+      "complexityScore": 7,
+      "phase": "mvp_ui",
+      "priority": "critical",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 12,
+      "expansionPrompt": "Break down into: 1) Basic view structure, 2) Real-time status updates via ActionCable, 3) Progress indicators and animations, 4) Error state handling, 5) Mobile responsiveness",
+      "reasoning": "CRITICAL MVP TASK - Real-time UI complexity for showing processing status to teachers",
+      "userValueImpact": "HIGH - Teachers need to see their assignments are being processed"
+    },
+    {
+      "taskId": 63,
+      "taskTitle": "Create assignment results display components", 
+      "complexityScore": 8,
+      "phase": "mvp_ui",
+      "priority": "critical",
+      "status": "pending",
+      "recommendedSubtasks": 6,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Rubric display component, 2) Student feedback display, 3) Assignment summary display, 4) Navigation between sections, 5) Data loading states, 6) Responsive design",
+      "reasoning": "CRITICAL MVP TASK - Complex UI for displaying AI-generated content. This is where teachers see the value.",
+      "userValueImpact": "HIGHEST - This is where teachers see the AI-generated rubrics and feedback"
+    },
+    {
+      "taskId": 64,
+      "taskTitle": "Implement feedback editing interface",
+      "complexityScore": 8,
+      "phase": "mvp_ui", 
+      "priority": "critical",
+      "status": "pending",
+      "recommendedSubtasks": 6,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Inline editing components, 2) WYSIWYG editor integration, 3) Auto-save functionality, 4) Approval workflow, 5) Change tracking, 6) Keyboard shortcuts",
+      "reasoning": "CRITICAL MVP TASK - Complex editing interface for teachers to customize AI feedback before sharing with students",
+      "userValueImpact": "HIGH - Teachers need to review and edit AI feedback before sharing"
+    },
+    {
+      "taskId": 65,
+      "taskTitle": "Implement Google Docs feedback integration",
+      "complexityScore": 9,
+      "phase": "mvp_ui",
+      "priority": "critical", 
+      "status": "pending",
+      "recommendedSubtasks": 7,
+      "estimatedHours": 20,
+      "expansionPrompt": "Break down into: 1) Google Docs API integration, 2) Authentication and permission handling, 3) Document content insertion, 4) Formatting preservation, 5) Error handling and retries, 6) User feedback on success/failure, 7) Batch processing for multiple documents",
+      "reasoning": "HIGHEST COMPLEXITY MVP TASK - External API integration that completes the user value loop. Without this, teachers can't get feedback to students.",
+      "userValueImpact": "CRITICAL - This completes the teacher workflow by delivering feedback to students",
+      "riskFactors": [
+        "Google Docs API complexity and rate limits",
+        "Permission and authentication edge cases", 
+        "Document formatting preservation",
+        "Batch processing performance",
+        "Error recovery for failed document updates"
+      ]
+    },
+    {
+      "taskId": 66,
+      "taskTitle": "Create assignment insights dashboard",
+      "complexityScore": 7,
+      "phase": "mvp_ui",
+      "priority": "high",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 14,
+      "expansionPrompt": "Break down into: 1) Data aggregation for class insights, 2) Visualization components (charts/graphs), 3) Trend analysis display, 4) Actionable recommendations, 5) Export functionality",
+      "reasoning": "Complex data visualization and analysis for class-wide insights. Completes teacher value proposition."
+    },
+    {
+      "taskId": 67,
+      "taskTitle": "Create Subscription model and migration",
+      "complexityScore": 5,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "expansionPrompt": "Break down into: 1) Model and migration creation, 2) Validation and business logic, 3) Integration with User model",
+      "reasoning": "Standard model implementation with subscription-specific logic"
+    },
+    {
+      "taskId": 68,
+      "taskTitle": "Configure Stripe integration",
+      "complexityScore": 8,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending", 
+      "recommendedSubtasks": 6,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Stripe gem configuration, 2) Customer creation workflow, 3) Subscription products setup, 4) Webhook configuration, 5) Payment UI integration, 6) Testing with Stripe test mode",
+      "reasoning": "Complex third-party payment integration with webhook handling and error management",
+      "riskFactors": [
+        "Stripe API complexity and versioning",
+        "Webhook reliability and security",
+        "Payment failure handling",
+        "Subscription state synchronization"
+      ]
+    },
+    {
+      "taskId": 69,
+      "taskTitle": "Implement usage tracking and limits",
+      "complexityScore": 7,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 14,
+      "expansionPrompt": "Break down into: 1) Usage tracking implementation, 2) Limit enforcement logic, 3) Monthly reset mechanisms, 4) User notification system",
+      "reasoning": "Complex business logic for tracking usage across billing cycles with enforcement"
+    },
+    {
+      "taskId": 70,
+      "taskTitle": "Create subscription management UI",
+      "complexityScore": 6,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 12,
+      "expansionPrompt": "Break down into: 1) Subscription dashboard, 2) Plan comparison and upgrade UI, 3) Payment method management, 4) Billing history display",
+      "reasoning": "Moderate complexity UI for subscription management with payment integration"
+    },
+    {
+      "taskId": 71,
+      "taskTitle": "Implement billing webhooks",
+      "complexityScore": 7,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 12,
+      "expansionPrompt": "Break down into: 1) Webhook endpoint implementation, 2) Event verification and security, 3) Subscription state updates, 4) User notification handling",
+      "reasoning": "Complex webhook handling with security and state synchronization requirements"
+    },
+    {
+      "taskId": 72,
+      "taskTitle": "Create upgrade/downgrade flows",
+      "complexityScore": 6,
+      "phase": "business_model",
+      "priority": "medium",
+      "status": "pending",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 10,
+      "expansionPrompt": "Break down into: 1) Upgrade flow with prorated billing, 2) Downgrade flow with end-of-period timing, 3) Confirmation and notification systems",
+      "reasoning": "Moderate complexity subscription management with billing timing logic"
+    },
+    {
+      "taskId": 73,
+      "taskTitle": "Create UserActivity model and tracking",
+      "complexityScore": 5,
+      "phase": "retention",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 3,
+      "estimatedHours": 8,
+      "expansionPrompt": "Break down into: 1) Activity model and tracking implementation, 2) Event capture integration, 3) Data aggregation for analytics",
+      "reasoning": "Standard activity tracking implementation"
+    },
+    {
+      "taskId": 74,
+      "taskTitle": "Implement streak tracking system",
+      "complexityScore": 6,
+      "phase": "retention",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 10,
+      "expansionPrompt": "Break down into: 1) Streak calculation logic, 2) Achievement badge system, 3) Streak recovery mechanics, 4) Notification system",
+      "reasoning": "Moderate complexity gamification system with streak logic and achievements"
+    },
+    {
+      "taskId": 75,
+      "taskTitle": "Create usage statistics dashboard",
+      "complexityScore": 7,
+      "phase": "retention",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 12,
+      "expansionPrompt": "Break down into: 1) Data aggregation queries, 2) Chart and visualization components, 3) Time-based filtering, 4) Export functionality, 5) Mobile responsive design",
+      "reasoning": "Complex data visualization dashboard with multiple chart types and filtering"
+    },
+    {
+      "taskId": 76,
+      "taskTitle": "Implement contribution visualization",
+      "complexityScore": 6,
+      "phase": "retention",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 4,
+      "estimatedHours": 10,
+      "expansionPrompt": "Break down into: 1) GitHub-style heatmap component, 2) Activity intensity calculation, 3) Tooltip and interaction handling, 4) Year-over-year comparison",
+      "reasoning": "Moderate complexity visualization component with interactive features"
+    },
+    {
+      "taskId": 77,
+      "taskTitle": "Add performance optimization",
+      "complexityScore": 8,
+      "phase": "optimization",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 6,
+      "estimatedHours": 20,
+      "expansionPrompt": "Break down into: 1) Redis caching implementation, 2) Database query optimization, 3) Background job monitoring, 4) Performance metrics dashboard, 5) Error tracking integration, 6) Load testing and benchmarking",
+      "reasoning": "Complex performance optimization requiring multiple system improvements and monitoring"
+    },
+    {
+      "taskId": 78,
+      "taskTitle": "Add advanced assignment features",
+      "complexityScore": 7,
+      "phase": "enhancement",
+      "priority": "low",
+      "status": "pending",
+      "recommendedSubtasks": 5,
+      "estimatedHours": 16,
+      "expansionPrompt": "Break down into: 1) Multiple rubric templates, 2) Advanced feedback customization, 3) Assignment template system, 4) Batch processing features, 5) Advanced search and filtering",
+      "reasoning": "Complex feature additions requiring multiple UI and backend enhancements"
+    }
+  ],
+  "recommendedMitigation": {
+    "highRiskTasks": [
+      {
+        "taskId": 65,
+        "title": "Google Docs integration",
+        "mitigation": "Create comprehensive API error handling, implement circuit breaker pattern, build extensive test suite with mocked responses, plan for graceful degradation"
+      },
+      {
+        "taskId": 55,
+        "title": "LLM Generator Classes", 
+        "mitigation": "Start with single provider implementation, build comprehensive testing with mocked responses, implement feature flags for provider switching"
+      },
+      {
+        "taskId": 58,
+        "title": "Pipeline Orchestration",
+        "mitigation": "Build incremental step-by-step, implement comprehensive logging and monitoring, use feature flags for gradual rollout"
+      }
+    ]
+  },
+  "developmentStrategy": {
+    "priorityOrder": [
+      "Complete MVP Pipeline (tasks 51-60) - 154 hours",
+      "Build MVP UI (tasks 61-66) - 88 hours", 
+      "Add Business Model (tasks 67-72) - 72 hours",
+      "Polish with Retention features (tasks 73-76) - 40 hours"
+    ],
+    "criticalSuccessFactors": [
+      "Tasks 61-66 are the difference between a tech demo and usable product",
+      "Task 65 (Google Docs integration) completes the user value loop",
+      "Pipeline tasks (51-60) must be solid before building UI on top"
+    ]
+  }
+}
