@@ -300,145 +300,223 @@ Standardizes the workflow of collecting data, sending prompts, and processing re
    - Defines components for each processing step
    - Tracks metrics and processing time
 
+### Pipeline Architecture
+
+A modular pipeline architecture with standardized patterns for processing assignments, student work, and generating summaries. Each pipeline follows consistent patterns for error handling, metrics tracking, and context management.
+
+#### Core Design Principles
+
+1. **Consistent Service Interface**
+   - All pipeline steps use class methods for stateless operation
+   - Standardized `.call(context:)` interface across all services
+   - Context objects maintain state throughout pipeline execution
+
+2. **Explicit Step Configuration**
+   - Pipeline steps defined as constants for visibility
+   - Easy to modify, test, and reason about execution order
+   - Clear separation between orchestration and implementation
+
+3. **Common Pipeline Logic**
+   - Base class handles error handling and result building
+   - Consistent metrics tracking and timing measurement
+   - Standardized success/failure result objects
+
+#### Implementation
+
+**Base Pipeline Class**
 ```ruby
-# app/services/processing_task.rb
-class ProcessingTask
-  attr_reader :processable, :process_type, :user, :configuration, :context
-  attr_accessor :started_at, :completed_at, :error_message, :metrics
-
-  VALID_PROCESS_TYPES = [
-    "generate_rubric",
-    "grade_student_work",
-    "generate_summary_feedback"
-  ].freeze
-  
-  def initialize(processable:, process_type:, user: nil, configuration:, context: {})
-    @processable = processable
-    @process_type = process_type
-    @user = user
-    @configuration = configuration.with_indifferent_access
-    @context = context.with_indifferent_access
-    @metrics = {}.with_indifferent_access
-    validate!
-  end
-  
-  # Configuration accessors
-  def prompt_template
-    configuration.prompt_template
-  end
-  
-  def response_parser
-    configuration.response_parser
-  end
-  
-  def storage_service
-    configuration.storage_service
-  end
-  
-  def broadcaster
-    configuration.broadcaster
-  end
-  
-  def status_manager
-    configuration.status_manager
-  end
-  
-  # Timing methods
-  def mark_started
-    @started_at = Time.current
-  end
-  
-  def mark_completed
-    @completed_at = Time.current
-  end
-  
-  def processing_time_ms
-    return 0 unless started_at && completed_at
-    ((completed_at - started_at) * 1000).to_i
-  end
-  
-  def record_metric(key, value)
-    @metrics[key] = value
-  end
-
-  private
-  
-  def validate!
-    raise ArgumentError, "Processable is required" unless processable
-    raise ArgumentError, "Process type is required" unless process_type
-  end
-end
-```
-
-2. **ProcessingPipeline**
-   - Orchestrates entire processing workflow
-   - Implements the 5-step pattern (collect, build, send, parse, store)
-   - Handles errors and metrics collection
-
-```ruby
-# app/services/processing_pipeline.rb
-class ProcessingPipeline
-  def initialize(task)
-    @task = task
-    @logger = Rails.logger
-  end
-  
-  def execute
-    @logger.info("Starting processing pipeline for #{@task.process_type} on #{@task.processable.class.name}")
-    
-    @task.mark_started
-    update_status(:processing)
+class Pipeline::Base
+  def self.call(**args)
+    context = create_context(**args)
     
     begin
-      # Step 1: Collect data
-      data = collect_data
-      
-      # Step 2: Build prompt
-      prompt = build_prompt(data)
-      
-      # Step 3: Send to LLM
-      response = send_to_llm(prompt)
-      
-      # Step 4: Parse response
-      parsed_result = parse_response(response)
-      
-      # Step 5: Store result
-      store_result(parsed_result)
-      
-      # Finalize
-      @task.mark_completed
-      @task.record_metric(:status, 'completed')
-      @task.record_metric(:processing_time_ms, @task.processing_time_ms)
-      
-      # Record metrics to database
-      save_processing_metrics(parsed_result)
-      
-      update_status(:completed)
-      broadcast_update(:completed, parsed_result)
-      
-      ProcessingResult.new(success: true, data: parsed_result)
+      execute_pipeline(context)
+      build_success_result(context)
     rescue => e
-      handle_error(e)
+      build_failure_result(context, e)
     end
   end
   
   private
   
-  # Implementation of each processing step...
-  # (methods omitted for brevity)
+  def self.execute_pipeline(context)
+    # Override in subclasses
+    raise NotImplementedError
+  end
+  
+  def self.create_context(**args)
+    # Override in subclasses  
+    raise NotImplementedError
+  end
+  
+  def self.build_success_result(context)
+    ProcessingResult.new(
+      success: true,
+      data: extract_result_data(context),
+      errors: [],
+      metrics: context.metrics
+    )
+  end
+  
+  def self.build_failure_result(context, error)
+    ProcessingResult.new(
+      success: false,
+      data: nil,
+      errors: [error.message],
+      metrics: context&.metrics || {}
+    )
+  end
 end
 ```
 
-3. **Factory Services**
-   - `ResponseParserFactory`: Creates appropriate parser instances
-   - `StorageServiceFactory`: Creates storage service instances
-   - `BroadcasterFactory`: Creates broadcaster instances
-   - `StatusManagerFactory`: Creates status manager instances
+**Pipeline Implementation**
+```ruby
+class RubricPipeline < Pipeline::Base
+  STEPS = [
+    PromptInput::Rubric,
+    Broadcast.with(event: :rubric_started),
+    LLM::Rubric::Generator,
+    LLM::Rubric::ResponseParser,
+    Pipeline::Storage::RubricService,
+    Broadcast.with(event: :rubric_completed),
+    RecordMetrics
+  ].freeze
+  
+  private
+  
+  def self.execute_pipeline(context)
+    STEPS.each do |step|
+      context = step.call(context: context)
+    end
+  end
+end
+```
 
-4. **Support Services**
-   - `DataCollectionService`: Gathers data for processing
-   - `PromptBuilder`: Constructs prompts from templates
-   - `PromptTemplate`: Renders templates with variables
+**Context Objects**
+```ruby
+module Pipeline::Context
+  class Base
+    attr_reader :metrics
+    
+    def initialize
+      @metrics = {}
+      @started_at = Time.current
+    end
+    
+    def record_timing(operation)
+      start = Time.current
+      result = yield
+      duration_ms = ((Time.current - start) * 1000).to_i
+      add_metric("#{operation}_ms", duration_ms)
+      result
+    end
+    
+    def total_duration_ms
+      ((Time.current - @started_at) * 1000).to_i
+    end
+  end
+  
+  class Rubric < Base
+    attr_accessor :assignment, :user, :prompt, :llm_response, 
+                  :parsed_response, :saved_rubric
+  end
+end
+```
+
+**Pipeline Step Services**
+```ruby
+# Prompt building with descriptive naming
+class PromptInput::Rubric
+  def self.build_and_attach_to_context(context:)
+    prompt = build_prompt_from(context)
+    context.prompt = prompt
+    context
+  end
+end
+
+# LLM generation with integrated cost tracking
+module LLM::Rubric
+  class Generator
+    def self.call(context:)
+      client = LLM::ClientFactory.for_rubric_generation
+      
+      response = context.record_timing(:llm_request) do
+        client.generate(prompt: context.prompt)
+      end
+      
+      cost_micro_usd = LLM::CostCalculator.get_cost(response)
+      
+      LLM::CostTracker.record(
+        llm_response: response,
+        trackable: context.assignment,
+        user: context.user,
+        request_type: :generate_rubric
+      )
+      
+      context.llm_response = response
+      context.add_metric(:tokens_used, response.total_tokens)
+      context.add_metric(:cost_micro_usd, cost_micro_usd)
+      
+      context
+    end
+  end
+end
+
+# Storage with descriptive naming
+class Pipeline::Storage::RubricService
+  def self.persist_to_database(context:)
+    # Database persistence logic
+    context.saved_rubric = create_rubric_from_context(context)
+    context
+  end
+end
+```
+
+#### Context Flow Documentation
+
+**Rubric Pipeline Context Flow:**
+1. **Initial Context**: assignment, user
+2. **After PromptInput::Rubric**: + prompt
+3. **After LLM::Rubric::Generator**: + llm_response, + metrics[:llm_request_ms], + metrics[:tokens_used]
+4. **After LLM::Rubric::ResponseParser**: + parsed_response
+5. **After Pipeline::Storage::RubricService**: + saved_rubric
+
+**Student Work Pipeline Context Flow:**
+1. **Initial Context**: student_work, rubric, user
+2. **After PromptInput::StudentWork**: + prompt
+3. **After LLM::StudentWork::Generator**: + llm_response, + metrics
+4. **After LLM::StudentWork::ResponseParser**: + parsed_response
+5. **After Pipeline::Storage::StudentWorkService**: + saved_feedback
+
+#### Pipeline Orchestration
+
+**AssignmentProcessor** coordinates all pipelines:
+```ruby
+class AssignmentProcessor
+  def process
+    rubric_result = RubricPipeline.call(
+      assignment: @assignment,
+      user: @assignment.user
+    )
+    
+    feedback_results = @assignment.student_works.map do |student_work|
+      StudentWorkFeedbackPipeline.call(
+        student_work: student_work,
+        rubric: rubric_result.data,
+        user: @assignment.user
+      )
+    end
+    
+    summary_result = AssignmentSummaryPipeline.call(
+      assignment: @assignment,
+      student_feedbacks: feedback_results.map(&:data),
+      user: @assignment.user
+    )
+    
+    aggregate_results(rubric_result, feedback_results, summary_result)
+  end
+end
+```
 
 ### Prompt Management System
 
