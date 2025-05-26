@@ -666,7 +666,7 @@
       "id": 51,
       "title": "Implement Core Pipeline Context Objects",
       "description": "Create context objects that maintain state throughout pipeline execution using the modular pipeline architecture. Implement Pipeline::Context::Base with metrics tracking, timing measurement, and state management. Create specialized context classes for Rubric, StudentWork, and AssignmentSummary pipelines that maintain data flow between pipeline steps and provide consistent interface for error handling and result building.",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         50
       ],
@@ -680,7 +680,7 @@
       "id": 52,
       "title": "Implement ProcessingResult Classes",
       "description": "Create standardized result classes to encapsulate pipeline execution outcomes. Implement ProcessingResult with success/failure status, data payload, error messages, and performance metrics. Create ProcessingResults collection class for aggregating multiple pipeline results. Ensure consistent result handling across all pipeline operations with proper error propagation and metrics collection using immutable result objects for thread safety.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         51
       ],
