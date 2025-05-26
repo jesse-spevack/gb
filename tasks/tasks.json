@@ -22,7 +22,9 @@
       "title": "Configure Tailwind CSS",
       "description": "Set up Tailwind CSS for styling the application",
       "status": "done",
-      "dependencies": [1],
+      "dependencies": [
+        1
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 3,
@@ -33,7 +35,9 @@
       "title": "Configure Stimulus JS",
       "description": "Set up Stimulus JS for interactive UI components",
       "status": "done",
-      "dependencies": [1],
+      "dependencies": [
+        1
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 3,
@@ -44,7 +48,9 @@
       "title": "Set up GitHub repository",
       "description": "Initialize GitHub repository with appropriate configuration",
       "status": "done",
-      "dependencies": [1],
+      "dependencies": [
+        1
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 2,
@@ -55,7 +61,9 @@
       "title": "Create User model and migration",
       "description": "Implement the User model with basic fields for Google OAuth authentication",
       "status": "done",
-      "dependencies": [1],
+      "dependencies": [
+        1
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -66,7 +74,9 @@
       "title": "Create Session model and migration",
       "description": "Implement the Session model for maintaining user authentication state",
       "status": "done",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -77,7 +87,9 @@
       "title": "Create UserToken model and migration",
       "description": "Implement the UserToken model for storing OAuth tokens",
       "status": "done",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -88,7 +100,11 @@
       "title": "Configure OmniAuth for Google OAuth2",
       "description": "Set up OmniAuth with Google OAuth2 provider for authentication",
       "status": "done",
-      "dependencies": [5, 6, 7],
+      "dependencies": [
+        5,
+        6,
+        7
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -99,7 +115,9 @@
       "title": "Implement Authentication Concern",
       "description": "Create a controller concern for handling authentication logic",
       "status": "done",
-      "dependencies": [8],
+      "dependencies": [
+        8
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -110,7 +128,9 @@
       "title": "Create SessionsController with new action",
       "description": "Implement SessionsController with action for initiating Google OAuth",
       "status": "done",
-      "dependencies": [9],
+      "dependencies": [
+        9
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -121,7 +141,9 @@
       "title": "Implement SessionsController callback action",
       "description": "Add callback handling to SessionsController for processing OAuth responses",
       "status": "done",
-      "dependencies": [10],
+      "dependencies": [
+        10
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -132,7 +154,9 @@
       "title": "Add logout functionality to SessionsController",
       "description": "Implement action for logging out users and destroying sessions",
       "status": "done",
-      "dependencies": [11],
+      "dependencies": [
+        11
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 3,
@@ -143,7 +167,10 @@
       "title": "Add logo and favicon",
       "description": "Create and implement application logo and favicon for consistent branding",
       "status": "done",
-      "dependencies": [1, 2],
+      "dependencies": [
+        1,
+        2
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 2,
@@ -154,7 +181,9 @@
       "title": "Create Assignment model and migration",
       "description": "Implement the core Assignment model for representing teacher assignments",
       "status": "done",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -165,7 +194,9 @@
       "title": "Create SelectedDocument model and migration",
       "description": "Implement the SelectedDocument model for Google Doc selections",
       "status": "done",
-      "dependencies": [14],
+      "dependencies": [
+        14
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -176,7 +207,9 @@
       "title": "Create Rubric model and migration",
       "description": "Implement the Rubric model for structured grading rubrics",
       "status": "done",
-      "dependencies": [14],
+      "dependencies": [
+        14
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -187,7 +220,9 @@
       "title": "Create Criterion model and migration",
       "description": "Implement the Criterion model for rubric criteria",
       "status": "done",
-      "dependencies": [16],
+      "dependencies": [
+        16
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -198,7 +233,9 @@
       "title": "Create Level model and migration",
       "description": "Implement the Level model for criterion achievement levels",
       "status": "done",
-      "dependencies": [17],
+      "dependencies": [
+        17
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -209,7 +246,9 @@
       "title": "Create StudentWork model and migration",
       "description": "Implement the StudentWork model for individual student submissions",
       "status": "done",
-      "dependencies": [14],
+      "dependencies": [
+        14
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -220,7 +259,10 @@
       "title": "Create StudentWorkCriterionLevel model and migration",
       "description": "Implement the join model between StudentWork, Criterion, and Level",
       "status": "done",
-      "dependencies": [17, 18],
+      "dependencies": [
+        17,
+        18
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -231,7 +273,9 @@
       "title": "Create FeedbackItem model and migration",
       "description": "Implement the FeedbackItem model for structured feedback points",
       "status": "done",
-      "dependencies": [18],
+      "dependencies": [
+        18
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -242,7 +286,9 @@
       "title": "Create StudentWorkCheck model and migration",
       "description": "Implement the StudentWorkCheck model for verification checks",
       "status": "done",
-      "dependencies": [18],
+      "dependencies": [
+        18
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -253,7 +299,9 @@
       "title": "Create AssignmentSummary model and migration",
       "description": "Implement the AssignmentSummary model for class-wide insights",
       "status": "done",
-      "dependencies": [14],
+      "dependencies": [
+        14
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -264,7 +312,9 @@
       "title": "Create LLMRequest model and migration",
       "description": "Implement the LLMRequest model for tracking LLM interactions",
       "status": "done",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -275,7 +325,9 @@
       "title": "Create ProcessingMetric model and migration",
       "description": "Implement the ProcessingMetric model for tracking processing performance",
       "status": "done",
-      "dependencies": [14],
+      "dependencies": [
+        14
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -286,7 +338,9 @@
       "title": "Implement ApplicationController authentication",
       "description": "Configure ApplicationController with authentication requirements",
       "status": "done",
-      "dependencies": [9],
+      "dependencies": [
+        9
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -297,7 +351,9 @@
       "title": "Create home page controller and view",
       "description": "Implement basic home page for the application",
       "status": "done",
-      "dependencies": [26],
+      "dependencies": [
+        26
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 3,
@@ -308,7 +364,10 @@
       "title": "Create AssignmentsController with index action",
       "description": "Implement controller and view for listing assignments",
       "status": "done",
-      "dependencies": [13, 26],
+      "dependencies": [
+        13,
+        26
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 4,
@@ -319,7 +378,9 @@
       "title": "Add new action to AssignmentsController",
       "description": "Implement action and view for creating new assignments",
       "status": "done",
-      "dependencies": [28],
+      "dependencies": [
+        28
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -330,7 +391,9 @@
       "title": "Create Google API configuration",
       "description": "Set up configuration for Google API integration",
       "status": "done",
-      "dependencies": [8],
+      "dependencies": [
+        8
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -341,7 +404,10 @@
       "title": "Implement Google Picker Stimulus controller",
       "description": "Create Stimulus controller for Google Picker integration",
       "status": "done",
-      "dependencies": [3, 30],
+      "dependencies": [
+        3,
+        30
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 7,
@@ -352,7 +418,10 @@
       "title": "Add create action to AssignmentsController",
       "description": "Implement action for saving new assignments",
       "status": "done",
-      "dependencies": [29, 31],
+      "dependencies": [
+        29,
+        31
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -363,7 +432,10 @@
       "title": "Create DocumentSelection::BulkCreationService",
       "description": "Implement service for creating document selections in bulk",
       "status": "done",
-      "dependencies": [14, 32],
+      "dependencies": [
+        14,
+        32
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -374,7 +446,9 @@
       "title": "Create Assignment::InitializerService",
       "description": "Implement service for initializing assignments with related records",
       "status": "done",
-      "dependencies": [33],
+      "dependencies": [
+        33
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -385,7 +459,9 @@
       "title": "Create LLM::Client base class",
       "description": "Implement the base client class for LLM integration",
       "status": "done",
-      "dependencies": [23],
+      "dependencies": [
+        23
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -396,7 +472,9 @@
       "title": "Implement LLM::AnthropicClient",
       "description": "Create client implementation for Anthropic's Claude API",
       "status": "done",
-      "dependencies": [35],
+      "dependencies": [
+        35
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 7,
@@ -407,7 +485,9 @@
       "title": "Implement LLM::GoogleClient",
       "description": "Create client implementation for Google's PaLM API",
       "status": "done",
-      "dependencies": [35],
+      "dependencies": [
+        35
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 7,
@@ -418,7 +498,10 @@
       "title": "Create LLM::ClientFactory",
       "description": "Implement factory for creating appropriate LLM client instances",
       "status": "done",
-      "dependencies": [36, 37],
+      "dependencies": [
+        36,
+        37
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -429,7 +512,9 @@
       "title": "Implement LLM::RetryHandler",
       "description": "Create retry mechanism for handling LLM request failures",
       "status": "done",
-      "dependencies": [35],
+      "dependencies": [
+        35
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -440,7 +525,9 @@
       "title": "Implement LLM::CircuitBreaker",
       "description": "Create circuit breaker for preventing cascading failures",
       "status": "done",
-      "dependencies": [39],
+      "dependencies": [
+        39
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 7,
@@ -451,7 +538,9 @@
       "title": "Create LLM::CostCalculator",
       "description": "Implement calculator for determining LLM request costs",
       "status": "done",
-      "dependencies": [35],
+      "dependencies": [
+        35
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 5,
@@ -462,7 +551,10 @@
       "title": "Create LLM::CostTracker",
       "description": "Implement tracker for recording LLM request costs",
       "status": "done",
-      "dependencies": [41, 23],
+      "dependencies": [
+        41,
+        23
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 6,
@@ -473,7 +565,9 @@
       "title": "Create PromptTemplate class",
       "description": "Implement template handling for LLM prompts",
       "status": "done",
-      "dependencies": [35],
+      "dependencies": [
+        35
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 6,
@@ -484,7 +578,9 @@
       "title": "Create PromptBuilder class",
       "description": "Implement builder for constructing LLM prompts",
       "status": "done",
-      "dependencies": [43],
+      "dependencies": [
+        43
+      ],
       "priority": "high",
       "phase": "foundation",
       "complexity": 5,
@@ -495,7 +591,9 @@
       "title": "Create prompt templates directory structure",
       "description": "Set up directory structure for prompt templates",
       "status": "done",
-      "dependencies": [43],
+      "dependencies": [
+        43
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 2,
@@ -506,7 +604,9 @@
       "title": "Create rubric generation prompt template",
       "description": "Implement template for generating structured rubrics",
       "status": "done",
-      "dependencies": [45],
+      "dependencies": [
+        45
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 4,
@@ -517,7 +617,9 @@
       "title": "Create student feedback prompt template",
       "description": "Implement template for generating student work feedback",
       "status": "done",
-      "dependencies": [45],
+      "dependencies": [
+        45
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 5,
@@ -528,7 +630,9 @@
       "title": "Create assignment summary prompt template",
       "description": "Implement template for generating assignment-level insights",
       "status": "done",
-      "dependencies": [45],
+      "dependencies": [
+        45
+      ],
       "priority": "medium",
       "phase": "foundation",
       "complexity": 4,
@@ -550,7 +654,9 @@
       "title": "Update plan.md with New Pipeline Architecture",
       "description": "Update documentation to reflect the new pipeline architecture",
       "status": "done",
-      "dependencies": [49],
+      "dependencies": [
+        49
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 3,
@@ -560,8 +666,10 @@
       "id": 51,
       "title": "Implement Core Pipeline Context Objects",
       "description": "Create context objects that maintain state throughout pipeline execution using the modular pipeline architecture. Implement Pipeline::Context::Base with metrics tracking, timing measurement, and state management. Create specialized context classes for Rubric, StudentWork, and AssignmentSummary pipelines that maintain data flow between pipeline steps and provide consistent interface for error handling and result building.",
-      "status": "pending",
-      "dependencies": [50],
+      "status": "in-progress",
+      "dependencies": [
+        50
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 8,
@@ -573,7 +681,9 @@
       "title": "Implement ProcessingResult Classes",
       "description": "Create standardized result classes to encapsulate pipeline execution outcomes. Implement ProcessingResult with success/failure status, data payload, error messages, and performance metrics. Create ProcessingResults collection class for aggregating multiple pipeline results. Ensure consistent result handling across all pipeline operations with proper error propagation and metrics collection using immutable result objects for thread safety.",
       "status": "pending",
-      "dependencies": [51],
+      "dependencies": [
+        51
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 6,
@@ -584,7 +694,10 @@
       "title": "Implement Pipeline Support Services",
       "description": "Create BroadcastService for real-time UI updates and RecordMetricsService for performance tracking. BroadcastService publishes processing events (rubric_started, rubric_completed, etc.) via ActionCable for live status updates to teachers. RecordMetricsService captures detailed metrics for each processing step including timing, token usage, and costs. Both services integrate seamlessly with the pipeline architecture and include error handling and fallback mechanisms.",
       "status": "pending",
-      "dependencies": [51, 52],
+      "dependencies": [
+        51,
+        52
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 8,
@@ -595,7 +708,10 @@
       "title": "Implement PromptInput Classes",
       "description": "Create specialized classes that prepare and format data for LLM prompts in each pipeline. Implement PromptInput::Rubric for assignment and rubric context, PromptInput::StudentWork for student work analysis, and PromptInput::AssignmentSummary for class-wide insights. Each class handles data extraction, formatting, and prompt construction using the existing PromptTemplate system with proper error handling, data validation, and consistent prompt formatting across all pipelines.",
       "status": "pending",
-      "dependencies": [51, 53],
+      "dependencies": [
+        51,
+        53
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 7,
@@ -606,7 +722,10 @@
       "title": "Implement LLM Generator Classes",
       "description": "Create specialized generator classes for different processing types that integrate with the existing LLM client architecture. Implement LLM::Rubric::Generator, LLM::StudentWork::Generator, and LLM::AssignmentSummary::Generator. Each uses LLM::ClientFactory for provider selection, includes retry logic via LLM::RetryHandler, and integrates with LLM::CostTracker for automatic cost tracking. Generators handle provider-specific request formatting, response handling, and token usage monitoring with provider-agnostic request handling.",
       "status": "pending",
-      "dependencies": [54, 38],
+      "dependencies": [
+        54,
+        38
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 9,
@@ -617,7 +736,9 @@
       "title": "Implement LLM Response Parser Classes",
       "description": "Create parser classes to transform raw LLM responses into structured application data. Implement LLM::Rubric::ResponseParser to extract criteria and levels, LLM::StudentWork::ResponseParser for feedback items and criterion assessments, and LLM::AssignmentSummary::ResponseParser for class insights. Each parser handles robust JSON parsing with error recovery, data validation and sanitization, handling of malformed or unexpected responses, and consistent data structure output across all parsers.",
       "status": "pending",
-      "dependencies": [55],
+      "dependencies": [
+        55
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 8,
@@ -628,7 +749,9 @@
       "title": "Implement Pipeline Storage Services",
       "description": "Create storage services to persist processed data to the database with transaction safety. Implement Pipeline::Storage::RubricService to create Rubric, Criterion, and Level records, Pipeline::Storage::StudentWorkService for feedback items and assessments, and Pipeline::Storage::AssignmentSummaryService for class insights. Each service handles database transactions with rollback on errors, data validation before persistence, efficient bulk operations for large datasets, and integration with existing ActiveRecord models.",
       "status": "pending",
-      "dependencies": [56],
+      "dependencies": [
+        56
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 7,
@@ -639,7 +762,13 @@
       "title": "Implement Core Pipeline Orchestration Classes",
       "description": "Create the main pipeline classes that orchestrate the entire processing workflow. Implement Pipeline::Base with common orchestration logic, RubricPipeline, StudentWorkFeedbackPipeline, and AssignmentSummaryPipeline. Each pipeline follows the standardized step configuration pattern with consistent error handling, metrics tracking, and context management. Pipelines coordinate between prompt input, LLM generation, response parsing, and storage services with real-time progress tracking and broadcasting.",
       "status": "pending",
-      "dependencies": [53, 54, 55, 56, 57],
+      "dependencies": [
+        53,
+        54,
+        55,
+        56,
+        57
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 9,
@@ -650,7 +779,10 @@
       "title": "Implement AssignmentProcessor Class",
       "description": "Create the main entry point that orchestrates execution of individual pipelines in the correct sequence. AssignmentProcessor coordinates RubricPipeline, multiple StudentWorkFeedbackPipeline instances, and AssignmentSummaryPipeline. Handles sequential pipeline execution with dependency management, comprehensive error handling across all pipelines, real-time progress updates for teachers, and final result aggregation with assignment status updates.",
       "status": "pending",
-      "dependencies": [58, 52],
+      "dependencies": [
+        58,
+        52
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 8,
@@ -661,7 +793,9 @@
       "title": "Update AssignmentJob to Use New Pipeline",
       "description": "Refactor the existing AssignmentJob to utilize the new AssignmentProcessor architecture. Replace legacy processing logic with calls to AssignmentProcessor, update error handling to work with ProcessingResult objects, and ensure proper job status tracking. Maintain backward compatibility while leveraging the new pipeline's improved reliability, enhanced progress tracking, and comprehensive logging and monitoring capabilities.",
       "status": "pending",
-      "dependencies": [59],
+      "dependencies": [
+        59
+      ],
       "priority": "high",
       "phase": "mvp_pipeline",
       "complexity": 5,
@@ -672,7 +806,9 @@
       "title": "Add show action to AssignmentsController",
       "description": "CRITICAL MVP TASK: Implement controller action for displaying assignment details and real-time processing status. Create show action that handles different assignment states (pending, processing, completed, failed) with appropriate data loading and error handling. Integrate with ActionCable for real-time status updates, include route configuration, efficient data loading with proper eager loading, and comprehensive error handling for different failure modes. This is the entry point for teachers to see their assignment results.",
       "status": "pending",
-      "dependencies": [60],
+      "dependencies": [
+        60
+      ],
       "priority": "critical",
       "phase": "mvp_ui",
       "complexity": 6,
@@ -684,7 +820,9 @@
       "title": "Create assignment show view with status tracking",
       "description": "CRITICAL MVP TASK: Create comprehensive view for displaying assignment processing status with real-time updates. Implement progress indicators, status messages, time estimation display, and error state handling. Use ActionCable for live updates of processing progress with progressive enhancement for graceful degradation. Include mobile-responsive design with touch-friendly interface and comprehensive error messaging with recovery suggestions. This is what teachers see during and after assignment processing.",
       "status": "pending",
-      "dependencies": [61],
+      "dependencies": [
+        61
+      ],
       "priority": "critical",
       "phase": "mvp_ui",
       "complexity": 7,
@@ -696,7 +834,9 @@
       "title": "Create assignment results display components",
       "description": "CRITICAL MVP TASK: Build comprehensive UI components for displaying AI-generated rubric, student feedback, and assignment summaries. Create tabbed interface for easy navigation between rubric view, individual student feedback, and class insights. Include expandable/collapsible sections for detailed content, search and filter functionality for large datasets, and export options for sharing and external use. This is where teachers see the core value of AI-generated content with professional presentation and easy navigation.",
       "status": "pending",
-      "dependencies": [62],
+      "dependencies": [
+        62
+      ],
       "priority": "critical",
       "phase": "mvp_ui",
       "complexity": 8,
@@ -708,7 +848,9 @@
       "title": "Implement feedback editing interface",
       "description": "CRITICAL MVP TASK: Create intuitive interface for teachers to review and edit AI-generated feedback before sharing with students. Implement inline editing for feedback items, WYSIWYG editor for rich text content, auto-save functionality, and approval workflow. Include seamless inline editing with immediate visual feedback, rich text editing capabilities for formatted feedback, automatic saving with conflict resolution, and batch operations for efficient bulk editing with change tracking and version history.",
       "status": "pending",
-      "dependencies": [63],
+      "dependencies": [
+        63
+      ],
       "priority": "critical",
       "phase": "mvp_ui",
       "complexity": 8,
@@ -720,7 +862,9 @@
       "title": "Implement Google Docs feedback integration",
       "description": "CRITICAL MVP TASK: Add functionality to append edited feedback directly to original Google Docs. Integrate with Google Docs API using existing drive.file scope permissions with seamless integration to existing Google OAuth flow. Handle document formatting preservation, batch processing for multiple documents with progress tracking, comprehensive error handling for API failures with user-friendly messaging, and user feedback on success/failure. This completes the teacher-to-student feedback delivery workflow.",
       "status": "pending",
-      "dependencies": [64],
+      "dependencies": [
+        64
+      ],
       "priority": "critical",
       "phase": "mvp_ui",
       "complexity": 9,
@@ -732,7 +876,9 @@
       "title": "Create assignment insights dashboard",
       "description": "Build comprehensive dashboard showing class-wide insights and trends from assignment analysis. Display class performance metrics, common strengths and areas for improvement, grade distribution analytics, and actionable recommendations for instruction. Include real-time data visualization with interactive charts, trend analysis across multiple assignments over time, actionable insights and instructional recommendations, and professional reporting features for stakeholder communication with export functionality.",
       "status": "pending",
-      "dependencies": [63],
+      "dependencies": [
+        63
+      ],
       "priority": "high",
       "phase": "mvp_ui",
       "complexity": 7,
@@ -744,7 +890,9 @@
       "title": "Create Subscription model and migration",
       "description": "Implement comprehensive Subscription model for managing user subscriptions with different tiers (Free: 1 assignment/month, Paid: 300 assignments/month). Include fields for subscription status, plan type, billing cycle, usage limits, and Stripe integration data. Create migration with proper indexes and constraints, implement validation logic and plan comparison methods, usage limit enforcement and tracking, and integration with Stripe subscription management with plan upgrade/downgrade workflow support.",
       "status": "pending",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 5,
@@ -755,7 +903,9 @@
       "title": "Configure Stripe integration",
       "description": "Set up comprehensive Stripe integration for payment processing and subscription management. Configure Stripe gem and API integration, implement customer creation workflow and subscription management workflows, set up subscription products and pricing, configure webhooks for subscription events with real-time processing. Include secure payment processing with PCI compliance, automated subscription lifecycle management, and comprehensive testing framework with Stripe test mode for reliable payment handling.",
       "status": "pending",
-      "dependencies": [67],
+      "dependencies": [
+        67
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 8,
@@ -766,7 +916,9 @@
       "title": "Implement usage tracking and limits",
       "description": "Add comprehensive system to track assignment usage and enforce subscription limits. Implement monthly usage counting with efficient queries, limit enforcement logic with graceful degradation and upgrade prompts, automatic reset mechanisms aligned with billing cycles, and user notification system for approaching limits. Include real-time usage tracking, comprehensive usage analytics and reporting, and integration with subscription tiers for seamless limit management.",
       "status": "pending",
-      "dependencies": [68],
+      "dependencies": [
+        68
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 7,
@@ -777,7 +929,9 @@
       "title": "Create subscription management UI",
       "description": "Build comprehensive interface for users to manage their subscriptions including plan comparison with feature highlighting, upgrade/downgrade options with seamless workflow, payment method management with Stripe integration, and billing history display with invoice access. Include usage statistics, billing cycle information, promotional pricing display, and responsive design with clear call-to-action flows for optimal user experience and conversion.",
       "status": "pending",
-      "dependencies": [69],
+      "dependencies": [
+        69
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 6,
@@ -788,7 +942,9 @@
       "title": "Implement billing webhooks",
       "description": "Handle Stripe webhook events for subscription changes including payment success/failure, subscription updates, cancellations, and invoice events. Implement webhook endpoint with proper security verification and signature verification, event processing logic for all subscription events with idempotent handling, subscription state synchronization with database, and user notification handling. Include comprehensive event logging and monitoring with automatic retry and error recovery mechanisms.",
       "status": "pending",
-      "dependencies": [68],
+      "dependencies": [
+        68
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 7,
@@ -799,7 +955,10 @@
       "title": "Create upgrade/downgrade flows",
       "description": "Implement seamless subscription tier changes with prorated billing for immediate upgrades with fair billing calculation, timing logic for graceful downgrades at end of current billing period, and confirmation workflows with clear communication of billing changes to users. Handle immediate upgrades with prorated charges, end-of-period downgrades, plan change notifications, and comprehensive testing for all billing scenarios and edge cases to ensure reliable subscription management.",
       "status": "pending",
-      "dependencies": [70, 71],
+      "dependencies": [
+        70,
+        71
+      ],
       "priority": "medium",
       "phase": "business_model",
       "complexity": 6,
@@ -810,7 +969,9 @@
       "title": "Create UserActivity model and tracking",
       "description": "Implement comprehensive system to track user activity for analytics and gamification features. Create UserActivity model to capture assignment creation, processing completion, login frequency, and feature usage with comprehensive activity tracking across all user interactions. Include efficient data aggregation methods for analytics, privacy-compliant tracking with user consent and opt-out options, and integration foundation for gamification features like streak tracking and achievement systems.",
       "status": "pending",
-      "dependencies": [5],
+      "dependencies": [
+        5
+      ],
       "priority": "low",
       "phase": "retention",
       "complexity": 5,
@@ -821,7 +982,9 @@
       "title": "Implement streak tracking system",
       "description": "Add streak counting and achievement system to encourage regular usage. Implement daily activity measurement with streak calculation logic, achievement badge system with milestone rewards and unlockable badges, streak recovery mechanics with grace periods to maintain engagement during gaps, and notification system for achievements and milestones. Include daily streak tracking with visual progress indicators and gamified notifications with celebration moments for user motivation.",
       "status": "pending",
-      "dependencies": [73],
+      "dependencies": [
+        73
+      ],
       "priority": "low",
       "phase": "retention",
       "complexity": 6,
@@ -832,7 +995,9 @@
       "title": "Create usage statistics dashboard",
       "description": "Build comprehensive analytics dashboard for teachers to see their usage patterns, assignment history, and productivity metrics. Include interactive charts for assignment frequency with drill-down capabilities, time savings calculations and productivity metrics, student work volume trends, and feature adoption metrics. Implement time-based filtering and date range selection, export functionality for data sharing and reporting, and mobile-responsive design for on-the-go access with professional presentation.",
       "status": "pending",
-      "dependencies": [73],
+      "dependencies": [
+        73
+      ],
       "priority": "low",
       "phase": "retention",
       "complexity": 7,
@@ -843,7 +1008,9 @@
       "title": "Implement contribution visualization",
       "description": "Create GitHub-style contribution graph for teacher activity showing daily usage patterns, assignment creation frequency, and engagement trends. Implement heatmap visualization with activity intensity calculation and color coding, interactive tooltips with detailed activity information for exploration of historical usage data, year-over-year comparison and historical trends, and integration with gamification and streak tracking for motivational visualization to encourage consistent usage.",
       "status": "pending",
-      "dependencies": [75],
+      "dependencies": [
+        75
+      ],
       "priority": "low",
       "phase": "retention",
       "complexity": 6,
@@ -854,7 +1021,9 @@
       "title": "Add performance optimization",
       "description": "Implement comprehensive performance optimization including Redis caching for frequently accessed data with intelligent caching strategy for improved response times, database query optimization with proper indexing and optimized queries, background job monitoring and scaling with auto-scaling capabilities, performance metrics dashboard with alerting and comprehensive performance monitoring. Include error tracking integration and load testing framework for scalability validation to ensure reliable system performance under load.",
       "status": "pending",
-      "dependencies": [60],
+      "dependencies": [
+        60
+      ],
       "priority": "low",
       "phase": "optimization",
       "complexity": 8,
@@ -865,7 +1034,9 @@
       "title": "Add advanced assignment features",
       "description": "Implement additional assignment types and customization options including multiple rubric templates with customization options and flexible rubric system, advanced feedback customization and formatting for personalized feedback styles, assignment template system for reusability and streamlined assignment creation, batch processing features for efficiency in managing large classes, and advanced search and filtering capabilities for assignment management with batch operations for efficient class management.",
       "status": "pending",
-      "dependencies": [66],
+      "dependencies": [
+        66
+      ],
       "priority": "low",
       "phase": "enhancement",
       "complexity": 7,
@@ -875,51 +1046,152 @@
   "development_phases": {
     "foundation": {
       "description": "Core Rails setup, authentication, models, and basic LLM integration - COMPLETED",
-      "tasks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48],
+      "tasks": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+      ],
       "status": "completed",
       "total_estimated_hours": 284
     },
     "mvp_pipeline": {
       "description": "New pipeline architecture - the AI processing engine",
-      "tasks": [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60],
+      "tasks": [
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60
+      ],
       "status": "in_progress",
       "total_estimated_hours": 154
     },
     "mvp_ui": {
       "description": "CRITICAL: User interface for viewing and interacting with results - WITHOUT THIS, PRODUCT IS UNUSABLE",
-      "tasks": [61, 62, 63, 64, 65, 66],
+      "tasks": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
       "status": "not_started",
       "total_estimated_hours": 88,
       "critical_note": "This phase is the difference between a technical demo and a usable product. Teachers MUST be able to see and interact with AI results."
     },
     "business_model": {
       "description": "Subscription system and billing - enables revenue generation",
-      "tasks": [67, 68, 69, 70, 71, 72],
+      "tasks": [
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
       "status": "not_started",
       "total_estimated_hours": 72
     },
     "retention": {
       "description": "Analytics and gamification - improves user engagement and retention",
-      "tasks": [73, 74, 75, 76],
+      "tasks": [
+        73,
+        74,
+        75,
+        76
+      ],
       "status": "not_started",
       "total_estimated_hours": 40
     },
     "optimization": {
       "description": "Performance improvements and monitoring",
-      "tasks": [77],
+      "tasks": [
+        77
+      ],
       "status": "not_started",
       "total_estimated_hours": 20
     },
     "enhancement": {
       "description": "Advanced features and customization options",
-      "tasks": [78],
+      "tasks": [
+        78
+      ],
       "status": "not_started",
       "total_estimated_hours": 16
     }
   },
   "critical_path": {
     "description": "Minimum tasks for functional MVP - teachers can create assignments AND see/interact with results",
-    "tasks": [51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65],
+    "tasks": [
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65
+    ],
     "total_estimated_hours": 242,
     "priority_explanation": "These 15 tasks transform the product from 'can create assignments' to 'can create assignments and see valuable AI feedback'. This is the complete user value loop."
   },
