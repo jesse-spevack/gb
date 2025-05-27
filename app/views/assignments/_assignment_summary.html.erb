@@ -1,0 +1,51 @@
+<div id="assignment_summary_content" class="bg-white rounded-lg shadow-md p-6">
+  <% if summary.nil? %>
+    <!-- Pending State -->
+    <% if assignment.student_works.where.not(qualitative_feedback: nil).count == assignment.student_works.count && assignment.student_works.any? %>
+      <!-- In Progress State -->
+      <div class="text-center py-12">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+          <svg class="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-600 font-medium">Generating assignment summary...</p>
+        <p class="text-sm text-gray-500 mt-2">This typically takes 30-45 seconds</p>
+      </div>
+    <% else %>
+      <!-- Waiting for student works -->
+      <div class="text-center py-12">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-gray-100 rounded-full mb-4">
+          <svg class="h-8 w-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <p class="text-gray-600 font-medium">Waiting for student work feedback</p>
+        <p class="text-sm text-gray-500 mt-2">Summary will be generated after all student works are processed</p>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- Completed State -->
+    <div>
+      <div class="mb-4 flex items-center justify-between">
+        <h3 class="text-lg font-semibold text-gray-900">Assignment Summary</h3>
+        <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Complete</span>
+      </div>
+      
+      <div class="bg-gray-50 rounded-lg p-4 mb-6">
+        <div class="text-sm text-gray-700 space-y-2">
+          <p class="font-medium">Analyzed <%= summary.student_work_count %> student submissions</p>
+          <p><%= summary.qualitative_insights %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<!-- Tab indicator update target -->
+<span id="summary_tab_indicator" class="ml-1">
+  <% if summary.present? %>
+    <span class="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+  <% end %>
+</span>

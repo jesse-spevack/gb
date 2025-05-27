@@ -1,0 +1,50 @@
+<div id="student_work_<%= work.id %>" 
+     class="border border-gray-200 rounded-lg p-4 hover:bg-gray-50 transition-colors">
+  
+  <div class="flex items-center justify-between">
+    <div class="flex items-center flex-1">
+      <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+        <span class="text-sm font-semibold text-blue-600"><%= index + 1 %></span>
+      </div>
+      
+      <div class="flex-1">
+        <h4 class="student-work-title text-sm font-medium text-gray-900">
+          <%= work.selected_document.title %>
+        </h4>
+        <div class="flex items-center mt-1">
+          <% if work.qualitative_feedback.present? %>
+            <svg class="w-4 h-4 text-green-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span class="text-xs text-green-600">Feedback complete</span>
+          <% else %>
+            <% if work.processing_started_at.present? %>
+              <svg class="animate-spin h-4 w-4 text-blue-500 mr-1" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+              </svg>
+              <span class="text-xs text-blue-600">Processing...</span>
+            <% else %>
+              <div class="w-3 h-3 bg-gray-300 rounded-full mr-2"></div>
+              <span class="text-xs text-gray-500">Pending</span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <%= student_work_status_badge(work) %>
+      
+      <a href="<%= work.selected_document.url %>" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 hover:bg-blue-50 px-3 py-1 rounded-md transition-colors">
+        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+        </svg>
+        View
+      </a>
+    </div>
+  </div>
+</div>

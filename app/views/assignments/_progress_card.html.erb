@@ -1,0 +1,107 @@
+<div id="assignment_<%= assignment.id %>_progress" 
+     class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg"
+     data-turbo-permanent>
+  
+  <div class="flex items-center justify-between mb-6">
+    <h3 class="text-lg font-semibold text-gray-900">Processing Progress</h3>
+    <div class="text-3xl font-bold text-blue-600">
+      <%= progress_metrics[:overall_percentage] %>%
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <div class="flex justify-between text-sm text-gray-600 mb-2">
+      <span><%= progress_metrics[:completed_llm_calls] %> of <%= progress_metrics[:total_llm_calls] %> steps complete</span>
+      <span class="text-xs">
+        <% if progress_metrics[:overall_percentage] < 100 %>
+          Est. <%= pluralize(((progress_metrics[:total_llm_calls] - progress_metrics[:completed_llm_calls]) * 30), 'second') %> remaining
+        <% end %>
+      </span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-3">
+      <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
+           style="width: <%= progress_metrics[:overall_percentage] %>%"></div>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-4 mt-6">
+    <!-- Rubric Phase -->
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:rubric][:status] %>">
+      <div class="mb-2">
+        <% if progress_metrics[:phases][:rubric][:complete] %>
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:rubric][:status] == :in_progress %>
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="animate-spin h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </div>
+        <% else %>
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+            <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+          </div>
+        <% end %>
+      </div>
+      <p class="text-xs font-medium text-gray-700">Rubric</p>
+      <p class="text-xs text-gray-500 capitalize"><%= progress_metrics[:phases][:rubric][:status] %></p>
+    </div>
+
+    <!-- Student Works Phase -->
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:student_works][:status] %>">
+      <div class="mb-2">
+        <% if progress_metrics[:phases][:student_works][:status] == :completed %>
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:student_works][:status] == :in_progress %>
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto relative">
+            <span class="text-sm font-semibold text-blue-600">
+              <%= progress_metrics[:phases][:student_works][:completed] %>/<%= progress_metrics[:phases][:student_works][:total] %>
+            </span>
+          </div>
+        <% else %>
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+            <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+          </div>
+        <% end %>
+      </div>
+      <p class="text-xs font-medium text-gray-700">Student Work</p>
+      <p class="text-xs text-gray-500">
+        <%= progress_metrics[:phases][:student_works][:completed] %> of <%= progress_metrics[:phases][:student_works][:total] %>
+      </p>
+    </div>
+
+    <!-- Summary Phase -->
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:summary][:status] %>">
+      <div class="mb-2">
+        <% if progress_metrics[:phases][:summary][:complete] %>
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:summary][:status] == :in_progress %>
+          <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="animate-spin h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+          </div>
+        <% else %>
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto">
+            <div class="w-3 h-3 bg-gray-400 rounded-full"></div>
+          </div>
+        <% end %>
+      </div>
+      <p class="text-xs font-medium text-gray-700">Summary</p>
+      <p class="text-xs text-gray-500 capitalize"><%= progress_metrics[:phases][:summary][:status] %></p>
+    </div>
+  </div>
+</div>
