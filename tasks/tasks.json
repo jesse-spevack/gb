@@ -693,7 +693,7 @@
       "id": 53,
       "title": "Implement Pipeline Support Services",
       "description": "Create BroadcastService for real-time UI updates and RecordMetricsService for performance tracking. BroadcastService publishes processing events (rubric_started, rubric_completed, etc.) via ActionCable for live status updates to teachers. RecordMetricsService captures detailed metrics for each processing step including timing, token usage, and costs. Both services integrate seamlessly with the pipeline architecture and include error handling and fallback mechanisms.",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         51,
         52

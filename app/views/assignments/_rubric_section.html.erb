@@ -1,0 +1,41 @@
+<div id="rubric_content" class="bg-white rounded-lg shadow-md p-6">
+  <% if rubric.nil? %>
+    <!-- Pending State -->
+    <div class="text-center py-12">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+        <svg class="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+      </div>
+      <p class="text-gray-600 font-medium">Generating rubric...</p>
+      <p class="text-sm text-gray-500 mt-2">This typically takes 30-45 seconds</p>
+    </div>
+  <% else %>
+    <!-- Completed State -->
+    <div class="space-y-6">
+      <% rubric.criteria.order(position: :asc).each do |criterion| %>
+        <div class="criterion border-b border-gray-200 pb-6 last:border-0">
+          <h4 class="text-lg font-semibold text-gray-900 mb-2"><%= criterion.title %></h4>
+          <p class="text-gray-600 mb-4"><%= criterion.description %></p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3">
+            <% criterion.levels.order(position: :asc).each do |level| %>
+              <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200">
+                <h5 class="font-medium text-gray-800 mb-1"><%= level.title %></h5>
+                <p class="text-sm text-gray-600"><%= level.description %></p>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<!-- Tab indicator update target -->
+<span id="rubric_tab_indicator" class="ml-1">
+  <% if rubric.present? %>
+    <span class="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
+  <% end %>
+</span>

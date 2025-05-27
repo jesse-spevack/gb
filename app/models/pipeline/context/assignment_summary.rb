@@ -2,6 +2,6 @@
 
 module Pipeline::Context
   class AssignmentSummary < Base
-    attr_accessor :assignment
+    attr_accessor :assignment, :student_feedbacks, :saved_summary
   end
 end

@@ -5,6 +5,7 @@ module Pipeline::Context
     attr_accessor :assignment,
                   :rubric,
                   :selected_document,
-                  :student_work
+                  :student_work,
+                  :saved_feedback
   end
 end
