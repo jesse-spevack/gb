@@ -14,7 +14,21 @@
       <span><%= progress_metrics[:completed_llm_calls] %> of <%= progress_metrics[:total_llm_calls] %> steps complete</span>
       <span class="text-xs">
         <% if progress_metrics[:overall_percentage] < 100 %>
-          Est. <%= pluralize(((progress_metrics[:total_llm_calls] - progress_metrics[:completed_llm_calls]) * 30), 'second') %> remaining
+          <% 
+            estimator = TimeEstimator.new
+            remaining_context = {
+              total_operations: progress_metrics[:total_llm_calls],
+              completed_operations: progress_metrics[:completed_llm_calls],
+              current_phase: progress_metrics[:phases].find { |_, v| v[:status] == :in_progress }&.first || :pending,
+              criteria_count: assignment.rubric&.criteria&.count || 4,
+              average_page_count: 2,
+              student_count: assignment.student_works.count
+            }
+            estimate = estimator.estimate_remaining_time(remaining_context)
+          %>
+          <% if estimate %>
+            Est. <%= estimate[:display] %> remaining
+          <% end %>
         <% end %>
       </span>
     </div>

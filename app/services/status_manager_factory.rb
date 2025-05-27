@@ -85,12 +85,21 @@ class StatusManagerFactory
     end
 
     def self.estimate_completion_time(status)
-      # TODO: Replace with actual time estimation when ProcessingTimeEstimator is implemented
       case status
-      when :queued then 5.minutes.from_now
-      when :processing then 3.minutes.from_now
-      when :completed, :failed then Time.current
-      else 2.minutes.from_now
+      when :queued
+        # Use TimeEstimator for more accurate estimates
+        estimator = TimeEstimator.new
+        estimate = estimator.estimate(:rubric_generation, { criteria_count: 4 })
+        estimate[:seconds].seconds.from_now
+      when :processing
+        # Assume halfway through
+        estimator = TimeEstimator.new
+        estimate = estimator.estimate(:rubric_generation, { criteria_count: 4 })
+        (estimate[:seconds] / 2).seconds.from_now
+      when :completed, :failed
+        Time.current
+      else
+        30.seconds.from_now
       end
     end
   end
