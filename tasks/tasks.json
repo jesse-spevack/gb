@@ -693,7 +693,7 @@
       "id": 53,
       "title": "Implement Pipeline Support Services",
       "description": "Create BroadcastService for real-time UI updates and RecordMetricsService for performance tracking. BroadcastService publishes processing events (rubric_started, rubric_completed, etc.) via ActionCable for live status updates to teachers. RecordMetricsService captures detailed metrics for each processing step including timing, token usage, and costs. Both services integrate seamlessly with the pipeline architecture and include error handling and fallback mechanisms.",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         51,
         52
@@ -721,7 +721,7 @@
       "id": 55,
       "title": "Implement LLM Generator Classes",
       "description": "Create specialized generator classes for different processing types that integrate with the existing LLM client architecture. Implement LLM::Rubric::Generator, LLM::StudentWork::Generator, and LLM::AssignmentSummary::Generator. Each uses LLM::ClientFactory for provider selection, includes retry logic via LLM::RetryHandler, and integrates with LLM::CostTracker for automatic cost tracking. Generators handle provider-specific request formatting, response handling, and token usage monitoring with provider-agnostic request handling.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         54,
         38
@@ -735,7 +735,7 @@
       "id": 56,
       "title": "Implement LLM Response Parser Classes",
       "description": "Create parser classes to transform raw LLM responses into structured application data. Implement LLM::Rubric::ResponseParser to extract criteria and levels, LLM::StudentWork::ResponseParser for feedback items and criterion assessments, and LLM::AssignmentSummary::ResponseParser for class insights. Each parser handles robust JSON parsing with error recovery, data validation and sanitization, handling of malformed or unexpected responses, and consistent data structure output across all parsers.",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         55
       ],
