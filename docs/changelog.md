@@ -1,6 +1,40 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-05-27]
+- Implemented LLM Generator Classes following TDD approach for GradeBot's pipeline architecture
+- Created `LLM::Rubric::Generator` for rubric generation using GoogleClient
+  - Integrates with `LLM::ClientFactory.for_rubric_generation` for provider selection
+  - Implements JSON retry logic with one retry attempt on parse errors
+  - Tracks costs via `LLM::CostTracker` with automatic cost calculation
+  - Records timing metrics using `context.record_timing(:llm_request)`
+  - Created comprehensive test suite with 7 tests covering all functionality
+- Created `LLM::StudentWork::Generator` for student feedback using AnthropicClient
+  - Integrates with `LLM::ClientFactory.for_student_work_feedback` for provider selection
+  - Follows same retry and cost tracking patterns as rubric generator
+  - Tracks against student work as polymorphic trackable
+  - Created comprehensive test suite with 8 tests including error handling
+- Created `LLM::AssignmentSummary::Generator` for assignment summaries using AnthropicClient
+  - Integrates with `LLM::ClientFactory.for_assignment_summary_feedback` for provider selection
+  - Generates class-wide insights from aggregated student feedback
+  - Tracks against assignment as polymorphic trackable
+  - Created comprehensive test suite with 8 tests covering all scenarios
+- Added `generate_assignment_summary` request type to `LLMUsageRecord` enum
+  - Enables separate tracking and analysis of assignment summary costs
+  - Updated from using generic `grade_student_work` type for summaries
+- Created comprehensive integration tests verifying pipeline integration
+  - Tests cost tracking across different providers (Google and Anthropic)
+  - Verifies context preservation through pipeline steps
+  - Tests JSON retry logic in pipeline context
+  - Ensures metrics collection and LLM usage recording
+- All generators follow consistent patterns:
+  - Stateless operation with `.call(context:)` interface
+  - Automatic cost tracking and metrics collection
+  - JSON validation with retry logic
+  - Integration with Pipeline::Context system
+- Fixed rubocop style violations (trailing whitespace)
+- All 30 tests passing across unit and integration test suites
+
 ## [2025-05-26]
 - Implemented `Pipeline::ProcessingResult` class in `app/services/pipeline/processing_result.rb`
   - Created immutable result object with success/failure status, data payload, errors, and metrics

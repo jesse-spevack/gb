@@ -1,0 +1,77 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Rule: Generating a Task List from a PRD
+
+## Goal
+
+To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list should guide a developer through implementation.
+
+## Output
+
+- **Format:** Markdown (`.md`)
+- **Location:** `/tasks/`
+- **Filename:** `tasks-YYYY-MM-DD-[feature-name].md` (e.g., `tasks-2025-05-27-prd-user-profile-editing.md`)
+
+## Process
+
+1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
+2.  **Analyze PRD:** The AI reads and analyzes the functional requirements, user stories, and other sections of the specified PRD.
+3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate the main, high-level tasks required to implement the feature. Use your judgement on how many high-level tasks to use. It's likely to be about 5. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD. Ready to generate the sub-tasks? Respond with 'Go' to proceed."
+4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
+    - If the user provides feedback or asks questions, address the feedback or questions and pause again and ask for confirmation. Repeat this until the user is aligned and peaceful with the task list.
+5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks necessary to complete the parent task. Ensure sub-tasks logically follow from the parent task and cover the implementation details implied by the PRD.
+    - A sub-task should be small enough for a junior developer to implement in an hour or less.
+6.  **Identify Relevant Files:** Based on the tasks and PRD, identify potential files that will need to be created or modified. List these under the `Relevant Files` section, including corresponding test files if applicable.
+7.  **Consider Dependencies:** Organize the tasks in order of dependency. For example, if task 2 depends on task 1, task 1 should come before task 2. If two tasks can be done in parallel, they should be assigned to different workstreams that can be implemented in parallel.
+8.  **Generate Final Output:** Combine the parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
+9.  **Save Task List:** Save the generated document in the `/tasks/` directory with the filename `tasks-YYYY-MM-DD-[prd-file-name].md`, where `[prd-file-name]` matches the base name of the input PRD file (e.g., if the input was `2025-05-27-prd-user-profile-editing.md`, the output is `tasks-2025-05-27-prd-user-profile-editing.md`).
+
+## Output Format
+
+The generated task list _must_ follow this structure:
+
+```markdown
+## Relevant Files
+
+- `path/to/potential/file1.rb` - Brief description of why this file is relevant (e.g., Contains the main component for this feature).
+- `path/to/file1.test.rb` - Unit tests for `file1.rb`.
+- `path/to/another/file.rb` - Brief description (e.g., API route handler for data submission).
+- `path/to/another/file.test.rb` - Unit tests for `another/file.rb`.
+
+### Notes
+
+- Unit tests should typically be placed alongside the code files they are testing (e.g., `my_class.rb` and `my_class_test.rb` in the `test` directory).
+- Use `bin/rails test [optional/path/to/test/file]` to run tests. Running without a path executes all tests.
+
+## Tasks
+
+| Task ID | Subtask ID | Workstream | Status | Task Title | Task Description | Details |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1.0 | 1.1 | ws1 | 🟡 pending | Task Title 1.1 | Task Description 1.1 | [Details 1.1](#task-1.1) |
+| 1.0 | 1.2 | ws1 | 🟡 pending | Task Title 1.2 | Task Description 1.2 | [Details 1.2](#task-1.2) |
+| 2.0 | 2.1 | ws1 | 🟡 pending | Task Title 2.1 | Task Description 2.1 | [Details 2.1](#task-2.1) |
+
+
+## Implementation plan
+
+### Task 1.1
+Add all details and context necessary for the task to be implemented.
+
+### Task 1.2
+Add all details and context necessary for the task to be implemented.
+
+### Task 2.1
+Add all details and context necessary for the task to be implemented.
+
+```
+
+## Interaction Model
+
+The process explicitly requires a pause after generating parent tasks to get user confirmation ("Go") before proceeding to generate the detailed sub-tasks. This ensures the high-level plan aligns with user expectations before diving into details.
+
+## Target Audience
+
+Assume the primary reader of the task list is a **junior developer** who will implement the feature.

@@ -43,7 +43,7 @@ class LLMUsageRecord < ApplicationRecord
   validates :micro_usd, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   enum :llm_provider, { google: 0, anthropic: 1 }
-  enum :request_type, { generate_rubric: 0, grade_student_work: 1 }
+  enum :request_type, { generate_rubric: 0, grade_student_work: 1, generate_assignment_summary: 2 }
 
   def dollars
     micro_usd.to_f / 1_000_000
