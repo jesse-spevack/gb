@@ -1,5 +1,45 @@
 # Decision Log
 
+## 2025-05-27
+
+### LLM Response Parser Implementation and Duplication Analysis
+
+- **Context:**
+  - Implemented three LLM response parsers (Rubric, StudentWork, AssignmentSummary)
+  - Each parser transforms JSON responses from LLM generators into structured data
+  - All parsers follow the same pattern: parse JSON, validate structure, build response objects
+
+- **Duplication Analysis Results:**
+  - Found ~150-200 lines of duplicated code (26-35% of total parser code)
+  - 5 completely identical methods across all parsers
+  - 3 nearly identical methods with minor variations
+  - Shared validation patterns, especially for feedback items
+
+- **Refactoring Options Considered:**
+  1. **Base Class Extraction** - Would eliminate most duplication
+  2. **Shared Modules** - Target specific shared functionality
+  3. **Hybrid Approach** - Base class + targeted modules (recommended if refactoring)
+
+- **Decision:**
+  - Keep current implementation without refactoring
+  - Rationale:
+    - All parsers work correctly with comprehensive test coverage
+    - Code is explicit and easy to understand
+    - Duplication follows consistent patterns
+    - Team can easily modify individual parsers without affecting others
+    - Refactoring would add abstraction without immediate benefit
+
+- **Trade-offs Accepted:**
+  - Accepting code duplication in favor of explicitness
+  - Each parser is self-contained and independently testable
+  - Future changes to one parser won't accidentally affect others
+  - New developers can understand each parser without learning inheritance hierarchy
+
+- **Future Considerations:**
+  - Revisit if adding more parser types (current: 3)
+  - Reconsider if parser logic becomes more complex
+  - Monitor for bugs that need fixing in multiple places
+
 ## 2025-05-25
 
 ### Processing Pipeline Architecture Redesign

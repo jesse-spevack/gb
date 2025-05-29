@@ -12,7 +12,10 @@ Guidelines for managing task lists in markdown files to track progress on comple
 - **Completion protocol:**  
   1. When you finish a **sub‑task**, immediately mark it as completed by changing the status from 🟡 pending to 🟢 completed.
   2. If **all** subtasks underneath a parent task are now 🟢 completed, also mark the **parent task** as completed by changing the status from 🟡 pending to 🟢 completed. 
-- Stop after each sub‑task, summarize your work, and wait for the user’s go‑ahead.
+- Stop after each sub‑task, summarize your work, and wait for the user’s go‑ahead. Your summary should include:
+  1. A list of files created or modified
+  2. A description of the changes made to each file
+  3. Any implementation decisions made for each file
 
 ## Task List Maintenance
 
