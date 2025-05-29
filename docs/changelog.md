@@ -2,6 +2,41 @@
 All notable changes to this project will be documented in this file.
 
 ## [2025-05-27]
+### LLM Response Parser Implementation
+- Implemented three LLM response parsers to transform JSON responses from generators into structured data:
+  - `LLM::Rubric::ResponseParser` - Parses rubric generation responses with criteria and levels validation
+  - `LLM::StudentWork::ResponseParser` - Parses student feedback with comprehensive validation for feedback items, criterion levels, and checks
+  - `LLM::AssignmentSummary::ResponseParser` - Parses assignment summaries with minimum feedback requirements and balance validation
+- All parsers follow consistent patterns:
+  - `.call(context:)` interface for pipeline integration
+  - JSON parsing with symbolized keys
+  - Comprehensive field validation with descriptive error messages
+  - OpenStruct objects for dot notation access
+  - String sanitization (whitespace trimming)
+  - Enhanced error handling with structured logging
+- Added comprehensive test coverage:
+  - 21 tests for Rubric parser
+  - 30 tests for StudentWork parser
+  - 23 tests for AssignmentSummary parser
+  - 6 new integration tests verifying pipeline context preservation
+- Enhanced error handling features:
+  - Structured JSON error logging with line/column extraction
+  - Validation type categorization for better debugging
+  - Context-aware error messages with entity IDs
+  - Original response logging for troubleshooting
+- All parsers already integrated into their respective pipelines:
+  - RubricPipeline includes LLM::Rubric::ResponseParser
+  - StudentWorkFeedbackPipeline includes LLM::StudentWork::ResponseParser
+  - AssignmentSummaryPipeline includes LLM::AssignmentSummary::ResponseParser
+- Completed code duplication analysis:
+  - Found ~150-200 lines of duplicated code (26-35%)
+  - Documented refactoring options in `docs/parser_duplication_analysis.md`
+  - Decision: Keep current implementation for explicitness and simplicity
+  - Trade-off documented in `docs/decision_log.md`
+- All 481 tests passing with complete pipeline integration
+
+### LLM Generator Classes (continued from earlier)
+## [2025-05-27]
 - Implemented LLM Generator Classes following TDD approach for GradeBot's pipeline architecture
 - Created `LLM::Rubric::Generator` for rubric generation using GoogleClient
   - Integrates with `LLM::ClientFactory.for_rubric_generation` for provider selection

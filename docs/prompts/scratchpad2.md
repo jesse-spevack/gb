@@ -57,7 +57,44 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
  
 ---
 
-Request:
+Generate a PRD for the following prompt:
+
+The levels model needs to be refactored. The level position field is unclear. The position implies how the levels are ordered, but not a point value from which to calculate an average level across an entire set of student works for an assignment. We may want to keep the position field, but add a point value field. Or we may want to rename the position field to be a points field, and use that to calculate an average level across an entire set of student works for an assignment. If we retain the position field, we can eventually give users the ability to decide how to order their levels - some educators like "excellent" as the left most column in a rubric, others prefer it as the right most column. But we also don't have users yet, so we might just not need it.
+
+⏺ Clarifying Questions for Levels Model Refactoring
+
+  1. Problem/Goal: What specific problem are you experiencing with the current position field? Is the main issue that you can't calculate meaningful averages for student performance, or are there other pain points?
+  - The main issue is that we can't calculate meaningful averages for student performance.
+  2. Current Usage: How is the position field currently being used in the system? Is it just for ordering levels in the UI, or does it serve other purposes?
+  - It is intended for ordering levels in the UI. But now that we are thinking about the assignment summary, the need to have some sort of quantifiable value for each level is becoming more apparent.
+  3. Point System:
+    - What scale would you prefer for the point values? (e.g., 0-4, 0-100, 1-5)
+      - 0-4
+    - Should point values be customizable by users in the future, or standardized?
+      - Standardized
+    - How would these points be used to calculate averages? Simple mean, weighted average, or something else?
+      - Simple mean per criterion per assignment. So if there are 10 student works for an assignment, and 3 criteria, we would calculate the average level for each criterion across all student works. No need to take the mean of those 3 averages.
+  4. User Stories: Could you provide specific scenarios? For example:
+    - As a teacher, I want to see the average performance level for my class on Assignment X by criterion
+  5. Data Migration: Are there existing levels in the database that would need to be migrated? If so, how many records are we talking about?
+    - No, this is a greenfield project.
+  6. UI Impact: Where in the application are levels currently displayed? Will this refactoring affect:
+    - Rubric creation/editing interfaces?
+      - /views/assignments/show.html.erb has a link to view the rubric, but will also have a summary of the rubric criteria.
+    - Student grading interfaces?
+      - When we create the student work show page, we will need to display the rubric criteria and levels.
+    - Reporting/analytics views?
+      - Not relevant
+  7. Backward Compatibility: Do we need to maintain any backward compatibility, or can we make breaking changes since there are no users yet?
+    - No, this is a greenfield project.
+  8. Edge Cases:
+    - What happens if a teacher doesn't assign point values?
+      - We will not ask the teacher to assign point values, we should always just assign 0 to 4 to the levels.
+    - Should there be validation rules (e.g., point values must be unique, must increase/decrease in a certain order)?
+      - Yes, the point values should be unique per criterion and be 0 to 4. No two levels in the same criterion should have the same point value.
+  9. Timeline: Is there a specific deadline or priority for this refactoring?
+  10. Future Considerations: You mentioned eventually allowing users to customize level ordering. Are there other future features we should keep in mind while designing this solution?
+    - Nothing comes to mind.
 
 ---
 
@@ -138,15 +175,8 @@ Assume the primary reader of the task list is a **junior developer** who will im
 
 Request:
 
-Please generate tasks for the PRD at /docs/prds/2025-05-27-llm-response-parser-classes.md
+Please generate tasks for the PRD at /docs/prds/2025-05-28-levels-model-refactoring.md
 
-
----
-
----
-description: 
-globs: 
-alwaysApply: false
 ---
 # Task List Management
 
@@ -157,7 +187,10 @@ Guidelines for managing task lists in markdown files to track progress on comple
 - **Completion protocol:**  
   1. When you finish a **sub‑task**, immediately mark it as completed by changing the status from 🟡 pending to 🟢 completed.
   2. If **all** subtasks underneath a parent task are now 🟢 completed, also mark the **parent task** as completed by changing the status from 🟡 pending to 🟢 completed. 
-- Stop after each sub‑task, summarize your work, and wait for the user’s go‑ahead.
+- Stop after each sub‑task, summarize your work, and wait for the user’s go‑ahead. Your summary should include:
+  1. A list of files created or modified
+  2. A description of the changes made to each file
+  3. Any implementation decisions made for each file
 
 ## Task List Maintenance
 
@@ -184,4 +217,4 @@ When working with task lists, the AI must:
 
 ---
 Request:
-Please implement the task list at /tasks/tasks-2025-05-27-llm-response-parser-classes.md
+Please implement the task list at /tasks/tasks-2025-05-28-levels-model-refactoring.md
