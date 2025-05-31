@@ -17,35 +17,35 @@ module Assignments
         grade_level: "9",
         feedback_tone: "encouraging"
       )
-      
+
       statistics = Statistics.new(assignment_without_rubric)
       assert_equal({}, statistics.criterion_performance)
     end
 
     test "criterion_performance returns stats for all criteria" do
       rubric = Rubric.create!(assignment: @assignment)
-      
+
       criterion1 = Criterion.create!(
         rubric: rubric,
         title: "Criterion 1",
         description: "Description 1",
         position: 1
       )
-      
+
       criterion2 = Criterion.create!(
         rubric: rubric,
         title: "Criterion 2",
         description: "Description 2",
         position: 2
       )
-      
+
       result = @statistics.criterion_performance
-      
+
       assert_kind_of Hash, result
       assert_equal 2, result.keys.count
       assert_includes result.keys, criterion1
       assert_includes result.keys, criterion2
-      
+
       # Each value should be a stats hash
       result.values.each do |stats|
         assert_kind_of Hash, stats
@@ -63,7 +63,7 @@ module Assignments
         grade_level: "9",
         feedback_tone: "encouraging"
       )
-      
+
       rubric = Rubric.create!(assignment: assignment)
       criterion = Criterion.create!(
         rubric: rubric,
@@ -71,7 +71,7 @@ module Assignments
         description: "Test",
         position: 1
       )
-      
+
       # Create levels with different points
       level_high = Level.create!(
         criterion: criterion,
@@ -80,7 +80,7 @@ module Assignments
         position: 1,
         points: 4
       )
-      
+
       level_low = Level.create!(
         criterion: criterion,
         title: "Low",
@@ -88,7 +88,7 @@ module Assignments
         position: 2,
         points: 2
       )
-      
+
       # Create student works
       doc1 = SelectedDocument.create!(
         assignment: assignment,
@@ -96,24 +96,24 @@ module Assignments
         title: "Doc 1",
         url: "https://docs.google.com/doc1"
       )
-      
+
       doc2 = SelectedDocument.create!(
         assignment: assignment,
         google_doc_id: "doc2",
         title: "Doc 2",
         url: "https://docs.google.com/doc2"
       )
-      
+
       work1 = StudentWork.create!(
         assignment: assignment,
         selected_document: doc1
       )
-      
+
       work2 = StudentWork.create!(
         assignment: assignment,
         selected_document: doc2
       )
-      
+
       # Create evaluations
       StudentCriterionLevel.create!(
         student_work: work1,
@@ -121,17 +121,17 @@ module Assignments
         level: level_high,
         explanation: "Good"
       )
-      
+
       StudentCriterionLevel.create!(
         student_work: work2,
         criterion: criterion,
         level: level_low,
         explanation: "Needs work"
       )
-      
+
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
-      
+
       assert_equal 3.0, result[criterion][:average] # (4 + 2) / 2
       assert_equal 2, result[criterion][:evaluated_count]
       assert_equal 2, result[criterion][:total_count]
@@ -145,7 +145,7 @@ module Assignments
         grade_level: "9",
         feedback_tone: "encouraging"
       )
-      
+
       rubric = Rubric.create!(assignment: assignment)
       criterion = Criterion.create!(
         rubric: rubric,
@@ -153,7 +153,7 @@ module Assignments
         description: "Test",
         position: 1
       )
-      
+
       # Create a student work but no evaluations
       doc = SelectedDocument.create!(
         assignment: assignment,
@@ -161,15 +161,15 @@ module Assignments
         title: "Doc 1",
         url: "https://docs.google.com/doc1"
       )
-      
+
       StudentWork.create!(
         assignment: assignment,
         selected_document: doc
       )
-      
+
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
-      
+
       assert_nil result[criterion][:average]
       assert_equal 0, result[criterion][:evaluated_count]
       assert_equal 1, result[criterion][:total_count]
@@ -183,7 +183,7 @@ module Assignments
         grade_level: "9",
         feedback_tone: "encouraging"
       )
-      
+
       rubric = Rubric.create!(assignment: assignment)
       criterion = Criterion.create!(
         rubric: rubric,
@@ -191,7 +191,7 @@ module Assignments
         description: "Test",
         position: 1
       )
-      
+
       level = Level.create!(
         criterion: criterion,
         title: "Good",
@@ -199,7 +199,7 @@ module Assignments
         position: 1,
         points: 3
       )
-      
+
       # Create two student works
       doc1 = SelectedDocument.create!(
         assignment: assignment,
@@ -207,24 +207,24 @@ module Assignments
         title: "Doc 1",
         url: "https://docs.google.com/doc1"
       )
-      
+
       doc2 = SelectedDocument.create!(
         assignment: assignment,
         google_doc_id: "doc2",
         title: "Doc 2",
         url: "https://docs.google.com/doc2"
       )
-      
+
       work1 = StudentWork.create!(
         assignment: assignment,
         selected_document: doc1
       )
-      
+
       work2 = StudentWork.create!(
         assignment: assignment,
         selected_document: doc2
       )
-      
+
       # Only evaluate one
       StudentCriterionLevel.create!(
         student_work: work1,
@@ -232,10 +232,10 @@ module Assignments
         level: level,
         explanation: "Good"
       )
-      
+
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
-      
+
       assert_equal 3.0, result[criterion][:average]
       assert_equal 1, result[criterion][:evaluated_count]
       assert_equal 2, result[criterion][:total_count]

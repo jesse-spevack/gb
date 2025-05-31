@@ -15,12 +15,12 @@ module Pipeline
 
       def self.create_rubric_with_criteria_and_levels(context)
         rubric = nil
-        
+
         ActiveRecord::Base.transaction do
           rubric = create_rubric(context)
           create_criteria_with_levels(rubric, context.parsed_response)
         end
-        
+
         rubric
       rescue => e
         Rails.logger.error("Failed to create rubric: #{e.message}")
@@ -50,7 +50,7 @@ module Pipeline
       def self.create_levels_for_criterion(criterion, levels_data)
         levels_data.each do |level_data|
           points = calculate_points_from_position(level_data.position)
-          
+
           Level.create!(
             criterion: criterion,
             title: level_data.name,

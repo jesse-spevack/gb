@@ -163,18 +163,18 @@ class AssignmentsControllerTest < ActiveSupport::TestCase
     mock_rubric = mock()
     mock_statistics = mock()
     mock_statistics.expects(:criterion_performance).returns({ criterion1: { average: 3.5, evaluated_count: 2, total_count: 3 } })
-    
+
     @controller.instance_variable_set(:@assignment, mock_assignment)
     @controller.instance_variable_set(:@rubric, mock_rubric)
-    
+
     # Mock the Statistics service
     Assignments::Statistics.expects(:new).with(mock_assignment).returns(mock_statistics)
-    
+
     # Simulate the logic from the show action
     if @controller.instance_variable_get(:@rubric).present?
       @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.new(mock_assignment).criterion_performance)
     end
-    
+
     criterion_averages = @controller.instance_variable_get(:@criterion_averages)
     assert_not_nil criterion_averages
     assert_kind_of Hash, criterion_averages
@@ -185,15 +185,15 @@ class AssignmentsControllerTest < ActiveSupport::TestCase
   test "criterion averages are not loaded when rubric does not exist" do
     # Create a mock assignment without a rubric
     mock_assignment = mock()
-    
+
     @controller.instance_variable_set(:@assignment, mock_assignment)
     @controller.instance_variable_set(:@rubric, nil)
-    
+
     # Simulate the logic from the show action
     if @controller.instance_variable_get(:@rubric).present?
       @controller.instance_variable_set(:@criterion_averages, mock_assignment.criterion_averages)
     end
-    
+
     criterion_averages = @controller.instance_variable_get(:@criterion_averages)
     assert_nil criterion_averages
   end
