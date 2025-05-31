@@ -24,7 +24,7 @@ module Assignments
         grade_level: "9",
         feedback_tone: "encouraging"
       )
-      
+
       # Create rubric but no student works
       Rubric.create!(assignment: assignment)
 
@@ -33,7 +33,7 @@ module Assignments
 
     test "returns false when any student work is incomplete" do
       assignment = assignments(:english_essay)
-      
+
       # Create two student works, one with feedback and one without
       doc1 = SelectedDocument.create!(
         assignment: assignment,
@@ -41,20 +41,20 @@ module Assignments
         title: "Doc 1",
         url: "https://docs.google.com/doc1"
       )
-      
+
       doc2 = SelectedDocument.create!(
         assignment: assignment,
         google_doc_id: "doc2",
         title: "Doc 2",
         url: "https://docs.google.com/doc2"
       )
-      
+
       StudentWork.create!(
         assignment: assignment,
         selected_document: doc1,
         qualitative_feedback: "Good work"
       )
-      
+
       StudentWork.create!(
         assignment: assignment,
         selected_document: doc2,
@@ -66,7 +66,7 @@ module Assignments
 
     test "returns true when all student works are complete" do
       assignment = assignments(:english_essay)
-      
+
       # Create student works with feedback
       doc1 = SelectedDocument.create!(
         assignment: assignment,
@@ -74,20 +74,20 @@ module Assignments
         title: "Doc 1",
         url: "https://docs.google.com/doc1"
       )
-      
+
       doc2 = SelectedDocument.create!(
         assignment: assignment,
         google_doc_id: "doc2",
         title: "Doc 2",
         url: "https://docs.google.com/doc2"
       )
-      
+
       StudentWork.create!(
         assignment: assignment,
         selected_document: doc1,
         qualitative_feedback: "Good work"
       )
-      
+
       StudentWork.create!(
         assignment: assignment,
         selected_document: doc2,

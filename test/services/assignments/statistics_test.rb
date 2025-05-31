@@ -49,16 +49,16 @@ module Assignments
       result = @statistics.criterion_performance
 
       assert_instance_of Statistics::StatsCollection, result
-      
+
       # Check we can get stats for each criterion
       stats1 = result.for(criterion1)
       stats2 = result.for(criterion2)
-      
+
       assert_not_nil stats1
       assert_not_nil stats2
-      
+
       # Each stats should be a CriterionStats struct
-      [stats1, stats2].each do |stats|
+      [ stats1, stats2 ].each do |stats|
         assert_instance_of Statistics::CriterionStats, stats
         assert_respond_to stats, :average
         assert_respond_to stats, :evaluated_count
