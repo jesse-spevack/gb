@@ -25,7 +25,7 @@
         <button type="button" class="-m-1.5 flex items-center p-1.5" data-action="click->dropdown#toggle" aria-expanded="false" aria-haspopup="true">
           <span class="sr-only">Open user menu</span>
           <% if Current.user&.profile_picture_url.present? %>
-            <img class="size-8 rounded-full bg-gray-50" src="<%= Current.user.profile_picture_url %>" alt="<%= Current.user.name %>">
+            <img class="size-8 rounded-full bg-gray-50" src="<%= Current.user.profile_picture_url %>=s96-c" alt="<%= Current.user.name %>" referrerpolicy="no-referrer">
           <% else %>
             <%= render "shared/icons/user_circle", aria_hidden: true, focusable: false, class: "size-8 rounded-full bg-gray-50 flex items-center justify-center text-white font-semibold" %>
           <% end %>

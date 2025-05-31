@@ -8,7 +8,7 @@ module Authorization
       user.assign_attributes(
         email: auth["info"]["email"],
         name: auth["info"]["name"],
-        profile_picture_url: auth["info"]["image"],
+        profile_picture_url: auth["info"]["image"]&.split("=")&.first, # Remove any existing size params
       )
       user.save!
 
