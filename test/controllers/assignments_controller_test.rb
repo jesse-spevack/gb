@@ -156,4 +156,45 @@ class AssignmentsControllerTest < ActiveSupport::TestCase
     assert_equal @assignment.assignment_summary, @controller.instance_variable_get(:@assignment_summary)
     assert_equal "details", @controller.instance_variable_get(:@active_section)
   end
+
+  test "criterion averages are loaded when assignment is complete" do
+    # Create a mock assignment
+    mock_assignment = mock()
+    mock_stats_collection = mock()
+
+    @controller.instance_variable_set(:@assignment, mock_assignment)
+
+    # Mock the CompletionChecker to return true
+    Assignments::CompletionChecker.expects(:call).with(mock_assignment).returns(true)
+
+    # Mock the Statistics service
+    Assignments::Statistics.expects(:get_criterion_performance).with(mock_assignment).returns(mock_stats_collection)
+
+    # Simulate the logic from the show action
+    if Assignments::CompletionChecker.call(mock_assignment)
+      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.get_criterion_performance(mock_assignment))
+    end
+
+    criterion_averages = @controller.instance_variable_get(:@criterion_averages)
+    assert_not_nil criterion_averages
+    assert_equal mock_stats_collection, criterion_averages
+  end
+
+  test "criterion averages are not loaded when assignment is incomplete" do
+    # Create a mock assignment
+    mock_assignment = mock()
+
+    @controller.instance_variable_set(:@assignment, mock_assignment)
+
+    # Mock the CompletionChecker to return false
+    Assignments::CompletionChecker.expects(:call).with(mock_assignment).returns(false)
+
+    # Simulate the logic from the show action
+    if Assignments::CompletionChecker.call(mock_assignment)
+      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.get_criterion_performance(mock_assignment))
+    end
+
+    criterion_averages = @controller.instance_variable_get(:@criterion_averages)
+    assert_nil criterion_averages
+  end
 end

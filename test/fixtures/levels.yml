@@ -6,21 +6,25 @@ writing_exemplary:
   title: "Exemplary"
   description: "Writing is clear, coherent, and engaging. Ideas flow seamlessly with sophisticated transitions. Voice is compelling and appropriate for the audience. Word choice is precise and enhances meaning."
   position: 1
+  points: 4
 
 writing_proficient:
   criterion: writing_quality
   title: "Proficient"
   description: "Writing is generally clear and coherent. Ideas connect logically with appropriate transitions. Voice is consistent and suitable for the audience. Word choice is effective."
   position: 2
+  points: 3
 
 writing_developing:
   criterion: writing_quality
   title: "Developing"
   description: "Writing shows some clarity but may lack coherence in places. Transitions between ideas are sometimes abrupt. Voice is inconsistent. Word choice is basic or occasionally imprecise."
   position: 3
+  points: 2
 
 writing_beginning:
   criterion: writing_quality
   title: "Beginning"
   description: "Writing lacks clarity and coherence. Ideas are disconnected with few or ineffective transitions. Voice is unclear or inappropriate. Word choice is limited or repetitive."
   position: 4
+  points: 1
