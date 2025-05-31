@@ -9,7 +9,12 @@ module Assignments
       @statistics = Statistics.new(@assignment)
     end
 
-    test "criterion_performance returns empty hash when no rubric exists" do
+    test "get_criterion_performance returns stats collection" do
+      result = Statistics.get_criterion_performance(@assignment)
+      assert_instance_of Statistics::StatsCollection, result
+    end
+
+    test "criterion_performance returns empty stats collection when no rubric exists" do
       assignment_without_rubric = Assignment.create!(
         user: users(:teacher),
         title: "No Rubric",
@@ -19,7 +24,9 @@ module Assignments
       )
 
       statistics = Statistics.new(assignment_without_rubric)
-      assert_equal({}, statistics.criterion_performance)
+      result = statistics.criterion_performance
+      assert_instance_of Statistics::StatsCollection, result
+      assert result.empty?
     end
 
     test "criterion_performance returns stats for all criteria" do
@@ -41,17 +48,21 @@ module Assignments
 
       result = @statistics.criterion_performance
 
-      assert_kind_of Hash, result
-      assert_equal 2, result.keys.count
-      assert_includes result.keys, criterion1
-      assert_includes result.keys, criterion2
-
-      # Each value should be a stats hash
-      result.values.each do |stats|
-        assert_kind_of Hash, stats
-        assert stats.key?(:average)
-        assert stats.key?(:evaluated_count)
-        assert stats.key?(:total_count)
+      assert_instance_of Statistics::StatsCollection, result
+      
+      # Check we can get stats for each criterion
+      stats1 = result.for(criterion1)
+      stats2 = result.for(criterion2)
+      
+      assert_not_nil stats1
+      assert_not_nil stats2
+      
+      # Each stats should be a CriterionStats struct
+      [stats1, stats2].each do |stats|
+        assert_instance_of Statistics::CriterionStats, stats
+        assert_respond_to stats, :average
+        assert_respond_to stats, :evaluated_count
+        assert_respond_to stats, :total_count
       end
     end
 
@@ -131,10 +142,11 @@ module Assignments
 
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
+      stats = result.for(criterion)
 
-      assert_equal 3.0, result[criterion][:average] # (4 + 2) / 2
-      assert_equal 2, result[criterion][:evaluated_count]
-      assert_equal 2, result[criterion][:total_count]
+      assert_equal 3.0, stats.average # (4 + 2) / 2
+      assert_equal 2, stats.evaluated_count
+      assert_equal 2, stats.total_count
     end
 
     test "returns nil average when no evaluations exist" do
@@ -169,10 +181,11 @@ module Assignments
 
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
+      stats = result.for(criterion)
 
-      assert_nil result[criterion][:average]
-      assert_equal 0, result[criterion][:evaluated_count]
-      assert_equal 1, result[criterion][:total_count]
+      assert_nil stats.average
+      assert_equal 0, stats.evaluated_count
+      assert_equal 1, stats.total_count
     end
 
     test "handles partially evaluated assignments correctly" do
@@ -235,10 +248,11 @@ module Assignments
 
       statistics = Statistics.new(assignment)
       result = statistics.criterion_performance
+      stats = result.for(criterion)
 
-      assert_equal 3.0, result[criterion][:average]
-      assert_equal 1, result[criterion][:evaluated_count]
-      assert_equal 2, result[criterion][:total_count]
+      assert_equal 3.0, stats.average
+      assert_equal 1, stats.evaluated_count
+      assert_equal 2, stats.total_count
     end
   end
 end

@@ -28,7 +28,8 @@ module Pipeline
       end
 
       def self.create_rubric(context)
-        Rubric.create!(assignment: context.assignment)
+        # Use the existing rubric from context if available
+        context.rubric || Rubric.create!(assignment: context.assignment)
       end
 
       def self.create_criteria_with_levels(rubric, parsed_response)

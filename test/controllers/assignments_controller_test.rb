@@ -157,43 +157,43 @@ class AssignmentsControllerTest < ActiveSupport::TestCase
     assert_equal "details", @controller.instance_variable_get(:@active_section)
   end
 
-  test "criterion averages are loaded when rubric exists" do
-    # Create a mock assignment with a rubric
+  test "criterion averages are loaded when assignment is complete" do
+    # Create a mock assignment
     mock_assignment = mock()
-    mock_rubric = mock()
-    mock_statistics = mock()
-    mock_statistics.expects(:criterion_performance).returns({ criterion1: { average: 3.5, evaluated_count: 2, total_count: 3 } })
-
+    mock_stats_collection = mock()
+    
     @controller.instance_variable_set(:@assignment, mock_assignment)
-    @controller.instance_variable_set(:@rubric, mock_rubric)
-
+    
+    # Mock the CompletionChecker to return true
+    Assignments::CompletionChecker.expects(:call).with(mock_assignment).returns(true)
+    
     # Mock the Statistics service
-    Assignments::Statistics.expects(:new).with(mock_assignment).returns(mock_statistics)
-
+    Assignments::Statistics.expects(:get_criterion_performance).with(mock_assignment).returns(mock_stats_collection)
+    
     # Simulate the logic from the show action
-    if @controller.instance_variable_get(:@rubric).present?
-      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.new(mock_assignment).criterion_performance)
+    if Assignments::CompletionChecker.call(mock_assignment)
+      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.get_criterion_performance(mock_assignment))
     end
-
+    
     criterion_averages = @controller.instance_variable_get(:@criterion_averages)
     assert_not_nil criterion_averages
-    assert_kind_of Hash, criterion_averages
-    assert criterion_averages.key?(:criterion1)
-    assert_equal 3.5, criterion_averages[:criterion1][:average]
+    assert_equal mock_stats_collection, criterion_averages
   end
 
-  test "criterion averages are not loaded when rubric does not exist" do
-    # Create a mock assignment without a rubric
+  test "criterion averages are not loaded when assignment is incomplete" do
+    # Create a mock assignment
     mock_assignment = mock()
-
+    
     @controller.instance_variable_set(:@assignment, mock_assignment)
-    @controller.instance_variable_set(:@rubric, nil)
-
+    
+    # Mock the CompletionChecker to return false
+    Assignments::CompletionChecker.expects(:call).with(mock_assignment).returns(false)
+    
     # Simulate the logic from the show action
-    if @controller.instance_variable_get(:@rubric).present?
-      @controller.instance_variable_set(:@criterion_averages, mock_assignment.criterion_averages)
+    if Assignments::CompletionChecker.call(mock_assignment)
+      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.get_criterion_performance(mock_assignment))
     end
-
+    
     criterion_averages = @controller.instance_variable_get(:@criterion_averages)
     assert_nil criterion_averages
   end

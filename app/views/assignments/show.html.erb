@@ -153,15 +153,14 @@
                       <p class="text-sm text-gray-600"><%= criterion.description %></p>
                     </div>
                     
-                    <% if @criterion_averages && @criterion_averages[criterion] %>
-                      <% stats = @criterion_averages[criterion] %>
+                    <% if @criterion_averages && (stats = @criterion_averages.for(criterion)) %>
                       <div class="ml-4 text-right">
-                        <% if stats[:average] %>
+                        <% if stats.average %>
                           <div class="text-lg font-semibold text-blue-600">
-                            <%= number_with_precision(stats[:average], precision: 2) %>
+                            <%= number_with_precision(stats.average, precision: 2) %>
                           </div>
                           <div class="text-xs text-gray-500">
-                            Average (<%= stats[:evaluated_count] %> of <%= stats[:total_count] %> evaluated)
+                            Average (<%= stats.evaluated_count %> of <%= stats.total_count %> evaluated)
                           </div>
                         <% else %>
                           <div class="text-sm text-gray-400">
@@ -174,7 +173,7 @@
                   
                   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3 mt-3">
                     <% criterion.levels.order(position: :asc).each do |level| %>
-                      <div class="bg-gray-50 p-3 rounded-md <%= 'ring-2 ring-blue-500' if @criterion_averages && @criterion_averages[criterion] && @criterion_averages[criterion][:average] && @criterion_averages[criterion][:average].round == level.points %>">
+                      <div class="bg-gray-50 p-3 rounded-md <%= 'ring-2 ring-blue-500' if @criterion_averages && (stats = @criterion_averages.for(criterion)) && stats.average && stats.average.round == level.points %>">
                         <div class="flex items-start justify-between mb-1">
                           <h5 class="text-xs font-medium text-gray-700"><%= level.title %></h5>
                           <span class="text-xs font-semibold text-gray-500 ml-2"><%= level.points %> pts</span>
