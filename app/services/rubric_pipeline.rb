@@ -36,6 +36,7 @@ class RubricPipeline
     context = Pipeline::Context::Rubric.new
     context.assignment = assignment
     context.user = user
+    context.rubric = assignment.rubric
     context
   end
 

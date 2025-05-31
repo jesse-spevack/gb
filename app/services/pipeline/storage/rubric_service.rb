@@ -7,17 +7,17 @@ module Pipeline
       def self.call(context:)
         Rails.logger.info("Storing rubric for assignment: #{context.assignment.id}")
 
-        context.rubric = create_rubric_with_criteria_and_levels(context)
+        context.rubric = attach_criteria_and_levels(context)
         context
       end
 
       private
 
-      def self.create_rubric_with_criteria_and_levels(context)
+      def self.attach_criteria_and_levels(context)
         rubric = nil
 
         ActiveRecord::Base.transaction do
-          rubric = create_rubric(context)
+          rubric = get_rubric(context)
           create_criteria_with_levels(rubric, context.parsed_response)
         end
 
@@ -27,9 +27,9 @@ module Pipeline
         raise
       end
 
-      def self.create_rubric(context)
-        # Use the existing rubric from context if available
-        context.rubric || Rubric.create!(assignment: context.assignment)
+      def self.get_rubric(context)
+        # The existing rubric from context should always be available
+        context.rubric
       end
 
       def self.create_criteria_with_levels(rubric, parsed_response)

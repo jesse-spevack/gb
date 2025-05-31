@@ -8,32 +8,22 @@ module Pipeline
     class RubricServiceTest < ActiveSupport::TestCase
       setup do
         @assignment = assignments(:history_essay)
+        @rubric = Rubric.create!(assignment: @assignment)
         @context = Pipeline::Context::Rubric.new
         @context.assignment = @assignment
+        @context.rubric = @rubric
         @context.parsed_response = build_parsed_response
       end
 
-      test "creates rubric with criteria and levels when no rubric exists in context" do
-        assert_difference -> { Rubric.count } => 1,
-                         -> { Criterion.count } => 2,
-                         -> { Level.count } => 8 do
-          RubricService.call(context: @context)
-        end
-      end
-
-      test "uses existing rubric from context when available" do
-        existing_rubric = Rubric.create!(assignment: @assignment)
-        @context.rubric = existing_rubric
-
+      test "attaches criteria and levels to existing rubric" do
         assert_no_difference "Rubric.count" do
           assert_difference -> { Criterion.count } => 2,
                            -> { Level.count } => 8 do
             RubricService.call(context: @context)
           end
         end
-
-        assert_equal existing_rubric, @context.rubric
       end
+
 
       test "assigns rubric to context" do
         result_context = RubricService.call(context: @context)
