@@ -30,6 +30,9 @@ class AssignmentsController < ApplicationController
     # Calculate progress metrics
     @progress_metrics = calculate_progress_metrics
 
+    # Calculate criterion averages if rubric exists
+    @criterion_averages = Assignments::Statistics.new(@assignment).criterion_performance if @rubric.present?
+
     # Determine active section from params, default to 'details'
     @active_section = params[:section]&.in?(%w[details rubric student_works summary]) ? params[:section] : "details"
   end

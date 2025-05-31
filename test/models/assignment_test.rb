@@ -67,4 +67,5 @@ class AssignmentTest < ActiveSupport::TestCase
     )
     assert_not invalid_assignment.valid?, invalid_assignment.errors.full_messages
   end
+
 end

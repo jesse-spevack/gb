@@ -35,28 +35,32 @@ class PromptInput::StudentPerformanceSummaryTest < ActiveSupport::TestCase
       criterion: @criterion1,
       title: "Excellent",
       description: "Excellent writing",
-      position: 1
+      position: 1,
+      points: 4
     )
 
     @level1_2 = Level.create!(
       criterion: @criterion1,
       title: "Good",
       description: "Good writing",
-      position: 2
+      position: 2,
+      points: 3
     )
 
     @level2_1 = Level.create!(
       criterion: @criterion2,
       title: "Excellent",
       description: "Excellent grammar",
-      position: 1
+      position: 1,
+      points: 4
     )
 
     @level2_2 = Level.create!(
       criterion: @criterion2,
       title: "Good",
       description: "Good grammar",
-      position: 2
+      position: 2,
+      points: 3
     )
 
     # Create a document to use for student works

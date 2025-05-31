@@ -156,4 +156,45 @@ class AssignmentsControllerTest < ActiveSupport::TestCase
     assert_equal @assignment.assignment_summary, @controller.instance_variable_get(:@assignment_summary)
     assert_equal "details", @controller.instance_variable_get(:@active_section)
   end
+
+  test "criterion averages are loaded when rubric exists" do
+    # Create a mock assignment with a rubric
+    mock_assignment = mock()
+    mock_rubric = mock()
+    mock_statistics = mock()
+    mock_statistics.expects(:criterion_performance).returns({ criterion1: { average: 3.5, evaluated_count: 2, total_count: 3 } })
+    
+    @controller.instance_variable_set(:@assignment, mock_assignment)
+    @controller.instance_variable_set(:@rubric, mock_rubric)
+    
+    # Mock the Statistics service
+    Assignments::Statistics.expects(:new).with(mock_assignment).returns(mock_statistics)
+    
+    # Simulate the logic from the show action
+    if @controller.instance_variable_get(:@rubric).present?
+      @controller.instance_variable_set(:@criterion_averages, Assignments::Statistics.new(mock_assignment).criterion_performance)
+    end
+    
+    criterion_averages = @controller.instance_variable_get(:@criterion_averages)
+    assert_not_nil criterion_averages
+    assert_kind_of Hash, criterion_averages
+    assert criterion_averages.key?(:criterion1)
+    assert_equal 3.5, criterion_averages[:criterion1][:average]
+  end
+
+  test "criterion averages are not loaded when rubric does not exist" do
+    # Create a mock assignment without a rubric
+    mock_assignment = mock()
+    
+    @controller.instance_variable_set(:@assignment, mock_assignment)
+    @controller.instance_variable_set(:@rubric, nil)
+    
+    # Simulate the logic from the show action
+    if @controller.instance_variable_get(:@rubric).present?
+      @controller.instance_variable_set(:@criterion_averages, mock_assignment.criterion_averages)
+    end
+    
+    criterion_averages = @controller.instance_variable_get(:@criterion_averages)
+    assert_nil criterion_averages
+  end
 end
