@@ -28,7 +28,7 @@ module Pipeline
     #       - explanation: String
     #
     # Updates context with:
-    #   - context.saved_feedback: The updated StudentWork with all associations
+    #   - context.student_work: The updated StudentWork with all associations
     #
     # @example
     #   context = Pipeline::Context::StudentWork.new
@@ -70,8 +70,8 @@ module Pipeline
         # Create student criterion level associations
         create_criterion_levels(student_work, parsed_response.criterion_levels)
 
-        # Update context with saved feedback
-        context.saved_feedback = student_work.reload
+        # Update context with saved student work
+        context.student_work = student_work.reload
       end
 
       def self.create_feedback_items(student_work, feedback_items_data)

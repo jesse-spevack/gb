@@ -1,56 +1,23 @@
+Clarifying Questions for AssignmentProcessor
+1. Problem/Goal: What is the main problem this AssignmentProcessor solves? Is it automating the grading process for teachers, or is there a specific workflow challenge it addresses?
+2. Pipeline Dependencies: You mentioned three pipelines (RubricPipeline, StudentWorkFeedbackPipeline, AssignmentSummaryPipeline). Can you describe:
+  - What each pipeline does?
+  - What are the dependencies between them? (e.g., does StudentWorkFeedbackPipeline require RubricPipeline to complete first?)
+  - Are there any data outputs from one pipeline that serve as inputs to another?
+3. Multiple Instances: You mentioned "multiple StudentWorkFeedbackPipeline instances" - does this mean processing multiple student submissions in parallel or sequentially? What determines how many instances are needed?
+4. Progress Updates:
+  - What specific progress information should teachers see? (e.g., "Processing student 3 of 25", percentage complete, estimated time remaining?)
+  - How frequently should updates be sent?
+  - Through what mechanism should these updates be delivered (websockets, polling, etc.)?
+5. Error Handling:
+  - If one pipeline fails, should the entire process stop, or should it continue with the remaining pipelines?
+  - What types of errors are expected (network failures, invalid data, etc.)?
+  - How should errors be reported to teachers?
+6. Final Results:
+  - What constitutes the "final result" that needs to be aggregated?
+  - What assignment status transitions are expected? (e.g., from "pending" to "graded"?)
+7. User Stories: Could you provide 2-3 specific user stories? For example, "As a teacher, I want to process all student submissions for an assignment so that I can review automated feedback before releasing grades."
+8. Performance: Are there any performance requirements or constraints? (e.g., process 100 student submissions within 5 minutes)
+9. Non-Goals: Are there any specific things this AssignmentProcessor should NOT handle? (e.g., manual grading override, grade distribution visualization)
 
-  Clarifying Questions
-
-  1. Problem/Goal
-
-  - What specific problems are teachers experiencing that these storage services will solve? Is it about data reliability, performance, or something else?
-  - Beyond persisting data, are there any specific data integrity concerns we need to address (e.g., preventing duplicate records, handling partial failures)?
-
-  These storage services will ensure that the LLM responses are saved properly. We need to make sure that the parsed rubric is stored as a rubric with criteria and levels, the student work is stored as a student work with feedback items and checks, and the assignment summary with its associated feedback items. Storing this in the DB will allow us to show it to the user, which is the main value proposition of the application.
-
-  2. Transaction Safety Requirements
-
-  - When you mention "rollback on errors," should we implement a specific rollback strategy (e.g., database transactions, compensation logic)?
-  - Should we notify users when a rollback occurs, or handle it silently?
-  - Are there specific error scenarios we should prioritize (e.g., network failures, validation errors, concurrent updates)?
-
-  If any of the child objects (e.g. levels, feedback items, checks) fail to save, we should fail fast and show the error to the user and not save the parent object (e.g. rubric, student work, assignment summary).
   
-  1. Data Validation
-
-  - What specific validations should each service perform before persistence?
-  - Should validation errors be aggregated and returned together, or fail fast on first error?
-  - Are there any business rules that span multiple models (e.g., a rubric must have at least 2 criteria)?
-
-  Keep it simple and follow rails conventions. The models have the validations already. If the data is valid, save it. If it is not valid, fail fast and show the error to the user.
-
-  4. Bulk Operations
-
-  - What constitutes a "large dataset" in this context? (e.g., how many student works per assignment typically?)
-  - Should bulk operations be atomic (all succeed or all fail) or should we support partial success?
-  - Do we need progress tracking for bulk operations?
-
-  We will have no more than 35 pieces of student work per assignment, but each should be saved individually along with its child objects - feedback items and checks.
-
-  5. Integration Points
-
-  - How should these storage services interact with the existing broadcasting system for real-time updates?
-  - Should storage services trigger any notifications or events after successful persistence?
-  - Are there any existing services or callbacks that need to be called after data is saved?
-
-  6. Performance Requirements
-
-  - Are there specific performance targets for these operations (e.g., save 30 student works in under 5 seconds)?
-  - Should we implement any caching strategies?
-  - Do we need to support asynchronous/background processing for very large operations?
-
-  7. Error Handling
-
-  - How should different types of errors be categorized and reported back to the pipeline?
-  - Should we implement retry logic for transient failures?
-  - What level of error detail should be logged vs. shown to users?
-
-  8. Testing & Quality
-
-  - Are there specific edge cases you're concerned about that we should ensure are tested?
-  - Should we include performance benchmarks in our test suite?

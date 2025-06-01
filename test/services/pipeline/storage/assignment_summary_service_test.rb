@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "test_helper"
 require "ostruct"
+require "test_helper"
 
 module Pipeline
   module Storage
@@ -57,7 +57,7 @@ module Pipeline
         assert_equal "Half the class had minor citation errors", opportunity2.evidence
       end
 
-      test "uses student_feedbacks count when available" do
+      test "uses context student_work_count method" do
         # Simulate having processed 10 student works
         @context.student_feedbacks = Array.new(10) { OpenStruct.new }
 
@@ -65,6 +65,7 @@ module Pipeline
 
         summary = AssignmentSummary.last
         assert_equal 10, summary.student_work_count
+        assert_equal @context.student_work_count, summary.student_work_count
       end
 
       test "falls back to assignment student_works count when student_feedbacks not available" do

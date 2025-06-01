@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "test_helper"
 require "ostruct"
+require "test_helper"
 
 module Pipeline
   module Storage
@@ -32,15 +32,15 @@ module Pipeline
         student_context = create_student_work_context(rubric_result.rubric)
         student_result = StudentWorkService.call(context: student_context)
 
-        assert_not_nil student_result.saved_feedback
+        assert_not_nil student_result.student_work
         assert_equal "This essay demonstrates excellent understanding...",
-                     student_result.saved_feedback.qualitative_feedback
-        assert_equal 4, student_result.saved_feedback.feedback_items.count
-        assert_equal 2, student_result.saved_feedback.student_work_checks.count
-        assert_equal 2, student_result.saved_feedback.student_criterion_levels.count
+                     student_result.student_work.qualitative_feedback
+        assert_equal 4, student_result.student_work.feedback_items.count
+        assert_equal 2, student_result.student_work.student_work_checks.count
+        assert_equal 2, student_result.student_work.student_criterion_levels.count
 
         # Step 3: Create assignment summary
-        summary_context = create_assignment_summary_context([ student_result.saved_feedback ])
+        summary_context = create_assignment_summary_context([ student_result.student_work ])
         summary_result = AssignmentSummaryService.call(context: summary_context)
 
         assert_not_nil summary_result.saved_summary
@@ -60,13 +60,13 @@ module Pipeline
         student_context = StudentWorkService.call(context: student_context)
 
         # Collect multiple student feedbacks for summary
-        student_feedbacks = [ student_context.saved_feedback ]
+        student_feedbacks = [ student_context.student_work ]
 
         # Create additional student work for more realistic summary
         student_work2 = student_works(:student_essay_with_rubric)
         student_context2 = create_student_work_context(rubric_context.rubric, student_work2)
         student_context2 = StudentWorkService.call(context: student_context2)
-        student_feedbacks << student_context2.saved_feedback
+        student_feedbacks << student_context2.student_work
 
         # Pass student feedbacks to summary service
         summary_context = create_assignment_summary_context(student_feedbacks)

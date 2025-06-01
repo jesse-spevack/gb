@@ -53,7 +53,7 @@ module Pipeline
         summary = AssignmentSummary.create!(
           assignment: assignment,
           qualitative_insights: parsed_response.qualitative_insights,
-          student_work_count: calculate_student_work_count(context)
+          student_work_count: context.student_work_count
         )
 
         # Create feedback items (class-wide strengths and opportunities)
@@ -61,15 +61,6 @@ module Pipeline
 
         # Update context with saved summary
         context.saved_summary = summary
-      end
-
-      def self.calculate_student_work_count(context)
-        # Use student_feedbacks from context if available, otherwise count from assignment
-        if context.student_feedbacks.present?
-          context.student_feedbacks.size
-        else
-          context.assignment.student_works.count
-        end
       end
 
       def self.create_feedback_items(summary, feedback_items_data)

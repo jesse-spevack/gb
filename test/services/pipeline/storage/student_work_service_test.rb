@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "test_helper"
 require "ostruct"
+require "test_helper"
 
 module Pipeline
   module Storage
@@ -99,11 +99,11 @@ module Pipeline
         assert second_assessment.explanation.present?
       end
 
-      test "updates context with saved feedback" do
+      test "updates context with saved student work" do
         result_context = StudentWorkService.call(context: @context)
 
-        assert_equal @student_work, result_context.saved_feedback
-        assert_equal @student_work.id, result_context.saved_feedback.id
+        assert_equal @student_work, result_context.student_work
+        assert_equal @student_work.id, result_context.student_work.id
       end
 
       test "wraps all operations in a transaction" do
