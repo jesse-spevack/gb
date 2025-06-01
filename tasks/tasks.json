@@ -748,7 +748,7 @@
       "id": 57,
       "title": "Implement Pipeline Storage Services",
       "description": "Create storage services to persist processed data to the database with transaction safety. Implement Pipeline::Storage::RubricService to create Rubric, Criterion, and Level records, Pipeline::Storage::StudentWorkService for feedback items and assessments, and Pipeline::Storage::AssignmentSummaryService for class insights. Each service handles database transactions with rollback on errors, data validation before persistence, efficient bulk operations for large datasets, and integration with existing ActiveRecord models.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         56
       ],
@@ -761,7 +761,7 @@
       "id": 58,
       "title": "Implement Core Pipeline Orchestration Classes",
       "description": "Create the main pipeline classes that orchestrate the entire processing workflow. Implement Pipeline::Base with common orchestration logic, RubricPipeline, StudentWorkFeedbackPipeline, and AssignmentSummaryPipeline. Each pipeline follows the standardized step configuration pattern with consistent error handling, metrics tracking, and context management. Pipelines coordinate between prompt input, LLM generation, response parsing, and storage services with real-time progress tracking and broadcasting.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         53,
         54,

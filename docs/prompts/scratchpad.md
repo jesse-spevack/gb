@@ -59,6 +59,7 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
 Request:
 
+
 ---
 
 Generating a Task List from a PRD
@@ -138,7 +139,7 @@ Assume the primary reader of the task list is a **junior developer** who will im
 
 Request:
 
-Please generate tasks for the PRD at /docs/prds/2025-05-27-llm-response-parser-classes.md
+Please generate tasks for the PRD at /docs/prds/2025-05-31-pipeline-storage-services.md
 
 
 ---
@@ -184,4 +185,4 @@ When working with task lists, the AI must:
 
 ---
 Request:
-Please implement the task list at /tasks/tasks-2025-05-27-llm-response-parser-classes.md
+Please implement the task list at /tasks/tasks-2025-05-31-pipeline-storage-services.md

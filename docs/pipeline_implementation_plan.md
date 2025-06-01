@@ -204,11 +204,52 @@ The diagram illustrates the pipeline architecture using a phase-based approach:
 
 ### Storage Services
 
+The storage services are critical components that persist AI-generated content to the database. They follow the standard pipeline pattern with `.call(context:)` interface and use database transactions to ensure data integrity.
+
 | Class Name | File Path | Description | Public Methods |
 |------------|------------|-------------|---------------|
-| `Pipeline::Storage::RubricService` | `app/services/pipeline/storage/rubric_service.rb` | Persists generated rubric data to the database, creating necessary models and associations. | **Class**: `call(context:)`<br>**Instance**: None |
-| `Pipeline::Storage::StudentFeedbackService` | `app/services/pipeline/storage/student_feedback_service.rb` | Persists generated student feedback data to the database, creating necessary models and associations. | **Class**: `call(context:)`<br>**Instance**: None |
-| `Pipeline::Storage::AssignmentSummaryService` | `app/services/pipeline/storage/assignment_summary_service.rb` | Persists generated assignment summary data to the database, creating necessary models and associations. | **Class**: `call(context:)`<br>**Instance**: None |
+| `Pipeline::Storage::RubricService` | `app/services/pipeline/storage/rubric_service.rb` | Persists generated rubric data to the database. Creates criterion records with proper positioning and level records with calculated points (5 - position). Updates the existing rubric with criteria and levels. | **Class**: `call(context:)`<br>**Instance**: None |
+| `Pipeline::Storage::StudentWorkService` | `app/services/pipeline/storage/student_work_service.rb` | Persists generated student feedback data to the database. Updates student work with qualitative feedback, creates feedback items (strengths/opportunities), student work checks (plagiarism/LLM detection), and criterion level associations. | **Class**: `call(context:)`<br>**Instance**: None |
+| `Pipeline::Storage::AssignmentSummaryService` | `app/services/pipeline/storage/assignment_summary_service.rb` | Persists generated assignment summary data to the database. Creates assignment summary with insights, feedback items for class-wide patterns, and updates student work count. | **Class**: `call(context:)`<br>**Instance**: None |
+
+#### Storage Service Integration
+
+The storage services integrate seamlessly with the pipeline architecture:
+
+1. **Context Integration**: Each service expects specific context objects:
+   - `RubricService`: Uses `Pipeline::Context::Rubric` with `parsed_response` containing criteria and levels
+   - `StudentWorkService`: Uses `Pipeline::Context::StudentWork` with `parsed_response` containing feedback data
+   - `AssignmentSummaryService`: Uses `Pipeline::Context::AssignmentSummary` with `parsed_response` containing insights
+
+2. **Transaction Management**: All services wrap database operations in transactions to ensure atomicity:
+   ```ruby
+   ActiveRecord::Base.transaction do
+     # All database operations
+   end
+   ```
+
+3. **Error Handling**: Services use `create!` and `update!` methods to raise exceptions on validation failures, allowing the pipeline to handle errors appropriately.
+
+4. **Context Updates**: After successful persistence, services update the context with saved data:
+   - `RubricService`: Sets `context.rubric` with the updated rubric
+   - `StudentWorkService`: Sets `context.saved_feedback` with the updated student work
+   - `AssignmentSummaryService`: Sets `context.saved_summary` with the created summary
+
+#### Example Usage in Pipelines
+
+```ruby
+class RubricPipeline
+  STEPS = [
+    PromptInput::Rubric,
+    BroadcastService.with(event: :rubric_started),
+    LLM::Rubric::Generator,
+    LLM::Rubric::ResponseParser,
+    Pipeline::Storage::RubricService,  # Persists the parsed rubric
+    BroadcastService.with(event: :rubric_completed),
+    RecordMetricsService
+  ].freeze
+end
+```
 
 ### Support Services
 

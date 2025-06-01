@@ -3,6 +3,32 @@
 module Pipeline
   module Storage
     # Service for storing generated rubrics from the pipeline
+    #
+    # This service is called as part of the RubricPipeline after the LLM
+    # has generated and parsed a rubric. It persists the rubric structure
+    # to the database, creating criteria and levels with proper associations.
+    #
+    # Expected context structure:
+    #   - context.assignment: The assignment needing a rubric
+    #   - context.rubric: Existing rubric record to update
+    #   - context.parsed_response: OpenStruct with criteria array, each containing:
+    #     - title: String
+    #     - description: String
+    #     - position: Integer
+    #     - levels: Array of OpenStructs with:
+    #       - name: String
+    #       - description: String
+    #       - position: Integer (1=highest, 4=lowest)
+    #
+    # Updates context with:
+    #   - context.rubric: The rubric with attached criteria and levels
+    #
+    # @example
+    #   context = Pipeline::Context::Rubric.new
+    #   context.rubric = existing_rubric
+    #   context.parsed_response = parsed_llm_response
+    #   result = Pipeline::Storage::RubricService.call(context: context)
+    #
     class RubricService
       def self.call(context:)
         Rails.logger.info("Storing rubric for assignment: #{context.assignment.id}")
