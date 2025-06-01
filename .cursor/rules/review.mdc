@@ -1,0 +1,171 @@
+---
+description: Guide AI assistant to perform comprehensive pull request reviews
+globs: 
+alwaysApply: false
+---
+
+# Rule: Pull Request Review
+
+## Goal
+
+Guide an AI assistant in performing thorough, structured pull request reviews that evaluate code quality, architectural integrity, and feature completeness against the original PRD and task list.
+
+## Process
+
+1. **Locate Context Documents:** Find and read the relevant PRD and task list files in `/docs/prds/` and `/tasks/` directories
+2. **Examine Related Files:** Search for and analyze files related to the changes, even if not directly modified
+3. **Analyze PR Scope:** Compare PR changes against the planned work to identify gaps or scope creep
+4. **Perform Multi-Level Review:** Evaluate code at strategic, tactical, and mechanical levels
+5. **Generate Structured Report:** Create actionable feedback using the template below
+
+## Review Checklist
+
+Use this checklist to ensure comprehensive coverage:
+
+### Context & Scope
+- [ ] Located and reviewed corresponding PRD document
+- [ ] Located and reviewed corresponding task list
+- [ ] Verified PR addresses the planned requirements
+- [ ] Identified any scope creep or missing functionality
+- [ ] Checked if all completed tasks are actually implemented
+
+### Code Quality (Rails 8 + Idiomatic Ruby)
+- [ ] Follows Rails conventions and patterns
+- [ ] Uses idiomatic Ruby constructs appropriately
+- [ ] Proper naming conventions (snake_case, CamelCase, ALL_CAPS)
+- [ ] **Require statements:** Alphabetical order, no `require_relative`
+- [ ] **Class structure:** Blank line after includes, class methods in `class << self`
+- [ ] Methods are focused and single-purpose
+- [ ] No obvious code smells or anti-patterns
+
+### Architecture & Design
+- [ ] **Separation of concerns:** No mixing of unrelated concepts (e.g., conditionals + iterations)
+- [ ] **Inheritance appropriateness:** Only inherit when child truly "is-a" parent type
+- [ ] **Composition over inheritance:** Uses composition instead of inheritance for code reuse
+- [ ] **Single Responsibility Principle:** Each class has one reason to change
+- [ ] **Executor pattern integrity:** IterationExecutor vs ConditionalExecutor remain separate
+- [ ] Follows established patterns in the codebase
+- [ ] Avoids over-engineering or premature optimization
+- [ ] New abstractions are justified and well-designed
+
+### Testing & Coverage
+- [ ] Tests cover the happy path scenarios
+- [ ] Edge cases and error conditions are tested
+- [ ] **Tests behavior, not implementation:** No direct testing of private methods
+- [ ] **No test-specific production code:** Production code remains clean of test artifacts
+- [ ] Test names clearly describe behavior being tested
+- [ ] Tests are readable and maintainable
+
+### Performance & Optimization
+- [ ] **Hot path analysis:** Examined related files beyond just PR changes
+- [ ] **Loop efficiency:** No unnecessary object creation in loops
+- [ ] **Collection optimization:** No redundant transformations or inefficient filtering
+- [ ] **Readability vs performance:** Appropriate balance, avoid premature optimization
+- [ ] Database queries are optimized (N+1, proper indexing)
+- [ ] No obvious performance bottlenecks
+
+### Dependencies & Compatibility
+- [ ] **No unilateral backwards compatibility decisions:** Breaking changes flagged for discussion
+- [ ] Proper dependency management
+- [ ] Version compatibility considerations
+
+### Security & Error Handling
+- [ ] Input validation where appropriate
+- [ ] Proper error handling and user feedback
+- [ ] No sensitive information exposed
+- [ ] Authorization checks in place
+
+## Output Template
+
+Generate your review using this structure:
+
+```markdown
+# PR Review: [Feature Name]
+
+## Context Analysis
+**PRD Reference:** `docs/prds/YYYY-MM-DD-[feature-name].md`
+**Task List Reference:** `tasks/tasks-YYYY-MM-DD-[feature-name].md`
+
+### Scope Assessment
+- ✅ **Completed as planned:** [List major requirements addressed]
+- ⚠️ **Scope variations:** [Note any deviations from original plan]
+- ❌ **Missing functionality:** [List any gaps]
+
+## Code Review Findings
+
+### 🏗️ Architecture & Design
+[Evaluate high-level design decisions, separation of concerns, and architectural integrity]
+
+### 🔧 Implementation Quality
+[Review code patterns, Ruby idioms, Rails conventions]
+
+### 🧪 Testing Assessment
+[Evaluate test coverage, quality, and approach]
+
+### ⚡ Performance Considerations
+[Note any performance issues or optimization opportunities]
+
+### 🔒 Security & Error Handling
+[Review error handling, input validation, security considerations]
+
+## Risk Assessment
+
+### 🔴 High Risk Issues
+[Critical problems that could break functionality or security]
+
+### 🟡 Medium Risk Issues
+[Issues that should be addressed but aren't blocking]
+
+### 🟢 Low Risk Issues / Suggestions
+[Style improvements, minor optimizations, future considerations]
+
+## Recommendation
+
+**Overall Assessment:** [APPROVE / REQUEST CHANGES / NEEDS DISCUSSION]
+
+**Summary:** [2-3 sentence summary of the PR quality and your recommendation]
+
+**Next Steps:** [Specific actions needed before merge, if any]
+```
+
+## Review Standards
+
+**Be Direct:** Flag real issues clearly. Don't hedge on architectural problems or code quality concerns.
+
+**Context Matters:** Always consider how changes fit within the existing codebase and planned feature set.
+
+**Junior-Friendly:** Explain *why* something is problematic, not just *what* is wrong.
+
+**Prioritize Impact:** Focus on issues that affect functionality, maintainability, or user experience over purely stylistic concerns.
+
+## Key Areas of Focus
+
+1. **Separation of Concerns:** Are different concepts (conditionals, iterations, data access) properly separated into distinct classes?
+
+2. **Inheritance vs Composition:** Is inheritance used only for true "is-a" relationships? Are shared behaviors properly composed?
+
+3. **Single Responsibility:** Does each class have exactly one reason to change? Are executors focused on their specific domain?
+
+4. **Rails Conventions:** Does the code follow Rails patterns and conventions? Are we fighting the framework?
+
+5. **Ruby Idioms:** Is the Ruby code expressive and idiomatic? Are we using appropriate language features?
+
+6. **Test Quality:** Do tests verify behavior described in the PRD without testing implementation details?
+
+7. **Performance & Related Files:** Have we examined the broader impact and optimized hot paths appropriately?
+
+8. **Code Structure:** Are requires ordered, class methods properly defined, and formatting consistent?
+
+## Anti-Patterns to Watch For
+
+- **Mixed responsibilities:** Conditional logic mixed with iteration logic in the same class
+- **Inappropriate inheritance:** Inheriting just to reuse methods instead of using composition
+- **Violation of SRP:** Classes that handle multiple unrelated concerns
+- **Test implementation coupling:** Tests that break when implementation changes but behavior doesn't
+- **Test-specific production code:** Any code that exists solely to support testing
+- **Poor require hygiene:** Using `require_relative` or unordered requires
+- **Backwards compatibility assumptions:** Unilateral decisions to maintain compatibility without discussion
+- **Inefficient hot paths:** Object creation in loops, redundant collection operations
+- **Premature optimization:** Complex optimizations in code that isn't performance-critical
+- **God objects:** Classes or methods that do too much
+- **Missing formatting:** No blank lines after includes, class methods not in `class << self`

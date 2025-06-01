@@ -1,5 +1,53 @@
 # Decision Log
 
+## 2025-06-01
+
+### Pipeline Storage Services - Performance and Security Optimizations Deferred
+
+- **Context:**
+  - Implemented three pipeline storage services (RubricService, StudentWorkService, AssignmentSummaryService)
+  - Services persist LLM-generated content to database with full transaction support
+  - Code review identified performance and security optimization opportunities
+  - Current constraint: Maximum 35 student assignments per teacher
+
+- **Identified Optimization Opportunities:**
+  1. **Bulk Inserts Implementation**
+     - Current: Individual `create!` calls in loops (potentially 1000+ INSERTs for large assignments)
+     - Proposed: Use Rails `insert_all` for bulk operations
+     - Impact: Could reduce database operations by 50-100x for large assignments
+     - Example: 100 students × 10 operations = 1000 INSERTs → ~20 bulk operations
+
+  2. **Authorization Checks in Storage Layer**
+     - Current: Authorization handled at controller level only
+     - Proposed: Add authorization verification within storage services for defense in depth
+     - Impact: Prevents unauthorized data access if services called from other contexts (jobs, APIs)
+     - Implementation: Add `authorize_user!(context.user, context.assignment)` checks
+
+- **Decision:**
+  - Defer both optimizations to focus on MVP completion
+  - Rationale:
+    - Current 35-student limit makes performance acceptable (~350 database operations)
+    - Authorization is properly handled at controller level for current use cases
+    - Time better spent completing full user flow and launching MVP
+    - Can revisit when scaling beyond initial user base
+
+- **Trade-offs Accepted:**
+  - Slower processing for maximum-size assignments (35 students)
+  - Single layer of authorization vs defense in depth
+  - Accepting technical debt for faster time to market
+
+- **Future Triggers for Revisiting:**
+  - User feedback about slow grading times
+  - Need to support larger class sizes (>35 students)
+  - Introduction of new entry points to storage services (APIs, webhooks)
+  - Performance monitoring showing database bottlenecks
+
+- **Monitoring Plan:**
+  - Track assignment processing times in production
+  - Monitor database query performance
+  - Set alerts for processing timeouts
+  - Collect user feedback on grading speed
+
 ## 2025-05-27
 
 ### LLM Response Parser Implementation and Duplication Analysis
