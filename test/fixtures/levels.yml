@@ -28,3 +28,32 @@ writing_beginning:
   description: "Writing lacks clarity and coherence. Ideas are disconnected with few or ineffective transitions. Voice is unclear or inappropriate. Word choice is limited or repetitive."
   position: 4
   points: 1
+
+# Content Depth Levels
+content_exemplary:
+  criterion: content_depth
+  title: "Exemplary"
+  description: "Demonstrates exceptional depth of analysis with sophisticated insights. Shows thorough understanding of complex concepts and makes meaningful connections."
+  position: 1
+  points: 4
+
+content_proficient:
+  criterion: content_depth
+  title: "Proficient"
+  description: "Shows good depth of analysis with clear insights. Demonstrates solid understanding of key concepts and makes appropriate connections."
+  position: 2
+  points: 3
+
+content_developing:
+  criterion: content_depth
+  title: "Developing"
+  description: "Shows basic analysis with some insights. Understanding of concepts is developing. Makes some connections but may be superficial."
+  position: 3
+  points: 2
+
+content_beginning:
+  criterion: content_depth
+  title: "Beginning"
+  description: "Shows limited analysis with few insights. Understanding of concepts is minimal. Few or no meaningful connections made."
+  position: 4
+  points: 1

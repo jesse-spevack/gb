@@ -4,6 +4,7 @@ class StudentWork < ApplicationRecord
   has_prefix_id :swrk
 
   has_many :student_criterion_levels, dependent: :destroy
+  has_many :student_work_checks, dependent: :destroy
   has_many :feedback_items, as: :feedbackable
   has_many :llm_requests, as: :trackable
 
