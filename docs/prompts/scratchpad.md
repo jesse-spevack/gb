@@ -59,6 +59,7 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
 Request:
 
+Implement AssignmentProcessor Class - Create the main entry point that orchestrates execution of individual pipelines in the correct sequence. AssignmentProcessor coordinates RubricPipeline, multiple StudentWorkFeedbackPipeline instances, and AssignmentSummaryPipeline. Handles sequential pipeline execution with dependency management, comprehensive error handling across all pipelines, real-time progress updates for teachers, and final result aggregation with assignment status updates.
 
 ---
 
@@ -185,4 +186,6 @@ When working with task lists, the AI must:
 
 ---
 Request:
-Please implement the task list at /tasks/tasks-2025-05-31-pipeline-storage-services.md
+Please review the /docs/plan.md
+Please review the /docs/prds/2025-06-01-assignment-processor.md
+Please implement the task list at /tasks/tasks-2025-06-01-assignment-processor.md

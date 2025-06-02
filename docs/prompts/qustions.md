@@ -1,23 +1,20 @@
-Clarifying Questions for AssignmentProcessor
-1. Problem/Goal: What is the main problem this AssignmentProcessor solves? Is it automating the grading process for teachers, or is there a specific workflow challenge it addresses?
-2. Pipeline Dependencies: You mentioned three pipelines (RubricPipeline, StudentWorkFeedbackPipeline, AssignmentSummaryPipeline). Can you describe:
-  - What each pipeline does?
-  - What are the dependencies between them? (e.g., does StudentWorkFeedbackPipeline require RubricPipeline to complete first?)
-  - Are there any data outputs from one pipeline that serve as inputs to another?
-3. Multiple Instances: You mentioned "multiple StudentWorkFeedbackPipeline instances" - does this mean processing multiple student submissions in parallel or sequentially? What determines how many instances are needed?
-4. Progress Updates:
-  - What specific progress information should teachers see? (e.g., "Processing student 3 of 25", percentage complete, estimated time remaining?)
-  - How frequently should updates be sent?
-  - Through what mechanism should these updates be delivered (websockets, polling, etc.)?
-5. Error Handling:
-  - If one pipeline fails, should the entire process stop, or should it continue with the remaining pipelines?
-  - What types of errors are expected (network failures, invalid data, etc.)?
-  - How should errors be reported to teachers?
-6. Final Results:
-  - What constitutes the "final result" that needs to be aggregated?
-  - What assignment status transitions are expected? (e.g., from "pending" to "graded"?)
-7. User Stories: Could you provide 2-3 specific user stories? For example, "As a teacher, I want to process all student submissions for an assignment so that I can review automated feedback before releasing grades."
-8. Performance: Are there any performance requirements or constraints? (e.g., process 100 student submissions within 5 minutes)
-9. Non-Goals: Are there any specific things this AssignmentProcessor should NOT handle? (e.g., manual grading override, grade distribution visualization)
+  Clarifying Questions
 
-  
+  1. Problem/Goal: What specific problem does the AssignmentProcessor solve? Is it meant to automate the entire grading process from rubric generation through student feedback to summary creation?
+  2. Pipeline Dependencies: You mentioned "correct sequence" - what is the exact order of pipeline execution? Does StudentWorkFeedbackPipeline depend on RubricPipeline completion? Does AssignmentSummaryPipeline need all
+  StudentWorkFeedbackPipeline instances to complete first?
+  3. Progress Updates: For "real-time progress updates for teachers":
+    - How should progress be communicated (WebSocket, polling, SSE)?
+    - What level of detail should be shown (overall percentage, current pipeline, individual student progress)?
+    - Should teachers see estimated time remaining?
+  4. Error Handling: What should happen when a pipeline fails?
+    - Should the entire process stop, or continue with remaining pipelines?
+    - Should there be retry logic for failed pipelines?
+    - How should partial failures be handled (e.g., 3 out of 5 student feedback pipelines succeed)?
+  5. Concurrency: Can multiple StudentWorkFeedbackPipeline instances run in parallel, or must they be sequential? What about performance considerations with many students?
+  6. Result Aggregation: What specific data needs to be aggregated from each pipeline? What constitutes the "final result"?
+  7. Assignment Status: What are the possible assignment statuses (e.g., processing, completed, failed)? When should each status be set?
+  8. Integration Points: How does AssignmentProcessor receive its initial input (assignment ID, configuration)? Is it triggered by a background job, API call, or user action?
+  9. Scope Boundaries: Are there any specific features this should NOT include (e.g., no direct UI rendering, no direct database updates)?
+
+The assignment processor is meant to automate the entire grading process from rubric generation through student feedback to summary creation. The pipeline can be viewed in rubric_pipeline.rb, student_work_feedback_pipeline.rb, and assignment_summary_pipeline.rb. First we create a rubric based on the assignment information entered by the teacher in the assignment form. Then we generate student work feedback based on the assignment and rubric for each student submission. Finally we create an assignment summary based on the all student work feedback. Progress updates are shown to the user in the UI via turbo stream implementation handled by the broadcast service. Progress is calculated by the progress calculator and the progress broadcaster. Teachers should know how much of the assignment is completed and how much is left to be completed. For example, initially they should see that the rubric hasn't yet been created and the student work feedback hasn't been generated yet. Then they should see that the rubric has been created and the student work feedback is being generated. Then they should see that the student work feedback has been generated and the assignment summary is being created. Then they should see that the assignment summary has been created and the assignment is complete. If 3 out of 5 student works fail (after multiple retries attempted after either the api is overwhelmed or the response is not valid json), those student works should be marked as failed and the assignment should be marked as failed. Eventually we'll need to build a manual re-try, but for now that is not necessary. For now, let's do one llm request at a time. The pipelines have context objects that aggregate the results across each step. To review the assignment status see the StatusManagerFactory. The initial integration point is in the assignment processing job which is enqueued in the assignment creation process from the assignment creation service in the assignments controller. 
