@@ -111,7 +111,7 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     assert_match(/title/, error.message)
   end
 
-  test "raises error for missing required description field" do
+  test "handles missing description field gracefully" do
     json = {
       criteria: [
         {
@@ -123,13 +123,16 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     }.to_json
     @context.llm_response = LLMResponse.new(text: json)
 
-    error = assert_raises(LLM::Rubric::ResponseParser::ValidationError) do
-      LLM::Rubric::ResponseParser.call(context: @context)
-    end
-    assert_match(/description/, error.message)
+    # Should not raise an error - description is optional
+    result = LLM::Rubric::ResponseParser.call(context: @context)
+
+    assert_not_nil result.parsed_response
+    criterion = result.parsed_response.criteria.first
+    assert_equal "Test", criterion.title
+    assert_equal "", criterion.description # Empty string default
   end
 
-  test "raises error for missing required position field" do
+  test "handles missing position field gracefully" do
     json = {
       criteria: [
         {
@@ -141,10 +144,13 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     }.to_json
     @context.llm_response = LLMResponse.new(text: json)
 
-    error = assert_raises(LLM::Rubric::ResponseParser::ValidationError) do
-      LLM::Rubric::ResponseParser.call(context: @context)
-    end
-    assert_match(/position/, error.message)
+    # Should not raise an error - position is optional and defaults to 1
+    result = LLM::Rubric::ResponseParser.call(context: @context)
+
+    assert_not_nil result.parsed_response
+    criterion = result.parsed_response.criteria.first
+    assert_equal "Test", criterion.title
+    assert_equal 1, criterion.position # Default value
   end
 
   test "raises error for invalid data types" do
@@ -181,7 +187,8 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     error = assert_raises(LLM::Rubric::ResponseParser::ValidationError) do
       LLM::Rubric::ResponseParser.call(context: @context)
     end
-    assert_match(/levels/, error.message)
+    # Parser accepts both 'levels' and 'descriptors', so error message mentions the alternate field
+    assert_match(/descriptors|levels/, error.message)
   end
 
   test "raises error for invalid level position outside 1-4 range" do
@@ -362,7 +369,7 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     assert_match(/description/, error.message)
   end
 
-  test "validates level has required position field" do
+  test "handles missing level position field gracefully" do
     json = {
       criteria: [
         {
@@ -380,10 +387,13 @@ class LLM::Rubric::ResponseParserTest < ActiveSupport::TestCase
     }.to_json
     @context.llm_response = LLMResponse.new(text: json)
 
-    error = assert_raises(LLM::Rubric::ResponseParser::ValidationError) do
-      LLM::Rubric::ResponseParser.call(context: @context)
-    end
-    assert_match(/position/, error.message)
+    # Should not raise an error - level position is optional and auto-assigned
+    result = LLM::Rubric::ResponseParser.call(context: @context)
+
+    assert_not_nil result.parsed_response
+    level = result.parsed_response.criteria.first.levels.first
+    assert_equal "Test Level", level.name
+    assert_equal 1, level.position # Auto-assigned based on array order (only 1 level)
   end
 
   test "handles missing criteria key" do

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "ostruct"
+
 # Main orchestrator for automating the entire grading process
 # Coordinates sequential execution of RubricPipeline, StudentWorkFeedbackPipeline, and AssignmentSummaryPipeline
 class AssignmentProcessor
@@ -260,12 +262,15 @@ class AssignmentProcessor
 
   # Records metrics for a pipeline execution
   def record_pipeline_metrics(processable, process_type, result)
-    RecordMetricsService.call(
+    # Create a context object that matches RecordMetricsService expectations
+    context = OpenStruct.new(
       processable: processable,
-      process_type: process_type,
+      assignment: processable.is_a?(Assignment) ? processable : processable.assignment,
       metrics: result.metrics || {},
-      success: result.successful?
+      errors: result.successful? ? [] : (result.errors || [])
     )
+
+    RecordMetricsService.call(context: context)
   rescue => e
     # Log but don't fail if metrics recording fails
     Rails.logger.error("Failed to record metrics: #{e.message}")

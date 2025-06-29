@@ -6,7 +6,8 @@ module Pipeline::Context
     attr_accessor :llm_response,
                   :parsed_response,
                   :prompt,
-                  :user
+                  :user,
+                  :status
 
     def initialize
       @metrics = {}

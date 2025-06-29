@@ -46,7 +46,19 @@ module LLM
       private
 
       def parse_json
-        JSON.parse(@context.llm_response.text, symbolize_names: true)
+        clean_text = strip_markdown_formatting(@context.llm_response.text)
+        JSON.parse(clean_text, symbolize_names: true)
+      end
+
+      def strip_markdown_formatting(text)
+        # Remove markdown code block formatting if present
+        text = text.strip
+        if text.start_with?("```json")
+          text = text.sub(/\A```json\n?/, "").sub(/\n?```\z/, "")
+        elsif text.start_with?("```")
+          text = text.sub(/\A```\n?/, "").sub(/\n?```\z/, "")
+        end
+        text.strip
       end
 
       def validate_structure(data)

@@ -46,40 +46,84 @@ module LLM
       private
 
       def parse_json
-        JSON.parse(@context.llm_response.text, symbolize_names: true)
+        clean_text = strip_markdown_formatting(@context.llm_response.text)
+        JSON.parse(clean_text, symbolize_names: true)
+      end
+
+      def strip_markdown_formatting(text)
+        # Remove markdown code block formatting if present
+        text = text.strip
+        if text.start_with?("```json")
+          text = text.sub(/\A```json\n?/, "").sub(/\n?```\z/, "")
+        elsif text.start_with?("```")
+          text = text.sub(/\A```\n?/, "").sub(/\n?```\z/, "")
+        end
+        text.strip
       end
 
       def validate_structure(data)
-        raise ValidationError, "Response must contain 'criteria' key" unless data.key?(:criteria)
-        raise ValidationError, "Criteria cannot be empty" if data[:criteria].empty?
+        # Handle both direct criteria and rubric.criteria structures
+        criteria_data = extract_criteria(data)
+        raise ValidationError, "Response must contain 'criteria' key" unless criteria_data
+        raise ValidationError, "Criteria cannot be empty" if criteria_data.empty?
 
-        data[:criteria].each_with_index do |criterion, index|
+        criteria_data.each_with_index do |criterion, index|
           validate_criterion(criterion, index)
         end
       end
 
-      def validate_criterion(criterion, index)
-        validate_required_field(criterion, :title, "Criterion #{index + 1}")
-        validate_required_field(criterion, :description, "Criterion #{index + 1}")
-        validate_required_field(criterion, :position, "Criterion #{index + 1}")
+      def extract_criteria(data)
+        if data.key?(:criteria)
+          data[:criteria]
+        elsif data.key?(:rubric) && data[:rubric].is_a?(Hash) && data[:rubric].key?(:criteria)
+          data[:rubric][:criteria]
+        else
+          nil
+        end
+      end
 
-        unless criterion[:position].is_a?(Integer)
-          raise ValidationError, "Criterion #{index + 1} position must be an integer"
+      def validate_criterion(criterion, index)
+        # Handle different field names for criterion title
+        title_field = if criterion.key?(:title)
+          :title
+        elsif criterion.key?(:criterion)
+          :criterion
+        elsif criterion.key?(:name)
+          :name
+        else
+          raise ValidationError, "Criterion #{index + 1} must have a 'title', 'criterion', or 'name' field"
+        end
+
+        validate_required_field(criterion, title_field, "Criterion #{index + 1}")
+
+        # Description is optional for some formats
+        if criterion.key?(:description)
+          validate_required_field(criterion, :description, "Criterion #{index + 1}")
+        end
+
+        # Position might not always be present
+        if criterion.key?(:position)
+          unless criterion[:position].is_a?(Integer)
+            raise ValidationError, "Criterion #{index + 1} position must be an integer"
+          end
         end
 
         validate_levels(criterion, index)
       end
 
       def validate_levels(criterion, criterion_index)
-        unless criterion.key?(:levels)
-          raise ValidationError, "Criterion #{criterion_index + 1} must have 'levels' array"
+        # Handle both 'levels' and 'descriptors' field names
+        levels_field = criterion.key?(:levels) ? :levels : :descriptors
+
+        unless criterion.key?(levels_field)
+          raise ValidationError, "Criterion #{criterion_index + 1} must have '#{levels_field}' array"
         end
 
-        unless criterion[:levels].is_a?(Array)
-          raise ValidationError, "Criterion #{criterion_index + 1} levels must be an array"
+        unless criterion[levels_field].is_a?(Array)
+          raise ValidationError, "Criterion #{criterion_index + 1} #{levels_field} must be an array"
         end
 
-        criterion[:levels].each_with_index do |level, level_index|
+        criterion[levels_field].each_with_index do |level, level_index|
           validate_level(level, criterion_index, level_index)
         end
       end
@@ -87,16 +131,33 @@ module LLM
       def validate_level(level, criterion_index, level_index)
         location = "Criterion #{criterion_index + 1}, Level #{level_index + 1}"
 
-        validate_required_field(level, :name, location)
-        validate_required_field(level, :description, location)
-        validate_required_field(level, :position, location)
-
-        unless level[:position].is_a?(Integer)
-          raise ValidationError, "#{location} position must be an integer"
+        # Handle different field names for level name
+        name_field = if level.key?(:name)
+          :name
+        elsif level.key?(:level)
+          :level
+        elsif level.key?(:grade)
+          :grade
+        elsif level.key?(:score)
+          :score
+        else
+          raise ValidationError, "#{location} must have a 'name', 'level', 'grade', or 'score' field"
         end
 
-        unless (1..4).include?(level[:position])
-          raise ValidationError, "#{location} position must be between 1 and 4"
+        validate_required_field(level, name_field, location)
+        validate_required_field(level, :description, location)
+
+        # Position might not always be present or might be named differently
+        if level.key?(:position)
+          unless level[:position].is_a?(Integer)
+            raise ValidationError, "#{location} position must be an integer"
+          end
+          unless (1..4).include?(level[:position])
+            raise ValidationError, "#{location} position must be between 1 and 4"
+          end
+        elsif level.key?(:points)
+          # Some formats use points instead of position - allow string or integer
+          # Don't validate the value since it might be a range like "22-25"
         end
       end
 
@@ -107,25 +168,82 @@ module LLM
       end
 
       def build_response(data)
+        criteria_data = extract_criteria(data)
+        parsed_criteria = criteria_data.map { |criterion| build_criterion(criterion) }
+
+        # Log the parsed structure for debugging
+        Rails.logger.info("Parsed rubric structure for assignment #{@context.assignment.id}:")
+        parsed_criteria.each_with_index do |criterion, idx|
+          Rails.logger.info("  Criterion #{idx + 1}: #{criterion.title}")
+          criterion.levels.each do |level|
+            Rails.logger.info("    Level: #{level.name} (position: #{level.position})")
+          end
+        end
+
         OpenStruct.new(
-          criteria: data[:criteria].map { |criterion| build_criterion(criterion) }
+          criteria: parsed_criteria
         )
       end
 
       def build_criterion(criterion)
+        # Handle different field names for criterion title
+        title_field = if criterion.key?(:title)
+          :title
+        elsif criterion.key?(:criterion)
+          :criterion
+        elsif criterion.key?(:name)
+          :name
+        else
+          :title # default fallback
+        end
+
+        levels_field = criterion.key?(:levels) ? :levels : :descriptors
+        levels_array = criterion[levels_field]
+
+        # Build levels with proper position assignments
+        levels = levels_array.map.with_index do |level, index|
+          build_level(level, index, levels_array.length)
+        end
+
         OpenStruct.new(
-          title: sanitize_string(criterion[:title]),
-          description: sanitize_string(criterion[:description]),
-          position: criterion[:position],
-          levels: criterion[:levels].map { |level| build_level(level) }
+          title: sanitize_string(criterion[title_field]),
+          description: sanitize_string(criterion[:description] || ""),
+          position: criterion[:position] || 1,
+          levels: levels
         )
       end
 
-      def build_level(level)
+      def build_level(level, index = 0, total_levels = 4)
+        # Handle different field names for level name
+        name_field = if level.key?(:name)
+          :name
+        elsif level.key?(:level)
+          :level
+        elsif level.key?(:grade)
+          :grade
+        elsif level.key?(:score)
+          :score
+        else
+          :name # default fallback
+        end
+
+        # For position, try different fields or assign based on array order
+        position = if level.key?(:position) && level[:position].is_a?(Integer) && (1..4).include?(level[:position])
+          level[:position]
+        else
+          # Assign positions based on array order
+          # First item gets highest position (4), last gets lowest (1)
+          # This assumes levels are ordered from best to worst in the LLM response
+          total_levels - index
+        end
+
+        # Ensure position is in valid range (1-4)
+        position = [ [ position, 1 ].max, 4 ].min
+
         OpenStruct.new(
-          name: sanitize_string(level[:name]),
+          name: sanitize_string(level[name_field]),
           description: sanitize_string(level[:description]),
-          position: level[:position]
+          position: position
         )
       end
 

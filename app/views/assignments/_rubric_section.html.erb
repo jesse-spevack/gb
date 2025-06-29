@@ -1,4 +1,9 @@
-<div id="rubric_content" class="bg-white rounded-lg shadow-md p-6">
+<div id="rubric_content" class="bg-white rounded-lg shadow-md p-4 sm:p-6 transition-all hover:shadow-lg">
+  <div class="flex items-center mb-4">
+    <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
+    <h3 class="font-medium text-gray-900">Rubric</h3>
+  </div>
+  
   <% if rubric.nil? %>
     <!-- Pending State -->
     <div class="text-center py-12">
@@ -8,7 +13,7 @@
           <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
         </svg>
       </div>
-      <p class="text-gray-600 font-medium">Generating rubric...</p>
+      <p class="text-gray-600 font-medium">Creating rubric...</p>
       <p class="text-sm text-gray-500 mt-2">This typically takes 30-45 seconds</p>
     </div>
   <% else %>
@@ -16,14 +21,17 @@
     <div class="space-y-6">
       <% rubric.criteria.order(position: :asc).each do |criterion| %>
         <div class="criterion border-b border-gray-200 pb-6 last:border-0">
-          <h4 class="text-lg font-semibold text-gray-900 mb-2"><%= criterion.title %></h4>
-          <p class="text-gray-600 mb-4"><%= criterion.description %></p>
+          <h4 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h4>
+          <p class="text-sm text-gray-600 mb-4"><%= criterion.description %></p>
           
-          <div class="grid grid-cols-1 md:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-2 sm:gap-3">
             <% criterion.levels.order(position: :asc).each do |level| %>
-              <div class="bg-gradient-to-br from-gray-50 to-gray-100 p-4 rounded-lg border border-gray-200">
-                <h5 class="font-medium text-gray-800 mb-1"><%= level.title %></h5>
-                <p class="text-sm text-gray-600"><%= level.description %></p>
+              <div class="bg-gray-50 p-2 sm:p-3 rounded-md border border-gray-200">
+                <div class="flex items-start justify-between mb-1">
+                  <h5 class="text-xs font-medium text-gray-700"><%= level.title %></h5>
+                  <span class="text-xs font-semibold text-gray-500 ml-2"><%= level.points %> pts</span>
+                </div>
+                <p class="text-xs text-gray-600"><%= level.description %></p>
               </div>
             <% end %>
           </div>
@@ -32,10 +40,3 @@
     </div>
   <% end %>
 </div>
-
-<!-- Tab indicator update target -->
-<span id="rubric_tab_indicator" class="ml-1">
-  <% if rubric.present? %>
-    <span class="inline-block w-2 h-2 bg-green-500 rounded-full"></span>
-  <% end %>
-</span>

@@ -27,14 +27,29 @@ class AssignmentsController < ApplicationController
     @rubric = @assignment.rubric
     @assignment_summary = @assignment.assignment_summary
 
-    # Calculate progress metrics
-    @progress_metrics = calculate_progress_metrics
+    # Calculate progress metrics using the ProgressCalculator service
+    @progress_metrics = Assignments::ProgressCalculator.new(@assignment).calculate
+
+    # Check if processing is currently active
+    @processing_active = !Assignments::CompletionChecker.call(@assignment) && @assignment.created_at > 1.hour.ago
 
     # Calculate criterion averages if assignment is complete
     @criterion_averages = Assignments::Statistics.get_criterion_performance(@assignment) if Assignments::CompletionChecker.call(@assignment)
 
     # Determine active section from params, default to 'details'
     @active_section = params[:section]&.in?(%w[details rubric student_works summary]) ? params[:section] : "details"
+
+    respond_to do |format|
+      format.html # Default HTML response
+      format.json do
+        render json: {
+          progress_metrics: @progress_metrics,
+          processing_active: @processing_active,
+          rubric_complete: @rubric.present?,
+          summary_complete: @assignment_summary.present?
+        }
+      end
+    end
   end
 
   def destroy
@@ -61,24 +76,5 @@ class AssignmentsController < ApplicationController
       assignment_params: assignment_params,
       user: Current.user
     )
-  end
-
-  # Calculate progress metrics for the assignment
-  def calculate_progress_metrics
-    total_student_works = @student_works.count
-    return { total: 0, completed: 0, percentage: 0 } if total_student_works == 0
-
-    # Count student works with feedback
-    completed_student_works = @student_works.select { |sw| sw.qualitative_feedback.present? }.count
-
-    percentage = total_student_works > 0 ? (completed_student_works.to_f / total_student_works * 100).round : 0
-
-    {
-      total: total_student_works,
-      completed: completed_student_works,
-      percentage: percentage,
-      rubric_generated: @rubric.present?,
-      summary_generated: @assignment_summary.present?
-    }
   end
 end

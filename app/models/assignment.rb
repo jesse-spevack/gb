@@ -25,7 +25,7 @@ class Assignment < ApplicationRecord
   has_prefix_id :asgn
 
   belongs_to :user
-  has_many :selected_documents, through: :student_works
+  has_many :selected_documents, dependent: :destroy
   has_many :student_works, dependent: :destroy
 
   has_one :rubric, dependent: :destroy
