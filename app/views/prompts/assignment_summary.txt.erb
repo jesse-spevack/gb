@@ -13,10 +13,10 @@ You are an educational expert providing class-wide insights and summary feedback
 
 ## Grading Rubric
 
-<%= input.rubric.criteria.each do |criteria| %>
+<% input.rubric.criteria.each do |criteria| %>
 - **<%= criteria.title %>**
   - <%= criteria.description %>
-  - <%= criteria.levels.each do |level| %>
+  <% criteria.levels.each do |level| %>
     - <%= level.title %>: <%= level.description %>
   <% end %>
 <% end %>
@@ -32,14 +32,14 @@ This section provides a detailed analysis of each student's work, including thei
 <%= student_work.qualitative_feedback %>
 
 ### Rubric Performance
-<%= student_work.student_criterion_levels.each do |student_criterion_level| %>
+<% student_work.student_criterion_levels.each do |student_criterion_level| %>
 - **<%= student_criterion_level.criterion_title %>**
   - <%= student_criterion_level.level_title %>
   - <%= student_criterion_level.explanation %>
 <% end %>
 
 ### Feedback Items
-<%= student_work.feedback_items.each do |feedback_item| %>
+<% student_work.feedback_items.each do |feedback_item| %>
 - **<%= feedback_item.title %>**
   - <%= feedback_item.description %>
   - <%= feedback_item.evidence %>
@@ -48,7 +48,7 @@ This section provides a detailed analysis of each student's work, including thei
 <% end %>
 
 ## Rubric Performance Summary
-<%= input.rubric_performance_summary.each do |criterion_performance_summary| %>
+<% input.rubric_performance_summary.each do |criterion_performance_summary| %>
 - **<%= criterion_performance_summary.criterion_title %>**
   - Average Level: <%= criterion_performance_summary.average_level %>
   - Min Level: <%= criterion_performance_summary.min_level %>

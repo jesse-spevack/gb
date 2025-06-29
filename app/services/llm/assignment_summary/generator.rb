@@ -38,7 +38,19 @@ module LLM
       end
 
       def validate_json_response(response)
-        JSON.parse(response.text)
+        clean_text = strip_markdown_formatting(response.text)
+        JSON.parse(clean_text)
+      end
+
+      def strip_markdown_formatting(text)
+        # Remove markdown code block formatting if present
+        text = text.strip
+        if text.start_with?("```json")
+          text = text.sub(/\A```json\n?/, "").sub(/\n?```\z/, "")
+        elsif text.start_with?("```")
+          text = text.sub(/\A```\n?/, "").sub(/\n?```\z/, "")
+        end
+        text.strip
       end
 
       def track_cost(response)

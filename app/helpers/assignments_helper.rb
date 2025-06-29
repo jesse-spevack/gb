@@ -42,6 +42,11 @@ module AssignmentsHelper
         bg_class: "bg-blue-100",
         text_class: "text-blue-800",
         label: "Processing"
+      },
+      failed: {
+        bg_class: "bg-red-100",
+        text_class: "text-red-800",
+        label: "Failed"
       }
     }
 
@@ -55,10 +60,10 @@ module AssignmentsHelper
   # @param work [StudentWork] The student work object
   # @return [String] HTML for the status badge
   def student_work_status_badge(work)
-    if work.qualitative_feedback.present?
+    if work.processing_metric&.failed?
+      status_badge(:failed)
+    elsif work.qualitative_feedback.present?
       status_badge(:completed)
-    elsif work.processing_started_at.present?
-      status_badge(:processing)
     else
       status_badge(:pending)
     end

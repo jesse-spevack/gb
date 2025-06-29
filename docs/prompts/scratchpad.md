@@ -59,7 +59,7 @@ Assume the primary reader of the PRD is a **junior developer**. Therefore, requi
 
 Request:
 
-Implement AssignmentProcessor Class - Create the main entry point that orchestrates execution of individual pipelines in the correct sequence. AssignmentProcessor coordinates RubricPipeline, multiple StudentWorkFeedbackPipeline instances, and AssignmentSummaryPipeline. Handles sequential pipeline execution with dependency management, comprehensive error handling across all pipelines, real-time progress updates for teachers, and final result aggregation with assignment status updates.
+Create a comprehensive view for displaying assignment processing status with real-time updates. Implement progress indicators, status messages, time estimation display, and error state handling. Use TurboStream for live updates of processing progress. See the AssignmentProcessor class for more details. Also see docs/plan.md for more details. This is a view heavy task that requires really strong design skills. Include mobile friendly views with tailwind css. This is what teachers see after creating a new assignment while the assignment is being processed and once the assignment processing is complete.
 
 ---
 
@@ -140,7 +140,7 @@ Assume the primary reader of the task list is a **junior developer** who will im
 
 Request:
 
-Please generate tasks for the PRD at /docs/prds/2025-05-31-pipeline-storage-services.md
+Please generate tasks for the PRD at /docs/prds/2025-06-03-assignment-processing-status-view.md
 
 
 ---
@@ -187,5 +187,5 @@ When working with task lists, the AI must:
 ---
 Request:
 Please review the /docs/plan.md
-Please review the /docs/prds/2025-06-01-assignment-processor.md
-Please implement the task list at /tasks/tasks-2025-06-01-assignment-processor.md
+Please review the /docs/prds/2025-06-03-assignment-processing-status-view.md
+Please implement the task list at /tasks/tasks-2025-06-03-assignment-processing-status-view.md

@@ -3,9 +3,14 @@ class LLMResponse
 
   def self.from_anthropic(raw_response)
     data = JSON.parse(raw_response)
+    extracted_text = extract_text_from_anthropic(data)
+
+    # Log the extracted text for debugging
+    Rails.logger.info("Extracted text from Anthropic response:")
+    Rails.logger.info(extracted_text)
 
     new(
-      text: extract_text_from_anthropic(data),
+      text: extracted_text,
       input_tokens: data.dig("usage", "input_tokens"),
       output_tokens: data.dig("usage", "output_tokens"),
       model: data["model"],
@@ -15,9 +20,14 @@ class LLMResponse
 
   def self.from_google(raw_response)
     data = JSON.parse(raw_response)
+    extracted_text = extract_text_from_google(data)
+
+    # Log the extracted text for debugging
+    Rails.logger.info("Extracted text from Google response:")
+    Rails.logger.info(extracted_text)
 
     new(
-      text: extract_text_from_google(data),
+      text: extracted_text,
       input_tokens: data.dig("usageMetadata", "promptTokenCount"),
       output_tokens: data.dig("usageMetadata", "candidatesTokenCount"),
       model: data["modelVersion"],

@@ -48,7 +48,7 @@ class ProgressBroadcastService
   # @param progress_metrics [Hash] The progress metrics from the calculator
   def broadcast_to_progress_card(progress_metrics)
     Turbo::StreamsChannel.broadcast_replace_to(
-      "assignment_#{assignment.id}",
+      assignment,
       target: "assignment_#{assignment.id}_progress",
       partial: "assignments/progress_card",
       locals: { assignment: assignment, progress_metrics: progress_metrics }
@@ -61,7 +61,7 @@ class ProgressBroadcastService
     # Only broadcast rubric updates if the rubric exists or is in progress
     if assignment.rubric.present? || progress_metrics[:phases][:rubric][:status] == :in_progress
       Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
+        assignment,
         target: "rubric_content",
         partial: "assignments/rubric_section",
         locals: { rubric: assignment.rubric, assignment: assignment }
@@ -70,7 +70,7 @@ class ProgressBroadcastService
       # Update the tab indicator
       if assignment.rubric&.persisted?
         Turbo::StreamsChannel.broadcast_replace_to(
-          "assignment_#{assignment.id}",
+          assignment,
           target: "rubric_tab_indicator",
           partial: "assignments/tab_indicator",
           locals: { completed: true }
@@ -84,7 +84,7 @@ class ProgressBroadcastService
   def broadcast_to_student_works(progress_metrics)
     assignment.student_works.each_with_index do |work, index|
       Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
+        assignment,
         target: "student_work_#{work.id}",
         partial: "assignments/student_work_row",
         locals: { work: work, index: index }
@@ -97,7 +97,7 @@ class ProgressBroadcastService
   def broadcast_to_summary_section(progress_metrics)
     if assignment.assignment_summary.present? || progress_metrics[:phases][:summary][:status] == :in_progress
       Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
+        assignment,
         target: "assignment_summary_content",
         partial: "assignments/assignment_summary",
         locals: { assignment: assignment, summary: assignment.assignment_summary }

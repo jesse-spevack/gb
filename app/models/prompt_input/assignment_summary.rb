@@ -2,6 +2,17 @@
 
 module PromptInput
   class AssignmentSummary
+    def self.call(context:)
+      build_and_attach_to_context(context)
+    end
+
+    def self.build_and_attach_to_context(context)
+      Rails.logger.info("Building prompt input for assignment summary: #{context.assignment.id}")
+      input = from(assignment: context.assignment)
+      context.prompt = PromptTemplate.build("assignment_summary.txt.erb", input)
+      context
+    end
+
     def self.from(assignment:)
       new(assignment)
     end
@@ -38,6 +49,14 @@ module PromptInput
 
     def student_works
       @assignment.student_works
+    end
+
+    def student_works_count
+      @assignment.student_works.count
+    end
+
+    def rubric_criteria
+      @assignment.rubric&.criteria || []
     end
 
     def rubric_performance_summary

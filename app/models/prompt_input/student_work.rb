@@ -9,7 +9,8 @@ module PromptInput
 
     def self.build_and_attach_to_context(context)
       Rails.logger.info("Building prompt input for student work: #{context.student_work.id}")
-      context.prompt = "Analyze the student work and provide feedback"
+      input = PromptInput::StudentWorkFeedback.from(student_work: context.student_work)
+      context.prompt = PromptTemplate.build("student_feedback.txt.erb", input)
       context
     end
   end

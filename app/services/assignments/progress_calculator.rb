@@ -88,6 +88,7 @@ module Assignments
 
     # Determine status of rubric generation phase
     def rubric_status
+      return :failed if rubric_failed?
       return :completed if rubric_complete?
       return :in_progress if @assignment.rubric&.persisted?
       :pending
@@ -96,6 +97,7 @@ module Assignments
     # Determine status of student work feedback phase
     def student_works_status
       return :pending unless rubric_complete?
+      return :failed if student_works_failed?
       return :completed if completed_student_works_count == total_student_works_count && total_student_works_count > 0
       return :in_progress if completed_student_works_count > 0
       :pending
@@ -103,6 +105,7 @@ module Assignments
 
     # Determine status of summary generation phase
     def summary_status
+      return :failed if summary_failed?
       return :completed if summary_complete?
       return :in_progress if completed_student_works_count == total_student_works_count && total_student_works_count > 0
       :pending
@@ -112,6 +115,24 @@ module Assignments
     def student_works_percentage
       return 0 if total_student_works_count.zero?
       ((completed_student_works_count.to_f / total_student_works_count) * 100).round
+    end
+
+    # Check if rubric generation failed
+    def rubric_failed?
+      return false unless @assignment.rubric
+      @assignment.rubric.processing_metric&.failed?
+    end
+
+    # Check if any student work processing failed
+    def student_works_failed?
+      @assignment.student_works.any? { |work| work.processing_metric&.failed? }
+    end
+
+    # Check if assignment summary generation failed
+    def summary_failed?
+      # For now, check if processing failed at assignment level for summary step
+      # This would need to be enhanced based on how summary failures are tracked
+      false
     end
   end
 end

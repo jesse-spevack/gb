@@ -22,6 +22,10 @@ module LLM
         make_http_request(uri, request(prompt))
       end
 
+      # Log the raw Google API response for debugging
+      Rails.logger.info("Raw Google API Response Body:")
+      Rails.logger.info(response.body)
+
       LLMResponse.from_google(response.body)
     end
 

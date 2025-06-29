@@ -707,7 +707,7 @@
       "id": 54,
       "title": "Implement PromptInput Classes",
       "description": "Create specialized classes that prepare and format data for LLM prompts in each pipeline. Implement PromptInput::Rubric for assignment and rubric context, PromptInput::StudentWork for student work analysis, and PromptInput::AssignmentSummary for class-wide insights. Each class handles data extraction, formatting, and prompt construction using the existing PromptTemplate system with proper error handling, data validation, and consistent prompt formatting across all pipelines.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         51,
         53
@@ -778,7 +778,7 @@
       "id": 59,
       "title": "Implement AssignmentProcessor Class",
       "description": "Create the main entry point that orchestrates execution of individual pipelines in the correct sequence. AssignmentProcessor coordinates RubricPipeline, multiple StudentWorkFeedbackPipeline instances, and AssignmentSummaryPipeline. Handles sequential pipeline execution with dependency management, comprehensive error handling across all pipelines, real-time progress updates for teachers, and final result aggregation with assignment status updates.",
-      "status": "in-progress",
+      "status": "done",
       "dependencies": [
         58,
         52
@@ -792,7 +792,7 @@
       "id": 60,
       "title": "Update AssignmentJob to Use New Pipeline",
       "description": "Refactor the existing AssignmentJob to utilize the new AssignmentProcessor architecture. Replace legacy processing logic with calls to AssignmentProcessor, update error handling to work with ProcessingResult objects, and ensure proper job status tracking. Maintain backward compatibility while leveraging the new pipeline's improved reliability, enhanced progress tracking, and comprehensive logging and monitoring capabilities.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         59
       ],
@@ -805,7 +805,7 @@
       "id": 61,
       "title": "Add show action to AssignmentsController",
       "description": "CRITICAL MVP TASK: Implement controller action for displaying assignment details and real-time processing status. Create show action that handles different assignment states (pending, processing, completed, failed) with appropriate data loading and error handling. Integrate with ActionCable for real-time status updates, include route configuration, efficient data loading with proper eager loading, and comprehensive error handling for different failure modes. This is the entry point for teachers to see their assignment results.",
-      "status": "pending",
+      "status": "done",
       "dependencies": [
         60
       ],
@@ -819,7 +819,7 @@
       "id": 62,
       "title": "Create assignment show view with status tracking",
       "description": "CRITICAL MVP TASK: Create comprehensive view for displaying assignment processing status with real-time updates. Implement progress indicators, status messages, time estimation display, and error state handling. Use ActionCable for live updates of processing progress with progressive enhancement for graceful degradation. Include mobile-responsive design with touch-friendly interface and comprehensive error messaging with recovery suggestions. This is what teachers see during and after assignment processing.",
-      "status": "pending",
+      "status": "in-progress",
       "dependencies": [
         61
       ],

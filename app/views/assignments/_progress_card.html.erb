@@ -1,18 +1,20 @@
 <div id="assignment_<%= assignment.id %>_progress" 
-     class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg"
-     data-turbo-permanent>
+     class="bg-white rounded-lg shadow-md p-4 sm:p-6 transition-all hover:shadow-lg"
+     data-controller="assignment-progress"
+     data-assignment-progress-percentage-value="<%= progress_metrics[:overall_percentage] %>"
+     data-assignment-progress-assignment-id-value="<%= assignment.id %>">
   
-  <div class="flex items-center justify-between mb-6">
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 space-y-2 sm:space-y-0">
     <h3 class="text-lg font-semibold text-gray-900">Processing Progress</h3>
-    <div class="text-3xl font-bold text-blue-600">
+    <div class="text-2xl sm:text-3xl font-bold text-blue-600" data-assignment-progress-target="progressText">
       <%= progress_metrics[:overall_percentage] %>%
     </div>
   </div>
 
   <div class="mb-4">
-    <div class="flex justify-between text-sm text-gray-600 mb-2">
+    <div class="flex flex-col sm:flex-row sm:justify-between text-sm text-gray-600 mb-2 space-y-1 sm:space-y-0">
       <span><%= progress_metrics[:completed_llm_calls] %> of <%= progress_metrics[:total_llm_calls] %> steps complete</span>
-      <span class="text-xs">
+      <span class="text-xs sm:text-sm">
         <% if progress_metrics[:overall_percentage] < 100 %>
           <% 
             estimator = TimeEstimator.new
@@ -34,18 +36,26 @@
     </div>
     <div class="w-full bg-gray-200 rounded-full h-3">
       <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
-           style="width: <%= progress_metrics[:overall_percentage] %>%"></div>
+           style="width: <%= progress_metrics[:overall_percentage] %>%"
+           data-assignment-progress-target="progressBar"></div>
     </div>
   </div>
 
-  <div class="grid grid-cols-3 gap-4 mt-6">
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mt-6">
     <!-- Rubric Phase -->
-    <div class="text-center phase-indicator <%= progress_metrics[:phases][:rubric][:status] %>">
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:rubric][:status] %>"
+         data-assignment-progress-target="phaseIndicator">
       <div class="mb-2">
         <% if progress_metrics[:phases][:rubric][:complete] %>
           <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:rubric][:status] == :failed %>
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </div>
         <% elsif progress_metrics[:phases][:rubric][:status] == :in_progress %>
@@ -66,12 +76,19 @@
     </div>
 
     <!-- Student Works Phase -->
-    <div class="text-center phase-indicator <%= progress_metrics[:phases][:student_works][:status] %>">
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:student_works][:status] %>"
+         data-assignment-progress-target="phaseIndicator">
       <div class="mb-2">
         <% if progress_metrics[:phases][:student_works][:status] == :completed %>
           <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:student_works][:status] == :failed %>
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </div>
         <% elsif progress_metrics[:phases][:student_works][:status] == :in_progress %>
@@ -93,12 +110,19 @@
     </div>
 
     <!-- Summary Phase -->
-    <div class="text-center phase-indicator <%= progress_metrics[:phases][:summary][:status] %>">
+    <div class="text-center phase-indicator <%= progress_metrics[:phases][:summary][:status] %>"
+         data-assignment-progress-target="phaseIndicator">
       <div class="mb-2">
         <% if progress_metrics[:phases][:summary][:complete] %>
           <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
+        <% elsif progress_metrics[:phases][:summary][:status] == :failed %>
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
           </div>
         <% elsif progress_metrics[:phases][:summary][:status] == :in_progress %>
