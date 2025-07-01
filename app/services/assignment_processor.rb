@@ -20,7 +20,19 @@ class AssignmentProcessor
     start_time = Time.current
 
     begin
+      Rails.logger.warn("Broadcasting sample message: Step 1")
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}",
+        target: "assignment-sample-message",
+        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 1.</p>"
+      )
       update_status(:processing)
+      Rails.logger.warn("Broadcasting sample message: Step 2")
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}",
+        target: "assignment-sample-message",
+        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 2.</p>"
+      )
       process_pipelines
       update_status(:completed)
       result = build_success_result
@@ -49,15 +61,41 @@ class AssignmentProcessor
     # Execute RubricPipeline
     execute_rubric_pipeline
 
+      Rails.logger.warn("Broadcasting sample message: Step 3")
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "assignment_#{assignment.id}",
+      target: "assignment-sample-message",
+      html: "<p class='text-sm text-gray-500'>This is a sample message: Step 3.</p>"
+    )
+
     # Stop processing if rubric generation failed
     raise PipelineFailureError, format_pipeline_errors("RubricPipeline", @rubric_result) unless @rubric_result.successful?
 
+      Rails.logger.warn("Broadcasting sample message: Step 4")
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}",
+        target: "assignment-sample-message",
+        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 4.</p>"
+      )
     # Execute StudentWorkFeedbackPipeline for each student work
     execute_student_feedback_pipelines if @rubric_context
 
+      Rails.logger.warn("Broadcasting sample message: Step 5")
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}",
+        target: "assignment-sample-message",
+        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 5.</p>"
+      )
     # Execute AssignmentSummaryPipeline
     if should_generate_summary?
       execute_assignment_summary_pipeline
+
+      Rails.logger.warn("Broadcasting sample message: Step 6")
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}",
+        target: "assignment-sample-message",
+        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 6.</p>"
+      )
 
       # Check if summary generation failed (critical failure)
       if @assignment_summary_result && !@assignment_summary_result.successful?
