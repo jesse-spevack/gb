@@ -13,6 +13,41 @@ export default class extends Controller {
     "statusText", "spinner"
   ]
 
+  static values = {
+    currentStep: Number
+  }
+
+  currentStepValueChanged(value, previousValue) {
+    console.log(`Step changed from ${previousValue} to ${value}`)
+
+    // Only process if we have a previous value (not initial load)
+    if (previousValue) {
+      // Trigger the progression based on the new step value
+      switch(value) {
+        case 2:
+          this.setStepCompleted(1)
+          this.setStepInProgress(2)
+          this.updateStatusText("GradeBot is generating a rubric...")
+          break
+        case 3:
+          this.setStepCompleted(2)
+          this.setStepInProgress(3)
+          this.updateStatusText("GradeBot is analyzing student work...")
+          break
+        case 4:
+          this.setStepCompleted(3)
+          this.setStepInProgress(4)
+          this.updateStatusText("GradeBot is summarizing analysis...")
+          break
+        case 5: // Completed
+          this.setStepCompleted(4)
+          this.updateStatusText("Assignment processing complete!")
+          this.hideSpinner()
+          break
+      }
+    }
+  }
+
   static classes = [
     "active",        // bg-blue-600 - for circles and lines when active
     "inactive",      // bg-gray-200 - for circles and lines when inactive
@@ -26,9 +61,9 @@ export default class extends Controller {
     this.ensureLinesStartInactive()
     
     // Start progression after 2 seconds (all start grey)
-    setTimeout(() => {
-      this.startProgression()
-    }, 2000)
+    // setTimeout(() => {
+    //   this.startProgression()
+    // }, 2000)
   }
 
   ensureLinesStartInactive() {

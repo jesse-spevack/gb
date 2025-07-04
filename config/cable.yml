@@ -2,8 +2,21 @@
 # and seeing results in the browser, you must do so from the web console (running inside the dev process),
 # not a terminal started via bin/rails console! Add "console" to any action or any ERB template view
 # to make the web console appear.
+# development:
+#   adapter: async
+
+# Added by a human 2025-07-04
+# solid_cable in development enables cross-process ActionCable communication.
+# Critical for testing turbostream broadcasts from background jobs (SolidQueue workers
+# run in separate processes). Without this, job-triggered UI updates won't reach the browser
+# in development, making real-world scenarios untestable until production.
 development:
-  adapter: async
+  adapter: solid_cable
+  connects_to:
+    database:
+      writing: cable
+  polling_interval: 0.5.seconds
+  message_retention: 1.hour
 
 test:
   adapter: test

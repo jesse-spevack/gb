@@ -27,6 +27,7 @@ class Assignment < ApplicationRecord
   belongs_to :user
   has_many :selected_documents, dependent: :destroy
   has_many :student_works, dependent: :destroy
+  has_many :processing_steps, dependent: :destroy
 
   has_one :rubric, dependent: :destroy
   has_one :assignment_summary, dependent: :destroy

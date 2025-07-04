@@ -1,4 +1,6 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <%= turbo_stream_from "assignment_#{@assignment.id}_steps" %>
+  <%= render "processing_steps_test", current_step: 1 %>
   <div data-controller="assignment-processor" 
        data-assignment-processor-active-class="bg-blue-600"
        data-assignment-processor-inactive-class="bg-gray-200"

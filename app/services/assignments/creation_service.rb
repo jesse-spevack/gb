@@ -30,6 +30,8 @@ class Assignments::CreationService
           selected_documents: selected_documents
         )
 
+        ProcessingStep::CreationService.create(assignment: assignment)
+
         Rubric::CreationService.create(assignment: assignment)
       end
 

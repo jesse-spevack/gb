@@ -20,11 +20,11 @@ class AssignmentProcessor
     start_time = Time.current
 
     begin
-      Rails.logger.warn("Broadcasting sample message: Step 1")
       Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
-        target: "assignment-sample-message",
-        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 1.</p>"
+        "assignment_#{assignment.id}_steps",
+        target: "processing-steps-test",
+        partial: "assignments/processing_steps_test",
+        locals: { current_step: 2 }
       )
       update_status(:processing)
       Rails.logger.warn("Broadcasting sample message: Step 2")
@@ -71,6 +71,12 @@ class AssignmentProcessor
     # Stop processing if rubric generation failed
     raise PipelineFailureError, format_pipeline_errors("RubricPipeline", @rubric_result) unless @rubric_result.successful?
 
+    Turbo::StreamsChannel.broadcast_replace_to(
+      "assignment_#{assignment.id}_steps",
+      target: "processing-steps-test",
+      partial: "assignments/processing_steps_test",
+      locals: { current_step: 3 }
+    )
       Rails.logger.warn("Broadcasting sample message: Step 4")
       Turbo::StreamsChannel.broadcast_replace_to(
         "assignment_#{assignment.id}",
