@@ -14,21 +14,15 @@ export default class extends Controller {
   ]
 
   static classes = [
-    "circleNotStarted",
-    "circleInProgress", 
-    "circleCompleted",
-    "numberNotStarted",
-    "numberInProgress",
-    "textNormal",
-    "textMuted",
-    "lineInactive",
-    "lineActive",
-    "hidden",
-    "spinnerHidden"
+    "active",        // bg-blue-600 - for circles and lines when active
+    "inactive",      // bg-gray-200 - for circles and lines when inactive
+    "activeText",    // text-white - for numbers in active circles
+    "normalText",    // text-gray-900 - for numbers and normal text
+    "mutedText",     // text-gray-500 - for completed step text
+    "hidden"         // hidden - for hiding elements
   ]
 
   connect() {
-    // Ensure all lines start inactive
     this.ensureLinesStartInactive()
     
     // Start progression after 2 seconds (all start grey)
@@ -39,7 +33,6 @@ export default class extends Controller {
 
   ensureLinesStartInactive() {
     try {
-      // Get all line targets (may have multiple for responsive design)
       const allLines = [
         ...(this.line1to2Targets || []),
         ...(this.line2to3Targets || []),
@@ -47,8 +40,7 @@ export default class extends Controller {
       ]
       
       allLines.forEach(line => {
-        line.className = line.className.replace(/bg-\w+-\d+/g, '').trim()
-        line.classList.add(...this.lineInactiveClasses)
+        this.setBackgroundState(line, 'inactive')
       })
     } catch (error) {
       console.error("Error setting lines to inactive:", error)
@@ -90,31 +82,20 @@ export default class extends Controller {
 
   setStepCompleted(stepNumber) {
     try {
-      const circles = this[`step${stepNumber}CircleTargets`] || []
-      const numbers = this[`step${stepNumber}NumberTargets`] || []
-      const checks = this[`step${stepNumber}CheckTargets`] || []
-      const texts = this[`step${stepNumber}TextTargets`] || []
-
-      // Update all circles (mobile + desktop)
-      circles.forEach(circle => {
-        circle.className = circle.className.replace(/bg-\w+-\d+/g, '').trim()
-        circle.classList.add(...this.circleCompletedClasses)
+      const stepTargets = this.getStepTargets(stepNumber)
+      
+      // Update circles to active state
+      stepTargets.circles.forEach(circle => {
+        this.setBackgroundState(circle, 'active')
       })
       
-      // Update all numbers (hide them)
-      numbers.forEach(number => {
-        number.classList.add(...this.hiddenClasses)
-      })
+      // Hide numbers, show checkmarks
+      this.toggleVisibility(stepTargets.numbers, true) // hide
+      this.toggleVisibility(stepTargets.checks, false) // show
       
-      // Update all checkmarks (show them)
-      checks.forEach(check => {
-        check.classList.remove(...this.hiddenClasses)
-      })
-      
-      // Update all text (muted for completed steps)
-      texts.forEach(text => {
-        text.className = text.className.replace(/text-\w+-\d+/g, '').trim()
-        text.classList.add(...this.textMutedClasses)
+      // Update text to muted
+      stepTargets.texts.forEach(text => {
+        this.setTextState(text, 'muted')
       })
     } catch (error) {
       console.error(`Error setting step ${stepNumber} to completed:`, error)
@@ -123,60 +104,42 @@ export default class extends Controller {
 
   setStepInProgress(stepNumber) {
     try {
-      const circles = this[`step${stepNumber}CircleTargets`] || []
-      const numbers = this[`step${stepNumber}NumberTargets`] || []
-      const checks = this[`step${stepNumber}CheckTargets`] || []
-
-      // Update all circles (mobile + desktop)
-      circles.forEach(circle => {
-        circle.className = circle.className.replace(/bg-\w+-\d+/g, '').trim()
-        circle.classList.add(...this.circleInProgressClasses)
+      const stepTargets = this.getStepTargets(stepNumber)
+      
+      // Update circles to active state
+      stepTargets.circles.forEach(circle => {
+        this.setBackgroundState(circle, 'active')
       })
       
-      // Update all numbers (show with white text)
-      numbers.forEach(number => {
-        number.className = number.className.replace(/text-\w+-\d+/g, '').trim()
-        number.classList.add(...this.numberInProgressClasses)
-        number.classList.remove(...this.hiddenClasses)
+      // Show numbers with active text, hide checkmarks
+      stepTargets.numbers.forEach(number => {
+        this.setTextState(number, 'active')
       })
-      
-      // Update all checkmarks (hide them)
-      checks.forEach(check => {
-        check.classList.add(...this.hiddenClasses)
-      })
+      this.toggleVisibility(stepTargets.numbers, false) // show
+      this.toggleVisibility(stepTargets.checks, true) // hide
     } catch (error) {
       console.error(`Error setting step ${stepNumber} to in progress:`, error)
     }
   }
 
   setStepNotStarted(stepNumber) {
-    const circles = this[`step${stepNumber}CircleTargets`] || []
-    const numbers = this[`step${stepNumber}NumberTargets`] || []
-    const checks = this[`step${stepNumber}CheckTargets`] || []
-    const texts = this[`step${stepNumber}TextTargets`] || []
-
-    // Update all circles (gray background)
-    circles.forEach(circle => {
-      circle.className = circle.className.replace(/bg-\w+-\d+/g, '').trim()
-      circle.classList.add(...this.circleNotStartedClasses)
+    const stepTargets = this.getStepTargets(stepNumber)
+    
+    // Update circles to inactive state
+    stepTargets.circles.forEach(circle => {
+      this.setBackgroundState(circle, 'inactive')
     })
     
-    // Update all numbers (show with black text)
-    numbers.forEach(number => {
-      number.className = number.className.replace(/text-\w+-\d+/g, '').trim()
-      number.classList.add(...this.numberNotStartedClasses)
-      number.classList.remove(...this.hiddenClasses)
+    // Show numbers with normal text, hide checkmarks
+    stepTargets.numbers.forEach(number => {
+      this.setTextState(number, 'normal')
     })
+    this.toggleVisibility(stepTargets.numbers, false) // show
+    this.toggleVisibility(stepTargets.checks, true) // hide
     
-    // Update all checkmarks (hide them)
-    checks.forEach(check => {
-      check.classList.add(...this.hiddenClasses)
-    })
-    
-    // Update all text (normal color for future steps)
-    texts.forEach(text => {
-      text.className = text.className.replace(/text-\w+-\d+/g, '').trim()
-      text.classList.add(...this.textNormalClasses)
+    // Update text to normal
+    stepTargets.texts.forEach(text => {
+      this.setTextState(text, 'normal')
     })
   }
 
@@ -185,8 +148,7 @@ export default class extends Controller {
       const lines = this[`${lineTarget}Targets`] || []
       
       lines.forEach(line => {
-        line.className = line.className.replace(/bg-\w+-\d+/g, '').trim()
-        line.classList.add(...this.lineActiveClasses)
+        this.setBackgroundState(line, 'active')
       })
     } catch (error) {
       console.error(`Error making ${lineTarget} active:`, error)
@@ -196,8 +158,7 @@ export default class extends Controller {
   setLineInactive(lineTarget) {
     const lines = this[`${lineTarget}Targets`] || []
     lines.forEach(line => {
-      line.className = line.className.replace(/bg-\w+-\d+/g, '').trim()
-      line.classList.add(...this.lineInactiveClasses)
+      this.setBackgroundState(line, 'inactive')
     })
   }
 
@@ -209,7 +170,69 @@ export default class extends Controller {
 
   hideSpinner() {
     if (this.hasSpinnerTarget) {
-      this.spinnerTarget.classList.add(...this.spinnerHiddenClasses)
+      this.spinnerTarget.classList.add(...this.hiddenClasses)
+    }
+  }
+
+  // Helper methods for semantic class management
+
+  /**
+   * Set background state (active/inactive) for an element
+   */
+  setBackgroundState(element, state) {
+    // Remove all possible background classes
+    element.classList.remove('bg-blue-600', 'bg-gray-200')
+    
+    // Add the appropriate semantic class
+    if (state === 'active') {
+      element.classList.add(...this.activeClasses)
+    } else {
+      element.classList.add(...this.inactiveClasses)
+    }
+  }
+
+  /**
+   * Set text state (active/normal/muted) for an element
+   */
+  setTextState(element, state) {
+    // Remove all possible text classes
+    element.classList.remove('text-white', 'text-gray-900', 'text-gray-500')
+    
+    // Add the appropriate semantic class
+    switch (state) {
+      case 'active':
+        element.classList.add(...this.activeTextClasses)
+        break
+      case 'muted':
+        element.classList.add(...this.mutedTextClasses)
+        break
+      default: // normal
+        element.classList.add(...this.normalTextClasses)
+    }
+  }
+
+  /**
+   * Toggle visibility of elements
+   */
+  toggleVisibility(elements, hide) {
+    elements.forEach(element => {
+      if (hide) {
+        element.classList.add(...this.hiddenClasses)
+      } else {
+        element.classList.remove(...this.hiddenClasses)
+      }
+    })
+  }
+
+  /**
+   * Get all targets for a specific step
+   */
+  getStepTargets(stepNumber) {
+    return {
+      circles: this[`step${stepNumber}CircleTargets`] || [],
+      numbers: this[`step${stepNumber}NumberTargets`] || [],
+      checks: this[`step${stepNumber}CheckTargets`] || [],
+      texts: this[`step${stepNumber}TextTargets`] || []
     }
   }
 } 
