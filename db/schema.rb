@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_31_025958) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_04_215505) do
   create_table "assignment_summaries", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "student_work_count", null: false
@@ -106,6 +106,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_31_025958) do
     t.index ["user_id"], name: "index_processing_metrics_on_user_id"
   end
 
+  create_table "processing_steps", force: :cascade do |t|
+    t.integer "assignment_id", null: false
+    t.string "step_key", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id", "step_key"], name: "index_processing_steps_on_assignment_id_and_step_key", unique: true
+    t.index ["assignment_id"], name: "index_processing_steps_on_assignment_id"
+  end
+
   create_table "rubrics", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.datetime "created_at", null: false
@@ -193,6 +205,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_31_025958) do
   add_foreign_key "llm_usage_records", "users"
   add_foreign_key "processing_metrics", "assignments"
   add_foreign_key "processing_metrics", "users"
+  add_foreign_key "processing_steps", "assignments"
   add_foreign_key "rubrics", "assignments"
   add_foreign_key "selected_documents", "assignments"
   add_foreign_key "sessions", "users"

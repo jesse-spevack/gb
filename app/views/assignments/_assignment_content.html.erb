@@ -1,0 +1,140 @@
+<!-- Header -->
+<div class="mb-8">
+  <div class="flex items-center mb-2">
+    <%= link_to assignments_path, class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" do %>
+      <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 text-gray-600" %>
+    <% end %>
+    <h1 class="text-2xl font-bold text-gray-900"><%= assignment.title %></h1>
+  </div>
+  <p class="text-gray-600">Assignment processing complete! Here are your results.</p>
+</div>
+
+<!-- Assignment Details -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+      <%= render "shared/icons/clipboard_document", class: "w-5 h-5 mr-2 text-blue-500" %>
+      Assignment Details
+    </h2>
+  </div>
+  <div class="px-6 py-4">
+    <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Subject</dt>
+        <dd class="text-sm text-gray-900 mt-1"><%= assignment.subject || "Not specified" %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Grade Level</dt>
+        <dd class="text-sm text-gray-900 mt-1"><%= assignment.grade_level %></dd>
+      </div>
+      <div>
+        <dt class="text-sm font-medium text-gray-500">Student Work</dt>
+        <dd class="text-sm text-gray-900 mt-1"><%= assignment.student_works.count %> submissions</dd>
+      </div>
+    </dl>
+    <% if assignment.instructions.present? %>
+      <div class="mt-4">
+        <dt class="text-sm font-medium text-gray-500 mb-2">Instructions</dt>
+        <dd class="text-sm text-gray-900 whitespace-pre-wrap bg-gray-50 p-4 rounded-md"><%= assignment.instructions %></dd>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<!-- Rubric Section -->
+<% if assignment.rubric %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <%= render "shared/icons/clipboard_list", class: "w-5 h-5 mr-2 text-blue-500" %>
+        Rubric
+      </h2>
+    </div>
+    <div class="px-6 py-4">
+      <div class="space-y-6">
+        <% assignment.rubric.criteria.order(position: :asc).each do |criterion| %>
+          <div class="criterion">
+            <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
+            <p class="text-sm text-gray-600 mb-4"><%= criterion.description %></p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3">
+              <% criterion.levels.order(position: :asc).each do |level| %>
+                <div class="bg-gray-50 p-3 rounded-md border border-gray-200">
+                  <div class="flex items-start justify-between mb-2">
+                    <h4 class="text-sm font-medium text-gray-700"><%= level.title %></h4>
+                    <span class="text-sm font-semibold text-blue-600 ml-2"><%= level.points %> pts</span>
+                  </div>
+                  <p class="text-xs text-gray-600"><%= level.description %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Student Work Section -->
+<% if assignment.student_works.any? %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <%= render "shared/icons/document", class: "w-5 h-5 mr-2 text-blue-500" %>
+        Student Work & Feedback
+      </h2>
+    </div>
+    <div class="divide-y divide-gray-200">
+      <% assignment.student_works.each do |student_work| %>
+        <div class="px-6 py-4">
+          <div class="flex items-start justify-between">
+            <div class="flex-1">
+              <h3 class="text-sm font-medium text-gray-900"><%= student_work.selected_document.title %></h3>
+              <% if student_work.feedback_items.any? %>
+                <div class="mt-2 space-y-2">
+                  <% student_work.feedback_items.each do |feedback| %>
+                    <div class="bg-blue-50 p-3 rounded-md">
+                      <p class="text-sm text-gray-700"><%= feedback.title %></p>
+                      <p class="text-sm text-gray-700"><%= feedback.description %></p>
+                      <p class="text-sm text-gray-700"><%= feedback.evidence %></p>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p class="text-sm text-gray-500 mt-1">No feedback available</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<!-- Summary Section -->
+<% if assignment.assignment_summary %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <%= render "shared/icons/chart_bar", class: "w-5 h-5 mr-2 text-blue-500" %>
+        Assignment Summary
+      </h2>
+    </div>
+    <div class="px-6 py-4">
+      <div class="prose prose-sm max-w-none">
+        <%= simple_format(assignment.assignment_summary.qualitative_insights) %>
+      </div>
+      <% if assignment.assignment_summary.feedback_items.any? %>
+        <div class="mt-4 space-y-3">
+          <% assignment.assignment_summary.feedback_items.each do |feedback| %>
+            <div class="bg-green-50 border-l-4 border-green-400 p-4">
+              <p class="text-sm text-green-700"><%= feedback.title %></p>
+              <p class="text-sm text-green-700"><%= feedback.description %></p>
+              <p class="text-sm text-green-700"><%= feedback.evidence %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

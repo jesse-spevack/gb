@@ -1,0 +1,75 @@
+<% presenter = ProcessingStepPresenter.new(processing_steps) %>
+
+<div id="assignment-processing-steps" 
+     data-controller="assignment-processor"
+     data-assignment-processor-steps-value='<%= presenter.steps_json %>'>
+  
+  <!-- Mobile: Vertical Stack -->
+  <div class="flex flex-col space-y-8 sm:hidden">
+    <% processing_steps.each_with_index do |step, index| %>
+      <div class="flex items-center space-x-4" data-assignment-processor-target="step<%= index + 1 %>Container">
+        <div class="flex-shrink-0 w-12 h-12 <%= presenter.step_circle_classes(step) %> rounded-full flex items-center justify-center transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Circle">
+          <% if step.status == 'completed' %>
+            <div data-assignment-processor-target="step<%= index + 1 %>Check">
+              <%= render "shared/icons/checkmark", class: "w-6 h-6 text-white" %>
+            </div>
+          <% else %>
+            <span class="text-sm font-semibold <%= presenter.step_number_classes(step) %> transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Number"><%= index + 1 %></span>
+          <% end %>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium <%= presenter.step_text_classes(step) %> transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Text">
+            <%= presenter.display_name_for(step.step_key) %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Desktop: Horizontal -->
+  <div class="hidden sm:block">
+    <div class="relative flex items-start justify-between">
+      <% processing_steps.each_with_index do |step, index| %>
+        <!-- Step -->
+        <div class="flex flex-col items-center">
+          <div class="flex-shrink-0 w-16 h-16 <%= presenter.step_circle_classes(step) %> rounded-full flex items-center justify-center transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Circle">
+            <% if step.status == 'completed' %>
+              <div data-assignment-processor-target="step<%= index + 1 %>Check">
+                <%= render "shared/icons/checkmark", class: "w-8 h-8 text-white" %>
+              </div>
+            <% else %>
+              <span class="text-lg font-semibold <%= presenter.step_number_classes(step) %> transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Number"><%= index + 1 %></span>
+            <% end %>
+          </div>
+          <p class="text-sm font-medium <%= presenter.step_text_classes(step) %> mt-4 text-center transition-all duration-300" data-assignment-processor-target="step<%= index + 1 %>Text">
+            <%= presenter.display_name_with_breaks(step.step_key) %>
+          </p>
+        </div>
+        
+        <% if index < processing_steps.length - 1 %>
+          <!-- Line -->
+          <div class="flex-1 h-1 <%= presenter.line_classes(step) %> mx-8 mt-8 transition-all duration-300" data-assignment-processor-target="line<%= index + 1 %>to<%= index + 2 %>"></div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Status Text and Spinner -->
+  <div class="mt-8 text-center">
+    <% if presenter.show_spinner? %>
+      <!-- Better Spinner -->
+      <div class="mb-4">
+        <%= render "shared/spinner" %>
+      </div>
+    <% end %>
+    
+    <!-- Status Text -->
+    <p data-assignment-processor-target="statusText" class="text-lg font-medium text-gray-700 mb-2">
+      <%= presenter.status_message %>
+    </p>
+    
+    <% if presenter.show_spinner? %>
+      <p class="text-sm text-gray-500">This typically takes 2-3 minutes</p>
+    <% end %>
+  </div>
+</div>

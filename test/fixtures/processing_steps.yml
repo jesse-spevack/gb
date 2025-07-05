@@ -1,0 +1,8 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  assignment: english_essay
+  step_key: assignment_saved
+  status: 1
+  started_at: 2025-07-04 15:55:05
+  completed_at: 2025-07-04 15:55:05

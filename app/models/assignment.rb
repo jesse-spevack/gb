@@ -27,6 +27,7 @@ class Assignment < ApplicationRecord
   belongs_to :user
   has_many :selected_documents, dependent: :destroy
   has_many :student_works, dependent: :destroy
+  has_many :processing_steps, dependent: :destroy
 
   has_one :rubric, dependent: :destroy
   has_one :assignment_summary, dependent: :destroy
@@ -45,4 +46,8 @@ class Assignment < ApplicationRecord
   validates :rubric_text, length: { maximum: 5000 }, allow_blank: true
 
   default_scope { order(created_at: :desc) }
+
+  def processing_complete?
+    processing_steps.all?(&:completed?)
+  end
 end

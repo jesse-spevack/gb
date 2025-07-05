@@ -67,4 +67,15 @@ class AssignmentTest < ActiveSupport::TestCase
     )
     assert_not invalid_assignment.valid?, invalid_assignment.errors.full_messages
   end
+
+  test "processing_complete? returns true when all processing steps are completed" do
+    assignment1 = assignments(:english_essay)
+    assignment1.processing_steps.update_all(status: "completed")
+
+    assignment2 = assignments(:history_essay)
+    assignment2.processing_steps.create(step_key: "rubric", status: "in_progress")
+
+    assert assignment1.processing_complete?
+    assert_not assignment2.processing_complete?
+  end
 end

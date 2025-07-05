@@ -26,7 +26,7 @@ class Assignments::CreationServiceTest < ActiveSupport::TestCase
     @assignment_input.stubs(:document_data).returns(@document_data)
   end
 
-  test "creates assignment, selected documents, student works, and rubric" do
+  test "creates assignment, processing_steps, selected documents, student works, and rubric" do
     assert_difference [ "Assignment.count", "SelectedDocument.count", "StudentWork.count", "Rubric.count" ], 1 do
       result = Assignments::CreationService.create(@assignment_input)
 
@@ -34,6 +34,7 @@ class Assignments::CreationServiceTest < ActiveSupport::TestCase
       assert_not_nil result.assignment
       assert_equal "Test Assignment", result.assignment.title
       assert_equal 1, Rubric.where(assignment_id: result.assignment.id).count
+      assert_equal 4, ProcessingStep.where(assignment_id: result.assignment.id).count
     end
   end
 
