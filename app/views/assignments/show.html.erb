@@ -1,11 +1,15 @@
-<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-10">
   <%= turbo_stream_from "assignment_#{@assignment.id}_steps" %>
   
   <div id="assignment-content-container">
     <% if @assignment.processing_complete? %>
-      <%= render "assignment_content", assignment: @assignment %>
+      <div class="max-w-none mx-auto">
+        <%= render "assignment_content", assignment: @assignment %>
+      </div>
     <% else %>
-      <%= render "processing_steps", processing_steps: @assignment.processing_steps.ordered %>
+      <div class="max-w-4xl mx-auto">
+        <%= render "processing_steps", processing_steps: @assignment.processing_steps.ordered %>
+      </div>
     <% end %>
   </div>
 </div>
