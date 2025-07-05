@@ -370,7 +370,6 @@ class="lg:hidden"
 ## Stimulus Controllers
 
 The application uses these Stimulus controllers for interactivity:
-- `assignment-progress` - Progress tracking and updates
 - `doc-picker` - Document selection interface
 - `dropdown` - Dropdown menu functionality
 - `feedback-tone-slider` - Slider UI controls
@@ -387,10 +386,6 @@ data-action="click->dropdown#toggle"
 <!-- Toggle -->
 data-controller="rubric-toggle"
 data-action="click->rubric-toggle#toggle"
-
-<!-- Progress -->
-data-controller="assignment-progress"
-data-assignment-progress-target="container"
 ```
 
 ---
