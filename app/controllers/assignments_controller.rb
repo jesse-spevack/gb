@@ -40,7 +40,7 @@ class AssignmentsController < ApplicationController
       format.html # Default HTML response
       format.json do
         render json: {
-          processing_complete: @assignment.processing_steps.all?(&:completed?),
+          processing_complete: @assignment.processing_complete?,
           processing_active: @processing_active,
           rubric_complete: @rubric.present?,
           summary_complete: @assignment_summary.present?

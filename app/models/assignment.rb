@@ -46,4 +46,8 @@ class Assignment < ApplicationRecord
   validates :rubric_text, length: { maximum: 5000 }, allow_blank: true
 
   default_scope { order(created_at: :desc) }
+
+  def processing_complete?
+    processing_steps.all?(&:completed?)
+  end
 end
