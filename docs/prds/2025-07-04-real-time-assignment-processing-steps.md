@@ -147,6 +147,14 @@ The `metadata` jsonb field on ProcessingStep allows for future enhancements:
 - Add timing metrics
 - Include additional state information
 
+## Technical Debt to Address
+
+- Remove StatusManagerFactory and update_status calls throughout AssignmentProcessor
+  - These are now redundant with ProcessingStep tracking actual state
+  - StatusManagerFactory appears to be a placeholder that doesn't persist anything
+- Remove ProgressCalculator service once ProcessingStep fully replaces it
+- Clean up BroadcastService if it's only used for progress updates
+
 ## Success Metrics
 
 1. UI accurately reflects backend processing state

@@ -5,11 +5,9 @@
 class RubricPipeline
   STEPS = [
     PromptInput::Rubric,
-    BroadcastService.with(event: :rubric_started),
     LLM::Rubric::Generator,
     LLM::Rubric::ResponseParser,
     Pipeline::Storage::RubricService,
-    BroadcastService.with(event: :rubric_completed),
     RecordMetricsService
   ].freeze
 

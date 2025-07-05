@@ -22,7 +22,7 @@ class AssignmentSummaryPipelineTest < ActiveSupport::TestCase
     steps = AssignmentSummaryPipeline::STEPS
 
     # Check the proper sequence of steps
-    assert_equal 7, steps.size, "Pipeline should have exactly 7 steps"
+    assert_equal 5, steps.size, "Pipeline should have exactly 5 steps"
 
     # First step should be PromptInput::AssignmentSummary
     assert_equal PromptInput::AssignmentSummary, steps.first
@@ -38,29 +38,13 @@ class AssignmentSummaryPipelineTest < ActiveSupport::TestCase
     assert_includes steps, Pipeline::Storage::AssignmentSummaryService
   end
 
-  test "pipeline includes broadcast steps at correct positions" do
-    steps = AssignmentSummaryPipeline::STEPS
-
-    # The second step should be a broadcast service for summary_started
-    broadcast_started = steps[1]
-    assert_kind_of BroadcastService.with(event: :test).class, broadcast_started
-    assert_equal :summary_started, broadcast_started.instance_variable_get(:@event)
-
-    # The second-to-last step should be a broadcast service for summary_completed
-    broadcast_completed = steps[5]
-    assert_kind_of BroadcastService.with(event: :test).class, broadcast_completed
-    assert_equal :summary_completed, broadcast_completed.instance_variable_get(:@event)
-  end
-
   test "pipeline structure follows standard pattern" do
     # Verify standard pipeline structure:
     # 1. Input preparation
-    # 2. Start broadcast
-    # 3. LLM generation
-    # 4. Response parsing
-    # 5. Storage
-    # 6. Completion broadcast
-    # 7. Metrics recording
+    # 2. LLM generation
+    # 3. Response parsing
+    # 4. Storage
+    # 5. Metrics recording
 
     steps = AssignmentSummaryPipeline::STEPS
 

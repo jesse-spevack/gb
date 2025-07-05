@@ -27,9 +27,6 @@ class AssignmentsController < ApplicationController
     @rubric = @assignment.rubric
     @assignment_summary = @assignment.assignment_summary
 
-    # Calculate progress metrics using the ProgressCalculator service
-    @progress_metrics = Assignments::ProgressCalculator.new(@assignment).calculate
-
     # Check if processing is currently active
     @processing_active = !Assignments::CompletionChecker.call(@assignment) && @assignment.created_at > 1.hour.ago
 
@@ -43,7 +40,7 @@ class AssignmentsController < ApplicationController
       format.html # Default HTML response
       format.json do
         render json: {
-          progress_metrics: @progress_metrics,
+          processing_complete: @assignment.processing_steps.all?(&:completed?),
           processing_active: @processing_active,
           rubric_complete: @rubric.present?,
           summary_complete: @assignment_summary.present?

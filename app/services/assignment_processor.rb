@@ -20,21 +20,10 @@ class AssignmentProcessor
     start_time = Time.current
 
     begin
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}_steps",
-        target: "processing-steps-test",
-        partial: "assignments/processing_steps_test",
-        locals: { current_step: 2 }
-      )
-      update_status(:processing)
-      Rails.logger.warn("Broadcasting sample message: Step 2")
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
-        target: "assignment-sample-message",
-        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 2.</p>"
-      )
+      update_processing_step(step_key: "assignment_saved", status: "completed")
+      update_processing_step(step_key: "creating_rubric", status: "in_progress")
+
       process_pipelines
-      update_status(:completed)
       result = build_success_result
 
       # Record overall assignment processing metrics
@@ -42,7 +31,6 @@ class AssignmentProcessor
 
       result
     rescue => e
-      update_status(:failed)
       result = build_failure_result(e)
 
       # Record overall assignment processing metrics even on failure
@@ -60,61 +48,31 @@ class AssignmentProcessor
   def process_pipelines
     # Execute RubricPipeline
     execute_rubric_pipeline
-
-      Rails.logger.warn("Broadcasting sample message: Step 3")
-    Turbo::StreamsChannel.broadcast_replace_to(
-      "assignment_#{assignment.id}",
-      target: "assignment-sample-message",
-      html: "<p class='text-sm text-gray-500'>This is a sample message: Step 3.</p>"
-    )
-
     # Stop processing if rubric generation failed
     raise PipelineFailureError, format_pipeline_errors("RubricPipeline", @rubric_result) unless @rubric_result.successful?
 
-    Turbo::StreamsChannel.broadcast_replace_to(
-      "assignment_#{assignment.id}_steps",
-      target: "processing-steps-test",
-      partial: "assignments/processing_steps_test",
-      locals: { current_step: 3 }
-    )
-      Rails.logger.warn("Broadcasting sample message: Step 4")
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
-        target: "assignment-sample-message",
-        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 4.</p>"
-      )
+    update_processing_step(step_key: "creating_rubric", status: "completed")
+    update_processing_step(step_key: "generating_feedback", status: "in_progress")
+
     # Execute StudentWorkFeedbackPipeline for each student work
     execute_student_feedback_pipelines if @rubric_context
 
-      Rails.logger.warn("Broadcasting sample message: Step 5")
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
-        target: "assignment-sample-message",
-        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 5.</p>"
-      )
+    update_processing_step(step_key: "generating_feedback", status: "completed")
+    update_processing_step(step_key: "summarizing_feedback", status: "in_progress")
+
     # Execute AssignmentSummaryPipeline
-    if should_generate_summary?
-      execute_assignment_summary_pipeline
+    execute_assignment_summary_pipeline
 
-      Rails.logger.warn("Broadcasting sample message: Step 6")
-      Turbo::StreamsChannel.broadcast_replace_to(
-        "assignment_#{assignment.id}",
-        target: "assignment-sample-message",
-        html: "<p class='text-sm text-gray-500'>This is a sample message: Step 6.</p>"
-      )
+    update_processing_step(step_key: "summarizing_feedback", status: "completed")
 
-      # Check if summary generation failed (critical failure)
-      if @assignment_summary_result && !@assignment_summary_result.successful?
-        raise PipelineFailureError, format_pipeline_errors("AssignmentSummaryPipeline", @assignment_summary_result)
-      end
+    # Check if summary generation failed (critical failure)
+    if @assignment_summary_result && !@assignment_summary_result.successful?
+      raise PipelineFailureError, format_pipeline_errors("AssignmentSummaryPipeline", @assignment_summary_result)
     end
   end
 
   # Executes the RubricPipeline and stores the result
   def execute_rubric_pipeline
-    broadcast_progress("Creating rubric")
-    update_status(:processing, "generate_rubric")
-
     @rubric_result = RubricPipeline.call(
       assignment: assignment,
       user: assignment.user
@@ -132,8 +90,6 @@ class AssignmentProcessor
     total_count = assignment.student_works.count
 
     assignment.student_works.each_with_index do |student_work, index|
-      broadcast_progress("Generating student feedback (#{index + 1} of #{total_count})")
-
       begin
         result = StudentWorkFeedbackPipeline.call(
           student_work: student_work,
@@ -168,8 +124,6 @@ class AssignmentProcessor
 
   # Executes the AssignmentSummaryPipeline with aggregated student contexts
   def execute_assignment_summary_pipeline
-    broadcast_progress("Creating assignment summary")
-
     # Extract successful student feedback data
     student_feedbacks = @student_feedback_results
       .select(&:successful?)
@@ -184,17 +138,6 @@ class AssignmentProcessor
 
     # Record metrics for assignment summary generation
     record_pipeline_metrics(assignment, "assignment_summary_generation", @assignment_summary_result)
-  end
-
-  # Determines if summary should be generated
-  def should_generate_summary?
-    return false unless @rubric_context
-
-    # If no student works, generate summary anyway
-    return true if assignment.student_works.count == 0
-
-    # If we have student works, only generate summary if at least one feedback was successful
-    @student_feedback_results.any?(&:successful?)
   end
 
   # Builds a successful result with aggregated data from all pipelines
@@ -270,40 +213,6 @@ class AssignmentProcessor
     total
   end
 
-  # Broadcasts progress updates to the UI
-  def broadcast_progress(message)
-    # Calculate current progress
-    progress_data = calculate_progress
-
-    # Create a context object for broadcasting with progress data
-    context = OpenStruct.new(
-      assignment: assignment,
-      message: message,
-      progress_data: progress_data,
-      progress_percentage: progress_data[:overall_percentage]
-    )
-
-    BroadcastService.call(context: context)
-  rescue => e
-    # Log but don't fail if broadcasting fails
-    Rails.logger.error("Failed to broadcast progress: #{e.message}")
-  end
-
-  # Updates assignment status using StatusManagerFactory
-  def update_status(status, process_type = "assignment_processing")
-    status_manager = StatusManagerFactory.create(process_type)
-    status_manager.update_status(assignment, status)
-  rescue => e
-    # Log but don't fail if status update fails
-    Rails.logger.error("Failed to update status: #{e.message}")
-  end
-
-  # Calculates current progress using ProgressCalculator
-  def calculate_progress
-    calculator = Assignments::ProgressCalculator.new(assignment)
-    calculator.calculate
-  end
-
   # Records metrics for a pipeline execution
   def record_pipeline_metrics(processable, process_type, result)
     # Create a context object that matches RecordMetricsService expectations
@@ -358,5 +267,38 @@ class AssignmentProcessor
 
     record_pipeline_metrics(assignment, "assignment_processing",
       OpenStruct.new(metrics: overall_metrics, successful?: success))
+  end
+
+  def update_processing_step(step_key:, status:)
+    step = assignment.processing_steps.find_by(step_key: step_key)
+    return unless step
+
+    case status
+    when "in_progress"
+      step.update!(status: "in_progress", started_at: Time.current)
+    when "completed"
+      step.update!(status: "completed", completed_at: Time.current)
+    else
+      step.update!(status: status)
+    end
+
+    # Check if all steps are completed after this update (reload to get fresh data)
+    if assignment.processing_steps.reload.all?(&:completed?)
+      # All steps complete - broadcast the assignment content
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}_steps",
+        target: "assignment-content-container",
+        partial: "assignments/assignment_content",
+        locals: { assignment: assignment }
+      )
+    else
+      # Still processing - broadcast the processing steps
+      Turbo::StreamsChannel.broadcast_replace_to(
+        "assignment_#{assignment.id}_steps",
+        target: "assignment-processing-steps",
+        partial: "assignments/processing_steps",
+        locals: { processing_steps: assignment.processing_steps.ordered }
+      )
+    end
   end
 end

@@ -5,11 +5,9 @@
 class AssignmentSummaryPipeline
   STEPS = [
     PromptInput::AssignmentSummary,
-    BroadcastService.with(event: :summary_started),
     LLM::AssignmentSummary::Generator,
     LLM::AssignmentSummary::ResponseParser,
     Pipeline::Storage::AssignmentSummaryService,
-    BroadcastService.with(event: :summary_completed),
     RecordMetricsService
   ].freeze
 

@@ -5,11 +5,9 @@
 class StudentWorkFeedbackPipeline
   STEPS = [
     PromptInput::StudentWork,
-    BroadcastService.with(event: :student_work_started),
     LLM::StudentWork::Generator,
     LLM::StudentWork::ResponseParser,
     Pipeline::Storage::StudentWorkService,
-    BroadcastService.with(event: :student_work_completed),
     RecordMetricsService
   ].freeze
 
