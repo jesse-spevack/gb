@@ -1,4 +1,5 @@
 require "test_helper"
+require "ostruct"
 
 class ProcessingStepPresenterTest < ActiveSupport::TestCase
   def setup
@@ -179,7 +180,34 @@ class ProcessingStepPresenterTest < ActiveSupport::TestCase
   end
 
   test "#steps_json returns JSON representation of steps" do
+    # Mock the to_json method for OpenStruct objects
+    @completed_step.define_singleton_method(:to_json) do |options = {}|
+      if options[:only]
+        { step_key: step_key, status: status }.to_json
+      else
+        super()
+      end
+    end
+
+    @in_progress_step.define_singleton_method(:to_json) do |options = {}|
+      if options[:only]
+        { step_key: step_key, status: status }.to_json
+      else
+        super()
+      end
+    end
+
     steps = [ @completed_step, @in_progress_step ]
+
+    # Mock the to_json method for the array
+    steps.define_singleton_method(:to_json) do |options = {}|
+      if options[:only]
+        map { |step| { step_key: step.step_key, status: step.status } }.to_json
+      else
+        super()
+      end
+    end
+
     presenter = ProcessingStepPresenter.new(steps)
 
     expected_json = [

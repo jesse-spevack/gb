@@ -2,7 +2,7 @@
   <%= turbo_stream_from "assignment_#{@assignment.id}_steps" %>
   
   <div id="assignment-content-container">
-    <% if @assignment.processing_steps.all?(&:completed?) %>
+    <% if @assignment.processing_complete? %>
       <%= render "assignment_content", assignment: @assignment %>
     <% else %>
       <%= render "processing_steps", processing_steps: @assignment.processing_steps.ordered %>

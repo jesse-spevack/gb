@@ -283,7 +283,7 @@ class AssignmentProcessor
     end
 
     # Check if all steps are completed after this update (reload to get fresh data)
-    if assignment.processing_steps.reload.all?(&:completed?)
+    if assignment.reload.processing_complete?
       # All steps complete - broadcast the assignment content
       Turbo::StreamsChannel.broadcast_replace_to(
         "assignment_#{assignment.id}_steps",
