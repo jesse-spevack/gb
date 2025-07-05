@@ -15,4 +15,13 @@ class StudentWork < ApplicationRecord
 
   validates :assignment, presence: true
   validates :selected_document, presence: true
+
+  def high_level_feedback_average
+    assigned_levels = student_criterion_levels.map(&:level)
+    grouped_levels = assigned_levels.reduce(Hash.new(0)) do |acc, level|
+      acc[level.title] += 1
+      acc
+    end
+    grouped_levels.max_by { |_, count| count }[0]
+  end
 end

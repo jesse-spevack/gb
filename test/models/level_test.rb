@@ -78,8 +78,8 @@ class LevelTest < ActiveSupport::TestCase
     level1 = Level.create(criterion: criteria(:grammar_mechanics), title: "Level 1", description: "Description", position: 1, points: 4)
     level2 = Level.create(criterion: criteria(:grammar_mechanics), title: "Level 2", description: "Description", position: 2, points: 3)
 
-    expected = [ level1, level2 ].map(&:id)
-    actual = Level.where(criterion: criteria(:grammar_mechanics)).map(&:id)
+    expected = [ level2, level1 ].map(&:id)
+    actual = Level.where(criterion: criteria(:grammar_mechanics)).order(position: :desc).map(&:id)
 
     assert_equal expected, actual
   end

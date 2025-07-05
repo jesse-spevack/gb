@@ -6,7 +6,6 @@
     <% end %>
     <h1 class="text-2xl font-bold text-gray-900"><%= assignment.title %></h1>
   </div>
-  <p class="text-gray-600">Assignment processing complete! Here are your results.</p>
 </div>
 
 <!-- Assignment Details -->
@@ -21,21 +20,21 @@
     <dl class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div>
         <dt class="text-sm font-medium text-gray-500">Subject</dt>
-        <dd class="text-sm text-gray-900 mt-1"><%= assignment.subject || "Not specified" %></dd>
+        <dd class="text-sm text-gray-900 font-bold mt-1"><%= assignment.subject || "Not specified" %></dd>
       </div>
       <div>
         <dt class="text-sm font-medium text-gray-500">Grade Level</dt>
-        <dd class="text-sm text-gray-900 mt-1"><%= assignment.grade_level %></dd>
+        <dd class="text-sm text-gray-900 font-bold mt-1"><%= assignment.grade_level %></dd>
       </div>
       <div>
         <dt class="text-sm font-medium text-gray-500">Student Work</dt>
-        <dd class="text-sm text-gray-900 mt-1"><%= assignment.student_works.count %> submissions</dd>
+        <dd class="text-sm text-gray-900 font-bold mt-1"><%= assignment.student_works.count %> submissions</dd>
       </div>
     </dl>
     <% if assignment.instructions.present? %>
       <div class="mt-4">
         <dt class="text-sm font-medium text-gray-500 mb-2">Instructions</dt>
-        <dd class="text-sm text-gray-900 whitespace-pre-wrap bg-gray-50 p-4 rounded-md"><%= assignment.instructions %></dd>
+        <dd class="text-sm text-gray-900 whitespace-pre-wrap bg-gray-50 p-4 rounded-md"><%= assignment.instructions_without_newlines %></dd>
       </div>
     <% end %>
   </div>
@@ -51,18 +50,52 @@
       </h2>
     </div>
     <div class="px-6 py-4">
-      <div class="space-y-6">
-        <% assignment.rubric.criteria.order(position: :asc).each do |criterion| %>
+      <!-- Table layout for larger screens -->
+      <div class="hidden lg:block overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-50">
+              <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
+                Criteria
+              </th>
+              <% assignment.rubric.criteria.first&.levels&.each do |level| %>
+                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
+                  <%= level.position %>. <%= level.title %>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% assignment.rubric.criteria.order(position: :desc).each do |criterion| %>
+              <tr class="hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-4 align-top">
+                  <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
+                  <p class="text-sm text-gray-600"><%= criterion.description %></p>
+                </td>
+                <% criterion.levels.each do |level| %>
+                  <td class="border border-gray-300 px-4 py-4 align-top text-sm text-gray-700">
+                    <%= level.description %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Grid layout for smaller screens -->
+      <div class="lg:hidden space-y-6">
+        <% assignment.rubric.criteria.order(position: :desc).each do |criterion| %>
           <div class="criterion">
-            <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
-            <p class="text-sm text-gray-600 mb-4"><%= criterion.description %></p>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-<%= [criterion.levels.count, 4].min %> gap-3">
-              <% criterion.levels.order(position: :asc).each do |level| %>
-                <div class="bg-gray-50 p-3 rounded-md border border-gray-200">
+            <div class="grid grid-cols-1 gap-3">
+              <div class="mb-4">
+                <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
+                <p class="text-sm text-gray-600"><%= criterion.description %></p>
+              </div>
+              <% criterion.levels.each do |level| %>
+                <div class="p-3 bg-gray-50 rounded-lg">
                   <div class="flex items-start justify-between mb-2">
-                    <h4 class="text-sm font-medium text-gray-700"><%= level.title %></h4>
-                    <span class="text-sm font-semibold text-blue-600 ml-2"><%= level.points %> pts</span>
+                    <h4 class="text-sm font-medium text-gray-700"><%= level.position %>. <%= level.title %></h4>
                   </div>
                   <p class="text-xs text-gray-600"><%= level.description %></p>
                 </div>
@@ -90,19 +123,7 @@
           <div class="flex items-start justify-between">
             <div class="flex-1">
               <h3 class="text-sm font-medium text-gray-900"><%= student_work.selected_document.title %></h3>
-              <% if student_work.feedback_items.any? %>
-                <div class="mt-2 space-y-2">
-                  <% student_work.feedback_items.each do |feedback| %>
-                    <div class="bg-blue-50 p-3 rounded-md">
-                      <p class="text-sm text-gray-700"><%= feedback.title %></p>
-                      <p class="text-sm text-gray-700"><%= feedback.description %></p>
-                      <p class="text-sm text-gray-700"><%= feedback.evidence %></p>
-                    </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <p class="text-sm text-gray-500 mt-1">No feedback available</p>
-              <% end %>
+              <p class="text-sm text-gray-600"><%= student_work.high_level_feedback_average %></p>
             </div>
           </div>
         </div>

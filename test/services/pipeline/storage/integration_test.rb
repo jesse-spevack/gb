@@ -132,7 +132,7 @@ module Pipeline
         # Verify points are correctly assigned
         rubric_result.rubric.criteria.each do |criterion|
           levels = criterion.levels.order(:position)
-          assert_equal [ 4, 3, 2, 1 ], levels.pluck(:points)
+          assert_equal [ 4, 3, 2, 1 ], levels.pluck(:position)
         end
       end
 

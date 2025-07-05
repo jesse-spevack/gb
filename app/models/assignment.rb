@@ -50,4 +50,8 @@ class Assignment < ApplicationRecord
   def processing_complete?
     processing_steps.all?(&:completed?)
   end
+
+  def instructions_without_newlines
+    instructions.gsub(/\s+/, " ")
+  end
 end

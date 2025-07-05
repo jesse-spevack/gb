@@ -59,25 +59,21 @@ module Pipeline
 
         assert_equal 4, levels.count
 
-        # Position 1 should get 4 points
-        assert_equal "Exemplary", levels[0].title
-        assert_equal 1, levels[0].position
-        assert_equal 4, levels[0].points
+        assert_equal "Exemplary", levels[3].title
+        assert_equal 1, levels[3].position
+        assert_equal 4, levels[3].points
 
-        # Position 2 should get 3 points
-        assert_equal "Proficient", levels[1].title
-        assert_equal 2, levels[1].position
-        assert_equal 3, levels[1].points
+        assert_equal "Proficient", levels[2].title
+        assert_equal 2, levels[2].position
+        assert_equal 3, levels[2].points
 
-        # Position 3 should get 2 points
-        assert_equal "Developing", levels[2].title
-        assert_equal 3, levels[2].position
-        assert_equal 2, levels[2].points
+        assert_equal "Developing", levels[1].title
+        assert_equal 3, levels[1].position
+        assert_equal 2, levels[1].points
 
-        # Position 4 should get 1 point
-        assert_equal "Beginning", levels[3].title
-        assert_equal 4, levels[3].position
-        assert_equal 1, levels[3].points
+        assert_equal "Beginning", levels[0].title
+        assert_equal 4, levels[0].position
+        assert_equal 1, levels[0].points
       end
 
       test "ensures points are unique within criterion" do
