@@ -28,7 +28,7 @@ class Level < ApplicationRecord
   validate :points_unique_within_criterion
 
   # Order levels by position (highest achievement level first)
-  default_scope { order(position: :asc) }
+  default_scope { order(position: :desc) }
 
   private
 
