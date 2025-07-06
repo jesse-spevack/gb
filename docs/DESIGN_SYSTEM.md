@@ -192,6 +192,55 @@ class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg"
 </div>
 ```
 
+### Section Card Pattern
+
+The standard card layout for assignment sections:
+
+```erb
+<!-- Standard Section Card -->
+<div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+  <div class="px-6 py-4 border-b border-gray-200">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <%= render "shared/icons/[icon_name]", class: "w-5 h-5 mr-2 text-blue-500" %>
+        Section Title
+      </h2>
+      <a href="/link" class="text-sm text-blue-600 hover:text-blue-800 font-medium">
+        View details →
+      </a>
+    </div>
+  </div>
+  <div class="px-6 py-4">
+    <!-- Content with proper spacing -->
+  </div>
+</div>
+```
+
+**Criteria Lists (Rubric Style):**
+```erb
+<div class="space-y-4">
+  <div class="border-l-4 border-blue-500 pl-4 py-2">
+    <h3 class="font-medium text-gray-900 mb-1">Title</h3>
+    <p class="text-gray-600 text-sm">Description text</p>
+  </div>
+</div>
+```
+
+**Student Work Lists:**
+```erb
+<div class="divide-y divide-gray-200">
+  <a href="/student_works/:id" class="block px-6 py-4 hover:bg-gray-50 transition-colors">
+    <div class="flex items-start justify-between">
+      <div class="flex-1">
+        <h3 class="text-sm font-medium text-gray-900">Title</h3>
+        <p class="text-sm text-gray-500 mt-1">Timestamp</p>
+      </div>
+      <span class="badge ml-4">Status</span>
+    </div>
+  </a>
+</div>
+```
+
 ### Alerts
 
 **Error Alert:**
@@ -413,5 +462,28 @@ data-action="click->rubric-toggle#toggle"
 2. Use semantic HTML with proper ARIA attributes
 3. Ensure sufficient color contrast (follow WCAG guidelines)
 4. Include screen reader text where needed (`.sr-only`)
+
+---
+
+## Assignment View Spacing Standards
+
+Based on successful implementations:
+
+### Section Spacing
+- Between sections: `mb-6`
+- Card padding: `px-6 py-4`
+- Header separator: `border-b border-gray-200`
+
+### Content Spacing
+- Criteria lists: `space-y-4` with `py-2` per item
+- Student work items: `divide-y divide-gray-200`
+- Text content: Use `prose max-w-none` for formatted text
+
+### Interactive Elements
+- Hover states: `hover:bg-gray-50 transition-colors`
+- Links: `text-blue-600 hover:text-blue-800 font-medium`
+- Badges: Right-aligned with `ml-4` spacing
+
+---
 
 This design system represents the actual patterns found in the codebase and should be used as the authoritative reference for creating new views that align with the existing design.

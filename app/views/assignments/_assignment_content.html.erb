@@ -44,64 +44,48 @@
 <% if assignment.rubric %>
   <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
     <div class="px-6 py-4 border-b border-gray-200">
-      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-        <%= render "shared/icons/clipboard_list", class: "w-5 h-5 mr-2 text-blue-500" %>
-        Rubric
-      </h2>
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+          <%= render "shared/icons/clipboard_list", class: "w-5 h-5 mr-2 text-blue-500" %>
+          Rubric
+        </h2>
+        <% if assignment.rubric %>
+          <%= link_to "View full rubric →", rubric_path(assignment.rubric), class: "text-sm text-blue-600 hover:text-blue-800 font-medium" %>
+        <% end %>
+      </div>
     </div>
     <div class="px-6 py-4">
-      <!-- Table layout for larger screens -->
-      <div class="hidden lg:block overflow-x-auto">
-        <table class="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-50">
-              <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
-                Criteria
-              </th>
-              <% assignment.rubric.criteria.first&.levels&.each do |level| %>
-                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
-                  <%= level.position %>. <%= level.title %>
-                </th>
-              <% end %>
-            </tr>
-          </thead>
-          <tbody>
-            <% assignment.rubric.criteria.order(position: :desc).each do |criterion| %>
-              <tr class="hover:bg-gray-50">
-                <td class="border border-gray-300 px-4 py-4 align-top">
-                  <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
-                  <p class="text-sm text-gray-600"><%= criterion.description %></p>
-                </td>
-                <% criterion.levels.each do |level| %>
-                  <td class="border border-gray-300 px-4 py-4 align-top text-sm text-gray-700">
-                    <%= level.description %>
-                  </td>
-                <% end %>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Grid layout for smaller screens -->
-      <div class="lg:hidden space-y-6">
+      <div class="space-y-4">
         <% assignment.rubric.criteria.order(position: :desc).each do |criterion| %>
-          <div class="criterion">
-            <div class="grid grid-cols-1 gap-3">
-              <div class="mb-4">
-                <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
-                <p class="text-sm text-gray-600"><%= criterion.description %></p>
-              </div>
-              <% criterion.levels.each do |level| %>
-                <div class="p-3 bg-gray-50 rounded-lg">
-                  <div class="flex items-start justify-between mb-2">
-                    <h4 class="text-sm font-medium text-gray-700"><%= level.position %>. <%= level.title %></h4>
-                  </div>
-                  <p class="text-xs text-gray-600"><%= level.description %></p>
-                </div>
-              <% end %>
-            </div>
+          <div class="border-l-4 border-blue-500 pl-4 py-2">
+            <h3 class="font-medium text-gray-900 mb-1"><%= criterion.title %></h3>
+            <p class="text-gray-600 text-sm"><%= criterion.description %></p>
           </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Summary Section -->
+<% if assignment.assignment_summary %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+          <%= render "shared/icons/chart_bar", class: "w-5 h-5 mr-2 text-blue-500" %>
+          Assignment Summary
+        </h2>
+        <%= link_to "View detailed feedback →", assignment_summary_path(assignment.assignment_summary), class: "text-sm text-blue-600 hover:text-blue-800 font-medium" %>
+      </div>
+    </div>
+    <div class="px-6 py-4">
+      <div class="prose max-w-none text-gray-700">
+        <% if assignment.assignment_summary.qualitative_insights.present? %>
+          <% paragraphs = assignment.assignment_summary.qualitative_insights.split("\n\n") %>
+          <% paragraphs.each do |paragraph| %>
+            <p><%= paragraph %></p>
+          <% end %>
         <% end %>
       </div>
     </div>
@@ -110,51 +94,42 @@
 
 <!-- Student Work Section -->
 <% if assignment.student_works.any? %>
-  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
     <div class="px-6 py-4 border-b border-gray-200">
-      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-        <%= render "shared/icons/document", class: "w-5 h-5 mr-2 text-blue-500" %>
-        Student Work & Feedback
-      </h2>
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+            <%= render "shared/icons/document", class: "w-5 h-5 mr-2 text-blue-500" %>
+            Student Work & Feedback
+          </h2>
+          <p class="text-sm text-gray-600 mt-1">Click on student work to view details, edit feedback, and share with students</p>
+        </div>
+        <span class="text-sm text-gray-500"><%= assignment.student_works.count %> submissions</span>
+      </div>
     </div>
     <div class="divide-y divide-gray-200">
       <% assignment.student_works.each do |student_work| %>
-        <div class="px-6 py-4">
+        <%= link_to student_work_path(student_work), class: "block px-6 py-4 hover:bg-gray-50 transition-colors" do %>
           <div class="flex items-start justify-between">
             <div class="flex-1">
-              <h3 class="text-sm font-medium text-gray-900"><%= student_work.selected_document.title %></h3>
-              <p class="text-sm text-gray-600"><%= student_work.high_level_feedback_average %></p>
+              <h3 class="text-sm font-medium text-gray-900">
+                <%= student_work.selected_document.title %>
+              </h3>
+              <p class="text-sm text-gray-500 mt-1">Reviewed <%= time_ago_in_words(student_work.updated_at) %> ago</p>
             </div>
+            <% if student_work.high_level_feedback_average.present? %>
+              <% feedback_class = case student_work.high_level_feedback_average
+                 when "Excellent" then "bg-green-100 text-green-800"
+                 when "Good" then "bg-blue-100 text-blue-800"
+                 when "Average" then "bg-amber-100 text-amber-800"
+                 else "bg-gray-100 text-gray-800"
+                 end %>
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <%= feedback_class %> ml-4">
+                <%= student_work.high_level_feedback_average %>
+              </span>
+            <% end %>
           </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<!-- Summary Section -->
-<% if assignment.assignment_summary %>
-  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-    <div class="px-6 py-4 border-b border-gray-200">
-      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
-        <%= render "shared/icons/chart_bar", class: "w-5 h-5 mr-2 text-blue-500" %>
-        Assignment Summary
-      </h2>
-    </div>
-    <div class="px-6 py-4">
-      <div class="prose prose-sm max-w-none">
-        <%= simple_format(assignment.assignment_summary.qualitative_insights) %>
-      </div>
-      <% if assignment.assignment_summary.feedback_items.any? %>
-        <div class="mt-4 space-y-3">
-          <% assignment.assignment_summary.feedback_items.each do |feedback| %>
-            <div class="bg-green-50 border-l-4 border-green-400 p-4">
-              <p class="text-sm text-green-700"><%= feedback.title %></p>
-              <p class="text-sm text-green-700"><%= feedback.description %></p>
-              <p class="text-sm text-green-700"><%= feedback.evidence %></p>
-            </div>
-          <% end %>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>

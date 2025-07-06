@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get "/auth/failure", to: redirect("/")
 
   resources :assignments, only: [ :index, :show, :new, :create, :destroy ]
+  resources :assignment_summaries, only: [ :show ]
+  resources :rubrics, only: [ :show ]
+  resources :student_works, only: [ :show ]
 
   # Google
   namespace :google do
