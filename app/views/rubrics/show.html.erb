@@ -21,13 +21,14 @@
       <!-- Table layout for larger screens -->
       <div class="hidden lg:block overflow-x-auto">
         <table class="w-full border-collapse border border-gray-300">
+          <caption class="text-sm text-gray-600 mb-4">Evaluation Criteria Table</caption>
           <thead>
             <tr class="bg-gray-50">
-              <th class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
+              <th scope="col" class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
                 Criteria
               </th>
               <% @rubric.criteria.first&.levels&.each do |level| %>
-                <th class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
+                <th scope="col" class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
                   <%= level.position %>. <%= level.title %>
                 </th>
               <% end %>
