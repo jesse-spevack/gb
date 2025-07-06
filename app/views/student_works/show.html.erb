@@ -2,7 +2,7 @@
   <!-- Header -->
   <div class="mb-8">
     <div class="flex items-center mb-2">
-      <%= link_to assignment_path(@assignment), class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" do %>
+      <%= link_to assignment_path(@assignment), class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors", aria_label: "Back to assignment" do %>
         <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 text-gray-600" %>
       <% end %>
       <h1 class="text-2xl font-bold text-gray-900">Student Work</h1>
