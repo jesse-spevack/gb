@@ -1,0 +1,71 @@
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-4xl">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center mb-2">
+      <%= link_to assignment_path(@assignment), class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors", aria_label: "Back to assignment" do %>
+        <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 text-gray-600" %>
+      <% end %>
+      <h1 class="text-2xl font-bold text-gray-900">Student Work</h1>
+    </div>
+  </div>
+
+  <!-- Student Work Content -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900"><%= @student_work.selected_document.title %></h2>
+      <p class="text-sm text-gray-600 mt-1">Assignment: <%= @assignment.title %></p>
+    </div>
+    
+    <div class="px-6 py-4">
+      <!-- Basic Information -->
+      <div class="mb-6">
+        <dl class="grid grid-cols-1 gap-4">
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Document</dt>
+            <dd class="text-sm text-gray-900 mt-1">
+              <%= link_to @student_work.selected_document.title, @student_work.selected_document.url, target: "_blank", class: "text-blue-600 hover:text-blue-800" %>
+            </dd>
+          </div>
+          <% if @student_work.high_level_feedback_average.present? %>
+            <div>
+              <dt class="text-sm font-medium text-gray-500">Overall Feedback</dt>
+              <dd class="text-sm text-gray-900 mt-1">
+                <% feedback_class = case @student_work.high_level_feedback_average
+                   when "Excellent" then "bg-green-100 text-green-800"
+                   when "Good" then "bg-blue-100 text-blue-800"
+                   when "Average" then "bg-amber-100 text-amber-800"
+                   else "bg-gray-100 text-gray-800"
+                   end %>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <%= feedback_class %>">
+                  <%= @student_work.high_level_feedback_average %>
+                </span>
+              </dd>
+            </div>
+          <% end %>
+          <div>
+            <dt class="text-sm font-medium text-gray-500">Last Updated</dt>
+            <dd class="text-sm text-gray-900 mt-1"><%= @student_work.updated_at.strftime("%B %d, %Y at %I:%M %p") %></dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Feedback Items -->
+      <% if @student_work.feedback_items.any? %>
+        <div>
+          <h3 class="text-base font-semibold text-gray-900 mb-3">Feedback</h3>
+          <div class="space-y-3">
+            <% @student_work.feedback_items.each do |feedback| %>
+              <div class="bg-gray-50 border-l-4 border-blue-400 p-4">
+                <h4 class="text-sm font-medium text-gray-900 mb-1"><%= feedback.title %></h4>
+                <p class="text-sm text-gray-700"><%= feedback.description %></p>
+                <% if feedback.evidence.present? %>
+                  <p class="text-sm text-gray-600 italic mt-2">Evidence: <%= feedback.evidence %></p>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

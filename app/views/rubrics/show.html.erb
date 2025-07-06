@@ -1,0 +1,77 @@
+<div class="mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-7xl">
+  <!-- Header -->
+  <div class="mb-8">
+    <div class="flex items-center mb-2">
+      <%= link_to assignment_path(@assignment), class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" do %>
+        <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 text-gray-600" %>
+      <% end %>
+      <h1 class="text-2xl font-bold text-gray-900">Rubric: <%= @assignment.title %></h1>
+    </div>
+  </div>
+
+  <!-- Rubric Content -->
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+        <%= render "shared/icons/clipboard_list", class: "w-5 h-5 mr-2 text-blue-500" %>
+        Evaluation Criteria
+      </h2>
+    </div>
+    <div class="px-6 py-4">
+      <!-- Table layout for larger screens -->
+      <div class="hidden lg:block overflow-x-auto">
+        <table class="w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-50">
+              <th scope="col" class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
+                Criteria
+              </th>
+              <% @rubric.criteria.first&.levels&.each do |level| %>
+                <th scope="col" class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
+                  <%= level.position %>. <%= level.title %>
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @rubric.criteria.order(position: :desc).each do |criterion| %>
+              <tr class="hover:bg-gray-50">
+                <td class="border border-gray-300 px-4 py-4 align-top">
+                  <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
+                  <p class="text-sm text-gray-600"><%= criterion.description %></p>
+                </td>
+                <% criterion.levels.each do |level| %>
+                  <td class="border border-gray-300 px-4 py-4 align-top text-sm text-gray-700">
+                    <%= level.description %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Grid layout for smaller screens -->
+      <div class="lg:hidden space-y-6">
+        <% @rubric.criteria.order(position: :desc).each do |criterion| %>
+          <div class="criterion">
+            <div class="grid grid-cols-1 gap-3">
+              <div class="mb-4">
+                <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
+                <p class="text-sm text-gray-600"><%= criterion.description %></p>
+              </div>
+              <% criterion.levels.each do |level| %>
+                <div class="p-3 bg-gray-50 rounded-lg">
+                  <div class="flex items-start justify-between mb-2">
+                    <h4 class="text-sm font-medium text-gray-700"><%= level.position %>. <%= level.title %></h4>
+                  </div>
+                  <p class="text-xs text-gray-600"><%= level.description %></p>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
