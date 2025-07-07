@@ -87,6 +87,17 @@ class="text-lg font-semibold"
 - Secondary: `text-sm text-gray-600`
 - Helper: `text-xs text-gray-500`
 
+### Text Capitalization
+
+**Sentence case** should be used throughout the application:
+- All headings and titles use sentence case (e.g., "Rubric assessment" not "Rubric Assessment")
+- Button text uses sentence case (e.g., "Share feedback with student" not "Share Feedback with Student")
+- Navigation items use sentence case
+- Form labels use sentence case
+- Table headers remain in uppercase for visual hierarchy
+
+Exception: Brand names and proper nouns maintain their standard capitalization.
+
 ---
 
 ## Spacing System
@@ -282,6 +293,19 @@ class="w-6 h-6"
 class="w-12 h-12"
 ```
 
+**Icon Usage Guidelines:**
+
+Specific icons are reserved for certain contexts:
+- **Sparkles (`_sparkles`)**: Reserved exclusively for AI-related features and functionality
+- **Star (`_star`)**: Used for ratings, performance badges, and excellence indicators
+- **Checkmark (`_checkmark`)**: Success states, completed items, strengths
+- **Lightning bolt (`_lightning_bolt`)**: Growth areas, improvements, action items
+- **Send (`_send`)**: Sharing, sending, or submitting content
+- **Document (`_document`)**: File references, document selection
+- **Folder (`_folder`)**: Collections, groupings, assignments
+
+Always use semantic icons that clearly communicate their purpose to users.
+
 ---
 
 ## Layout Patterns
@@ -299,10 +323,14 @@ class="max-w-4xl mx-auto"  <!-- Wide -->
 
 ### Standard Page Layout
 ```erb
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-  <!-- Content -->
+<div class="min-h-screen">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Content -->
+  </div>
 </div>
 ```
+
+Note: Pages should not have gray backgrounds (`bg-gray-50`). Use white as the default background color.
 
 ### Two-Column Layout
 ```erb

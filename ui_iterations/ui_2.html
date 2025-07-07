@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Work View - Table Layout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+            <div class="px-6 py-4">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h1 class="text-2xl font-semibold text-gray-900">Literary Analysis Essay</h1>
+                        <p class="text-sm text-gray-600 mt-1">By Sarah Johnson • Submitted Dec 15, 2024 at 2:30 PM</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-center">
+                            <p class="text-xs font-medium text-gray-500 uppercase">Plagiarism</p>
+                            <p class="text-lg font-semibold text-green-600">3%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-xs font-medium text-gray-500 uppercase">AI Detection</p>
+                            <p class="text-lg font-semibold text-blue-600">12%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rubric Results Table -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+                <h2 class="text-lg font-semibold text-gray-900">Rubric Assessment</h2>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead>
+                        <tr class="bg-gray-50">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+                                Criterion
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+                                Achievement Level
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/2">
+                                Feedback
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Thesis Statement -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 align-top">
+                                <div class="font-medium text-gray-900">Thesis Statement</div>
+                                <div class="text-sm text-gray-500 mt-1">Clear, arguable claim</div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                                    Exceeds (4/4)
+                                </div>
+                                <div class="text-sm text-gray-600 mt-2">
+                                    Presents an insightful, nuanced thesis that demonstrates sophisticated understanding
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-green-500 pl-3">
+                                        <p class="text-sm font-medium text-green-700">Strength</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            Your thesis elegantly connects the symbolism of the green light to broader themes of American idealism. The multi-layered interpretation shows sophisticated thinking.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Evidence and Analysis -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 align-top">
+                                <div class="font-medium text-gray-900">Evidence and Analysis</div>
+                                <div class="text-sm text-gray-500 mt-1">Textual support and interpretation</div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                    Meets (3/4)
+                                </div>
+                                <div class="text-sm text-gray-600 mt-2">
+                                    Uses relevant evidence with clear analysis that supports the thesis
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-green-500 pl-3">
+                                        <p class="text-sm font-medium text-green-700">Strength</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            Strong use of direct quotations from chapters 5 and 9. Your analysis of Gatsby's dialogue reveals careful reading.
+                                        </p>
+                                    </div>
+                                    <div class="border-l-4 border-amber-500 pl-3">
+                                        <p class="text-sm font-medium text-amber-700">Opportunity</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            Consider incorporating more analysis of Fitzgerald's language choices. How do specific word choices or imagery patterns support your argument?
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Organization -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 align-top">
+                                <div class="font-medium text-gray-900">Organization</div>
+                                <div class="text-sm text-gray-500 mt-1">Structure and flow</div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                                    Meets (3/4)
+                                </div>
+                                <div class="text-sm text-gray-600 mt-2">
+                                    Clear structure with logical progression and smooth transitions
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-amber-500 pl-3">
+                                        <p class="text-sm font-medium text-amber-700">Opportunity</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            The transition between your second and third body paragraphs could be smoother. Consider adding a bridging sentence that connects the symbolism discussion to character development.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <!-- Writing Mechanics -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 align-top">
+                                <div class="font-medium text-gray-900">Writing Mechanics</div>
+                                <div class="text-sm text-gray-500 mt-1">Grammar, style, and citations</div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-amber-100 text-amber-800">
+                                    Approaching (2/4)
+                                </div>
+                                <div class="text-sm text-gray-600 mt-2">
+                                    Some errors in grammar or style that occasionally distract from content
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 align-top">
+                                <div class="space-y-3">
+                                    <div class="border-l-4 border-amber-500 pl-3">
+                                        <p class="text-sm font-medium text-amber-700">Opportunity</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            Watch for comma splices (found 3 instances). Also, ensure all quotations are properly integrated with signal phrases.
+                                        </p>
+                                    </div>
+                                    <div class="border-l-4 border-amber-500 pl-3">
+                                        <p class="text-sm font-medium text-amber-700">Opportunity</p>
+                                        <p class="text-sm text-gray-700 mt-1">
+                                            MLA citations need page numbers for all direct quotes. See paragraph 4 and 7 for missing citations.
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Summary Row -->
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-medium text-gray-700">Overall Score</span>
+                    <span class="text-lg font-semibold text-gray-900">12/16 points (75%)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Qualitative Feedback -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Overall Feedback</h2>
+            </div>
+            <div class="px-6 py-4">
+                <div class="prose max-w-none text-gray-700">
+                    <p class="mb-4">
+                        Sarah, this is a thoughtful analysis that demonstrates strong understanding of The Great Gatsby's central themes. Your thesis about the green light as a symbol of corrupted American idealism is sophisticated and well-supported throughout your essay.
+                    </p>
+                    <p class="mb-4">
+                        Your greatest strength lies in your ability to connect symbolic elements to larger thematic concerns. The way you trace the green light's meaning through different chapters shows careful attention to Fitzgerald's craft. Your introduction particularly stands out for its engaging hook and clear roadmap.
+                    </p>
+                    <p class="mb-4">
+                        To elevate your analysis further, focus on two main areas: First, dig deeper into Fitzgerald's specific language choices. When you quote the text, spend more time unpacking the significance of particular words or phrases. Second, review MLA citation format, particularly for integrating quotes and providing page numbers.
+                    </p>
+                    <p>
+                        For your revision, I recommend starting with the mechanical issues (citations and comma splices) before moving to the deeper analytical improvements. This will ensure your strong ideas are presented as clearly as possible. Keep up the excellent analytical thinking!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
