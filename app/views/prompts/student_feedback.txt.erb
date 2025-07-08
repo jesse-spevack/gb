@@ -27,9 +27,9 @@ Description: <%= criterion.description %>
 Position: <%= criterion.position %>
 
 **Performance Levels:**
-<% criterion.levels.each do |level| -%>
+<% criterion.levels.order(:performance_level).each do |level| -%>
 - ID: <%= level.id %> 
-- Position: <%= level.position %> 
+- Performance Level: <%= level.performance_level.humanize %> 
 - Title: <%= level.title %>
 - Description: <%= level.description %>
 <% end -%>

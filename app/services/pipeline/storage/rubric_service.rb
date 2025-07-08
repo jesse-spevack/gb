@@ -76,25 +76,54 @@ module Pipeline
 
       def self.create_levels_for_criterion(criterion, levels_data)
         levels_data.each do |level_data|
-          points = calculate_points_from_position(level_data.position)
+          # Get performance_level from the parsed data, or map from name if not present
+          performance_level = if level_data.respond_to?(:performance_level)
+                               level_data.performance_level.to_sym
+          else
+                               map_name_to_performance_level(level_data.name)
+          end
+
+          # Points are determined by performance level
+          points = points_for_performance_level(performance_level)
 
           Level.create!(
             criterion: criterion,
             title: level_data.name,
             description: level_data.description,
-            position: level_data.position,
+            performance_level: performance_level,
             points: points
           )
         end
       end
 
-      def self.calculate_points_from_position(position)
-        # Map position to points inversely:
-        # Position 1 (highest achievement) = 4 points
-        # Position 2 = 3 points
-        # Position 3 = 2 points
-        # Position 4 (lowest achievement) = 1 point
-        5 - position
+      def self.map_name_to_performance_level(name)
+        case name.downcase
+        when /exceed/
+          :exceeds
+        when /meet/
+          :meets
+        when /approach/
+          :approaching
+        when /below/
+          :below
+        else
+          :meets # default
+        end
+      end
+
+      def self.points_for_performance_level(performance_level)
+        case performance_level
+        when :exceeds
+          4
+        when :meets
+          3
+        when :approaching
+          2
+        when :below
+          1
+        else
+          3 # default to meets
+        end
       end
     end
   end

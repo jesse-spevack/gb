@@ -86,17 +86,17 @@ module Assignments
       # Create levels with different points
       level_high = Level.create!(
         criterion: criterion,
-        title: "High",
+        title: "Exceeds",
         description: "High performance",
-        position: 1,
+        performance_level: :exceeds,
         points: 4
       )
 
       level_low = Level.create!(
         criterion: criterion,
-        title: "Low",
+        title: "Approaching",
         description: "Low performance",
-        position: 2,
+        performance_level: :approaching,
         points: 2
       )
 
@@ -207,9 +207,9 @@ module Assignments
 
       level = Level.create!(
         criterion: criterion,
-        title: "Good",
+        title: "Meets",
         description: "Good",
-        position: 1,
+        performance_level: :meets,
         points: 3
       )
 

@@ -55,25 +55,26 @@ module Pipeline
         RubricService.call(context: @context)
 
         criterion = Criterion.find_by(title: "Writing Quality")
-        levels = criterion.levels.order(:position)
+        levels = criterion.levels.order(:performance_level)
 
         assert_equal 4, levels.count
 
-        assert_equal "Exemplary", levels[3].title
-        assert_equal 1, levels[3].position
-        assert_equal 4, levels[3].points
+        # Ordered by performance_level: exceeds(0), meets(1), approaching(2), below(3)
+        assert_equal "Exceeds", levels[0].title
+        assert_equal "exceeds", levels[0].performance_level
+        assert_equal 4, levels[0].points
 
-        assert_equal "Proficient", levels[2].title
-        assert_equal 2, levels[2].position
-        assert_equal 3, levels[2].points
+        assert_equal "Meets", levels[1].title
+        assert_equal "meets", levels[1].performance_level
+        assert_equal 3, levels[1].points
 
-        assert_equal "Developing", levels[1].title
-        assert_equal 3, levels[1].position
-        assert_equal 2, levels[1].points
+        assert_equal "Approaching", levels[2].title
+        assert_equal "approaching", levels[2].performance_level
+        assert_equal 2, levels[2].points
 
-        assert_equal "Beginning", levels[0].title
-        assert_equal 4, levels[0].position
-        assert_equal 1, levels[0].points
+        assert_equal "Below", levels[3].title
+        assert_equal "below", levels[3].performance_level
+        assert_equal 1, levels[3].points
       end
 
       test "ensures points are unique within criterion" do
@@ -104,15 +105,20 @@ module Pipeline
         assert_equal initial_level_count, Level.count
       end
 
-      test "calculates points correctly from position" do
-        # Test the private method indirectly through its usage
+      test "calculates points correctly from performance level" do
+        # Test the performance level to points mapping
         RubricService.call(context: @context)
 
         # Check all levels have the expected point mapping
         Level.all.each do |level|
-          expected_points = 5 - level.position
+          expected_points = case level.performance_level
+          when "exceeds" then 4
+          when "meets" then 3
+          when "approaching" then 2
+          when "below" then 1
+          end
           assert_equal expected_points, level.points,
-                       "Level with position #{level.position} should have #{expected_points} points"
+                       "Level with performance_level #{level.performance_level} should have #{expected_points} points"
         end
       end
 
@@ -126,10 +132,10 @@ module Pipeline
               description: "Clear and coherent writing",
               position: 1,
               levels: [
-                OpenStruct.new(name: "Exemplary", description: "Outstanding writing", position: 1),
-                OpenStruct.new(name: "Proficient", description: "Good writing", position: 2),
-                OpenStruct.new(name: "Developing", description: "Adequate writing", position: 3),
-                OpenStruct.new(name: "Beginning", description: "Needs improvement", position: 4)
+                OpenStruct.new(name: "Exceeds", description: "Outstanding writing", performance_level: "exceeds"),
+                OpenStruct.new(name: "Meets", description: "Good writing", performance_level: "meets"),
+                OpenStruct.new(name: "Approaching", description: "Adequate writing", performance_level: "approaching"),
+                OpenStruct.new(name: "Below", description: "Needs improvement", performance_level: "below")
               ]
             ),
             OpenStruct.new(
@@ -137,10 +143,10 @@ module Pipeline
               description: "Thorough research and analysis",
               position: 2,
               levels: [
-                OpenStruct.new(name: "Exemplary", description: "Exceptional research", position: 1),
-                OpenStruct.new(name: "Proficient", description: "Good research", position: 2),
-                OpenStruct.new(name: "Developing", description: "Basic research", position: 3),
-                OpenStruct.new(name: "Beginning", description: "Minimal research", position: 4)
+                OpenStruct.new(name: "Exceeds", description: "Exceptional research", performance_level: "exceeds"),
+                OpenStruct.new(name: "Meets", description: "Good research", performance_level: "meets"),
+                OpenStruct.new(name: "Approaching", description: "Basic research", performance_level: "approaching"),
+                OpenStruct.new(name: "Below", description: "Minimal research", performance_level: "below")
               ]
             )
           ]

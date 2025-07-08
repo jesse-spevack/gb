@@ -33,33 +33,33 @@ class PromptInput::StudentPerformanceSummaryTest < ActiveSupport::TestCase
     # Create levels for each criterion
     @level1_1 = Level.create!(
       criterion: @criterion1,
-      title: "Excellent",
+      title: "Exceeds",
       description: "Excellent writing",
-      position: 1,
+      performance_level: :exceeds,
       points: 4
     )
 
     @level1_2 = Level.create!(
       criterion: @criterion1,
-      title: "Good",
+      title: "Meets",
       description: "Good writing",
-      position: 2,
+      performance_level: :meets,
       points: 3
     )
 
     @level2_1 = Level.create!(
       criterion: @criterion2,
-      title: "Excellent",
+      title: "Exceeds",
       description: "Excellent grammar",
-      position: 1,
+      performance_level: :exceeds,
       points: 4
     )
 
     @level2_2 = Level.create!(
       criterion: @criterion2,
-      title: "Good",
+      title: "Meets",
       description: "Good grammar",
-      position: 2,
+      performance_level: :meets,
       points: 3
     )
 
@@ -91,7 +91,7 @@ class PromptInput::StudentPerformanceSummaryTest < ActiveSupport::TestCase
     )
 
     # Create student criterion levels with known values
-    # For criterion1: 3 levels, positions 1, 1, 2 (avg = 1.33, min = 1, max = 2, count = 3)
+    # For criterion1: 3 levels, points 4, 4, 3 (avg = 3.67, min = 3, max = 4, count = 3)
     StudentCriterionLevel.create!(
       student_work: @student_work1,
       criterion: @criterion1,
@@ -113,7 +113,7 @@ class PromptInput::StudentPerformanceSummaryTest < ActiveSupport::TestCase
       explanation: "Good writing quality"
     )
 
-    # For criterion2: 3 levels, all position 2 (avg = 2, min = 2, max = 2, count = 3)
+    # For criterion2: 3 levels, all points 3 (avg = 3, min = 3, max = 3, count = 3)
     StudentCriterionLevel.create!(
       student_work: @student_work1,
       criterion: @criterion2,
@@ -154,16 +154,16 @@ class PromptInput::StudentPerformanceSummaryTest < ActiveSupport::TestCase
 
     # Verify exact values for Writing Quality criterion
     assert_equal "Writing Quality", writing_quality.criterion_title
-    assert_equal 1.33, writing_quality.average_level.round(2) # (1+1+2)/3 = 1.33
-    assert_equal 1, writing_quality.min_level
-    assert_equal 2, writing_quality.max_level
+    assert_equal 3.67, writing_quality.average_level.round(2) # (4+4+3)/3 = 3.67
+    assert_equal 3, writing_quality.min_level
+    assert_equal 4, writing_quality.max_level
     assert_equal 3, writing_quality.count
 
     # Verify exact values for Grammar criterion
     assert_equal "Grammar", grammar.criterion_title
-    assert_equal 2.0, grammar.average_level
-    assert_equal 2, grammar.min_level
-    assert_equal 2, grammar.max_level
+    assert_equal 3.0, grammar.average_level
+    assert_equal 3, grammar.min_level
+    assert_equal 3, grammar.max_level
     assert_equal 3, grammar.count
   end
 end

@@ -1,0 +1,53 @@
+<%# 
+  Rubric Overview Table Partial
+  
+  Locals:
+    - rubric: The rubric instance
+    - student_work: The student work instance with criterion levels
+%>
+
+<% if rubric && student_work.student_criterion_levels.any? %>
+  <% 
+    # Get all possible levels in the correct order (Exceeds -> Below)
+    all_levels = [:exceeds, :meets, :approaching, :below]
+  %>
+  <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+    <div class="px-6 py-4 border-b border-gray-200">
+      <h2 class="text-lg font-semibold text-gray-900">Rubric overview</h2>
+    </div>
+    <div class="px-6 py-4">
+      <div class="overflow-x-auto">
+        <table class="min-w-full table-fixed">
+          <thead>
+            <tr class="border-b border-gray-200">
+              <th class="text-left py-2 px-3 text-sm font-medium text-gray-600 w-1/3">Criterion</th>
+              <% all_levels.each do |level| %>
+                <th class="text-center py-2 px-3 text-sm font-medium text-gray-600 w-1/6">
+                  <%= performance_level_text(level) %> (<%= points_for_performance_level(level) %>)
+                </th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <% rubric.criteria.each do |criterion| %>
+              <% student_level = student_work.student_criterion_levels.find { |scl| scl.criterion_id == criterion.id } %>
+              <% achieved_level = student_level&.level %>
+              <tr>
+                <td class="py-2 px-3 text-sm font-medium text-gray-900 w-1/3"><%= criterion.title %></td>
+                <% all_levels.each do |level| %>
+                  <td class="py-2 px-3 text-center w-1/6">
+                    <% if achieved_level&.performance_level&.to_sym == level %>
+                      <div class="h-8 w-8 mx-auto rounded border-2 <%= performance_level_border_classes(level) %>"></div>
+                    <% else %>
+                      <div class="h-8 w-8 mx-auto rounded border-2 border-gray-300"></div>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+<% end %>

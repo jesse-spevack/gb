@@ -16,12 +16,40 @@ class StudentWork < ApplicationRecord
   validates :assignment, presence: true
   validates :selected_document, presence: true
 
+  # Returns the average performance level as a string (e.g., "Meets")
   def high_level_feedback_average
-    assigned_levels = student_criterion_levels.map(&:level)
-    grouped_levels = assigned_levels.reduce(Hash.new(0)) do |acc, level|
-      acc[level.title] += 1
-      acc
+    return nil if student_criterion_levels.empty?
+
+    avg_points = average_performance_points
+    return nil if avg_points.nil?
+
+    # Round to nearest whole number and map to performance level
+    rounded_points = avg_points.round
+
+    case rounded_points
+    when 4
+      "Exceeds"
+    when 3
+      "Meets"
+    when 2
+      "Approaching"
+    when 1
+      "Below"
+    else
+      "Meets" # Default for edge cases
     end
-    grouped_levels.max_by { |_, count| count }[0]
+  end
+
+  # Returns the numeric average of performance points as a float
+  def average_performance_points
+    return nil if student_criterion_levels.empty?
+
+    # Get all levels with their points
+    levels_with_points = student_criterion_levels.includes(:level).map(&:level).compact
+    return nil if levels_with_points.empty?
+
+    # Calculate average points
+    total_points = levels_with_points.sum(&:points)
+    total_points.to_f / levels_with_points.count
   end
 end

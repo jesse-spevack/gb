@@ -15,14 +15,14 @@ module PromptInput
 
     def build
       @student_criterion_levels.map do |criterion, student_criterion_levels|
-        positions = student_criterion_levels.map(&:level).map(&:position)
-        average = positions.sum.to_f / positions.size
+        points = student_criterion_levels.map(&:level).map(&:points)
+        average = points.sum.to_f / points.size
 
         PromptInput::CriterionPerformanceSummary.new(
           criterion_title: criterion.title,
           average_level: average,
-          min_level: positions.min,
-          max_level: positions.max,
+          min_level: points.min,
+          max_level: points.max,
           count: student_criterion_levels.count
         )
       end

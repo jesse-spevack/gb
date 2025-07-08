@@ -2,7 +2,7 @@
   Performance Badge Partial
   
   Locals:
-    - level: The performance level (e.g., "Exceeds", "Meets", "Approaching", "Below")
+    - level: The performance level (can be string, symbol, or Level instance)
     - size: Badge size - "sm", "md" (default), or "lg"
     - show_icon: Whether to show the icon (default: true)
 %>
@@ -12,34 +12,16 @@
   size = local_assigns[:size] || "md"
   show_icon = local_assigns.fetch(:show_icon, true)
   
-  # Determine badge styling based on level
-  badge_class, icon_name = case level
-    when "Exceeds", "Excellent"
-      ["bg-green-100 text-green-800", "star"]
-    when "Meets", "Good", "Proficient", "Satisfactory"  
-      ["bg-blue-100 text-blue-800", "star"]
-    when "Approaching", "Average", "Needs Improvement"
-      ["bg-amber-100 text-amber-800", "exclamation"]
-    when "Below", "Poor"
-      ["bg-red-100 text-red-800", "exclamation"]
-    else
-      ["bg-gray-100 text-gray-800", "star"]
-  end
-  
-  # Determine size classes
-  size_classes = case size
-    when "sm"
-      { wrapper: "px-3 py-1 text-sm", icon: "w-4 h-4" }
-    when "lg"
-      { wrapper: "px-6 py-3 text-lg", icon: "w-6 h-6" }
-    else # md
-      { wrapper: "px-4 py-2", icon: "w-5 h-5" }
-  end
+  # Use helper methods for consistent styling
+  size_classes = performance_badge_size_classes(size)
+  color_classes = performance_level_color_classes(level)
+  icon_name = performance_level_icon(level)
+  display_text = performance_level_text(level)
 %>
 
-<div class="inline-flex items-center <%= size_classes[:wrapper] %> rounded-full font-semibold <%= badge_class %>">
+<div class="inline-flex items-center <%= size_classes[:wrapper] %> rounded-full font-semibold <%= color_classes %>">
   <% if show_icon %>
     <%= render "shared/icons/#{icon_name}", class: "#{size_classes[:icon]} mr-2" %>
   <% end %>
-  <%= level || "Not assessed" %>
+  <%= display_text %>
 </div>

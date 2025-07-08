@@ -252,6 +252,96 @@ The standard card layout for assignment sections:
 </div>
 ```
 
+### Performance Level Bubbles
+
+Performance level bubbles provide consistent visual feedback for rubric assessments throughout the application. They use standardized colors and helper methods for maintainability.
+
+**Basic Usage:**
+```erb
+<%= render "shared/performance_badge", level: "exceeds", size: "sm" %>
+<%= render "shared/performance_badge", level: "meets", size: "md" %>
+<%= render "shared/performance_badge", level: "approaching", size: "lg" %>
+```
+
+**With Additional Classes:**
+```erb
+<%= render "shared/performance_badge", 
+    level: student_work.high_level_feedback_average, 
+    size: "sm", 
+    class: "ml-4" %>
+```
+
+**Performance Level Colors:**
+- **Exceeds**: `bg-green-100 text-green-800` - Green indicates exceptional performance
+- **Meets**: `bg-blue-100 text-blue-800` - Blue indicates meeting expectations  
+- **Approaching**: `bg-amber-100 text-amber-800` - Amber indicates approaching standards
+- **Below**: `bg-red-100 text-red-800` - Red indicates needs significant improvement
+- **Unknown/Not assessed**: `bg-gray-100 text-gray-800` - Gray for unassessed items
+
+**Size Variants:**
+```erb
+<!-- Small (most common in lists) -->
+size: "sm" → wrapper: "px-3 py-1 text-sm", icon: "w-4 h-4"
+
+<!-- Medium (default) -->  
+size: "md" → wrapper: "px-4 py-2", icon: "w-5 h-5"
+
+<!-- Large (emphasis contexts) -->
+size: "lg" → wrapper: "px-6 py-3 text-lg", icon: "w-6 h-6"
+```
+
+**Icons:**
+- **Exceeds**: Star icon (`star`) - exceptional achievement
+- **Meets**: Checkmark icon (`checkmark`) - meeting expectations
+- **Approaching**: Exclamation icon (`exclamation`) - attention needed
+- **Below**: X-circle icon (`x_circle`) - needs significant improvement
+
+**Helper Methods Available:**
+```erb
+<!-- Color classes -->
+performance_level_color_classes("exceeds") 
+# → "bg-green-100 text-green-800"
+
+<!-- Display text -->
+performance_level_text("meets")
+# → "Meets" 
+
+<!-- Icon name -->
+performance_level_icon("approaching")
+# → "exclamation"
+
+<!-- Size classes -->
+performance_badge_size_classes("sm")
+# → { wrapper: "px-3 py-1 text-sm", icon: "w-4 h-4" }
+```
+
+**Usage Guidelines:**
+1. Always use the `shared/performance_badge` partial for consistency
+2. Choose size based on context: `sm` for lists, `md` for cards, `lg` for emphasis
+3. Performance levels are standardized: "Exceeds", "Meets", "Approaching", "Below"
+4. The helper methods handle legacy level names and provide consistent styling
+5. Use `ml-4` or `mr-2` for standard spacing in layouts
+
+**Common Patterns:**
+```erb
+<!-- In student work lists -->
+<%= render "shared/performance_badge", 
+    level: student_work.high_level_feedback_average, 
+    size: "sm", 
+    class: "ml-4" %>
+
+<!-- In rubric headers -->
+<%= render "shared/performance_badge", 
+    level: level.performance_level, 
+    size: "sm", 
+    class: "mr-2" %>
+
+<!-- In detailed views -->
+<%= render "shared/performance_badge", 
+    level: average_performance, 
+    size: "md" %>
+```
+
 ### Alerts
 
 **Error Alert:**
