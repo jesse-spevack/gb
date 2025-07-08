@@ -118,15 +118,10 @@
               <p class="text-sm text-gray-500 mt-1">Reviewed <%= time_ago_in_words(student_work.updated_at) %> ago</p>
             </div>
             <% if student_work.high_level_feedback_average.present? %>
-              <% feedback_class = case student_work.high_level_feedback_average
-                 when "Excellent" then "bg-green-100 text-green-800"
-                 when "Good" then "bg-blue-100 text-blue-800"
-                 when "Average" then "bg-amber-100 text-amber-800"
-                 else "bg-gray-100 text-gray-800"
-                 end %>
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <%= feedback_class %> ml-4">
-                <%= student_work.high_level_feedback_average %>
-              </span>
+              <%= render "shared/performance_badge", 
+                  level: student_work.high_level_feedback_average, 
+                  size: "sm", 
+                  class: "ml-4" %>
             <% end %>
           </div>
         <% end %>

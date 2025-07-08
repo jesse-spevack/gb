@@ -3,57 +3,57 @@
 # Writing Quality Levels
 writing_exemplary:
   criterion: writing_quality
-  title: "Exemplary"
+  title: "Exceeds"
   description: "Writing is clear, coherent, and engaging. Ideas flow seamlessly with sophisticated transitions. Voice is compelling and appropriate for the audience. Word choice is precise and enhances meaning."
-  position: 1
+  performance_level: 0
   points: 4
 
 writing_proficient:
   criterion: writing_quality
-  title: "Proficient"
+  title: "Meets"
   description: "Writing is generally clear and coherent. Ideas connect logically with appropriate transitions. Voice is consistent and suitable for the audience. Word choice is effective."
-  position: 2
+  performance_level: 1
   points: 3
 
 writing_developing:
   criterion: writing_quality
-  title: "Developing"
+  title: "Approaching"
   description: "Writing shows some clarity but may lack coherence in places. Transitions between ideas are sometimes abrupt. Voice is inconsistent. Word choice is basic or occasionally imprecise."
-  position: 3
+  performance_level: 2
   points: 2
 
 writing_beginning:
   criterion: writing_quality
-  title: "Beginning"
+  title: "Below"
   description: "Writing lacks clarity and coherence. Ideas are disconnected with few or ineffective transitions. Voice is unclear or inappropriate. Word choice is limited or repetitive."
-  position: 4
+  performance_level: 3
   points: 1
 
 # Content Depth Levels
 content_exemplary:
   criterion: content_depth
-  title: "Exemplary"
+  title: "Exceeds"
   description: "Demonstrates exceptional depth of analysis with sophisticated insights. Shows thorough understanding of complex concepts and makes meaningful connections."
-  position: 1
+  performance_level: 0
   points: 4
 
 content_proficient:
   criterion: content_depth
-  title: "Proficient"
+  title: "Meets"
   description: "Shows good depth of analysis with clear insights. Demonstrates solid understanding of key concepts and makes appropriate connections."
-  position: 2
+  performance_level: 1
   points: 3
 
 content_developing:
   criterion: content_depth
-  title: "Developing"
+  title: "Approaching"
   description: "Shows basic analysis with some insights. Understanding of concepts is developing. Makes some connections but may be superficial."
-  position: 3
+  performance_level: 2
   points: 2
 
 content_beginning:
   criterion: content_depth
-  title: "Beginning"
+  title: "Below"
   description: "Shows limited analysis with few insights. Understanding of concepts is minimal. Few or no meaningful connections made."
-  position: 4
+  performance_level: 3
   points: 1

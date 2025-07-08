@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_04_215505) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_08_032121) do
   create_table "assignment_summaries", force: :cascade do |t|
     t.integer "assignment_id", null: false
     t.integer "student_work_count", null: false
@@ -59,12 +59,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_04_215505) do
     t.integer "criterion_id", null: false
     t.string "title", null: false
     t.text "description", null: false
-    t.integer "position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "points", null: false
+    t.integer "performance_level", default: 0, null: false
     t.index ["criterion_id", "points"], name: "index_levels_on_criterion_id_and_points", unique: true
     t.index ["criterion_id"], name: "index_levels_on_criterion_id"
+    t.index ["performance_level"], name: "index_levels_on_performance_level"
   end
 
   create_table "llm_usage_records", force: :cascade do |t|

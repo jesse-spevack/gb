@@ -131,8 +131,8 @@ module Pipeline
 
         # Verify points are correctly assigned
         rubric_result.rubric.criteria.each do |criterion|
-          levels = criterion.levels.order(:position)
-          assert_equal [ 4, 3, 2, 1 ], levels.pluck(:position)
+          levels = criterion.levels.order(:performance_level)
+          assert_equal [ 4, 3, 2, 1 ], levels.pluck(:points)
         end
       end
 
@@ -149,10 +149,10 @@ module Pipeline
               description: "Clear and focused argument",
               position: 1,
               levels: [
-                OpenStruct.new(name: "Exemplary", description: "Exceptional thesis", position: 1),
-                OpenStruct.new(name: "Proficient", description: "Strong thesis", position: 2),
-                OpenStruct.new(name: "Developing", description: "Basic thesis", position: 3),
-                OpenStruct.new(name: "Beginning", description: "Weak thesis", position: 4)
+                OpenStruct.new(name: "Exceeds", description: "Exceptional thesis", performance_level: "exceeds"),
+                OpenStruct.new(name: "Meets", description: "Strong thesis", performance_level: "meets"),
+                OpenStruct.new(name: "Approaching", description: "Basic thesis", performance_level: "approaching"),
+                OpenStruct.new(name: "Below", description: "Weak thesis", performance_level: "below")
               ]
             ),
             OpenStruct.new(
@@ -160,10 +160,10 @@ module Pipeline
               description: "Use of supporting evidence",
               position: 2,
               levels: [
-                OpenStruct.new(name: "Exemplary", description: "Outstanding evidence", position: 1),
-                OpenStruct.new(name: "Proficient", description: "Good evidence", position: 2),
-                OpenStruct.new(name: "Developing", description: "Some evidence", position: 3),
-                OpenStruct.new(name: "Beginning", description: "Limited evidence", position: 4)
+                OpenStruct.new(name: "Exceeds", description: "Outstanding evidence", performance_level: "exceeds"),
+                OpenStruct.new(name: "Meets", description: "Good evidence", performance_level: "meets"),
+                OpenStruct.new(name: "Approaching", description: "Some evidence", performance_level: "approaching"),
+                OpenStruct.new(name: "Below", description: "Limited evidence", performance_level: "below")
               ]
             )
           ]
@@ -183,10 +183,10 @@ module Pipeline
             description: "#{criterion_name} assessment",
             position: idx + 1,
             levels: [
-              OpenStruct.new(name: "Exemplary", description: "Outstanding #{criterion_name.downcase}", position: 1),
-              OpenStruct.new(name: "Proficient", description: "Good #{criterion_name.downcase}", position: 2),
-              OpenStruct.new(name: "Developing", description: "Basic #{criterion_name.downcase}", position: 3),
-              OpenStruct.new(name: "Beginning", description: "Needs work on #{criterion_name.downcase}", position: 4)
+              OpenStruct.new(name: "Exceeds", description: "Outstanding #{criterion_name.downcase}", performance_level: "exceeds"),
+              OpenStruct.new(name: "Meets", description: "Good #{criterion_name.downcase}", performance_level: "meets"),
+              OpenStruct.new(name: "Approaching", description: "Basic #{criterion_name.downcase}", performance_level: "approaching"),
+              OpenStruct.new(name: "Below", description: "Needs work on #{criterion_name.downcase}", performance_level: "below")
             ]
           )
         end
@@ -202,7 +202,7 @@ module Pipeline
         context.student_work = student_work
 
         # Get actual criterion and level IDs from the created rubric
-        criteria = rubric.criteria.order(:position)
+        criteria = rubric.criteria.order(:id)
         thesis_criterion = criteria[0]
         evidence_criterion = criteria[1]
 
@@ -241,12 +241,12 @@ module Pipeline
           criterion_levels: [
             OpenStruct.new(
               criterion_id: thesis_criterion.id,
-              level_id: thesis_criterion.levels.find_by(position: 2).id,  # Proficient
+              level_id: thesis_criterion.levels.find_by(performance_level: :meets).id,  # Meets
               explanation: "Clear thesis with good support"
             ),
             OpenStruct.new(
               criterion_id: evidence_criterion.id,
-              level_id: evidence_criterion.levels.find_by(position: 1).id,  # Exemplary
+              level_id: evidence_criterion.levels.find_by(performance_level: :exceeds).id,  # Exceeds
               explanation: "Excellent use of primary sources"
             )
           ]

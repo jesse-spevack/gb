@@ -26,9 +26,9 @@
               <th scope="col" class="border border-gray-300 px-4 py-3 text-left font-semibold text-gray-900 w-1/4">
                 Criteria
               </th>
-              <% @rubric.criteria.first&.levels&.each do |level| %>
+              <% @rubric.criteria.first&.levels&.order(:performance_level)&.each do |level| %>
                 <th scope="col" class="border border-gray-300 px-4 py-3 text-center font-semibold text-gray-900">
-                  <%= level.position %>. <%= level.title %>
+                  <%= render "shared/performance_badge", level: level.performance_level, size: "sm" %>
                 </th>
               <% end %>
             </tr>
@@ -40,7 +40,7 @@
                   <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
                   <p class="text-sm text-gray-600"><%= criterion.description %></p>
                 </td>
-                <% criterion.levels.each do |level| %>
+                <% criterion.levels.order(:performance_level).each do |level| %>
                   <td class="border border-gray-300 px-4 py-4 align-top text-sm text-gray-700">
                     <%= level.description %>
                   </td>
@@ -60,10 +60,13 @@
                 <h3 class="text-base font-semibold text-gray-900 mb-2"><%= criterion.title %></h3>
                 <p class="text-sm text-gray-600"><%= criterion.description %></p>
               </div>
-              <% criterion.levels.each do |level| %>
+              <% criterion.levels.order(:performance_level).each do |level| %>
                 <div class="p-3 bg-gray-50 rounded-lg">
                   <div class="flex items-start justify-between mb-2">
-                    <h4 class="text-sm font-medium text-gray-700"><%= level.position %>. <%= level.title %></h4>
+                    <div class="flex items-center">
+                      <%= render "shared/performance_badge", level: level.performance_level, size: "sm", class: "mr-2" %>
+                      <h4 class="text-sm font-medium text-gray-700"><%= level.title %></h4>
+                    </div>
                   </div>
                   <p class="text-xs text-gray-600"><%= level.description %></p>
                 </div>
