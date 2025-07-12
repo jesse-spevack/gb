@@ -1,47 +1,185 @@
-<div class="mx-auto px-4 sm:px-6 lg:px-8 py-10 max-w-4xl">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
   <!-- Header -->
   <div class="mb-8">
     <div class="flex items-center mb-2">
-      <%= link_to assignment_path(@assignment), class: "mr-3 p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors" do %>
-        <%= render "shared/icons/arrow_left", aria_hidden: true, focusable: false, class: "w-5 h-5 text-gray-600" %>
+      <%= link_to assignment_path(@assignment), class: "text-blue-600 hover:text-blue-800 text-sm font-medium flex items-center" do %>
+        <%= render "shared/icons/arrow_left", class: "w-4 h-4 mr-1" %>
+        Back to assignment
       <% end %>
-      <h1 class="text-2xl font-bold text-gray-900">Assignment Summary</h1>
     </div>
+    <h1 class="text-2xl font-bold text-gray-900"><%= @assignment.title %> - Summary</h1>
+    <p class="text-sm text-gray-600 mt-1"><%= @assignment_summary.student_work_count %> students submitted</p>
   </div>
 
-  <!-- Summary Content -->
-  <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-    <div class="px-6 py-4 border-b border-gray-200">
-      <h2 class="text-lg font-semibold text-gray-900"><%= @assignment.title %></h2>
-      <p class="text-sm text-gray-600 mt-1">Student work count: <%= @assignment_summary.student_work_count %></p>
-    </div>
-    
-    <div class="px-6 py-4">
-      <!-- Qualitative Insights -->
-      <div class="mb-6">
-        <h3 class="text-base font-semibold text-gray-900 mb-3">Qualitative Insights</h3>
-        <div class="prose max-w-none text-gray-700">
-          <%= simple_format(@assignment_summary.qualitative_insights) %>
+  <% if @assignment_summary.qualitative_insights.present? || @assignment_summary.feedback_items.any? %>
+    <!-- Key Insights Section -->
+    <% if @assignment_summary.qualitative_insights.present? %>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900 flex items-center">
+            <%= render "shared/icons/light_bulb", class: "w-5 h-5 mr-2 text-blue-500" %>
+            Key insights
+          </h2>
+        </div>
+        <div class="px-6 py-4">
+          <p class="text-base text-gray-700">
+            <%= simple_format(@assignment_summary.qualitative_insights) %>
+          </p>
         </div>
       </div>
+    <% end %>
 
-      <!-- Feedback Items -->
-      <% if @assignment_summary.feedback_items.any? %>
-        <div>
-          <h3 class="text-base font-semibold text-gray-900 mb-3">Detailed Feedback</h3>
-          <div class="space-y-4">
-            <% @assignment_summary.feedback_items.each do |feedback| %>
-              <div class="bg-green-50 border-l-4 border-green-400 p-4">
-                <h4 class="text-sm font-medium text-green-900 mb-1"><%= feedback.title %></h4>
-                <p class="text-sm text-green-800 mb-2"><%= feedback.description %></p>
-                <% if feedback.evidence.present? %>
-                  <p class="text-sm text-green-700 italic">Evidence: <%= feedback.evidence %></p>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
+    <!-- Performance Level Cards -->
+    <% if @performance_distribution.any? %>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Exceeds -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 class="text-sm font-medium text-gray-600 mb-2">Exceeds</h3>
+          <p class="text-3xl font-bold text-green-600"><%= @performance_distribution["exceeds"][:count] %></p>
+          <p class="text-sm text-gray-500 mt-1"><%= @performance_distribution["exceeds"][:percentage] %>% of students</p>
         </div>
-      <% end %>
+
+        <!-- Meets -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 class="text-sm font-medium text-gray-600 mb-2">Meets</h3>
+          <p class="text-3xl font-bold text-blue-600"><%= @performance_distribution["meets"][:count] %></p>
+          <p class="text-sm text-gray-500 mt-1"><%= @performance_distribution["meets"][:percentage] %>% of students</p>
+        </div>
+
+        <!-- Approaching -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 class="text-sm font-medium text-gray-600 mb-2">Approaching</h3>
+          <p class="text-3xl font-bold text-amber-600"><%= @performance_distribution["approaching"][:count] %></p>
+          <p class="text-sm text-gray-500 mt-1"><%= @performance_distribution["approaching"][:percentage] %>% of students</p>
+        </div>
+
+        <!-- Below -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 class="text-sm font-medium text-gray-600 mb-2">Below</h3>
+          <p class="text-3xl font-bold text-red-600"><%= @performance_distribution["below"][:count] %></p>
+          <p class="text-sm text-gray-500 mt-1"><%= @performance_distribution["below"][:percentage] %>% of students</p>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Performance by Criterion -->
+    <% if @criterion_performance.any? %>
+      <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-6">
+        <div class="px-6 py-4 border-b border-gray-200">
+          <h2 class="text-lg font-semibold text-gray-900">Performance by criterion</h2>
+        </div>
+        <div class="px-6 py-4 space-y-6">
+          <!-- Overall Average (Aggregate) -->
+          <% if @overall_average > 0 %>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-base font-semibold text-gray-900">Overall average</span>
+                <span class="text-sm text-gray-600"><%= @overall_average %>/4</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-8 overflow-hidden">
+                <div class="h-full flex">
+                  <div class="bg-green-500" style="width: <%= @performance_distribution["exceeds"][:percentage] %>%"></div>
+                  <div class="bg-blue-500" style="width: <%= @performance_distribution["meets"][:percentage] %>%"></div>
+                  <div class="bg-amber-500" style="width: <%= @performance_distribution["approaching"][:percentage] %>%"></div>
+                  <div class="bg-red-500" style="width: <%= @performance_distribution["below"][:percentage] %>%"></div>
+                </div>
+              </div>
+              <div class="flex justify-between mt-2 text-xs text-gray-600">
+                <span>Exceeds: <%= @performance_distribution["exceeds"][:count] %></span>
+                <span>Meets: <%= @performance_distribution["meets"][:count] %></span>
+                <span>Approaching: <%= @performance_distribution["approaching"][:count] %></span>
+                <span>Below: <%= @performance_distribution["below"][:count] %></span>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- Individual Criteria -->
+          <% @criterion_performance.each do |criterion| %>
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-sm font-medium text-gray-700"><%= criterion[:title] %></span>
+                <span class="text-sm text-gray-600"><%= criterion[:average_score] %>/4</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-6 overflow-hidden">
+                <div class="h-full flex">
+                  <div class="bg-green-500" style="width: <%= criterion[:level_percentages]["exceeds"] %>%"></div>
+                  <div class="bg-blue-500" style="width: <%= criterion[:level_percentages]["meets"] %>%"></div>
+                  <div class="bg-amber-500" style="width: <%= criterion[:level_percentages]["approaching"] %>%"></div>
+                  <div class="bg-red-500" style="width: <%= criterion[:level_percentages]["below"] %>%"></div>
+                </div>
+              </div>
+              <div class="flex justify-between mt-1 text-xs text-gray-600">
+                <span>Exceeds: <%= criterion[:level_counts]["exceeds"] %></span>
+                <span>Meets: <%= criterion[:level_counts]["meets"] %></span>
+                <span>Approaching: <%= criterion[:level_counts]["approaching"] %></span>
+                <span>Below: <%= criterion[:level_counts]["below"] %></span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Feedback Sections -->
+    <% if @assignment_summary.feedback_items.any? %>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Strengths -->
+        <% if @assignment_summary.feedback_items.strengths.any? %>
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200 bg-green-50">
+              <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                <%= render "shared/icons/checkmark", class: "w-5 h-5 mr-2 text-green-600" %>
+                Strengths
+              </h3>
+            </div>
+            <div class="px-6 py-4 space-y-4">
+              <% @assignment_summary.feedback_items.strengths.each do |strength| %>
+                <div class="border-l-4 border-green-400 pl-4">
+                  <h4 class="font-semibold text-gray-900"><%= strength.title %></h4>
+                  <% if strength.description.present? %>
+                    <p class="text-sm text-gray-700 mt-1"><%= strength.description %></p>
+                  <% end %>
+                  <% if strength.evidence.present? %>
+                    <p class="text-sm text-gray-600 mt-2"><strong>Evidence:</strong> <%= strength.evidence %></p>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <!-- Opportunities for Growth -->
+        <% if @assignment_summary.feedback_items.opportunities.any? %>
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div class="px-6 py-4 border-b border-gray-200 bg-amber-50">
+              <h3 class="text-lg font-semibold text-gray-900 flex items-center">
+                <%= render "shared/icons/lightning_bolt", class: "w-5 h-5 mr-2 text-amber-600" %>
+                Opportunities for growth
+              </h3>
+            </div>
+            <div class="px-6 py-4 space-y-4">
+              <% @assignment_summary.feedback_items.opportunities.each do |opportunity| %>
+                <div class="border-l-4 border-amber-400 pl-4">
+                  <h4 class="font-semibold text-gray-900"><%= opportunity.title %></h4>
+                  <% if opportunity.description.present? %>
+                    <p class="text-sm text-gray-700 mt-1"><%= opportunity.description %></p>
+                  <% end %>
+                  <% if opportunity.evidence.present? %>
+                    <p class="text-sm text-gray-600 mt-2"><strong>Evidence:</strong> <%= opportunity.evidence %></p>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <!-- No Data Message -->
+    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+      <div class="px-6 py-12 text-center">
+        <p class="text-gray-500">Assignment summary hasn't been generated yet.</p>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
