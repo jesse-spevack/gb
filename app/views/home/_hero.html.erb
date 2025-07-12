@@ -20,7 +20,7 @@
         <div class="flex flex-wrap gap-y-3 gap-x-6">
           <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800" role="status">
             <span class="flex-none w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse" aria-hidden="true"></span>
-            <span>New: AI-Powered Feedback Assistant</span>
+            <span>New: AI-Powered Class Summary Analytics</span>
           </div>
         </div>
       </div>
@@ -49,104 +49,141 @@
     <div class="mt-16 sm:mt-24 lg:mt-0 lg:ml-10 lg:flex-none xl:ml-32">
       <div class="mx-auto max-w-3xl sm:max-w-5xl lg:max-w-none">
         <div class="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-gray-900/10 ring-inset lg:-m-4 lg:rounded-2xl lg:p-4">
-          <!-- Feedback card preview -->
-          <div class="bg-white rounded-lg shadow-md overflow-hidden w-full" role="region" aria-label="Feedback preview example">
-            <!-- Assignment Header -->
-            <div class="bg-blue-600 p-6 flex justify-between items-center">
-              <div>
-                <h2 class="text-white text-2xl font-bold">Literary Analysis Essay</h2>
-                <div class="text-blue-100 flex space-x-4 mt-1">
-                  <span class="flex items-center"><svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/></svg>English</span>
-                  <span class="flex items-center"><svg class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/></svg>Grade 10</span>
+          <!-- Assignment Summary View -->
+          <div class="bg-white rounded-lg shadow-md overflow-hidden w-full max-w-4xl" role="region" aria-label="Assignment summary demo">
+            
+            <!-- Header -->
+            <div class="bg-blue-600 px-6 py-4">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h2 class="text-white text-xl font-bold">Persuasive Essay Assignment - Summary</h2>
+                  <p class="text-blue-100 text-sm mt-1">28 students submitted</p>
+                </div>
+                <div class="text-right">
+                  <div class="bg-white rounded-full px-3 py-1 text-blue-700 font-medium text-sm shadow-sm">
+                    AI Generated
+                  </div>
                 </div>
               </div>
-              <div class="bg-white rounded-full px-4 py-2 text-blue-700 font-bold text-lg shadow-sm">
-                Proficient
+            </div>
+            
+            <!-- Key Insights Section -->
+            <div class="px-6 py-4 border-b border-gray-200">
+              <h3 class="text-lg font-semibold text-gray-900 flex items-center mb-3">
+                <!-- Light bulb icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-blue-500">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                </svg>
+                Key insights
+              </h3>
+              <p class="text-sm text-gray-700">Students demonstrated strong understanding of persuasive techniques, with 75% effectively using evidence to support their arguments. Common areas for growth include thesis clarity and counterargument acknowledgment.</p>
+            </div>
+            
+            <!-- Performance Distribution Cards -->
+            <div class="px-6 py-4 border-b border-gray-200">
+              <div class="grid grid-cols-4 gap-3">
+                <!-- Exceeds -->
+                <div class="text-center">
+                  <h4 class="text-xs font-medium text-gray-600 mb-1">Exceeds</h4>
+                  <p class="text-2xl font-bold text-green-600">8</p>
+                  <p class="text-xs text-gray-500">29% of students</p>
+                </div>
+                
+                <!-- Meets -->
+                <div class="text-center">
+                  <h4 class="text-xs font-medium text-gray-600 mb-1">Meets</h4>
+                  <p class="text-2xl font-bold text-blue-600">13</p>
+                  <p class="text-xs text-gray-500">46% of students</p>
+                </div>
+                
+                <!-- Approaching -->
+                <div class="text-center">
+                  <h4 class="text-xs font-medium text-gray-600 mb-1">Approaching</h4>
+                  <p class="text-2xl font-bold text-amber-600">5</p>
+                  <p class="text-xs text-gray-500">18% of students</p>
+                </div>
+                
+                <!-- Below -->
+                <div class="text-center">
+                  <h4 class="text-xs font-medium text-gray-600 mb-1">Below</h4>
+                  <p class="text-2xl font-bold text-red-600">2</p>
+                  <p class="text-xs text-gray-500">7% of students</p>
+                </div>
+              </div>
+              
+              <!-- Overall Progress Bar -->
+              <div class="mt-4">
+                <div class="flex justify-between items-center mb-2">
+                  <span class="text-sm font-medium text-gray-700">Overall average</span>
+                  <span class="text-sm text-gray-600">3.1/4</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                  <div class="h-full flex">
+                    <div class="bg-green-500" style="width: 29%"></div>
+                    <div class="bg-blue-500" style="width: 46%"></div>
+                    <div class="bg-amber-500" style="width: 18%"></div>
+                    <div class="bg-red-500" style="width: 7%"></div>
+                  </div>
+                </div>
               </div>
             </div>
             
-            <!-- Summary Tabs -->
-            <div class="border-b border-gray-200">
-              <nav class="-mb-px flex space-x-6 px-6" aria-label="Feedback Tabs" role="tablist">
-                <a href="#strengths-tab" class="py-4 px-1 text-sm font-medium text-blue-600 border-b-2 border-blue-600" role="tab" aria-selected="true" tabindex="0" aria-controls="strengths-opportunities-panel">Strengths & Opportunities</a>
-                <a href="#detailed-tab" class="py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700" role="tab" aria-selected="false" tabindex="-1" aria-controls="detailed-feedback-panel">Detailed Feedback</a>
-                <a href="#rubric-tab" class="py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700" role="tab" aria-selected="false" tabindex="-1" aria-controls="rubric-panel">Rubric</a>
-              </nav>
-            </div>
-            
-            <!-- Feedback Content -->
-            <div class="p-6" role="tabpanel" id="strengths-opportunities-panel" aria-labelledby="strengths-tab">
-              <!-- Strengths Section -->
-              <section class="mb-8" aria-labelledby="strengths-heading">
-                <h3 id="strengths-heading" class="text-lg font-semibold text-gray-900 flex items-center">
-                  <svg class="h-5 w-5 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            <!-- Feedback Sections -->
+            <div class="grid grid-cols-2 gap-0">
+              <!-- Strengths -->
+              <div class="px-4 py-4 border-r border-gray-200">
+                <h4 class="text-sm font-semibold text-gray-900 flex items-center mb-3">
+                  <!-- Checkmark icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2 text-green-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                   </svg>
                   Strengths
-                </h3>
-                <div class="mt-4 pl-7">
-                  <ul class="space-y-3" aria-label="Student strengths">
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">1</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Strong thesis statement</span> – Your thesis clearly articulates your main argument about the text's symbolism.</p>
-                    </li>
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">2</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Excellent textual evidence</span> – You consistently support your claims with relevant quotations from the text.</p>
-                    </li>
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">3</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Insightful analysis</span> – Your interpretation shows depth of understanding and goes beyond surface-level observations.</p>
-                    </li>
-                  </ul>
+                </h4>
+                <div class="space-y-3">
+                  <div class="border-l-4 border-green-400 pl-3">
+                    <h5 class="font-medium text-gray-900 text-xs">Strong evidence use</h5>
+                    <p class="text-xs text-gray-700 mt-1">Students effectively supported arguments with credible sources</p>
+                  </div>
+                  <div class="border-l-4 border-green-400 pl-3">
+                    <h5 class="font-medium text-gray-900 text-xs">Clear organization</h5>
+                    <p class="text-xs text-gray-700 mt-1">Most essays followed logical paragraph structure</p>
+                  </div>
                 </div>
-              </section>
+              </div>
               
-              <!-- Opportunities Section -->
-              <section aria-labelledby="opportunities-heading">
-                <h3 id="opportunities-heading" class="text-lg font-semibold text-gray-900 flex items-center">
-                  <svg class="h-5 w-5 text-amber-500 mr-2" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+              <!-- Growth Opportunities -->
+              <div class="px-4 py-4">
+                <h4 class="text-sm font-semibold text-gray-900 flex items-center mb-3">
+                  <!-- Lightning bolt icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 mr-2 text-amber-600">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
                   </svg>
-                  Opportunities
-                </h3>
-                <div class="mt-4 pl-7">
-                  <ul class="space-y-3" aria-label="Areas for improvement">
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">1</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Paragraph organization</span> – Try using stronger topic sentences to guide your reader through your argument.</p>
-                    </li>
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">2</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Citation formatting</span> – Review MLA citation guidelines for in-text citations; several are missing page numbers.</p>
-                    </li>
-                    <li class="flex">
-                      <div class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-amber-100 text-amber-600 mr-3 flex-shrink-0" aria-hidden="true">
-                        <span class="text-sm font-medium">3</span>
-                      </div>
-                      <p class="text-gray-700"><span class="font-medium">Conclusion development</span> – Expand your conclusion to more effectively synthesize your analysis and highlight broader implications.</p>
-                    </li>
-                  </ul>
+                  Growth areas
+                </h4>
+                <div class="space-y-3">
+                  <div class="border-l-4 border-amber-400 pl-3">
+                    <h5 class="font-medium text-gray-900 text-xs">Thesis development</h5>
+                    <p class="text-xs text-gray-700 mt-1">Many students need clearer, more specific thesis statements</p>
+                  </div>
+                  <div class="border-l-4 border-amber-400 pl-3">
+                    <h5 class="font-medium text-gray-900 text-xs">Counterarguments</h5>
+                    <p class="text-xs text-gray-700 mt-1">Few essays addressed opposing viewpoints effectively</p>
+                  </div>
                 </div>
-              </section>
-              
-              <!-- Action Buttons -->
-              <div class="mt-8 flex justify-end space-x-4">
-                <button type="button" class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Save feedback for later">
-                  Save Feedback
+              </div>
+            </div>
+            
+            <!-- Action Footer -->
+            <div class="bg-gray-50 px-6 py-4 flex justify-between items-center">
+              <div class="text-xs text-gray-600">
+                Generated in 2.3 minutes • Last updated 5 min ago
+              </div>
+              <div class="flex gap-2">
+                <button class="px-3 py-1 text-xs font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  Export PDF
                 </button>
-                <button type="button" class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-label="Send feedback to student">
-                  Send to Student
+                <button class="px-3 py-1 text-xs font-medium text-white bg-blue-600 rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                  View Details
                 </button>
               </div>
             </div>
