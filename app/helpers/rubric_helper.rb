@@ -118,6 +118,8 @@ module RubricHelper
       { wrapper: "px-3 py-1 text-sm", icon: "w-4 h-4" }
     when "lg"
       { wrapper: "px-6 py-3 text-lg", icon: "w-6 h-6" }
+    when "responsive"
+      { wrapper: "px-2 py-1 text-xs md:px-3 md:py-1 md:text-sm lg:px-4 lg:py-2 lg:text-base", icon: "w-4 h-4" }
     else # md
       { wrapper: "px-4 py-2", icon: "w-5 h-5" }
     end
