@@ -237,3 +237,42 @@
 - **Submission:**
   - Form submits via POST
   - Stimulus controllers used for interactive elements
+
+## 2025-08-03
+
+### Student Work Tile Spacing with Custom Breakpoint Solution
+
+- **Context:**
+  - Student work show page displays 5 performance tiles in a grid layout
+  - On medium screens (1024px-1340px), performance badge text was overlapping within tiles
+  - Standard Tailwind breakpoints (lg: 1024px, xl: 1280px) didn't align with the specific problem range
+  - Multiple solutions attempted: multi-column layouts, smaller fonts, text truncation
+
+- **Problem Analysis:**
+  - Badge overlap occurred specifically between 1024px-1340px screen widths
+  - Standard responsive solutions either broke too early or too late
+  - Text truncation created poor UX with "..." ellipsis
+  - Multi-column intermediate layouts felt unpolished
+
+- **Solution:**
+  - Used Tailwind's arbitrary breakpoint values to target exact problematic range
+  - Implemented icon-only badges between 1024px-1339px screen widths
+  - Maintained full badge text + icon outside this range
+  - Preserved all information while ensuring clean visual presentation
+
+- **Implementation Details:**
+  - Added responsive text visibility: `min-[1340px]:block max-[1339px]:min-[1024px]:hidden`
+  - Adjusted icon margins dynamically: `mr-2 max-[1339px]:min-[1024px]:mr-0`
+  - Enabled icons in responsive badge mode: `show_icon: true`
+  - Used precise arbitrary values instead of standard breakpoints
+
+- **Technical Benefits:**
+  - Eliminates visual overlap completely in problematic range
+  - Maintains information accessibility on mobile and desktop
+  - Uses modern Tailwind arbitrary value feature for precise control
+  - No custom CSS or complex responsive logic required
+
+- **Trade-offs Accepted:**
+  - Temporary information reduction (text hidden) in medium screen range
+  - Slight complexity in breakpoint logic for precise targeting
+  - Reliance on Tailwind arbitrary values (requires recent Tailwind version)

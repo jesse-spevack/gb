@@ -21,7 +21,11 @@
 
 <div class="inline-flex items-center <%= size_classes[:wrapper] %> rounded-full font-semibold <%= color_classes %>">
   <% if show_icon %>
-    <%= render "shared/icons/#{icon_name}", class: "#{size_classes[:icon]} mr-2" %>
+    <%= render "shared/icons/#{icon_name}", class: "#{size_classes[:icon]} mr-2 max-[1339px]:min-[1024px]:mr-0" %>
   <% end %>
-  <%= display_text %>
+  <% if size == "responsive" %>
+    <span class="min-[1340px]:block max-[1339px]:min-[1024px]:hidden"><%= display_text %></span>
+  <% else %>
+    <%= display_text %>
+  <% end %>
 </div>
