@@ -75,47 +75,38 @@
       </div>
 
       <!-- Rubric Card -->
-      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg" 
-           data-controller="rubric-toggle"
-           data-rubric-toggle-switch-active-class="bg-blue-600"
-           data-rubric-toggle-switch-inactive-class="bg-gray-200"
-           data-rubric-toggle-knob-active-class="translate-x-5"
-           data-rubric-toggle-knob-inactive-class="translate-x-0"
-           data-rubric-toggle-textarea-disabled-class="bg-gray-100"
-           data-rubric-toggle-text-light-class="text-gray-500"
-           data-rubric-toggle-hidden-class="hidden">
+      <div class="bg-white rounded-lg shadow-md p-6 transition-all hover:shadow-lg">
         <div class="flex items-center mb-4">
           <%= render "shared/icons/clipboard_list", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
           <h4 class="text-lg font-medium leading-6 text-gray-900">Rubric</h4>
         </div>
-        <p class="text-sm text-gray-500 mb-4">Choose how to provide the grading rubric. You can generate one using AI based on the assignment details or paste your own.</p>
+        <p class="text-sm text-gray-500 mb-4">GradeBot will generate an AI rubric based on your assignment details.</p>
 
         <div class="flex items-center justify-between mb-4">
           <span class="flex grow flex-col">
             <%# Generate Label %>
-            <span class="text-sm font-medium text-gray-900 flex items-center gap-1" id="rubric-generate-label" data-rubric-toggle-target="generateLabel">
+            <span class="text-sm font-medium text-gray-900 flex items-center gap-1" id="rubric-generate-label">
               <%= render "shared/icons/sparkles", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
               Generate rubric
             </span>
             <%# Paste Label - initially hidden %>
-            <span class="text-sm font-medium text-gray-900 flex items-center gap-1 hidden" id="rubric-paste-label" data-rubric-toggle-target="pasteLabel">
+            <span class="text-sm font-medium text-gray-900 flex items-center gap-1 hidden" id="rubric-paste-label">
               <%= render "shared/icons/document_duplicate", aria_hidden: true, focusable: false, class: "h-5 w-5 mr-2 text-blue-500" %>
               Paste rubric
             </span>
           </span>
           <button type="button"
             id="rubric-toggle-switch"
-            class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-blue-600 transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2" 
+            class="relative inline-flex h-6 w-11 shrink-0 cursor-not-allowed rounded-full border-2 border-transparent bg-blue-600 opacity-75 transition-colors duration-200 ease-in-out" 
             role="switch"
             aria-checked="true" 
             aria-labelledby="rubric-toggle-label"
-            data-action="click->rubric-toggle#toggle" 
-            data-rubric-toggle-target="switch">
+            disabled="disabled">
             <span class="sr-only">Toggle Rubric Option</span>
             <span aria-hidden="true" 
                   id="rubric-toggle-knob" 
                   class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out" 
-                  data-rubric-toggle-target="knob"></span> 
+                  ></span> 
           </button>
         </div>
 
@@ -126,8 +117,7 @@
                 maxlength: 5000, 
                 placeholder: "GradeBot will generate an AI rubric based on your assignment details.", 
                 class: "w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm bg-gray-100 text-gray-500", 
-                disabled: true, 
-                data: { rubric_toggle_target: "textarea" } %> 
+                disabled: true %> 
         </div>
       </div>
 

@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [2025-08-03]
+### Rubric Toggle Simplification
+- Simplified the rubric section in assignment creation form for initial test users
+- Disabled manual rubric paste functionality - all assignments now use AI-generated rubrics
+- Toggle switch remains visible but disabled in "on" state to indicate future flexibility
+- Updated UI text to clearly state "GradeBot will generate an AI rubric based on your assignment details"
+- Preserved underlying infrastructure (database field, Stimulus controller) for future re-enablement
+- This is a deliberate UX simplification to make the app more demoable and reduce user confusion
+
 ## [2025-05-27]
 ### LLM Response Parser Implementation
 - Implemented three LLM response parsers to transform JSON responses from generators into structured data:

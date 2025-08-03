@@ -1,3 +1,5 @@
+// This controller is temporarily disabled. To re-enable: add data-controller='rubric-toggle' to the rubric card div in app/views/assignments/new.html.erb
+
 import { Controller } from "@hotwired/stimulus"
 
 /**
