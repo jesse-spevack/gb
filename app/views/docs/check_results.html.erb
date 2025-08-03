@@ -47,7 +47,7 @@
         <!-- Low Badge -->
         <div class="p-4 border border-green-200 rounded-lg bg-green-50">
           <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-green-100 text-green-800">Low</span>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-800">Low</span>
             <span class="text-xs text-green-700 font-medium">0-33% confidence</span>
           </div>
           <h3 class="font-medium text-green-900 mb-2">Low confidence</h3>
@@ -57,7 +57,7 @@
         <!-- Unclear Badge -->
         <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
           <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">Unclear</span>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">Unclear</span>
             <span class="text-xs text-gray-700 font-medium">34-66% confidence</span>
           </div>
           <h3 class="font-medium text-gray-900 mb-2">Unclear results</h3>
@@ -67,7 +67,7 @@
         <!-- High Badge -->
         <div class="p-4 border border-red-200 rounded-lg bg-red-50">
           <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-red-100 text-red-800">High</span>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-800">High</span>
             <span class="text-xs text-red-700 font-medium">67-100% confidence</span>
           </div>
           <h3 class="font-medium text-red-900 mb-2">High confidence</h3>
@@ -77,7 +77,7 @@
         <!-- No Data Badge -->
         <div class="p-4 border border-gray-200 rounded-lg bg-gray-50">
           <div class="flex items-center justify-between mb-3">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">No data</span>
+            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">No data</span>
             <span class="text-xs text-gray-700 font-medium">Not available</span>
           </div>
           <h3 class="font-medium text-gray-900 mb-2">No data available</h3>
@@ -120,13 +120,13 @@
             <!-- Badge indicators -->
             <div class="flex justify-between items-center">
               <div class="text-center">
-                <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800">Low</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Low</span>
               </div>
               <div class="text-center">
-                <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800">Unclear</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">Unclear</span>
               </div>
               <div class="text-center">
-                <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-red-100 text-red-800">High</span>
+                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">High</span>
               </div>
             </div>
           </div>
@@ -165,15 +165,15 @@
           <h4 class="font-medium text-blue-900 mb-3">Quick reference for busy teachers</h4>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
             <div class="text-center">
-              <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-green-100 text-green-800 mb-2">Low</span>
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-800 mb-2">Low</span>
               <p class="text-blue-800 font-medium">✓ Grade normally</p>
             </div>
             <div class="text-center">
-              <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800 mb-2">Unclear</span>
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800 mb-2">Unclear</span>
               <p class="text-blue-800 font-medium">→ Review manually</p>
             </div>
             <div class="text-center">
-              <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-red-100 text-red-800 mb-2">High</span>
+              <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-800 mb-2">High</span>
               <p class="text-blue-800 font-medium">⚠ Discuss with student</p>
             </div>
           </div>
@@ -183,7 +183,9 @@
         <div class="space-y-4">
           <!-- Low badges -->
           <div class="flex items-start space-x-4 p-4 bg-white border border-green-200 rounded-lg">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-green-100 text-green-800">Low</span>
+            <div class="flex-shrink-0 w-20">
+              <span class="inline-flex items-center justify-center w-full px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-800">Low</span>
+            </div>
             <div class="flex-1">
               <h4 class="font-medium text-gray-900 mb-1">Low confidence badges</h4>
               <p class="text-sm text-gray-700 mb-2">Proceed with normal grading workflow. The work appears to be original.</p>
@@ -197,7 +199,9 @@
 
           <!-- Unclear badges -->
           <div class="flex items-start space-x-4 p-4 bg-white border border-gray-200 rounded-lg">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-gray-100 text-gray-800">Unclear</span>
+            <div class="flex-shrink-0 w-20">
+              <span class="inline-flex items-center justify-center w-full px-3 py-1.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">Unclear</span>
+            </div>
             <div class="flex-1">
               <h4 class="font-medium text-gray-900 mb-1">Unclear result badges</h4>
               <p class="text-sm text-gray-700 mb-2">Consider additional review before final assessment.</p>
@@ -212,7 +216,9 @@
 
           <!-- High badges -->
           <div class="flex items-start space-x-4 p-4 bg-white border border-red-200 rounded-lg">
-            <span class="inline-flex items-center px-3 py-1.5 rounded-md text-sm font-medium bg-red-100 text-red-800">High</span>
+            <div class="flex-shrink-0 w-20">
+              <span class="inline-flex items-center justify-center w-full px-3 py-1.5 rounded-full text-sm font-medium bg-red-100 text-red-800">High</span>
+            </div>
             <div class="flex-1">
               <h4 class="font-medium text-gray-900 mb-1">High confidence badges</h4>
               <p class="text-sm text-gray-700 mb-2">Take action before proceeding with grading.</p>
