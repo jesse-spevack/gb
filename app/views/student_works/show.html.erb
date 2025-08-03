@@ -27,27 +27,27 @@
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
       <!-- Overall Performance Badge -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2">Overall performance</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-center">Overall performance</h3>
         <%= render "shared/performance_badge", level: @student_work.high_level_feedback_average %>
       </div>
 
       <!-- Strengths Count -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2">Strengths identified</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-center">Strengths identified</h3>
         <p class="text-3xl font-bold text-green-600"><%= @student_work.feedback_items.strengths.count %></p>
         <p class="text-sm text-gray-500 mt-1">Key areas of excellence</p>
       </div>
 
       <!-- Growth Areas Count -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2">Growth areas</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-center">Growth areas</h3>
         <p class="text-3xl font-bold text-amber-600"><%= @student_work.feedback_items.opportunities.count %></p>
         <p class="text-sm text-gray-500 mt-1">Opportunities to improve</p>
       </div>
 
       <!-- Plagiarism Check -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2">Plagiarism check</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-center">Plagiarism check</h3>
         <% plagiarism_check = @student_work.student_work_checks.plagiarism.first %>
         <% if plagiarism_check %>
           <% score = plagiarism_check.score.to_i %>
@@ -62,7 +62,7 @@
 
       <!-- AI Detection -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2">AI detection</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-center">AI detection</h3>
         <% ai_check = @student_work.student_work_checks.llm_generated.first %>
         <% if ai_check %>
           <% score = ai_check.score.to_i %>
