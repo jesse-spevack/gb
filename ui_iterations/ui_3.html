@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Check Result Badges - FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles to match Rails app design system */
+        .prose h2 {
+            @apply text-lg font-semibold text-gray-900 mb-4;
+        }
+        
+        .prose h3 {
+            @apply text-base font-medium text-gray-900 mb-2;
+        }
+        
+        .prose p {
+            @apply text-sm text-gray-700 mb-3;
+        }
+        
+        .badge-low {
+            @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-green-100 text-green-800;
+        }
+        
+        .badge-unclear {
+            @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-800;
+        }
+        
+        .badge-high {
+            @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-red-100 text-red-800;
+        }
+        
+        .badge-no-data {
+            @apply inline-flex items-center px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-500;
+        }
+        
+        .faq-question {
+            @apply border-l-4 border-blue-500 pl-4 py-2 mb-4;
+        }
+        
+        .comparison-table {
+            @apply bg-white border border-gray-200 rounded-lg overflow-hidden;
+        }
+        
+        .comparison-header {
+            @apply bg-gray-50 px-6 py-3 text-sm font-medium text-gray-900 border-b border-gray-200;
+        }
+        
+        .comparison-cell {
+            @apply px-6 py-4 text-sm text-gray-700 border-b border-gray-200;
+        }
+        
+        .comparison-cell:last-child {
+            @apply border-b-0;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <div class="min-h-screen">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-4xl font-semibold text-gray-900 mb-3">Understanding check result badges</h1>
+                <p class="text-base text-gray-700">Frequently asked questions about our new confidence-based approach to plagiarism and AI detection results.</p>
+            </div>
+
+            <!-- Badge Examples -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mb-8">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Badge types</h2>
+                </div>
+                <div class="px-6 py-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="badge-low">Low</span>
+                                <span class="text-sm text-gray-600">0-33% confidence</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="badge-unclear">Unclear</span>
+                                <span class="text-sm text-gray-600">34-66% confidence</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="badge-high">High</span>
+                                <span class="text-sm text-gray-600">67-100% confidence</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="badge-no-data">No data</span>
+                                <span class="text-sm text-gray-600">Check not available</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="space-y-8">
+                <!-- Question 1 -->
+                <div class="faq-question">
+                    <h3 class="font-medium text-gray-900 mb-2">Why did you switch from exact percentages to confidence badges?</h3>
+                    <div class="prose max-w-none">
+                        <p>Exact percentages can be misleading and create false precision. A score of 47% doesn't necessarily mean more plagiarism than 46%. Our confidence levels give you a clearer understanding of what the results actually mean:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                            <li><strong>Low</strong> means we're confident the content is likely original</li>
+                            <li><strong>Unclear</strong> means the results are ambiguous and need human review</li>
+                            <li><strong>High</strong> means we're confident there's likely plagiarism or AI content</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="faq-question">
+                    <h3 class="font-medium text-gray-900 mb-2">What should I do when I see an "Unclear" badge?</h3>
+                    <div class="prose max-w-none">
+                        <p>Unclear results (34-66% confidence) indicate that the detection tools are uncertain. This is actually valuable information - it tells you where human judgment is most needed. Consider:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                            <li>Manually reviewing the flagged sections</li>
+                            <li>Looking for patterns in the student's other work</li>
+                            <li>Having a conversation with the student if concerns arise</li>
+                            <li>Focusing your attention on "High" confidence results first</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="faq-question">
+                    <h3 class="font-medium text-gray-900 mb-2">How reliable are "High" confidence results?</h3>
+                    <div class="prose max-w-none">
+                        <p>High confidence badges (67-100%) indicate strong evidence of plagiarism or AI content, but they're not definitive proof. These results warrant investigation, but remember:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                            <li>Detection tools can flag legitimate quotes, citations, or common phrases</li>
+                            <li>Some writing styles naturally trigger detection algorithms</li>
+                            <li>Always review the specific flagged content, not just the badge</li>
+                            <li>Use these results as a starting point for academic integrity conversations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="faq-question">
+                    <h3 class="font-medium text-gray-900 mb-2">Can I still see the exact percentages?</h3>
+                    <div class="prose max-w-none">
+                        <p>The exact percentages are available in the detailed report view. However, we encourage focusing on the confidence levels for initial screening, as they provide more actionable guidance for your workflow.</p>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="faq-question">
+                    <h3 class="font-medium text-gray-900 mb-2">What does "No data" mean?</h3>
+                    <div class="prose max-w-none">
+                        <p>A "No data" badge appears when:</p>
+                        <ul class="text-sm text-gray-700 space-y-1 ml-4 list-disc">
+                            <li>The plagiarism or AI detection service is temporarily unavailable</li>
+                            <li>The submission format isn't supported by the detection tool</li>
+                            <li>There was an error processing the submission</li>
+                            <li>The content is too short to analyze effectively</li>
+                        </ul>
+                        <p>These submissions may need manual review or resubmission.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 mt-8">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold text-gray-900">Old vs new approach</h2>
+                </div>
+                <div class="px-6 py-6">
+                    <div class="comparison-table">
+                        <div class="grid grid-cols-2">
+                            <div class="comparison-header">Previous: Exact percentages</div>
+                            <div class="comparison-header">New: Confidence badges</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2">
+                            <div class="comparison-cell">
+                                <div class="space-y-2">
+                                    <div class="text-xs text-gray-500 mb-1">Example results:</div>
+                                    <div class="font-mono text-sm">47% plagiarism</div>
+                                    <div class="font-mono text-sm">52% AI content</div>
+                                    <div class="font-mono text-sm">31% plagiarism</div>
+                                </div>
+                            </div>
+                            <div class="comparison-cell">
+                                <div class="space-y-2">
+                                    <div class="text-xs text-gray-500 mb-1">Same results as:</div>
+                                    <div><span class="badge-unclear">Unclear</span></div>
+                                    <div><span class="badge-unclear">Unclear</span></div>
+                                    <div><span class="badge-low">Low</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2">
+                            <div class="comparison-cell">
+                                <strong class="text-gray-900">Challenges:</strong>
+                                <ul class="text-xs text-gray-600 mt-1 space-y-1">
+                                    <li>• False precision (47% vs 46%)</li>
+                                    <li>• Unclear thresholds</li>
+                                    <li>• Numbers without context</li>
+                                    <li>• Inconsistent interpretation</li>
+                                </ul>
+                            </div>
+                            <div class="comparison-cell">
+                                <strong class="text-gray-900">Benefits:</strong>
+                                <ul class="text-xs text-gray-600 mt-1 space-y-1">
+                                    <li>• Clear action guidance</li>
+                                    <li>• Honest about uncertainty</li>
+                                    <li>• Focuses on meaningful ranges</li>
+                                    <li>• Consistent interpretation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="bg-blue-50 rounded-lg border border-blue-200 mt-8 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Best practices for using badges</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center mt-0.5">
+                            <span class="text-white text-xs font-bold">1</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Start with <span class="badge-high">High</span> confidence results for efficient review</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center mt-0.5">
+                            <span class="text-white text-xs font-bold">2</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Use <span class="badge-unclear">Unclear</span> results to identify submissions needing closer attention</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center mt-0.5">
+                            <span class="text-white text-xs font-bold">3</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Trust <span class="badge-low">Low</span> confidence results for faster workflow</p>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                        <div class="flex-shrink-0 w-5 h-5 bg-blue-600 rounded-full flex items-center justify-center mt-0.5">
+                            <span class="text-white text-xs font-bold">4</span>
+                        </div>
+                        <p class="text-sm text-gray-700">Always review specific flagged content, not just the badge level</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <p class="text-sm text-gray-500 text-center">
+                    Questions about these changes? <a href="#" class="text-blue-600 hover:text-blue-800 font-medium">Contact support</a> for additional guidance.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

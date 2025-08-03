@@ -47,30 +47,54 @@
 
       <!-- Plagiarism Check -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-start">Plagiarism check</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-start">
+          Plagiarism check
+          <%= link_to doc_path('check-results'), class: "ml-2 text-gray-400 hover:text-gray-600", title: "Learn about check results" do %>
+            <%= render "shared/icons/question_mark_circle", class: "w-4 h-4" %>
+          <% end %>
+        </h3>
         <% plagiarism_check = @student_work.student_work_checks.plagiarism.first %>
         <% if plagiarism_check %>
-          <% score = plagiarism_check.score.to_i %>
-          <% color_class = score <= 15 ? "text-green-600" : score <= 30 ? "text-amber-600" : "text-red-600" %>
-          <p class="text-3xl font-bold <%= color_class %>"><%= score %>%</p>
-          <p class="text-sm text-gray-500 mt-1">Similarity detected</p>
+          <% confidence_level = check_result_confidence_level(plagiarism_check.score) %>
+          <div class="my-2">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold <%= check_result_badge_color_classes(confidence_level) %>">
+              <%= check_result_badge_text(confidence_level) %>
+            </span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Chance of plagiarism</p>
         <% else %>
-          <p class="text-3xl font-bold text-gray-400">N/A</p>
+          <div class="my-2">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold <%= check_result_badge_color_classes(:no_data) %>">
+              <%= check_result_badge_text(:no_data) %>
+            </span>
+          </div>
           <p class="text-sm text-gray-500 mt-1">Not available</p>
         <% end %>
       </div>
 
       <!-- AI Detection -->
       <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-start">AI detection</h3>
+        <h3 class="text-sm font-medium text-gray-600 mb-2 min-h-[2.5rem] flex items-start">
+          AI detection
+          <%= link_to doc_path('check-results'), class: "ml-2 text-gray-400 hover:text-gray-600", title: "Learn about check results" do %>
+            <%= render "shared/icons/question_mark_circle", class: "w-4 h-4" %>
+          <% end %>
+        </h3>
         <% ai_check = @student_work.student_work_checks.llm_generated.first %>
         <% if ai_check %>
-          <% score = ai_check.score.to_i %>
-          <% color_class = score <= 15 ? "text-green-600" : score <= 30 ? "text-amber-600" : "text-red-600" %>
-          <p class="text-3xl font-bold <%= color_class %>"><%= score %>%</p>
-          <p class="text-sm text-gray-500 mt-1">AI-generated content</p>
+          <% confidence_level = check_result_confidence_level(ai_check.score) %>
+          <div class="my-2">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold <%= check_result_badge_color_classes(confidence_level) %>">
+              <%= check_result_badge_text(confidence_level) %>
+            </span>
+          </div>
+          <p class="text-sm text-gray-500 mt-1">Chance of AI generated content</p>
         <% else %>
-          <p class="text-3xl font-bold text-gray-400">N/A</p>
+          <div class="my-2">
+            <span class="inline-flex items-center px-4 py-2 rounded-full text-base font-semibold <%= check_result_badge_color_classes(:no_data) %>">
+              <%= check_result_badge_text(:no_data) %>
+            </span>
+          </div>
           <p class="text-sm text-gray-500 mt-1">Not available</p>
         <% end %>
       </div>

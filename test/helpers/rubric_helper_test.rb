@@ -185,4 +185,53 @@ class RubricHelperTest < ActionView::TestCase
     assert_equal "Approaching", performance_level_text("needs improvement")
     assert_equal "Below", performance_level_text("poor")
   end
+
+  # Check result badge tests
+  test "check_result_confidence_level returns correct levels for score ranges" do
+    assert_equal :low, check_result_confidence_level(0)
+    assert_equal :low, check_result_confidence_level(15)
+    assert_equal :low, check_result_confidence_level(33)
+
+    assert_equal :unclear, check_result_confidence_level(34)
+    assert_equal :unclear, check_result_confidence_level(50)
+    assert_equal :unclear, check_result_confidence_level(66)
+
+    assert_equal :high, check_result_confidence_level(67)
+    assert_equal :high, check_result_confidence_level(85)
+    assert_equal :high, check_result_confidence_level(100)
+
+    assert_equal :no_data, check_result_confidence_level(nil)
+  end
+
+  test "check_result_confidence_level handles edge cases" do
+    assert_equal :unclear, check_result_confidence_level(150)
+    assert_equal :unclear, check_result_confidence_level(-10)
+  end
+
+  test "check_result_badge_color_classes returns correct colors" do
+    assert_equal "bg-green-100 text-green-800", check_result_badge_color_classes(:low)
+    assert_equal "bg-gray-100 text-gray-800", check_result_badge_color_classes(:unclear)
+    assert_equal "bg-gray-100 text-gray-800", check_result_badge_color_classes(:no_data)
+    assert_equal "bg-red-100 text-red-800", check_result_badge_color_classes(:high)
+    assert_equal "bg-gray-100 text-gray-800", check_result_badge_color_classes(:unknown)
+  end
+
+  test "check_result_badge_text returns correct text" do
+    assert_equal "Low", check_result_badge_text(:low)
+    assert_equal "Unclear", check_result_badge_text(:unclear)
+    assert_equal "High", check_result_badge_text(:high)
+    assert_equal "No data", check_result_badge_text(:no_data)
+    assert_equal "Unclear", check_result_badge_text(:unknown)
+  end
+
+  test "check result badge methods work together" do
+    score = 25
+    level = check_result_confidence_level(score)
+    color_classes = check_result_badge_color_classes(level)
+    text = check_result_badge_text(level)
+
+    assert_equal :low, level
+    assert_equal "bg-green-100 text-green-800", color_classes
+    assert_equal "Low", text
+  end
 end

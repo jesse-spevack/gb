@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   resources :rubrics, only: [ :show ]
   resources :student_works, only: [ :show ]
 
+  # Documentation
+  get "/docs/:id", to: "docs#show", as: :doc
+
   # Google
   namespace :google do
     resource :credentials, only: [ :show ]
