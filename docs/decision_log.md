@@ -1,5 +1,52 @@
 # Decision Log
 
+## 2025-08-03
+
+### Rubric Toggle Feature Temporary Disabling
+
+- **Context:**
+  - The assignment creation form included a toggle switch allowing users to choose between AI-generated rubrics and manually pasted rubrics
+  - Manual rubric processing is not fully implemented and can cause confusion for initial test users
+  - Need to simplify the user experience for demo purposes and early user testing
+
+- **Decision:**
+  - Temporarily disable the manual rubric paste functionality
+  - Keep only AI-generated rubrics as the option
+  - Preserve all underlying infrastructure for future re-enablement
+
+- **Implementation Details:**
+  - Removed Stimulus controller data attributes from the form HTML
+  - Disabled the toggle switch (always in "on" state with visual indicators)
+  - Hidden the textarea input while preserving the form field for backend compatibility
+  - Updated UI text to clearly indicate "GradeBot will generate an AI rubric based on your assignment details"
+  - Added comprehensive documentation in `docs/rubric_toggle.md` for re-enablement
+
+- **Rationale:**
+  - Eliminates user confusion during initial testing phases
+  - Makes the application more demoable with a clear, single workflow
+  - Reduces support burden by removing a partially-implemented feature
+  - Maintains professional appearance by showing deliberate product decisions
+
+- **Infrastructure Preserved:**
+  - Database field `rubric_text` remains intact
+  - Stimulus controller `rubric_toggle_controller.js` preserved with detailed re-enablement instructions
+  - All CSS classes and styling remain available
+  - Form submission logic continues to work correctly
+
+- **Trade-offs Accepted:**
+  - Loss of user choice in rubric input method (temporary)
+  - Slightly more complex re-enablement process when feature is ready
+  - Users cannot provide their existing rubrics during this phase
+
+- **Future Re-enablement Triggers:**
+  - Manual rubric processing is fully implemented and tested
+  - Initial user testing phase is complete
+  - Product team decides to offer both AI and manual rubric options
+
+- **Documentation:**
+  - Complete re-enablement guide available at `docs/rubric_toggle.md`
+  - Includes all necessary data attributes, testing checklist, and step-by-step instructions
+
 ## 2025-06-01
 
 ### Pipeline Storage Services - Performance and Security Optimizations Deferred
