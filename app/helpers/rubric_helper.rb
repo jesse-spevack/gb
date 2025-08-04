@@ -141,6 +141,41 @@ module RubricHelper
     end
   end
 
+  # Check result badge methods
+  def check_result_confidence_level(score)
+    return :no_data if score.nil?
+    score_int = score.to_i
+    case score_int
+    when 0..33 then :low
+    when 34..66 then :unclear
+    when 67..100 then :high
+    else :unclear # fallback for invalid ranges (negative or > 100)
+    end
+  end
+
+  def check_result_badge_color_classes(level)
+    case level
+    when :low
+      "bg-green-100 text-green-800"
+    when :unclear, :no_data
+      "bg-gray-100 text-gray-800"
+    when :high
+      "bg-red-100 text-red-800"
+    else
+      "bg-gray-100 text-gray-800"
+    end
+  end
+
+  def check_result_badge_text(level)
+    case level
+    when :low then "Low"
+    when :unclear then "Unclear"
+    when :high then "High"
+    when :no_data then "No data"
+    else "Unclear"
+    end
+  end
+
   private
 
   # Normalizes various inputs to a performance level symbol
